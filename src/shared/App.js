@@ -10,4 +10,4 @@ function App() {
 }
 
 export default App;
-//git flow push를 위한 주석
+//git flow push를 위한 주석.
