@@ -3,15 +3,15 @@ import styled from "styled-components";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
+
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home"
 import Navigation from "../components/Navigation";
-
-
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
 import SelectBookModal from "../modals/SelectBookModal";
+import MyReview from "../pages/MyReview"
 
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/modal" exact component={SelectBookModal} />
+          <Route path="/myreview" exact component={MyReview} />
          </ConnectedRouter>
         <Navigation/>
        </Container>
