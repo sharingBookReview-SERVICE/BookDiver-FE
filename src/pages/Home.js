@@ -3,7 +3,6 @@ import React from "react";
 import styled from "styled-components"
 import SearchIcon from '@material-ui/icons/Search';
 import ReviewCard from "../components/ReviewCard"
-import Navigation from "../components/Navigation";
 import AddIcon from '@material-ui/icons/Add';
 
 
