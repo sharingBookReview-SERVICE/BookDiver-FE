@@ -45,6 +45,9 @@ const ReviewDetail = (props) =>{
             <Comment/>
             <Comment/>
             <Comment/>
+            <CommentInputBox>
+                <CommentInput placeholder="지금 댓글을 남겨보세요"/>
+            </CommentInputBox>
         </React.Fragment>
     )
 }
@@ -53,7 +56,7 @@ const ReviewDetail = (props) =>{
 const BackArrowBox = styled.div`
 height:56px;
 width:100%;
-padding: 0px 20px;
+padding: 20px 20px;
 display:flex;
 align-items:center;
 `
@@ -197,6 +200,26 @@ font-weight:bold;
 color:#cbcbcb;
 letter-spacing: -0.28px;
 `
-
+const CommentInputBox = styled.div`
+height:72px;
+width:360px;
+padding: 12px 16px;
+box-sizing: border-box;
+display:flex;
+justify-content:center;
+align-items:center;
+position: fixed;
+bottom:283px;
+border-top:1px solid #f2f2f2;
+background-color:#fff;
+`
+const CommentInput = styled.input`
+width:100%;
+height:100%;
+padding:0 0 0 16px;
+background-color:#f5f5f5;
+border:none;
+border-radius:12px;
+`
 
 export default ReviewDetail;

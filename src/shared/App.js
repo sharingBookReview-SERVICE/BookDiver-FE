@@ -27,6 +27,7 @@ const Container = styled.div`
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera*/
+    }
   background-color: #fff;
   border-radius: 5px;
   display: flex;
@@ -34,6 +35,7 @@ const Container = styled.div`
   justify-content: space-between;
   box-sizing:border-box;
   padding:0px;
+  position:relative;
 `;
 
 export default App;
