@@ -7,7 +7,7 @@ import {history} from "../redux/configStore";
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
-import LoginModal from "../modals/LoginModal";
+import AlertModal from "../modals/AlertModal";
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/myprofile" exact component={MyProfile} />
         <Route path="/changename" exact component={ChangeName} />
-        <Route path="/modal" exact component={LoginModal} />
+        <Route path="/modal" exact component={AlertModal} />
       </Container>
     </div>
     </ConnectedRouter>
