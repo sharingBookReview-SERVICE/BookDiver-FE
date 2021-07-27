@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
+import ReviewDetail from "../pages/ReviewDetail";
 
 function App() {
   return (
     <ConnectedRouter history={history}>
     <div className="App">
       <Container>
-      {/* <Route path="/" exact component={} /> */}
+      <Route path="/reviewdetail" exact component={ReviewDetail} />
       </Container>
     </div>
     </ConnectedRouter>
@@ -18,7 +19,7 @@ function App() {
 
 const Container = styled.div`
   width: 360px;
-  height: 720px;
+  height: 640px;
   background: #fff;
   overflow-y: scroll;
   overflow-x: hidden;
