@@ -31,8 +31,9 @@ const CommentBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 24px;
+  padding: 24px 24px 0px 24px;
   margin-left:24px;
+  box-sizing:border-box;
 `
 
 const CommentTitleBox = styled.div`
@@ -54,16 +55,18 @@ opacity:0.5;
 
 const Content = styled.p`
 font-size:14px;
+margin:0px;
 `
 
 const LikeBox = styled.div`
 display:flex;
-align-items:center;
+align-items:flex-end;
 `
 
 const LikeText = styled.p`
 font-size:14px;
 margin-left:8px;
+margin-bottom:0px;
 `
 
 
