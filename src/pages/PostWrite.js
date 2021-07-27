@@ -1,17 +1,30 @@
+//import 부분
 import React from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
-const ReviewWrite = () => {
 
+const PostWrite = () => {
+    //dispatch와 변수들
+
+
+//useEffect
+    React.useEffect(() => {
+    }, []);
+
+
+//함수
+
+
+//뷰
     return (
         <React.Fragment>
-            <ReviewWriteBox>
-                <StartReview></StartReview>
-                <ReviewHeader>
+            <PostWriteBox>
+                <StartPost></StartPost>
+                <PostHeader>
                     <LeftArrow src={left_arrow}/>
                     <ReviewHeaderText>게시하기</ReviewHeaderText>
-                </ReviewHeader>
+                </PostHeader>
                 <BookChoice>
                     <img src={add_button}/>
                     <Text>리뷰할 책 선택하기</Text>
@@ -31,77 +44,73 @@ const ReviewWrite = () => {
                     <HashInput placeholder="예) #자기계발"></HashInput>
 
                 </HashTag>
-            </ReviewWriteBox>
+            </PostWriteBox>
         </React.Fragment>
     )
 }
 
-export default ReviewWrite;
+export default PostWrite;
+
 const Text = styled.text`
-font-size: 14px;
+  font-size: 1em;
   text-align: left;
   letter-spacing: -0.28px;
   font-weight: bolder;
 `;
 
-const StartReview = styled.div`
+const StartPost = styled.div`
   background-color: #f5f5f5;
-  height: 3%;
-  margin-top: -5.7%;
+  width: 100vw;
+  height: 3vh;
+  margin-top: -3vh;
 `;
-const ReviewWriteBox = styled.div`
-  width: 100%;
-  height: 720px;
+const PostWriteBox = styled.div`
+  width: 100vw;
+  height: 100vh;
   flex-grow: 0;
   padding: 20px 0 0;
   background-color: #FFFFFF;
-  border: 1px solid black;
-  margin : auto;
+  //border: 1px solid black;
+  margin: auto;
   box-sizing: border-box;
 `;
-const ReviewHeader = styled.div`
-  width: 100%;
-  height: 56px;
+const PostHeader = styled.div`
+  width: 100vw;
+  height: 4vh;
   background-color: #ffffff;
-  
   //border: 1px solid black;
 `;
 const LeftArrow = styled.img`
-  width: 13%;
-  height: 24px;
+  width: 10vw;
+  height: 3vh;
   flex-grow: 0;
   object-fit: contain;
-  float:left;
-  
+  float: left;
 
 `;
 const ReviewHeaderText = styled.div`
-  width: 60px;
-  height: 20px;
+  width: 20vw;
+  height: 5vh;
   flex-grow: 0;
-  font-family: Roboto;
   font-size: 14px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.43;
-  letter-spacing: normal;
-  float:right; 
-  display:inline-block;
-  margin: 0.2em 1em 0 0;
+  float: right;
+  display: inline-block;
+  margin: 0.2em 0.2em 0 0;
   color: #9e9e9e;
   box-sizing: border-box;
+  //border: 1px solid black;
 `;
 
 const BookChoice = styled.div`
-  width: 90%;
-  height: 112px;
+  width: 80vw;
+  height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  padding: 0px;
+  gap: 1.3vh;
   margin: auto;
   border-radius: 12px;
   //border: solid 1px var(--system-temp-30);
@@ -113,14 +122,14 @@ const BookChoice = styled.div`
   box-sizing: border-box;
 `;
 const InputQuotes = styled.div`
-  width: 100%;
-  height: 168px;
+  width: 100vw;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 8px;
-  margin: 16px 0 0;
+  gap: 1.3vh;
+  margin: 3vh 0 0;
   padding: 16px;
   background-color: #ffffff;
   //border: 1px solid black;
@@ -128,8 +137,8 @@ const InputQuotes = styled.div`
 `;
 
 const QuotesTextarea = styled.textarea`
-  width: 98%;
-  height: 108px;
+  width: 90vw;
+  height: 20vh;
   flex-grow: 0;
   font-family: NotoSansKR;
   font-size: 14px;
@@ -143,46 +152,51 @@ const QuotesTextarea = styled.textarea`
   border-radius: 5px;
   border: none;
   background-color: #f5f5f5;
-  &::placeholder{
+
+  &::placeholder {
     color: #A8A8A8;
   }
 `;
 
 const AddReview = styled.div`
-  width: 100%;
-  height: 168px;
+  width: 100vh;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 8px;
-  padding: 16px;
+  padding: 1em;
   background-color: #ffffff;
-//border: 1px solid blue;
+  //border: 1px solid blue;
   box-sizing: border-box;
 `;
 
 const HashTag = styled.div`
-  width: 100%;
-  height: 15%;
-  padding: 12px 16px;
+  width: 80vh;
+  height: 5vw;
+  padding: 1em;
   background-color: #ffffff;
-box-sizing: border-box;
-// border: 1px solid red;
+  box-sizing: border-box;
+  // border: 1px solid red;
 `;
 
 const HashInput = styled.input`
-  width: 99%;
-  height: 3.3em;
+  width: 90vw;
+  height: 5vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  margin: 8px 0 0;
-  padding: 14px 16px 14px 8px;
+  margin-top: 1vh;
+  padding: 1vh 1vw 1vh 1vw;
   border-radius: 10px;
   background-color: #f5f5f5;
   border: none;
   box-sizing: border-box;
-    `;
+
+  &::placeholder {
+    color: #A8A8A8;
+  }
+`;
