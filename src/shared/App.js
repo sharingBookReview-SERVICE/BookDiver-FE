@@ -6,6 +6,8 @@ import {history} from "../redux/configStore";
 
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
+import ChangeName from "../pages/ChangeName";
+
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
       {/* <Route path="/" exact component={} /> */}
         <Route path="/login" exact component={Login} />
         <Route path="/myprofile" exact component={MyProfile} />
+        <Route path="/changename" exact component={ChangeName} />
       </Container>
     </div>
     </ConnectedRouter>

@@ -1,6 +1,8 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
+import {history} from "../redux/configStore";
+
 //마이 페이지
 const MyProfile = (props) =>{
   //dispatch와 변수들
@@ -26,9 +28,9 @@ React.useEffect(()=>{
                             <Name>닉네임</Name>
                             <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                         </ImageBox>
-                        <UserBtn>닉네임 변경</UserBtn>
-                        <UserBtn>로그 아웃</UserBtn>
-                        <UserBtn>회원 탈퇴</UserBtn>
+                        <UserBtn onClick={()=>{history.push('/changename')}}>닉네임 변경</UserBtn>
+                        <UserBtn onClick={()=>{window.alert("로그아웃 하시겠습니까?")}}>로그 아웃</UserBtn>
+                        <UserBtn onClick={()=>{window.alert("회원탈퇴 하시겠습니까?")}}>회원 탈퇴</UserBtn>
                     </ProfileBox>
                 </Background>
          </Container>
