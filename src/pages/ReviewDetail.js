@@ -1,7 +1,9 @@
 //import 부분
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment"
+import { actionCreators as permitAction } from "../redux/modules/permit";
+import {history} from "../redux/configStore";
 
 import styled from "styled-components"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -13,6 +15,7 @@ import SelectBookCard from "../components/SelectBookCard";
 
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
+    console.log(history.location.pathname)
 
     const commentList = useSelector(state => state.comment.comment_list)
     const commentContent = useRef();
@@ -21,6 +24,11 @@ const ReviewDetail = (props) =>{
     const writeComment = (comment_info) => {
         dispatch(commentAction.addComment(comment_info))
     }
+
+    //로딩이 되고나면, 네이게이션을 없애주기.
+    useEffect(()=>{
+        dispatch(permitAction.showNav(false))
+    },[])
 
     return(
         <React.Fragment>
@@ -59,7 +67,7 @@ const ReviewDetail = (props) =>{
 
             {commentList.map((comment, idx) => {
                 return(
-                    <Comment {...comment} />
+                    <Comment {...comment} key={idx} />
                 )
             })}
 
@@ -194,10 +202,10 @@ box-sizing: border-box;
 display:flex;
 justify-content:center;
 align-items:center;
-position: fixed;
-bottom:283px;
 border-top:1px solid #f2f2f2;
 background-color:#fff;
+position:fixed;
+bottom:0;
 `
 
 const CommentInput = styled.input`
