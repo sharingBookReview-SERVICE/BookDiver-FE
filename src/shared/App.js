@@ -4,12 +4,14 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
 import ReviewDetail from "../pages/ReviewDetail";
+import Home from "../pages/Home"
 
 function App() {
   return (
     <ConnectedRouter history={history}>
     <div className="App">
       <Container>
+      <Route path="/" exact component={Home} />
       <Route path="/reviewdetail" exact component={ReviewDetail} />
       </Container>
     </div>
