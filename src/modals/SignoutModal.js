@@ -44,6 +44,7 @@ justify-content: center;
 align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
+background: #fff;
 `;
 
 const Text = styled.p`
