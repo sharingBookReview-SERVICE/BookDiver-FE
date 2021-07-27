@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
 
 import Login from "../pages/Login";
+import MyProfile from "../pages/MyProfile";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Container>
       {/* <Route path="/" exact component={} /> */}
         <Route path="/login" exact component={Login} />
+        <Route path="/myprofile" exact component={MyProfile} />
       </Container>
     </div>
     </ConnectedRouter>
