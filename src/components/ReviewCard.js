@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components"
 import SearchIcon from '@material-ui/icons/Search';
-
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 const ReviewCard = (props) =>{
   //dispatch와 변수들
@@ -26,7 +26,13 @@ const ReviewCard = (props) =>{
                     <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
                     <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
                 </ContentBox>
-                
+
+                <LikeCommentBox>
+                    <LikeBox>
+                        <FavoriteBorderIcon style={{fontSize:"18px"}}/>
+                        <LikeText>좋아요 0개</LikeText>
+                    </LikeBox>
+                </LikeCommentBox>
             </CardBox>
             
 
@@ -109,6 +115,24 @@ color:#1168d7;
 font-size:14px;
 `
 
+const LikeBox = styled.div`
+display:flex;
+align-items:flex-end;
+`
+
+const LikeText = styled.p`
+font-size:14px;
+margin-left:8px;
+margin-bottom:0px;
+`
+
+const LikeCommentBox = styled.div`
+display:flex;
+
+`
+
+const WriteCommentBox = styled.div`
+`
 
 
 export default ReviewCard;

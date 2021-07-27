@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import PersonIcon from "@material-ui/icons/Person";
-import ListIcon from "@material-ui/icons/List";
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import AllInboxIcon from '@material-ui/icons/AllInbox';
 
 const Navigation = (props) => {
 
@@ -12,12 +13,17 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="Write"
         value="write"
-        icon={<AddIcon />}
+        icon={<ListAltIcon /> }
       />
       <BottomNavigationAction
         label="List"
         value="list"
-        icon={<ListIcon />}
+        icon={<AddIcon />}
+      />
+      <BottomNavigationAction
+        label="Login"
+        value="login"
+        icon={<AllInboxIcon />}
       />
       <BottomNavigationAction
         label="Login"
