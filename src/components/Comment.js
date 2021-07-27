@@ -4,6 +4,7 @@ import styled from "styled-components"
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
+
 const Comment = (props) =>{
   //dispatch와 변수들
 
@@ -24,6 +25,7 @@ const Comment = (props) =>{
     )
 }
 
+
 const CommentBox = styled.div`
   width: 100%;
   height: auto;
@@ -34,6 +36,7 @@ const CommentBox = styled.div`
   padding: 24px 24px 0px 24px;
   margin-left:24px;
   box-sizing:border-box;
+  background-color:#fff;
 `
 
 const CommentTitleBox = styled.div`
