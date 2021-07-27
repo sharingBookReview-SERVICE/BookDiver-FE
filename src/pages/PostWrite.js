@@ -5,19 +5,9 @@ import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
 
 const PostWrite = () => {
-    //dispatch와 변수들
 
-
-//useEffect
-    React.useEffect(() => {
-    }, []);
-
-
-//함수
-
-
-//뷰
     return (
+
         <React.Fragment>
             <PostWriteBox>
                 <StartPost></StartPost>
@@ -42,10 +32,10 @@ const PostWrite = () => {
                 <HashTag>
                     <Text>해시태그작성</Text><br/>
                     <HashInput placeholder="예) #자기계발"></HashInput>
-
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
+        
     )
 }
 

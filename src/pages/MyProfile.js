@@ -5,18 +5,6 @@ import {history} from "../redux/configStore";
 
 //마이 페이지
 const MyProfile = (props) =>{
-  //dispatch와 변수들
-
-
-//useEffect
-React.useEffect(()=>{
-},[]);
-
-
-//함수
-
-
-//뷰
 
     return(
         <React.Fragment>
@@ -37,11 +25,6 @@ React.useEffect(()=>{
         </React.Fragment>
     )
 }
-
-//defaultProps
-MyProfile.defaultProps={
-}
-
 
 //styled components
 const Container = styled.div`
