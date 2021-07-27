@@ -50,7 +50,7 @@ const Container = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-sizing:border-box;
   padding:0px 0px 40px 0px;
   position:relative;

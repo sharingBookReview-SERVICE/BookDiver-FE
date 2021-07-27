@@ -1,12 +1,26 @@
 //import 부분
-import React from "react";
+import React, {useRef} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as commentAction } from "../redux/modules/comment"
+
 import styled from "styled-components"
-import Comment from "../components/Comment"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import Comment from "../components/Comment"
 import SelectBookCard from "../components/SelectBookCard";
 
+
+
 const ReviewDetail = (props) =>{
+    const dispatch = useDispatch();
+
+    const commentList = useSelector(state => state.comment.comment_list)
+    const commentContent = useRef();
+
+    //댓글 작성함수
+    const writeComment = (comment_info) => {
+        dispatch(commentAction.addComment(comment_info))
+    }
 
     return(
         <React.Fragment>
@@ -43,14 +57,26 @@ const ReviewDetail = (props) =>{
                 </LikeCommentButton>
             </CardBox>
 
-            <Comment/>
-            <Comment/>
-            <Comment/>
+            {commentList.map((comment, idx) => {
+                return(
+                    <Comment {...comment} />
+                )
+            })}
 
-{/* 인풋은 nav바가 조건부 렌더링이 가능해지고 나면 넣겠습니다. */}
-            {/* <CommentInputBox>
-                <CommentInput placeholder="지금 댓글을 남겨보세요"/>
-            </CommentInputBox> */}
+            <CommentInputBox>
+                <CommentInput 
+                placeholder="지금 댓글을 남겨보세요" 
+                ref={commentContent}/>
+                <CommentWriteButton 
+                onClick={()=>{
+                    const commentInfo = {
+                        content : commentContent.current.value,
+                        username : "저팔계",
+                    }
+                    writeComment(commentInfo)
+                }}>게시
+                </CommentWriteButton>
+            </CommentInputBox>
 
         </React.Fragment>
     )
@@ -60,12 +86,11 @@ const ReviewDetail = (props) =>{
 const BackArrowBox = styled.div`
 height:56px;
 width:100%;
-padding: 20px 20px;
+padding: 20px 20px 0px 20px;
 display:flex;
 align-items:center;
 background-color:#fff;
 `
-
 
 const CardBox = styled.div`
   width: 100%;
@@ -96,7 +121,6 @@ font-size:10px;
 color:#9e9e9e;
 opacity:0.5;
 `
-
 
 const ContentBox = styled.div`
 width:100%;
@@ -161,9 +185,10 @@ font-weight:bold;
 color:#cbcbcb;
 letter-spacing: -0.28px;
 `
+
 const CommentInputBox = styled.div`
 height:72px;
-width:360px;
+width:100%;
 padding: 12px 16px;
 box-sizing: border-box;
 display:flex;
@@ -174,6 +199,7 @@ bottom:283px;
 border-top:1px solid #f2f2f2;
 background-color:#fff;
 `
+
 const CommentInput = styled.input`
 width:100%;
 height:100%;
@@ -182,5 +208,15 @@ background-color:#f5f5f5;
 border:none;
 border-radius:12px;
 `
+
+const CommentWriteButton = styled.div`
+cursor:pointer;
+color:#acacac;
+position:absolute;
+right:30px;
+font-size:14px;
+font-weight:700;
+`
+
 
 export default ReviewDetail;

@@ -6,7 +6,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 
 const Comment = (props) =>{
-  //dispatch와 변수들
+  console.log(props)
 
     return(
         <React.Fragment>
@@ -14,11 +14,11 @@ const Comment = (props) =>{
             <CommentBox>
 
                 <CommentTitleBox>
-                    <UserName>닉네임닉네임</UserName>
+                    <UserName>{props.username}</UserName>
                     <CreatedAt>2021.07.24.21:04</CreatedAt>
                 </CommentTitleBox>
 
-                <Content>저도 이 책 재밌게 읽었어요!</Content>
+                <Content>{props.content}</Content>
 
             </CommentBox>
 
