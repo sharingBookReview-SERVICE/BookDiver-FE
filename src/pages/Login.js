@@ -40,15 +40,15 @@ Login.defaultProps={
 
 //styled components
 const Container = styled.div`
-    width: 360px;
-    height: 640px;
-    background-color: #f5f5f5;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
     
 `;
 
 const Background = styled.div`
-width: 100%;
-height: 100%;
+width: 100vw;
+height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -57,8 +57,8 @@ background-color: #fff;
 `;
 
 const LoginBox = styled.div`
-width: 328px;
-height: 200px;
+width: 100%;
+height: 100%;
 flex-direction: column;
 justify-content: center;
 align-items: center;
