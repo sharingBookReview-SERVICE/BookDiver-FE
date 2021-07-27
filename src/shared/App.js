@@ -8,19 +8,28 @@ import Home from "../pages/Home"
 import Navigation from "../components/Navigation";
 
 
+import Login from "../pages/Login";
+import MyProfile from "../pages/MyProfile";
+import ChangeName from "../pages/ChangeName";
+import SelectBookModal from "../modals/SelectBookModal";
+
+
 function App() {
 
-
   return (
-      <React.Fragment>
-        <Container>
-            <ConnectedRouter history={history}>
-              <Route path="/" exact component={Home} />
-              <Route path="/reviewdetail" exact component={ReviewDetail} />
-            </ConnectedRouter>
-          <Navigation/>
-          </Container>
-      </React.Fragment>
+    <React.Fragment>
+      <Container>
+         <ConnectedRouter history={history}>
+          <Route path="/" exact component={Home} />
+          <Route path="/reviewdetail" exact component={ReviewDetail} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/myprofile" exact component={MyProfile} />
+          <Route path="/changename" exact component={ChangeName} />
+          <Route path="/modal" exact component={SelectBookModal} />
+         </ConnectedRouter>
+        <Navigation/>
+       </Container>
+    </React.Fragment>
   );
 
 }
