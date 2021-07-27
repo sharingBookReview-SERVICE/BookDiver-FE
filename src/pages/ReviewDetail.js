@@ -9,10 +9,13 @@ const ReviewDetail = (props) =>{
 
     return(
         <React.Fragment>
+
             <BackArrowBox>
                 <ArrowBackIcon/>
             </BackArrowBox>
+
             <CardBox>
+
                 <CommentTitleBox>
                     <UserName>
                         닉네임닉네임
@@ -21,6 +24,7 @@ const ReviewDetail = (props) =>{
                         2021.07.24 21:04
                     </CreatedAt>
                 </CommentTitleBox>
+
                 <BookIntroBox>
                     <BookImg/>
                     <BookDescBox>
@@ -28,11 +32,13 @@ const ReviewDetail = (props) =>{
                         <BookWriter>김의경 저</BookWriter>
                     </BookDescBox>
                 </BookIntroBox>
+
                 <ContentBox>
                     <ContentTitle>"나는 나보다 더 훌륭한 경영자에게 투자한다"</ContentTitle>
                     <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
                     <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
                 </ContentBox>
+
                 <LikeCommentButton>
                     <LikeBox>
                         좋아요10개
@@ -41,13 +47,18 @@ const ReviewDetail = (props) =>{
                         댓글 달기
                     </WriteCommentBox>
                 </LikeCommentButton>
+                
             </CardBox>
+
             <Comment/>
             <Comment/>
             <Comment/>
-            <CommentInputBox>
+
+{/* 인풋은 nav바가 조건부 렌더링이 가능해지고 나면 넣겠습니다. */}
+            {/* <CommentInputBox>
                 <CommentInput placeholder="지금 댓글을 남겨보세요"/>
-            </CommentInputBox>
+            </CommentInputBox> */}
+
         </React.Fragment>
     )
 }
@@ -59,6 +70,7 @@ width:100%;
 padding: 20px 20px;
 display:flex;
 align-items:center;
+background-color:#fff;
 `
 
 
@@ -72,6 +84,7 @@ const CardBox = styled.div`
   padding: 24px;
   padding-bottom:0px;
   box-sizing:border-box;
+  background-color:#fff;
 `
 
 const CommentTitleBox = styled.div`
