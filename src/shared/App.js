@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
+import ReviewDetail from "../pages/ReviewDetail";
+import Home from "../pages/Home"
+import Navigation from "../components/Navigation";
+
 
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
@@ -11,24 +15,28 @@ import SelectBookModal from "../modals/SelectBookModal";
 
 
 function App() {
+
   return (
-    <ConnectedRouter history={history}>
-    <div className="App">
-      
-      {/* <Route path="/" exact component={} /> */}
-        <Route path="/login" exact component={Login} />
-        <Route path="/myprofile" exact component={MyProfile} />
-        <Route path="/changename" exact component={ChangeName} />
-        <Route path="/modal" exact component={SelectBookModal} />
-    
-    </div>
-    </ConnectedRouter>
+    <React.Fragment>
+      <Container>
+         <ConnectedRouter history={history}>
+          <Route path="/" exact component={Home} />
+          <Route path="/reviewdetail" exact component={ReviewDetail} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/myprofile" exact component={MyProfile} />
+          <Route path="/changename" exact component={ChangeName} />
+          <Route path="/modal" exact component={SelectBookModal} />
+         </ConnectedRouter>
+        <Navigation/>
+       </Container>
+    </React.Fragment>
   );
+
 }
 
 const Container = styled.div`
-  width: 360px;
-  height: 640px;
+  width: 100vw;
+  height: 100vh;
   background: #fff;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -36,12 +44,16 @@ const Container = styled.div`
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera*/
+    }
   background-color: #fff;
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing:border-box;
+  padding:0px 0px 40px 0px;
+  position:relative;
 `;
+
 
 export default App;
 
