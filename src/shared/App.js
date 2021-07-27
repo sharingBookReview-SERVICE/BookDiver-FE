@@ -4,12 +4,15 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
 
+import Login from "../pages/Login";
+
 function App() {
   return (
     <ConnectedRouter history={history}>
     <div className="App">
       <Container>
       {/* <Route path="/" exact component={} /> */}
+        <Route path="/login" exact component={Login} />
       </Container>
     </div>
     </ConnectedRouter>
@@ -18,7 +21,7 @@ function App() {
 
 const Container = styled.div`
   width: 360px;
-  height: 720px;
+  height: 640px;
   background: #fff;
   overflow-y: scroll;
   overflow-x: hidden;
