@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
 import PersonIcon from "@material-ui/icons/Person";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Navigation = (props) => {
 
@@ -18,7 +18,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="List"
         value="list"
-        icon={<AddIcon />}
+        icon={<EditIcon />}
       />
       <BottomNavigationAction
         label="Login"
