@@ -8,7 +8,7 @@ import Header from "../components/Header"
 import SelectBookCard from "../components/SelectBookCard";
 import ReviewCard from "../components/ReviewCard";
 
-//주석
+//feature 사용중 push하기 
 const BookDetail = () => {
 
     return (
