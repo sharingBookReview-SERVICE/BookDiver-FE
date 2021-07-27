@@ -29,9 +29,14 @@ const ReviewCard = (props) =>{
 
                 <LikeCommentBox>
                     <LikeBox>
-                        <FavoriteBorderIcon style={{fontSize:"18px"}}/>
+                        <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/>
                         <LikeText>좋아요 0개</LikeText>
                     </LikeBox>
+                    <WriteCommentBox>
+                        <CommentCount>
+                            댓글 0개
+                        </CommentCount>
+                    </WriteCommentBox>
                 </LikeCommentBox>
             </CardBox>
             
@@ -122,17 +127,23 @@ align-items:flex-end;
 
 const LikeText = styled.p`
 font-size:14px;
-margin-left:8px;
-margin-bottom:0px;
+margin: 0px 0px 0px 8px;
+color:#1168d7;
 `
 
 const LikeCommentBox = styled.div`
 display:flex;
-
+padding:10px 0px;
 `
 
 const WriteCommentBox = styled.div`
+display:flex;
 `
 
+const CommentCount = styled.p`
+font-size:14px;
+margin: 0px 0px 0px 8px;
+color: #b5b5b5;
+`
 
 export default ReviewCard;
