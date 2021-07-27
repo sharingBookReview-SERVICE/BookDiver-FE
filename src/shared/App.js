@@ -7,7 +7,7 @@ import {history} from "../redux/configStore";
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
-import LogoutModal from "../modals/LogoutModal";
+import SignoutModal from "../modals/SignoutModal";
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/myprofile" exact component={MyProfile} />
         <Route path="/changename" exact component={ChangeName} />
-        <Route path="/modal" exact component={LogoutModal} />
+        <Route path="/modal" exact component={SignoutModal} />
       </Container>
     </div>
     </ConnectedRouter>
