@@ -10,17 +10,18 @@ const Comment = (props) =>{
 
     return(
         <React.Fragment>
+
             <CommentBox>
+
                 <CommentTitleBox>
                     <UserName>닉네임닉네임</UserName>
                     <CreatedAt>2021.07.24.21:04</CreatedAt>
                 </CommentTitleBox>
+
                 <Content>저도 이 책 재밌게 읽었어요!</Content>
-                <LikeBox>
-                    <FavoriteBorderIcon style={{fontSize:"18px"}}/>
-                    <LikeText>좋아요 0개</LikeText>
-                </LikeBox>
+
             </CommentBox>
+
         </React.Fragment>
     )
 }
@@ -60,18 +61,5 @@ const Content = styled.p`
 font-size:14px;
 margin:0px;
 `
-
-const LikeBox = styled.div`
-display:flex;
-align-items:flex-end;
-`
-
-const LikeText = styled.p`
-font-size:14px;
-margin-left:8px;
-margin-bottom:0px;
-`
-
-
 
 export default Comment;

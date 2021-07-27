@@ -10,9 +10,9 @@ import Navigation from "../components/Navigation";
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
-import SelectBookModal from "../modals/SelectBookModal";
-import MyReview from "../pages/MyReview"
-
+import MyReview from "../pages/MyReview";
+import PostWrite from "../pages/PostWrite"
+import BookDetail from "../pages/BookDetail";
 
 function App() {
 
@@ -22,10 +22,11 @@ function App() {
          <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
           <Route path="/reviewdetail" exact component={ReviewDetail} />
+          <Route path="/postwrite" exact component={PostWrite} />
+          <Route path="/bookdetail" exact component={BookDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
-          <Route path="/modal" exact component={SelectBookModal} />
           <Route path="/myreview" exact component={MyReview} />
          </ConnectedRouter>
         <Navigation/>

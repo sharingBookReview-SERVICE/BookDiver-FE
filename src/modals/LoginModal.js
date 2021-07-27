@@ -19,10 +19,10 @@ React.useEffect(()=>{
          <Container>
          
            <Btns>
-           <LoginText>리뷰작성을 위해선 로그인이 필요합니다.</LoginText>
-           <KakaoBtn>카카오톡으로 시작하기</KakaoBtn>
-           <GoogleBtn>구글로 시작하기</GoogleBtn>
-           <CancelBtn>다음에 할게요</CancelBtn>
+            <LoginText>리뷰작성을 위해선 로그인이 필요합니다.</LoginText>
+            <KakaoBtn>카카오톡으로 시작하기</KakaoBtn>
+            <GoogleBtn>구글로 시작하기</GoogleBtn>
+            <CancelBtn>다음에 할게요</CancelBtn>
            </Btns>
           
          </Container>
@@ -54,6 +54,12 @@ letter-spacing: -0.42px;
 `;
 
 const Btns = styled.div`
+width:auto;
+height:auto;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 `;
 
 const KakaoBtn = styled.div`
@@ -64,6 +70,7 @@ line-height: 48px;
 border-radius: 12px;
 background-color: #f9e57e;
 font-weight: bold;
+margin:0px;
 `;
 
 const GoogleBtn = styled.div`

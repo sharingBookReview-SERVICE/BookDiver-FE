@@ -5,18 +5,6 @@ import styled from "styled-components";
 
 
 const Login = (props) =>{
-  //dispatch와 변수들
-
-
-//useEffect
-React.useEffect(()=>{
-},[]);
-
-
-//함수
-
-
-//뷰
 
     return(
         <React.Fragment>
@@ -32,11 +20,6 @@ React.useEffect(()=>{
         </React.Fragment>
     )
 }
-
-//defaultProps
-Login.defaultProps={
-}
-
 
 //styled components
 const Container = styled.div`

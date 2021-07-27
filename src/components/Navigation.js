@@ -8,6 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 const Navigation = (props) => {
 
+    
   return (
     <BottomNavigation style={{ background: "#fafafa",position:"fixed", bottom:"0", width:"100%" }}>
       <BottomNavigationAction
@@ -32,6 +33,8 @@ const Navigation = (props) => {
       />
     </BottomNavigation>
   );
+
+
 };
 
 export default Navigation;

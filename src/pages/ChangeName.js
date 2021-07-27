@@ -5,23 +5,12 @@ import {history} from "../redux/configStore";
 
 
 const ChangeName = (props) =>{
-  //dispatch와 변수들
-
-
-//useEffect
-React.useEffect(()=>{
-},[]);
-
-
-
-//뷰
 
     return(
         <React.Fragment>
-           <Container>
                 <Background>
                   <HeadBar>
-                  <HeadBtn onClick={()=>{history.goBack()}}>뒤로가기</HeadBtn>
+                    <HeadBtn onClick={()=>{history.goBack()}}>뒤로가기</HeadBtn>
                     <HeadBtn>변경완료</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
@@ -30,25 +19,12 @@ React.useEffect(()=>{
                              <Input></Input>
                             <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                         </ImageBox>
-                      
                     </ProfileBox>
                 </Background>
-         </Container>
         </React.Fragment>
     )
 }
 
-
-
-//styled components
-
-//styled components
-const Container = styled.div`
-    width: 360px;
-    height: 640px;
-    background-color: #f5f5f5;
-    
-`;
 const Background = styled.div`
 width: 100%;
 height: 100%;
