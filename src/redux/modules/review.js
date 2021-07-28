@@ -6,9 +6,11 @@ import instance from "../../shared/Request";
 
 //actions
 const GET_ALL_REVIEW = "GET_ALL_REVIEW";
+const LIKE = "review/LIKE"
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
+const putLike = createAction(LIKE, (reviewId) => ({reviewId}))
 
 //initial
 const initialState = {
@@ -31,6 +33,12 @@ const getAllReviewSV = () => {
             window.alert("피드 리뷰 로드 실패");
         })
 
+    }
+}
+
+const LikeSV = (username, reviewId) => {
+    return function(dispatch){
+        instance.post(`books/:${comment_info.bookId}/reviews/:${comment_info.reviewId}/comments/:${comment_info.commentId}`)
     }
 }
 
