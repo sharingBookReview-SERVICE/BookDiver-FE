@@ -10,6 +10,7 @@ import Header from "../components/Header"
 const Home = (props) =>{
   //dispatch와 변수들
 
+  
     return(
         <React.Fragment>
             <HomeBackGroundColor>
