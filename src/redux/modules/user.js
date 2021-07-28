@@ -102,29 +102,24 @@ const getUserReviewSV = (id)=>{
 export default handleActions(
     {
         [CREATE_USER]: (state, action) =>
-        produce(state, (draft) => {
-        
+          produce(state, (draft) => {
         }),
         [GET_USER]: (state, action) =>
-        produce(state, (draft) => {
-          draft.user = action.payload.user;
+          produce(state, (draft) => {
+            draft.user = action.payload.user;
         }),
         [UPDATE_USER]: (state, action) =>
-        produce(state, (draft) => {
-          draft.user.nickname = action.payload.user;
+          produce(state, (draft) => {
+            draft.user.nickname = action.payload.user;
         }),
         [DELETE_USER]: (state, action) =>
-        produce(state, (draft) => {
-          draft.user = [];
+          produce(state, (draft) => {
+            draft.user = [];
         }),
         [GET_USER_REVIEW]: (state, action) =>
-        produce(state, (draft) => {
-          draft.review_list = action.payload.review_list;
+          produce(state, (draft) => {
+            draft.review_list = action.payload.review_list;
         }),
-        
-        
-
- 
     },
     initialState
   );
