@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
+import { useSelector, useDispatch } from "react-redux";
 
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home"
@@ -15,6 +16,7 @@ import PostWrite from "../pages/PostWrite"
 import BookDetail from "../pages/BookDetail";
 
 function App() {
+  const is_nav = useSelector(state => state.permit.is_nav)
 
   return (
     <React.Fragment>
@@ -29,7 +31,7 @@ function App() {
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/myreview" exact component={MyReview} />
          </ConnectedRouter>
-        <Navigation/>
+        {is_nav ? <Navigation/> : ""}
        </Container>
     </React.Fragment>
   );
@@ -50,7 +52,7 @@ const Container = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-sizing:border-box;
   padding:0px 0px 40px 0px;
   position:relative;
