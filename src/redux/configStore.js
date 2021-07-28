@@ -4,10 +4,12 @@ import { connectRouter } from "connected-react-router";
 import thunk from "redux-thunk";
 import comment from "../redux/modules/comment"
 import permit from "../redux/modules/permit"
+import review from "../redux/modules/review"
 
 
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
+  review,
   permit,
   comment,
   router: connectRouter(history),

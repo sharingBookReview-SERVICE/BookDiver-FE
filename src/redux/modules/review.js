@@ -10,15 +10,23 @@ const LIKE = "review/LIKE"
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
-const putLike = createAction(LIKE, (reviewId) => ({reviewId}))
+const like = createAction(LIKE, (reviewId) => ({reviewId}))
 
 //initial
 const initialState = {
-    all_review_list: [],
+    all_review_list: [{
+        user:"",
+        book:"",
+        quote:"",
+        content:"",
+        hashtag:[],
+        createdAt:"",
+        comments:[],
+        myLike:true,
+        likes:10,
+    }],
 
 };
-
-
 
 //middle
 //전체 피드 불러오기
@@ -36,9 +44,14 @@ const getAllReviewSV = () => {
     }
 }
 
-const LikeSV = (username, reviewId) => {
+const LikeSV = (bookId, reviewId) => {
     return function(dispatch){
-        instance.post(`books/:${comment_info.bookId}/reviews/:${comment_info.reviewId}/comments/:${comment_info.commentId}`)
+        instance.post(`books/${bookId}/reviews/${reviewId}/like`).then((res)=>{
+            console.log(res)
+            dispatch(like(reviewId))
+        }).catch((err)=>{
+            console.log("좋아요 실패", err)
+        })
     }
 }
 
@@ -49,6 +62,19 @@ export default handleActions(
         produce(state, (draft) => {
           draft.all_review_list = action.payload.review_list;
         }),
+        [LIKE]: (state, action) => produce(state, (draft) => {
+            let idx = draft.all_review_list.findIndex((l) => l.id === action.payload.reviewId);
+
+            if (draft.review[idx].myLike) {
+              draft.review[idx].likes = draft.review[idx].likes -1;
+              draft.review[idx].myLike = !draft.review[idx].myLike;
+
+            } else {
+              draft.review[idx].likes = draft.review[idx].likes +1;
+              draft.review[idx].myLike = !draft.review[idx].myLike;
+            }
+
+          }),
  
     },
     initialState
@@ -57,6 +83,7 @@ export default handleActions(
 
 const actionCreators = {
     getAllReviewSV,
+    LikeSV,
 };
   
 export { actionCreators };

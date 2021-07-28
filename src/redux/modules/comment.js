@@ -42,7 +42,7 @@ const addCommentSV = (commentInfo) => {
           
         })
         .catch(function (error) {
-            console.log(error);
+            console.log("댓글 추가 실패",error);
         })
 
     }
@@ -56,6 +56,8 @@ const updateCommentSV = (comment_info) => {
     .then((res) => {
       console.log(res.data)
       dispatch(editComment())
+    }).catch((err)=>{
+      console.log("댓글 수정 실패",err)
     })
   }
 }
@@ -67,7 +69,7 @@ const deleteCommentSV = (comment_info) => {
     .delete(`books/:${comment_info.bookId}/reviews/:${comment_info.reviewId}/comments/:${comment_info.commentId}`)
     .then((res)=>{})
     .catch((err)=> {
-      console.log("comment delete error!",err)
+      console.log("댓글 삭제 실패",err)
     })
     dispatch(deleteComment(comment_info.commentId))
   }
