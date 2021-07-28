@@ -9,17 +9,20 @@ const CREATE_USER = "CREATE_USER";
 const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
+const GET_USER_REVIEW = "GET_USER_REVIEW";
 
 //actioncreator
 const createUser = createAction(CREATE_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
+const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
 
 
 //initial
 const initialState = {
     user : [],
+    review_list: []
 };
 
 
@@ -83,6 +86,18 @@ const deleteUserSV = (id) =>{
   }
 }
 
+//회원이 쓴 리뷰 불러오기
+const getUserReviewSV = (id)=>{
+  return function(dispatch, getState, {history}){
+    instance.get(`users/${id}/reviews`)
+    .then((res)=>{
+      dispatch(getUserReview(res.data));
+    })
+    .catch((err)=>{
+      window.alert("리뷰 불러오기 실패 ")
+    })
+  }
+}
 //reducer
 export default handleActions(
     {
@@ -102,6 +117,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.user = [];
         }),
+        [GET_USER_REVIEW]: (state, action) =>
+        produce(state, (draft) => {
+          draft.review_list = action.payload.review_list;
+        }),
         
         
 
@@ -115,7 +134,8 @@ const actionCreators = {
   createUserSV,
   getUserSV,
   updateUserSV,
-  deleteUserSV
+  deleteUserSV,
+  getUserReviewSV
 };
   
 export { actionCreators };
