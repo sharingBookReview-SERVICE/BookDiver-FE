@@ -103,6 +103,9 @@ export default handleActions(
 const actionCreators = {
     addComment,
     getComment,
+    addCommentSV,
+    updateCommentSV,
+    deleteCommentSV,
 };
   
 export { actionCreators };
