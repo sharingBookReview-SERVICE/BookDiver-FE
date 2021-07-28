@@ -46,6 +46,32 @@ const initialState = {
 //     }
 // }
 
+const updateCommentSV = (comment_info) => {
+  return function (dispatch, getState, {history}){
+    instance
+    .put(`books/:${comment_info.bookId}/reviews/:${comment_info.reviewId}/comments/:${comment_info.commentId}`,
+    {content : comment_info.content})
+    .then((res) => {
+      if(comment_info.commentId){
+        const comment = res.data.filter((l,idx) => {
+          return l.id === parseInt(comment_info.commentId);
+        })
+      }
+    })
+  }
+}
+
+const deleteCommentSV = (comment_info) => {
+  return function (dispatch, getState, {history}){
+    instance
+    .delete(`books/:${comment_info.bookId}/reviews/:${comment_info.reviewId}/comments/:${comment_info.commentId}`)
+    .then((res)=>{})
+    .catch((err)=> {
+      console.log("comment delete error!",err)
+    })
+    dispatch(deleteComment(comment_info.commentId))
+  }
+}
 
 
 
