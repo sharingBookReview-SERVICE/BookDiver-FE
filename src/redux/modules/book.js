@@ -1,26 +1,24 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import axios from "axios";
 import instance from "../../shared/Request";
 
 
 //actions
-const GET_ALL_BOOKS = "GET_ALL_BOOKS";
-const GET_ONE_BOOK = "GET_ONE_BOOK";
-const GET_BESTSELLER = "GET_BESTSELLER";
+const GET_ALL_BOOKS = "book/GET_ALL_BOOKS";
+const GET_ONE_BOOK = "book/GET_ONE_BOOK";
+const GET_BESTSELLER = "book/GET_BESTSELLER";
 
 //actioncreator
 const getAllBooks = createAction(GET_ALL_BOOKS, (book_list) => ({ book_list }));
 const getOneBook = createAction(GET_ONE_BOOK, (book)=>({book}));
 const getBestSeller = createAction(GET_BESTSELLER, (book_list) =>({book_list}));
+
 //initial
 const initialState = {
     all_book_list: [],
     book :[],
     best_seller : [],
 };
-
-
 
 //middle
 //전체 책 불러오기
@@ -33,6 +31,7 @@ const getAllBookSV = () => {
         })
         .catch((err)=> {
             window.alert("책 로드 실패");
+            console.log("책로드 실패", err)
         })
 
     }
@@ -47,12 +46,12 @@ const getOneBookSV = (id)=>{
         })
         .catch((err)=>{
             window.alert("책 하나 로드 실패");
+            console.log("책로드 하나 실패", err)
         })
     }
 }
 
 //베스트 셀러 불러오기
-
 const getBestSellerSV = ()=>{
     return function(dispatch){
         instance.get('/book/bestseller')
@@ -61,6 +60,7 @@ const getBestSellerSV = ()=>{
         })
         .catch((err)=>{
             window.alert("베스트셀러 로드 실패!")
+            console.log("베스트셀러 로드 실패", err)
         })
     }
 }
