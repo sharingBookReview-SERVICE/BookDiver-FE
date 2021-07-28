@@ -6,11 +6,21 @@ import instance from "../../shared/Request";
 
 //actions
 const GET_ALL_REVIEW = "GET_ALL_REVIEW";
+
 const LIKE = "review/LIKE"
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
 const like = createAction(LIKE, (reviewId) => ({reviewId}))
+const ADD_REVIEW = "ADD_REVIEW";
+
+//actioncreator
+const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
+const addReview = createAction(ADD_REVIEW, (review) => ({review}));
+
+
+
+>>>>>>> 39a586f ([추가]  add_review 리덕스 내용)
 
 //initial
 const initialState = {
@@ -30,16 +40,37 @@ const initialState = {
 
 //middle
 //전체 피드 불러오기
-const getAllReviewSV = () => {
+// const getAllReviewSV = () => {
+//     return function(dispatch){
+//
+//       instance.get('/todayplan')
+//         .then(function (response) {
+//             dispatch(setTodayPlan(response.data));
+//         })
+//         .catch(function (error) {
+//             console.log(error);
+//         })
+//
+//     }
+// }
+
+//포스트 추가하기
+const addReviewSV = (review, bookId) => {
     return function(dispatch){
-    
-      instance.get('/')
-        .then((res)=>{
-            dispatch(getAllReview(res.data));
+        console.log(review)
+        instance.post(`/books/${bookId}/reviews`, {
+            quote: review.quote,
+            content: review.content,
+            hashtags: review.hashtags,
         })
-        .catch((err)=>{
-            window.alert("피드 리뷰 로드 실패");
-        })
+            .then((response) => {
+                console.log(response)
+                dispatch(addReview(review));
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log("post작성 실패", error);
+            })
 
     }
 }
@@ -62,6 +93,7 @@ export default handleActions(
         produce(state, (draft) => {
           draft.all_review_list = action.payload.review_list;
         }),
+
         [LIKE]: (state, action) => produce(state, (draft) => {
             let idx = draft.all_review_list.findIndex((l) => l.id === action.payload.reviewId);
 
@@ -75,7 +107,11 @@ export default handleActions(
             }
 
           }),
- 
+
+        [ADD_REVIEW] : (state, action) =>
+            produce(state, (draft) => {
+                draft.all_review_list.unshift(action.payload.review);
+            })
     },
     initialState
   );
@@ -84,6 +120,7 @@ export default handleActions(
 const actionCreators = {
     getAllReviewSV,
     LikeSV,
+    addReviewSV,
 };
   
 export { actionCreators };
