@@ -48,6 +48,9 @@ const LikeSV = (bookId, reviewId) => {
     return function(dispatch){
         instance.post(`books/${bookId}/reviews/${reviewId}/like`).then((res)=>{
             console.log(res)
+            dispatch(like(reviewId))
+        }).catch((err)=>{
+            console.log("좋아요 실패", err)
         })
     }
 }
