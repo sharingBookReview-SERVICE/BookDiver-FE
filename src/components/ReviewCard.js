@@ -1,11 +1,31 @@
 //import 부분
 import React from "react";
 import styled from "styled-components"
-import SearchIcon from '@material-ui/icons/Search';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as reviewAction } from "../redux/modules/comment"
 
 const ReviewCard = (props) =>{
   //dispatch와 변수들
+  const dispatch = useDispatch();
+
+  const reviewList = useSelector(state => state.review.all_review_list)
+  const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
+
+  //서버 들어오기 전 임의로 좋아요 갯수 구하는 형식 만들어놓기
+//   const reviewId = 1;
+//   const idx = reviewList.findIndex((l) => l.id === reviewId);
+//   const likesCount = reviewList[idx].likes
+
+  //좋아요 클릭 
+  const clickLikeButton = () => {
+    //props로부터 bookId와 reviewId를 받아오기
+    dispatch(reviewAction.LikeSV());
+
+  }
+
 
     return(
         <React.Fragment>
@@ -29,8 +49,11 @@ const ReviewCard = (props) =>{
 
                 <LikeCommentBox>
                     <LikeBox>
-                        <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/>
-                        <LikeText>좋아요 0개</LikeText>
+                        {is_liked ?
+                        <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>
+                        : <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/> }
+                        
+                        <LikeText>좋아요 {reviewList[0].likes}개</LikeText>
                     </LikeBox>
                     <WriteCommentBox>
                         <CommentCount>

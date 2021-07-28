@@ -1,8 +1,6 @@
 //import 부분
 import React from "react";
 import styled from "styled-components"
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
 
 
 const Comment = (props) =>{
