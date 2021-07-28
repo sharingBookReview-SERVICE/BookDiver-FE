@@ -33,7 +33,7 @@ const initialState = {
 const getAllReviewSV = () => {
     return function(dispatch){
     
-      instance.get('/todayplan')
+      instance.get('/')
         .then((res)=>{
             dispatch(getAllReview(res.data));
         })
