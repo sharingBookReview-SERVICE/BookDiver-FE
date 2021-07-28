@@ -24,11 +24,11 @@ const getAllReviewSV = () => {
     return function(dispatch){
     
       instance.get('/todayplan')
-        .then(function (response) {
-            dispatch(setTodayPlan(response.data));
+        .then((res)=>{
+            dispatch(getAllReview(res.data));
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch((err)=>{
+            window.alert("피드 리뷰 로드 실패");
         })
 
     }
@@ -39,7 +39,7 @@ export default handleActions(
     {
         [GET_ALL_REVIEW]: (state, action) =>
         produce(state, (draft) => {
-          draft.all_review_list = action.payload.all_review_list;
+          draft.all_review_list = action.payload.review_list;
         }),
  
     },
