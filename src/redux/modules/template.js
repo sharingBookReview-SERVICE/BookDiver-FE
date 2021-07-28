@@ -19,18 +19,18 @@ const initialState = {
 
 
 //middle
-const getPlansSV = () => {
-    return function(dispatch){
-      //오늘 목표 불러오기
-      instance.get('/todayplan')
-        .then(function (response) {
-            dispatch(setTodayPlan(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+const createUserSV = () => {
+  return function(dispatch){
+    //오늘 목표 불러오기
+    instance.post('/users')
+      .then((res)=>{
 
-    }
+      })
+      .catch((err)=>{
+          
+      })
+
+  }
 }
 
 //reducer
