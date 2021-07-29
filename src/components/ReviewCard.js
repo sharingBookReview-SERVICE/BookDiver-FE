@@ -6,6 +6,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/comment"
+import {history} from "../redux/configStore";
 
 const ReviewCard = (props) =>{
   //dispatch와 변수들
@@ -23,7 +24,6 @@ const ReviewCard = (props) =>{
   const clickLikeButton = () => {
     //props로부터 bookId와 reviewId를 받아오기
     dispatch(reviewAction.LikeSV());
-
   }
 
 
@@ -40,7 +40,9 @@ const ReviewCard = (props) =>{
                     </CreatedAt>
                 </CommentTitleBox>
 
-                <ContentBox>
+                <ContentBox onClick={()=>{
+                  history.push('/reviewdetail')
+                }}>
                     <BookTitle>돈의 속성 | 김승호 저</BookTitle>
                     <Quote>"나는 나보다 더 훌륭한 경영자에게 투자한다"</Quote>
                     <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>

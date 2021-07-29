@@ -15,7 +15,6 @@ import SelectBookCard from "../components/SelectBookCard";
 
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
-    console.log(history.location.pathname)
 
     const commentList = useSelector(state => state.comment.comment_list)
     const commentContent = useRef();
