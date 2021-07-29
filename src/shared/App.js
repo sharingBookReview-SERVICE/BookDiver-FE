@@ -14,7 +14,7 @@ import ChangeName from "../pages/ChangeName";
 import MyReview from "../pages/MyReview";
 import PostWrite from "../pages/PostWrite"
 import BookDetail from "../pages/BookDetail";
-import LogoutModal from "../modals/LogoutModal";
+import SelectBookModal from "../modals/SelectBookModal";
 
 function App() {
   const is_nav = useSelector(state => state.permit.is_nav)
@@ -31,7 +31,7 @@ function App() {
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/myreview" exact component={MyReview} />
-          <Route path="/modal" exact component={LogoutModal}/>
+          <Route path="/modal" exact component={SelectBookModal}/>
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>
