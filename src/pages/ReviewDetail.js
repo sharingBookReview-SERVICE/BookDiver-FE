@@ -7,9 +7,12 @@ import {history} from "../redux/configStore";
 
 import styled from "styled-components"
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Comment from "../components/Comment"
 import SelectBookCard from "../components/SelectBookCard";
+import BookImg from "../img/bookImg2.jpg"
 
 
 
@@ -31,69 +34,92 @@ const ReviewDetail = (props) =>{
 
     return(
         <React.Fragment>
+            <ReviewDetailWrapper>
 
-            <BackArrowBox>
-                <ArrowBackIcon/>
-            </BackArrowBox>
+                <BackArrowBox>
+                    <ArrowBackIcon onClick={()=>{
+                        history.goBack();
+                    }}/>
+                </BackArrowBox>
 
-            <CardBox>
-                <CommentTitleBox>
-                    <UserName>
-                        닉네임닉네임
-                    </UserName>
-                    <CreatedAt>
-                        2021.07.24 21:04
-                    </CreatedAt>
-                </CommentTitleBox>
+                <CardBox>
+                    <CommentUserBox>
+                        <UserLeftBox>
+                            <UserName>
+                                닉네임닉네임
+                            </UserName>
+                            <CreatedAt>
+                                2021.07.24 21:04
+                            </CreatedAt>
+                        </UserLeftBox>
 
-                <SelectBookCard/>
+                        <UserRightBox>
+                            <BookmarkBorderIcon style={{color:"#9e9e9e", marginRight:"10px"}}/>
+                            <MoreHorizIcon style={{color:"#9e9e9e"}}/>
+                        </UserRightBox>
+                    </CommentUserBox>
 
-                <ContentBox>
-                    <ContentTitle>"나는 나보다 더 훌륭한 경영자에게 투자한다"</ContentTitle>
-                    <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
-                    <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
-                </ContentBox>
+                    <SelectBookCard/>
+                    <Image src={BookImg}/>
 
-                <LikeCommentButton>
-                    <LikeBox>
-                        좋아요10개
-                    </LikeBox>
-                    <WriteCommentBox>
-                        댓글 달기
-                    </WriteCommentBox>
-                </LikeCommentButton>
-            </CardBox>
+                    <ContentBox>
+                        <ContentTitle>"나는 나보다 더 훌륭한 경영자에게 투자한다"</ContentTitle>
+                        <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
+                        <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
+                    </ContentBox>
 
-            {commentList.map((comment, idx) => {
-                return(
-                    <Comment {...comment} key={idx} />
-                )
-            })}
+                    <LikeCommentWrapper>
+                        <LikeCommentButton>
+                            <LikeBox>
+                                좋아요10개
+                            </LikeBox>
+                            <WriteCommentBox>
+                                댓글 달기
+                            </WriteCommentBox>
+                        </LikeCommentButton>
+                    </LikeCommentWrapper>
 
-            <CommentInputBox>
-                <CommentInput 
-                placeholder="지금 댓글을 남겨보세요" 
-                ref={commentContent}/>
-                <CommentWriteButton 
-                onClick={()=>{
-                    const commentInfo = {
-                        content : commentContent.current.value,
-                        username : "저팔계",
-                    }
-                    writeComment(commentInfo)
-                }}>게시
-                </CommentWriteButton>
-            </CommentInputBox>
+                </CardBox>
 
+                {commentList.map((comment, idx) => {
+                    return(
+                        <Comment {...comment} key={idx} />
+                    )
+                })}
+
+                <CommentInputBox>
+                    <CommentInput 
+                    placeholder="지금 댓글을 남겨보세요" 
+                    ref={commentContent}/>
+                    <CommentWriteButton 
+                    onClick={()=>{
+                        const commentInfo = {
+                            content : commentContent.current.value,
+                            username : "저팔계",
+                        }
+                        writeComment(commentInfo)
+                    }}>게시
+                    </CommentWriteButton>
+                </CommentInputBox>
+
+            </ReviewDetailWrapper>
         </React.Fragment>
     )
 }
+
+const ReviewDetailWrapper = styled.div`
+width:100%;
+height:auto;
+box-sizing:border-box;
+padding-bottom:50px;
+`
 
 
 const BackArrowBox = styled.div`
 height:56px;
 width:100%;
-padding: 20px 20px 0px 20px;
+box-sizing:border-box;
+padding: 10px 20px 0px 20px;
 display:flex;
 align-items:center;
 background-color:#fff;
@@ -106,13 +132,36 @@ const CardBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 24px;
-  padding-bottom:0px;
   box-sizing:border-box;
   background-color:#fff;
 `
 
-const CommentTitleBox = styled.div`
+const Image = styled.img`
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+`
+
+const CommentUserBox = styled.div`
+display:flex;
+align-items:center;
+padding:16px 24px;
+justify-content:space-between;
+width:100%;
+box-sizing:border-box;
+`
+
+const UserLeftBox = styled.div`
+width:auto;
+height:auto;
+display:flex;
+align-items:center;
+`
+
+const UserRightBox = styled.div`
+width:auto;
+height:auto;
 display:flex;
 align-items:center;
 `
@@ -129,6 +178,7 @@ color:#9e9e9e;
 opacity:0.5;
 `
 
+
 const ContentBox = styled.div`
 width:100%;
 box-sizing:border-box;
@@ -137,6 +187,7 @@ display:flex;
 flex-direction:column;
 justify-content:flex-start;
 aligh-items:flex-start;
+padding:0px 24px;
 `
 
 const ContentTitle = styled.p`
@@ -158,6 +209,13 @@ const HashTag = styled.div`
 padding:15px 0px;
 color:#1168d7;
 font-size:14px;
+`
+
+const LikeCommentWrapper = styled.div`
+width:100%;
+height:auto;
+box-sizing:border-box;
+padding:0px 24px;
 `
 
 const LikeCommentButton = styled.div`

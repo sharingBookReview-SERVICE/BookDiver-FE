@@ -5,6 +5,7 @@ import styled from "styled-components"
 const SelectBookCard = (props) =>{
 
     return(
+      <BookInfoWrapper>
         <BookInfoBox>
             <BookImg/>
             <BookDescBox>
@@ -12,9 +13,15 @@ const SelectBookCard = (props) =>{
                 <BookWriter>김의경 저</BookWriter>
             </BookDescBox>
         </BookInfoBox>
+      </BookInfoWrapper>
     )
 }
 
+const BookInfoWrapper = styled.div`
+width:100%;
+box-sizing:border-box;
+padding:0px 24px 16px 24px;
+`
 
 const BookInfoBox = styled.div`
 width: 100%;
