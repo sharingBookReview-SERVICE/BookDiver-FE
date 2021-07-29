@@ -16,6 +16,7 @@ React.useEffect(()=>{
 
     return(
         <React.Fragment>
+          <Outter>
          <Container>
          <Text>
          회원탈퇴를 하시겠어요?
@@ -30,6 +31,7 @@ React.useEffect(()=>{
         
           
          </Container>
+         </Outter>
         </React.Fragment>
     )
 }
@@ -37,6 +39,15 @@ React.useEffect(()=>{
 
 
 //styled components
+const Outter = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color:rgba(0, 0, 0, 0.5);
+  display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`;
 const Container = styled.div`
 width: 320px;
 border-radius: 12px;
