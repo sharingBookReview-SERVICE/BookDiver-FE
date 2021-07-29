@@ -1,11 +1,16 @@
 //import 부분
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
+import {actionCreators as permitAction} from "../redux/modules/permit";
+import {useDispatch} from "react-redux";
 
-const PostWrite = () => {
-
+const ReviewWrite = () => {
+    // const dispatch = useDispatch();
+    // useEffect(()=>{
+    //     dispatch(permitAction.showNav(false))
+    // },[])
     return (
 
         <React.Fragment>
@@ -18,6 +23,11 @@ const PostWrite = () => {
                 <BookChoice>
                     <img src={add_button}/>
                     <Text>리뷰할 책 선택하기</Text>
+                </BookChoice>
+                <BookChoice style={{height: "35vh"}}>
+                    <img src={add_button}/>
+                    <Text>책 사진 업로드</Text>
+                    <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
                 </BookChoice>
                 <InputQuotes>
                     <Text>인용구 작성하기</Text>
@@ -39,7 +49,7 @@ const PostWrite = () => {
     )
 }
 
-export default PostWrite;
+export default ReviewWrite;
 
 const Text = styled.text`
   font-size: 1em;
@@ -56,7 +66,7 @@ const StartPost = styled.div`
 `;
 const PostWriteBox = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: auto;
   flex-grow: 0;
   padding: 20px 0 0;
   background-color: #FFFFFF;
@@ -101,7 +111,7 @@ const BookChoice = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1.3vh;
-  margin: auto;
+  margin: auto auto 4% auto;
   border-radius: 12px;
   //border: solid 1px var(--system-temp-30);
   border: 1px solid #EFEEEE;
@@ -163,8 +173,8 @@ const AddReview = styled.div`
 `;
 
 const HashTag = styled.div`
-  width: 80vh;
-  height: 5vw;
+  width: 80vw;
+  height: 20vh;
   padding: 1em;
   background-color: #ffffff;
   box-sizing: border-box;

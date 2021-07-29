@@ -47,7 +47,7 @@ export default handleActions(
   
 
 const actionCreators = {
-  getPlansSV,
+
 };
   
 export { actionCreators };
