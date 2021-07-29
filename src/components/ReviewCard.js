@@ -3,9 +3,13 @@ import React from "react";
 import styled from "styled-components"
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import BookImg from "../img/bookImg2.jpg"
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewAction } from "../redux/modules/comment"
+import {history} from "../redux/configStore";
 
 const ReviewCard = (props) =>{
   //dispatch와 변수들
@@ -23,7 +27,6 @@ const ReviewCard = (props) =>{
   const clickLikeButton = () => {
     //props로부터 bookId와 reviewId를 받아오기
     dispatch(reviewAction.LikeSV());
-
   }
 
 
@@ -31,16 +34,29 @@ const ReviewCard = (props) =>{
         <React.Fragment>
             <CardBox>
 
-                <CommentTitleBox>
-                    <UserName>
-                        닉네임닉네임
-                    </UserName>
-                    <CreatedAt>
-                        2021.07.24 21:04
-                    </CreatedAt>
-                </CommentTitleBox>
+                <CommentUserBox>
+                    <UserLeftBox>
+                      <UserName>
+                          닉네임닉네임
+                      </UserName>
+                      <CreatedAt>
+                          2021.07.24 21:04
+                      </CreatedAt>
+                    </UserLeftBox>
 
-                <ContentBox>
+                    <UserRightBox>
+                      <BookmarkBorderIcon style={{color:"#9e9e9e", marginRight:"10px"}}/>
+                      <MoreHorizIcon style={{color:"#9e9e9e"}}/>
+                    </UserRightBox>
+                </CommentUserBox>
+
+                <Image src={BookImg} onClick={()=>{
+                  history.push('/reviewdetail')
+                }}/>
+
+                <ContentBox onClick={()=>{
+                  history.push('/reviewdetail')
+                }}>
                     <BookTitle>돈의 속성 | 김승호 저</BookTitle>
                     <Quote>"나는 나보다 더 훌륭한 경영자에게 투자한다"</Quote>
                     <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
@@ -76,16 +92,39 @@ const CardBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 24px;
-  padding-bottom:0px;
   box-sizing:border-box;
   margin:0px 0px 6px 0px;
   background-color:#fff;
 `
 
-const CommentTitleBox = styled.div`
+const CommentUserBox = styled.div`
 display:flex;
 align-items:center;
+padding:16px 24px;
+justify-content:space-between;
+width:100%;
+box-sizing:border-box;
+`
+
+const UserLeftBox = styled.div`
+width:auto;
+height:auto;
+display:flex;
+align-items:center;
+`
+
+const UserRightBox = styled.div`
+width:auto;
+height:auto;
+display:flex;
+align-items:center;
+`
+
+const Image = styled.img`
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
 `
 
 const UserName = styled.p`
@@ -110,16 +149,16 @@ display:flex;
 flex-direction:column;
 justify-content:flex-start;
 aligh-items:flex-start;
+padding:0px 24px;
 `
 
 const BookTitle = styled.p`
-margin:0px;
 font-size:14px;
 line-height:20px;
 letter-spacing: -0.28px;
 color:#1168d7;
 font-weight:bold;
-margin:7px 0px;
+margin:16px 0px 8px 0px;
 `
 
 const Quote = styled.p`
@@ -156,7 +195,7 @@ color:#1168d7;
 
 const LikeCommentBox = styled.div`
 display:flex;
-padding:10px 0px;
+padding:10px 24px 18px 24px;
 `
 
 const WriteCommentBox = styled.div`

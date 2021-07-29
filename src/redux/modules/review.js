@@ -179,7 +179,6 @@ export default handleActions(
     },
     initialState
   );
-  
 
 const actionCreators = {
     getAllReviewSV,
@@ -189,5 +188,5 @@ const actionCreators = {
     editReviewSV,
     detailReviewSV,
 };
-  
+
 export { actionCreators };
