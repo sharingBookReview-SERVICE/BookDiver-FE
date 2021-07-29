@@ -1,5 +1,7 @@
 //import 부분
-import React from "react";
+import React, {useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { actionCreators as permitAction } from "../redux/modules/permit";
 import styled from "styled-components"
 import ReviewCard from "../components/ReviewCard"
 import AddIcon from '@material-ui/icons/Add';
@@ -9,7 +11,12 @@ import Header from "../components/Header"
 
 const Home = (props) =>{
   //dispatch와 변수들
+  const dispatch = useDispatch();
 
+  //로딩이 되고나면, 네이게이션을 없애주기.
+  useEffect(()=>{
+    dispatch(permitAction.showNav(true))
+},[])
   
     return(
         <React.Fragment>
