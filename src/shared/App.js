@@ -16,6 +16,8 @@ import ReviewWrite from "../pages/ReviewWrite"
 import BookDetail from "../pages/BookDetail";
 import CommentModal from "../modals/CommentModal";
 import MyReviewFeed from "../pages/MyReviewFeed";
+import MyReviewFind from "../pages/MyReviewFind";
+
 
 function App() {
   const is_nav = useSelector(state => state.permit.is_nav)
@@ -35,6 +37,7 @@ function App() {
           <Route path="/modal" exact component={CommentModal}/>
           <Route path="/MyReview" exact component={MyReview} />
           <Route path="/myreviewfeed" exact component={MyReviewFeed} />
+          <Route path="/myreviewfind" exact component={MyReviewFind} />
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>
