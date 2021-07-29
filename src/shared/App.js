@@ -12,9 +12,10 @@ import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
 import MyReview from "../pages/MyReview";
-import PostWrite from "../pages/PostWrite"
+import ReviewWrite from "../pages/ReviewWrite"
 import BookDetail from "../pages/BookDetail";
 import CommentModal from "../modals/CommentModal";
+import MyReviewFeed from "../pages/MyReviewFeed";
 
 function App() {
   const is_nav = useSelector(state => state.permit.is_nav)
@@ -25,13 +26,15 @@ function App() {
          <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
           <Route path="/reviewdetail" exact component={ReviewDetail} />
-          <Route path="/postwrite" exact component={PostWrite} />
+          <Route path="/postwrite" exact component={ReviewWrite} />
           <Route path="/bookdetail" exact component={BookDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/myreview" exact component={MyReview} />
           <Route path="/modal" exact component={CommentModal}/>
+          <Route path="/MyReview" exact component={MyReview} />
+          <Route path="/myreviewfeed" exact component={MyReviewFeed} />
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>
