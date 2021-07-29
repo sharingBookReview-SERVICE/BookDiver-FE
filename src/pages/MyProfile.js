@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {history} from "../redux/configStore";
-
+import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
+import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 //마이 페이지
 const MyProfile = (props) =>{
 
     return(
         <React.Fragment>
-            <Container>
+          
                 <Background>
                     <ProfileBox>
                         <ImageBox>
@@ -16,24 +17,32 @@ const MyProfile = (props) =>{
                             <Name>닉네임</Name>
                             <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                         </ImageBox>
+                        <MyActivityBox>
+                            <MyActivity>
+                                <CollectionsBookmarkOutlinedIcon style={{color:"#1168d7"}}/>
+                                <Text>내 컬렉션</Text>
+                            </MyActivity>
+                            <MyActivity>
+                                <BookmarkOutlinedIcon  style={{color:"#1168d7"}}/>
+                                <Text>저장한 에세이</Text>
+                            </MyActivity>
+                            <MyActivity>
+                            <Text style={{fontWeight:"bold",fontSize:"21px", margin: "-2px"}}>9,999</Text>
+                            <Text>팔로워</Text>
+                            </MyActivity>
+                        </MyActivityBox>
                         <UserBtn onClick={()=>{history.push('/changename')}}>닉네임 변경</UserBtn>
                         <UserBtn onClick={()=>{window.alert("로그아웃 하시겠습니까?")}}>로그 아웃</UserBtn>
                         <UserBtn onClick={()=>{window.alert("회원탈퇴 하시겠습니까?")}}>회원 탈퇴</UserBtn>
                     </ProfileBox>
                 </Background>
-         </Container>
+        
         </React.Fragment>
     )
 }
 
 //styled components
-const Container = styled.div`
-    
-    width: 360px;
-    height: 640px;
-    background-color: #f5f5f5;
-    
-`;
+
 const Background = styled.div`
 width: 100%;
 height: 100%;
@@ -69,15 +78,39 @@ border-radius: 72px;
 background: tomato;
 `;
 const Name = styled.p`
-    font-weight: bold;
-    margin: 5px;
+font-weight: bold;
+margin: 5px;
 `;
 const Activity = styled.p`
-    color: #9e9e9e;
-    margin: 5px;
-    font-size: 13px;
+color: #9e9e9e;
+margin: 5px;
+font-size: 13px;
 `;
 
+const MyActivityBox = styled.div`
+width: 312px;
+height: 92px;
+border-radius: 12px;
+display: flex;
+border: 1px solid #1168d7;
+margin: 10px 0px;
+`;
+
+const MyActivity = styled.div`
+width: 104px;
+text-align: center;
+font-size: 14px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+`;
+const Text = styled.p`
+color: #1168d7;
+margin: 5px;
+font-size: 13px;
+`;
+ 
 
 const UserBtn = styled.div`
 width: 360px;
