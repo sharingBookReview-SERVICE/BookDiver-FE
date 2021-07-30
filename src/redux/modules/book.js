@@ -4,37 +4,35 @@ import instance from "../../shared/Request";
 
 
 //actions
-const GET_ALL_BOOKS = "book/GET_ALL_BOOKS";
 const GET_ONE_BOOK = "book/GET_ONE_BOOK";
 const GET_BESTSELLER = "book/GET_BESTSELLER";
+const GET_SEARCH_BOOKS = "book/GET_SEARCH_BOOKS";
 
 //actioncreator
-const getAllBooks = createAction(GET_ALL_BOOKS, (book_list) => ({ book_list }));
 const getOneBook = createAction(GET_ONE_BOOK, (book)=>({book}));
 const getBestSeller = createAction(GET_BESTSELLER, (book_list) =>({book_list}));
+const getSearchBooks = createAction(GET_SEARCH_BOOKS, (book_list)=>({book_list}));
 
 //initial
 const initialState = {
-    all_book_list: [],
     book :[],
     best_seller : [],
+    search_book_list : []
 };
 
-//middle
-//전체 책 불러오기
-const getAllBookSV = () => {
-    return function(dispatch){
-    
-      instance.get('/books')
-        .then((res)=>{
-            console.log(res)
-            dispatch(getAllBooks(res.data));
-        })
-        .catch((err)=> {
-            window.alert("책 로드 실패");
-            console.log("책로드 실패", err)
-        })
 
+
+//검색한 책 불러오기
+const getSearchBooksSV = (target, query)=>{
+    return function(dispatch, getState, {history}){
+        instance.get('/books?target='+ target+'&query='+ query)
+        .then((res)=>{
+            dispatch(getSearchBooks(res.data.searchList));
+        })
+        .catch((err)=>{
+            window.alert("검색 책 로드 실패");
+            console.log("검색 책 로드 실패", err);
+        })
     }
 }
 
@@ -69,10 +67,6 @@ const getBestSellerSV = ()=>{
 //reducer
 export default handleActions(
     {
-        [GET_ALL_BOOKS]: (state, action) =>
-        produce(state, (draft) => {
-          draft.all_book_list = action.payload.book_list;
-        }),
         [GET_ONE_BOOK]: (state, action)=>
         produce(state, (draft)=>{
             draft.book = action.payload.book;
@@ -81,6 +75,10 @@ export default handleActions(
         produce(state, (draft)=>{
             draft.best_seller = action.payload.book_list;
         }),
+        [GET_SEARCH_BOOKS]: (state, action) =>
+        produce(state, (draft)=>{
+            draft.search_book_list = action.payload.book_list;
+        })
  
     },
     initialState
@@ -88,9 +86,9 @@ export default handleActions(
   
 
 const actionCreators = {
-    getAllBookSV,
     getOneBookSV,
     getBestSellerSV,
+    getSearchBooksSV
 };
   
 export { actionCreators };

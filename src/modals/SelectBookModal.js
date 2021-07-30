@@ -8,26 +8,44 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 
 const SelectBookModal = (props) =>{
   const dispatch = useDispatch();
-  const all_book_list = useSelector(state => state.book.all_book_list);
+  const search_book_list = useSelector(state => state.book.search_book_list);
   const {setOpenSelect, setBookId} = props;
+  const [searchWord, setSearchWord] = useState("");
 
-
-//useEffect
-React.useEffect(()=>{
-  dispatch(bookActions.getAllBookSV());
-},[]);
-
-
+//책 검색
+  const searchBook = ()=>{
+    if(searchWord === ""){
+      window.alert("검색어를 입력해주세요")
+    }
+    else{
+      dispatch(bookActions.getSearchBooksSV("title", searchWord));
+    }
+    
+  }
 //뷰
 
     return(
         <React.Fragment>
 
             <Container>
-              <Input placeholder="책이름, 저자명 등으로 검색해보세요"></Input>
+              <Input 
+              placeholder="책이름, 저자명 등으로 검색해보세요"
+             
+              onChange={(e)=>{
+                setSearchWord(e.target.value);
+              }}
+             
+              onKeyPress ={(e)=>{
+                if(e.key === "Enter"){
+                  searchBook();
+                }
+              }}
+              ></Input>
+              
               {
-                all_book_list.map((book)=>{
-                  return <SelectBookCard key={book.isbn} {...book} setBookId={setBookId} setOpenSelect={setOpenSelect}></SelectBookCard>
+                search_book_list &&
+                search_book_list.map((book)=>{
+                  return(<SelectBookCard key={book.isbn} {...book} setBookId={setBookId} setOpenSelect={setOpenSelect}/>)
                 })
               }
             </Container>
