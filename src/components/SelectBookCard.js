@@ -1,12 +1,20 @@
 //import 부분
 import React from "react";
-import styled from "styled-components"
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { actionCreators as bookActions } from "../redux/modules/book";
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, bookId,setBookId, setOpenSelect, isSelected} = props;
+  
+  const {title, author, image, isbn,setBookId, setOpenSelect, isSelected} = props;
  
+  const dispatch = useDispatch();
+  const selectBook = ()=>{
+    dispatch(bookActions.getOneBookSV(isbn));
+  }
     return(
       <BookInfoWrapper>
+        {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}
         {
           isSelected ?
           <BookInfoBox
@@ -21,9 +29,10 @@ const SelectBookCard = (props) =>{
             </BookInfoBox>
             :
             <BookInfoBox 
-          onClick={()=>{
-            setBookId(bookId);
+            onClick={()=>{
+            setBookId(isbn);
             setOpenSelect(false);
+            selectBook();
             }}>
             <BookImg src={image}/>
             <BookDescBox>

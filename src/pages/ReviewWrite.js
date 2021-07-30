@@ -3,29 +3,23 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
-import {actionCreators as permitAction} from "../redux/modules/permit";
-import { actionCreators as bookActions } from "../redux/modules/book";
 import {useDispatch, useSelector} from "react-redux";
 import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
 
 const ReviewWrite = () => {
-    const dispatch = useDispatch();
     const [openSelect, setOpenSelect] = useState(false);
     const [bookId, setBookId] = useState("");
     const [isSelected, setIsSelected] = useState(false);
     const book = useSelector(state=> state.book.book);
 
 
-    React.useEffect(()=>{
-      dispatch(bookActions.getOneBookSV(bookId));
-    },[]);
-
     return (
 
     
         <React.Fragment>
+          {/* 책 선택 모달 열기 */}
             {
                 openSelect && <SelectBookModal setBookId={setBookId} setOpenSelect={setOpenSelect}/>
               }
@@ -35,6 +29,7 @@ const ReviewWrite = () => {
                     <LeftArrow src={left_arrow} onClick={()=>{history.goBack()}}/>
                     <ReviewHeaderText>게시하기</ReviewHeaderText>
                 </PostHeader>
+                {/* 책을 선택했으면 선택한 책 표시하기 */}
                 {
                   bookId === "" ? 
                   <BookChoice onClick={()=>{ setOpenSelect(true)}} >
@@ -42,7 +37,7 @@ const ReviewWrite = () => {
                   <Text>리뷰할 책 선택하기</Text>
                  </BookChoice>
                  :
-                 <SelectBookCard setOpenSelect={setOpenSelect} isSelected {...book[0]}/>
+                 <SelectBookCard setOpenSelect={setOpenSelect} isSelected {...book}/>
 
                 }
               
