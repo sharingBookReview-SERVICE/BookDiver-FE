@@ -27,6 +27,7 @@ const getAllBookSV = () => {
     
       instance.get('/books')
         .then((res)=>{
+            console.log(res)
             dispatch(getAllBooks(res.data));
         })
         .catch((err)=> {

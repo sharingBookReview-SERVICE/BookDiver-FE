@@ -35,7 +35,7 @@ const Navigation = (props) => {
         value="login"
         icon={<AllInboxIcon />}
         onClick={()=>{
-          history.push("/myreview")
+          history.push("/myreviewfeed")
         }}
       />
       <BottomNavigationAction
@@ -43,7 +43,7 @@ const Navigation = (props) => {
         value="login"
         icon={<PersonIcon />}
         onClick={()=>{
-          history.push("/login")
+          history.push("/myprofile")
         }}
       />
     </BottomNavigation>

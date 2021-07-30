@@ -4,12 +4,26 @@ import styled from "styled-components";
 import {history} from "../redux/configStore";
 import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
 import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
+import LogoutModal from "../modals/LogoutModal";
+import SignoutModal from "../modals/SignoutModal";
+
 //마이 페이지
 const MyProfile = (props) =>{
+    const[logooutPop, setLogOutPop] = useState(false);
+    const[signoutPop , setSignOutPop] = useState(false);
+    
+    
 
     return(
         <React.Fragment>
-          
+          {/* 로그아웃 */}
+          {
+              logooutPop && <LogoutModal logooutPop={logooutPop} setLogOutPop={setLogOutPop}/>
+          }
+          {/* 회원탈퇴 */}
+          {
+              signoutPop && <SignoutModal signoutPop={signoutPop} setSignOutPop={setSignOutPop}/>
+          }
                 <Background>
                     <ProfileBox>
                         <ImageBox>
@@ -32,11 +46,17 @@ const MyProfile = (props) =>{
                             </MyActivity>
                         </MyActivityBox>
                         <UserBtn onClick={()=>{history.push('/changename')}}>닉네임 변경</UserBtn>
-                        <UserBtn onClick={()=>{window.alert("로그아웃 하시겠습니까?")}}>로그 아웃</UserBtn>
-                        <UserBtn onClick={()=>{window.alert("회원탈퇴 하시겠습니까?")}}>회원 탈퇴</UserBtn>
+                        <UserBtn onClick={()=>{ 
+                            setLogOutPop(true);    
+                        }}>로그 아웃</UserBtn>
+
+                        <UserBtn onClick={()=>{
+                            setSignOutPop(true);
+                        }}>회원 탈퇴</UserBtn>
                     </ProfileBox>
                 </Background>
         
+                        
         </React.Fragment>
     )
 }
@@ -50,6 +70,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 background: white;
+position: relative;
 
 `;
 

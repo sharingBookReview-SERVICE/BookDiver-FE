@@ -10,11 +10,13 @@ import Header from "../components/Header"
 
 
 const Home = (props) =>{
-    const dispatch = useDispatch();
-    //dispatch와 변수들
-    useEffect(()=>{
-        dispatch(permitAction.showNav(true))
-    },[])
+  //dispatch와 변수들
+  const dispatch = useDispatch();
+
+  //로딩이 되고나면, 네이게이션을 없애주기.
+  useEffect(()=>{
+    dispatch(permitAction.showNav(true))
+},[])
   
     return(
         <React.Fragment>

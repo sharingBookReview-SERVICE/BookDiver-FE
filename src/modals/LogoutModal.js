@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 const LogoutModal = (props) =>{
   //dispatch와 변수들
+  const {logooutPop, setLogOutPop} = props;
+
 
 //useEffect
 React.useEffect(()=>{
@@ -23,9 +25,9 @@ React.useEffect(()=>{
          </Text>
          <Hr></Hr>
          <BtnBox>
-         <Btn>취소</Btn>
+         <Btn onClick={()=>{setLogOutPop(false)}}>취소</Btn>
          <Hr/>
-         <Btn>로그아웃하기</Btn>
+         <Btn onClick={()=>{setLogOutPop(false)}}>로그아웃하기</Btn>
          </BtnBox>
         
           
@@ -46,6 +48,8 @@ const Outter = styled.div`
 flex-direction: column;
 justify-content: center;
 align-items: center;
+z-index: 100;
+position: absolute;
 `;
 const Container = styled.div`
 width: 320px;
