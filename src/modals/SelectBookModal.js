@@ -18,43 +18,42 @@ React.useEffect(()=>{
 },[]);
 
 
-
 //뷰
 
     return(
         <React.Fragment>
-          <Outter>
-         <Container>
-         <Input placeholder="책이름, 저자명 등으로 검색해보세요"></Input>
-         {
-           all_book_list.map((book)=>{
-             return <SelectBookCard key={book.isbn} {...book} setBookId={setBookId} setOpenSelect={setOpenSelect}></SelectBookCard>
-           })
-         }
-          
-         </Container>
-         </Outter>
+
+            <Container>
+              <Input placeholder="책이름, 저자명 등으로 검색해보세요"></Input>
+              {
+                all_book_list.map((book)=>{
+                  return <SelectBookCard key={book.isbn} {...book} setBookId={setBookId} setOpenSelect={setOpenSelect}></SelectBookCard>
+                })
+              }
+            </Container>
+
+          <Overlay 
+           onClick={()=>{
+            setOpenSelect(false);
+            console.log("클릭")
+            }}></Overlay>
         </React.Fragment>
     )
 }
 
-
-
-//styled components
-const Outter = styled.div`
+const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color:rgba(0, 0, 0, 0.5);
-  display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-z-index: 100;
-position: absolute;
-
+  z-index: 99;
+  position: fixed;
 `;
+
 const Container = styled.div`
-width: 320px;
+position:absolute;
+top:10%;
+left:10%;
+width: 80vw;
 height: 80vh;
 border-radius: 12px;
 justify-content: center;
@@ -64,15 +63,18 @@ border: solid 1px #eeeeee;
 background: #fff;
 overflow: scroll;
 overflow-x: hidden;
+z-index: 100;
+box-sizing:border-box;
 `;
 
 const Input = styled.input`
 border-radius: 12px;
-width: 90%;
+width: 85%;
 height: 48px;
 border: none;
 background-color: #f5f5f5;
-margin: 16px;
+margin: 16px 0px;
+padding-left:15px;
 `;
 
 
