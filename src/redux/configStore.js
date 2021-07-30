@@ -6,6 +6,7 @@ import comment from "../redux/modules/comment";
 import permit from "../redux/modules/permit";
 import review from "../redux/modules/review";
 import book from "../redux/modules/book";
+import user from "../redux/modules/user";
 
 
 const history = createBrowserHistory();
@@ -13,6 +14,8 @@ const rootReducer = combineReducers({
   review,
   permit,
   comment,
+  book,
+  user,
   router: connectRouter(history),
 });
 
