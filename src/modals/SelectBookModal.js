@@ -1,6 +1,7 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
+import SelectBookCard from "../components/SelectBookCard";
 
 
 const SelectBookModal = (props) =>{
@@ -19,7 +20,14 @@ React.useEffect(()=>{
           <Outter>
          <Container>
          <Input placeholder="책이름, 저자명 등으로 검색해보세요"></Input>
-        
+        <SelectBookCard></SelectBookCard>
+        <SelectBookCard></SelectBookCard>
+        <SelectBookCard></SelectBookCard>
+        <SelectBookCard></SelectBookCard>
+        <SelectBookCard></SelectBookCard>
+        <SelectBookCard></SelectBookCard>
+        <SelectBookCard></SelectBookCard>
+
           
          </Container>
          </Outter>
@@ -38,6 +46,9 @@ const Outter = styled.div`
 flex-direction: column;
 justify-content: center;
 align-items: center;
+z-index: 100;
+position: absolute;
+
 `;
 const Container = styled.div`
 width: 320px;
@@ -48,6 +59,8 @@ align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
 background: #fff;
+overflow: scroll;
+overflow-x: hidden;
 `;
 
 const Input = styled.input`

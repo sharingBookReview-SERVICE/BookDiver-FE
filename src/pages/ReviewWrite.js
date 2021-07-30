@@ -1,26 +1,34 @@
 //import 부분
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
 import {actionCreators as permitAction} from "../redux/modules/permit";
 import {useDispatch} from "react-redux";
+import { history } from "../redux/configStore";
+import SelectBookModal from "../modals/SelectBookModal";
 
 const ReviewWrite = () => {
     // const dispatch = useDispatch();
     // useEffect(()=>{
     //     dispatch(permitAction.showNav(false))
     // },[])
+    const [openSelect, setOpenSelect] = useState(false);
+
     return (
 
+    
         <React.Fragment>
+            {
+                openSelect && <SelectBookModal/>
+              }
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
                     <LeftArrow src={left_arrow}/>
                     <ReviewHeaderText>게시하기</ReviewHeaderText>
                 </PostHeader>
-                <BookChoice>
+                <BookChoice onClick={()=>{ setOpenSelect(true)}} >
                     <img src={add_button}/>
                     <Text>리뷰할 책 선택하기</Text>
                 </BookChoice>
@@ -50,7 +58,17 @@ const ReviewWrite = () => {
 }
 
 export default ReviewWrite;
-
+const PostWriteBox = styled.div`
+  width: 100vw;
+  height: auto;
+  flex-grow: 0;
+  padding: 20px 0 0;
+  background-color: #FFFFFF;
+  //border: 1px solid black;
+  margin: auto;
+  box-sizing: border-box;
+  position: relative;
+`;
 const Text = styled.text`
   font-size: 1em;
   text-align: left;
@@ -64,16 +82,7 @@ const StartPost = styled.div`
   height: 3vh;
   margin-top: -3vh;
 `;
-const PostWriteBox = styled.div`
-  width: 100vw;
-  height: auto;
-  flex-grow: 0;
-  padding: 20px 0 0;
-  background-color: #FFFFFF;
-  //border: 1px solid black;
-  margin: auto;
-  box-sizing: border-box;
-`;
+
 const PostHeader = styled.div`
   width: 100vw;
   height: 4vh;

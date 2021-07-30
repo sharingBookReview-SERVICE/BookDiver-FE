@@ -2,9 +2,10 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 import thunk from "redux-thunk";
-import comment from "../redux/modules/comment"
-import permit from "../redux/modules/permit"
-import review from "../redux/modules/review"
+import comment from "../redux/modules/comment";
+import permit from "../redux/modules/permit";
+import review from "../redux/modules/review";
+import book from "../redux/modules/book";
 
 
 const history = createBrowserHistory();
