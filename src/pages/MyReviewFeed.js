@@ -194,6 +194,12 @@ const FeedMain = styled.div`
 const CollectButton = styled.button`
   width: 85%;
   height: 7%;
+  position: fixed;
+  margin:0 auto;
+  top: 93vh;
+  left:0;
+  right:0;
+  z-index: 100;
   border: none;
   flex-direction: row;
   justify-content: flex-start;

@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 
 const SignoutModal = (props) =>{
-  //dispatch와 변수들
+
+  const {signoutPop, setSignOutPop} = props;
 
 //useEffect
 React.useEffect(()=>{
@@ -24,9 +25,9 @@ React.useEffect(()=>{
          </Text>
          <Hr></Hr>
          <BtnBox>
-         <Btn>취소</Btn>
+         <Btn onClick={()=>{setSignOutPop(false)}}>취소</Btn>
          <Hr/>
-         <Btn>회원탈퇴하기</Btn>
+         <Btn onClick={()=>{setSignOutPop(false)}}>회원탈퇴하기</Btn>
          </BtnBox>
         
           
@@ -47,6 +48,8 @@ const Outter = styled.div`
 flex-direction: column;
 justify-content: center;
 align-items: center;
+z-index: 100;
+position: absolute;
 `;
 const Container = styled.div`
 width: 320px;

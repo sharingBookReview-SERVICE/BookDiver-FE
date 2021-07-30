@@ -3,16 +3,36 @@ import React from "react";
 import styled from "styled-components"
 
 const SelectBookCard = (props) =>{
-
+  const {title, author, image, bookId,setBookId, setOpenSelect, isSelected} = props;
+ 
     return(
       <BookInfoWrapper>
-        <BookInfoBox>
-            <BookImg/>
+        {
+          isSelected ?
+          <BookInfoBox
+          onClick={()=>{
+            setOpenSelect(true);
+            }}>
+            <BookImg src={image}/>
             <BookDescBox>
-                <BookTitle>나는 금리로 경제를 읽는다</BookTitle>
-                <BookWriter>김의경 저</BookWriter>
+                <BookTitle>{title}</BookTitle>
+                <BookWriter>{author} 저</BookWriter>
             </BookDescBox>
-        </BookInfoBox>
+            </BookInfoBox>
+            :
+            <BookInfoBox 
+          onClick={()=>{
+            setBookId(bookId);
+            setOpenSelect(false);
+            }}>
+            <BookImg src={image}/>
+            <BookDescBox>
+                <BookTitle>{title}</BookTitle>
+                <BookWriter>{author} 저</BookWriter>
+            </BookDescBox>
+            </BookInfoBox>
+        }
+
       </BookInfoWrapper>
     )
 }
@@ -37,12 +57,14 @@ border: solid 1px #eeeeee;
 box-sizing: border-box;
 `
 
-const BookImg = styled.div`
+const BookImg = styled.img`
 width:60px;
 height:80px;
 border-radius:4px;
 background-color: #c4c4c4;
+
 `
+
 
 const BookDescBox = styled.div`
   display: flex;
@@ -56,11 +78,12 @@ const BookTitle = styled.p`
   font-weight: bold;
   letter-spacing: -0.28px;
   line-height: 1.43;
-  margin:0px;
+  margin: 0px 0px 5px 0px;
+  text-align: left;
 `
 
 const BookWriter = styled.p`
-font-size: 14px;
+font-size: 13px;
 line-height: 1.43;
 letter-spacing: -0.28px;
 text-align: left;

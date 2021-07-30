@@ -1,29 +1,51 @@
 //import 부분
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
 import {actionCreators as permitAction} from "../redux/modules/permit";
-import {useDispatch} from "react-redux";
+import { actionCreators as bookActions } from "../redux/modules/book";
+import {useDispatch, useSelector} from "react-redux";
+import { history } from "../redux/configStore";
+import SelectBookModal from "../modals/SelectBookModal";
+import SelectBookCard from "../components/SelectBookCard";
 
 const ReviewWrite = () => {
-    // const dispatch = useDispatch();
-    // useEffect(()=>{
-    //     dispatch(permitAction.showNav(false))
-    // },[])
+    const dispatch = useDispatch();
+    const [openSelect, setOpenSelect] = useState(false);
+    const [bookId, setBookId] = useState("");
+    const [isSelected, setIsSelected] = useState(false);
+    const book = useSelector(state=> state.book.book);
+
+
+    React.useEffect(()=>{
+      dispatch(bookActions.getOneBookSV(bookId));
+    },[]);
+
     return (
 
+    
         <React.Fragment>
+            {
+                openSelect && <SelectBookModal setBookId={setBookId} setOpenSelect={setOpenSelect}/>
+              }
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
-                    <LeftArrow src={left_arrow}/>
+                    <LeftArrow src={left_arrow} onClick={()=>{history.goBack()}}/>
                     <ReviewHeaderText>게시하기</ReviewHeaderText>
                 </PostHeader>
-                <BookChoice>
-                    <img src={add_button}/>
-                    <Text>리뷰할 책 선택하기</Text>
-                </BookChoice>
+                {
+                  bookId === "" ? 
+                  <BookChoice onClick={()=>{ setOpenSelect(true)}} >
+                  <img src={add_button}/>
+                  <Text>리뷰할 책 선택하기</Text>
+                 </BookChoice>
+                 :
+                 <SelectBookCard setOpenSelect={setOpenSelect} isSelected {...book[0]}/>
+
+                }
+              
                 <BookChoice style={{height: "35vh"}}>
                     <img src={add_button}/>
                     <Text>책 사진 업로드</Text>
@@ -50,7 +72,17 @@ const ReviewWrite = () => {
 }
 
 export default ReviewWrite;
-
+const PostWriteBox = styled.div`
+  width: 100vw;
+  height: auto;
+  flex-grow: 0;
+  padding: 20px 0 0;
+  background-color: #FFFFFF;
+  //border: 1px solid black;
+  margin: auto;
+  box-sizing: border-box;
+  position: relative;
+`;
 const Text = styled.text`
   font-size: 1em;
   text-align: left;
@@ -64,16 +96,7 @@ const StartPost = styled.div`
   height: 3vh;
   margin-top: -3vh;
 `;
-const PostWriteBox = styled.div`
-  width: 100vw;
-  height: auto;
-  flex-grow: 0;
-  padding: 20px 0 0;
-  background-color: #FFFFFF;
-  //border: 1px solid black;
-  margin: auto;
-  box-sizing: border-box;
-`;
+
 const PostHeader = styled.div`
   width: 100vw;
   height: 4vh;
