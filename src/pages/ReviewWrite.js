@@ -7,17 +7,33 @@ import {useDispatch, useSelector} from "react-redux";
 import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
+import {actionCreators as reviewActions} from "../redux/modules/review";
+
 
 const ReviewWrite = () => {
+    const dispatch = useDispatch();
+    const quote = React.useRef();
+    const content = React.useRef();
+    const hashtags = React.useRef();
+
+    const addReview = () => {
+        let review = {
+            quote: quote.current.value,
+            content: content.current.value,
+            hashtags: hashtags.current.value,
+        };
+        dispatch(reviewActions.addReviewSV(review, bookId));
+        console.log(review, bookId);
+    }
+
     const [openSelect, setOpenSelect] = useState(false);
     const [bookId, setBookId] = useState("");
     const [isSelected, setIsSelected] = useState(false);
     const book = useSelector(state=> state.book.book);
 
 
-    return (
 
-    
+    return (
         <React.Fragment>
           {/* 책 선택 모달 열기 */}
             {
@@ -27,7 +43,7 @@ const ReviewWrite = () => {
                 <StartPost></StartPost>
                 <PostHeader>
                     <LeftArrow src={left_arrow} onClick={()=>{history.goBack()}}/>
-                    <ReviewHeaderText>게시하기</ReviewHeaderText>
+                    <ReviewHeaderText onClick={addReview}>게시하기</ReviewHeaderText>
                 </PostHeader>
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
                 {
@@ -48,17 +64,17 @@ const ReviewWrite = () => {
                 </BookChoice>
                 <InputQuotes>
                     <Text>인용구 작성하기</Text>
-                    <QuotesTextarea placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요">
+                    <QuotesTextarea ref={quote} placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요">
                     </QuotesTextarea>
                 </InputQuotes>
                 <AddReview>
                     <Text>리뷰작성</Text>
-                    <QuotesTextarea placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)">
+                    <QuotesTextarea ref={content} placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)">
                     </QuotesTextarea>
                 </AddReview>
                 <HashTag>
                     <Text>해시태그작성</Text><br/>
-                    <HashInput placeholder="예) #자기계발"></HashInput>
+                    <HashInput ref={hashtags} placeholder="예) #자기계발"></HashInput>
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
@@ -106,7 +122,7 @@ const LeftArrow = styled.img`
   float: left;
 
 `;
-const ReviewHeaderText = styled.div`
+const ReviewHeaderText = styled.button`
   width: 20vw;
   height: 5vh;
   flex-grow: 0;
@@ -118,6 +134,7 @@ const ReviewHeaderText = styled.div`
   margin: 0.2em 0.2em 0 0;
   color: #9e9e9e;
   box-sizing: border-box;
+  border:none;
   //border: 1px solid black;
 `;
 
