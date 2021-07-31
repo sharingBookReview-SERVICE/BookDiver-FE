@@ -6,10 +6,7 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as modalActions } from "../redux/modules/modal";
 
 const SelectBookCard = (props) =>{
-  
   const {title, author, image, isbn,  isSelected} = props;
-  
- 
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   

@@ -22,9 +22,9 @@ const Home = (props) =>{
         <React.Fragment>
             <HomeBackGroundColor>
                 <Header/>
-                <ReviewCard/>
-                <ReviewCard/>
-                <ReviewCard/>
+                    <ReviewCard/>
+                    <ReviewCard/>
+                    <ReviewCard/>
             </HomeBackGroundColor>
 
             <FloatButton>
