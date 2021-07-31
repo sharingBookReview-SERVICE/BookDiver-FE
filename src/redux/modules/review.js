@@ -10,6 +10,7 @@ const LIKE = "review/LIKE"
 const DELETE_REVIEW = "review/DELETE_REVIEW";
 const EDIT_REVIEW = "review/EDIT_REVIEW";
 const DETAIL_REVIEW = "review/DETAIL_REVIEW";
+const GET_FEED_ID = "review/GET_REVIEW_ID"
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
@@ -18,7 +19,7 @@ const addReview = createAction(ADD_REVIEW, (review) => ({review}));
 const deleteReview = createAction(DELETE_REVIEW, (review) => ({review}));
 const editReview = createAction(EDIT_REVIEW, (bookId, reviewId) => ({bookId, reviewId}));
 const detailReview = createAction(DELETE_REVIEW, (bookId, reviewId) => ({bookId, reviewId}));
-
+const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}))
 
 //initial
 const initialState = {
@@ -33,6 +34,10 @@ const initialState = {
         myLike:true,
         likes:10,
     }],
+    feed_id: {
+        bookId: "",
+        reviewId: "",
+    }
 
 };
 
@@ -74,8 +79,12 @@ const addReviewSV = (review, bookId) => {
 };
 
 //포스트 삭제하기
-const deleteReviewSV = (bookId, reviewId) => {
-    return function (dispatch) {
+const deleteReviewSV = () => {
+    console.log("------클릭 되었습니다.")
+    return function (dispatch, getState) {
+        const bookId = getState().review.feed_id.bookId
+        const reviewId = getState().review.feed_id.reviewId
+        console.log(bookId, reviewId)
 
         instance
         .delete(`/books/${bookId}/reviews/${reviewId}`)
@@ -136,6 +145,7 @@ const LikeSV = (bookId, reviewId) => {
     };
 };
 
+
 //reducer
 export default handleActions(
     {
@@ -173,6 +183,11 @@ export default handleActions(
               draft.review[idx].myLike = !draft.review[idx].myLike;
             }
         }),
+        [GET_FEED_ID]: (state, action) => 
+        produce(state, (draft) => {
+            draft.feed_id.bookId = action.payload.bookId
+            draft.feed_id.reviewId = action.payload.reviewId
+        } )
     },
     initialState
   );
@@ -184,6 +199,7 @@ const actionCreators = {
     deleteReviewSV,
     editReviewSV,
     detailReviewSV,
+    getFeedId,
 };
 
 export { actionCreators };

@@ -11,13 +11,6 @@ import EditIcon from '@material-ui/icons/Edit';
 
 const Navigation = (props) => {
 
-    useEffect(() => {
-      const list = document.querySelectorAll(".slick-list")
-      list[0].style.setProperty("width", "auto", "important")
-      console.log()
-    })
-
-    
   return (
     <BottomNavigation style={{ background: "#fafafa",position:"fixed", bottom:"0", width:"100%" }}>
       <BottomNavigationAction

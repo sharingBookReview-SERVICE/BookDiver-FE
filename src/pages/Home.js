@@ -8,19 +8,23 @@ import ReviewCard from "../components/ReviewCard"
 import AddIcon from '@material-ui/icons/Add';
 
 import Header from "../components/Header"
+import EditModal from "../modals/EditModal";
 
 
 const Home = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
+  const is_modal = useSelector(state => state.permit.is_modal);
 
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(()=>{
     dispatch(permitAction.showNav(true))
       dispatch(reviewActions.getAllReviewSV());
-},[])
-    const reviewList = useSelector(state => state.review.all_review_list.feeds)
-console.log(reviewList)
+  },[])
+
+  const reviewList = useSelector(state => state.review.all_review_list.feeds)
+  console.log(reviewList)
+
     return(
         <React.Fragment>
             <HomeBackGroundColor>
@@ -40,7 +44,9 @@ console.log(reviewList)
             <FloatButton>
                 <AddIcon style={{color:"#fafafa", fontSize:"30px"}}/>
             </FloatButton>
-
+            {
+                is_modal && <EditModal/>
+            }
         </React.Fragment>
     )
 }
