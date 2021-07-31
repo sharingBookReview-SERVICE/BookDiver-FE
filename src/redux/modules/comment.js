@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import {history} from "../configStore"
 
 //actions
 const GET_COMMENT = "comment/GET_COMMENT";

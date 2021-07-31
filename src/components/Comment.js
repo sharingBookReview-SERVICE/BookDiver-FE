@@ -4,7 +4,6 @@ import styled from "styled-components"
 
 
 const Comment = (props) =>{
-  console.log(props)
 
     return(
         <React.Fragment>

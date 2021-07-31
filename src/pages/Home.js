@@ -33,7 +33,7 @@ const Home = (props) =>{
                 {reviewList? reviewList.map((review, idx) => {
                     return(
                         <React.Fragment key={idx}>
-                            <ReviewCard review={review}/>
+                            <ReviewCard review={review} />
                         </React.Fragment>
                     )
                 }):

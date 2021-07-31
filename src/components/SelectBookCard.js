@@ -6,11 +6,11 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const SelectBookCard = (props) =>{
-  
   const {title, author, image, isbn} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
+
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
     dispatch(permitActions.bookSelect(true));
@@ -26,7 +26,7 @@ const SelectBookCard = (props) =>{
               dispatch(permitActions.showModal(true));
               dispatch(permitActions.bookSelect(false));
               }}>
-              <BookImg src={book.image}/>
+              <BookImg url={book.image}/>
               <BookDescBox>
                   <BookTitle>{book.title}</BookTitle>
                   <BookWriter>{book.author} 저</BookWriter>
@@ -40,7 +40,7 @@ const SelectBookCard = (props) =>{
                 dispatch(permitActions.showModal(false));
                 
               }}>
-              <BookImg src={image}/>
+              <BookImg url={image}/>
               <BookDescBox>
                   <BookTitle>{title}</BookTitle>
                   <BookWriter>{author} 저</BookWriter>
@@ -72,12 +72,12 @@ border: solid 1px #eeeeee;
 box-sizing: border-box;
 `
 
-const BookImg = styled.img`
+const BookImg = styled.div`
 width:60px;
 height:80px;
 border-radius:4px;
 background-color: #c4c4c4;
-
+background-image:url(${(props) => props.url ? props.url : " "});
 `
 
 

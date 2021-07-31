@@ -2,6 +2,7 @@
 import React, {useRef, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment"
+import { actionCreators as reviewAction } from "../redux/modules/review";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import {history} from "../redux/configStore";
 
@@ -18,19 +19,32 @@ import BookImg from "../img/bookImg2.jpg"
 
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
-
     const commentList = useSelector(state => state.comment.comment_list)
     const commentContent = useRef();
+    const bookId = props.match.params.bookid
+    const reviewId = props.match.params.reviewid
+    const reviewDetail = useSelector(state => state.review.review_detail)
+    const {
+        hashtags,
+        quote,
+        content,
+        comments,
+        book,
+    } = reviewDetail
+
+    console.log(book)
 
     //댓글 작성함수
     const writeComment = (comment_info) => {
         dispatch(commentAction.addComment(comment_info))
     }
 
-    //로딩이 되고나면, 네이게이션을 없애주기.
+//네비게이션을 없애고, 리뷰 상세를 불러오기
     useEffect(()=>{
         dispatch(permitAction.showNav(false))
+        dispatch(reviewAction.getDetailReviewSV(bookId,reviewId))
     },[])
+
 
     return(
         <React.Fragment>
@@ -59,13 +73,15 @@ const ReviewDetail = (props) =>{
                         </UserRightBox>
                     </CommentUserBox>
 
-                    <SelectBookCard/>
+                    <SelectBookCard {...book}/>
                     <Image src={BookImg}/>
 
                     <ContentBox>
-                        <ContentTitle>"나는 나보다 더 훌륭한 경영자에게 투자한다"</ContentTitle>
-                        <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
-                        <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
+                        <ContentTitle>{quote}</ContentTitle>
+                        <Content>{content}</Content>
+                        <HashTag>{hashtags.map((tag)=> {
+                            return(`#${tag} `)
+                        })}</HashTag>
                     </ContentBox>
 
                     <LikeCommentWrapper>
