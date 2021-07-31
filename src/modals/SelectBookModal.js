@@ -9,7 +9,7 @@ import { actionCreators as modalActions } from "../redux/modules/modal";
 
 const SelectBookModal = (props) =>{
   const dispatch = useDispatch();
-  const is_modal = useSelector(state=> state.modal.is_modal);
+
   const search_book_list = useSelector(state => state.book.search_book_list);
   const [searchWord, setSearchWord] = useState("");
 

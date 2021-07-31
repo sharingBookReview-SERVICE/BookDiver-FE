@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
-import modal, { actionCreators as modalActions } from "../redux/modules/modal";
+import { actionCreators as modalActions } from "../redux/modules/modal";
 
 const SelectBookCard = (props) =>{
   
