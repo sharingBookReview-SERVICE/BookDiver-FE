@@ -1,14 +1,18 @@
 //import 부분
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
+import modal, { actionCreators as modalActions } from "../redux/modules/modal";
 
 const SelectBookCard = (props) =>{
   
-  const {title, author, image, isbn,setBookId, setOpenSelect, isSelected} = props;
+  const {title, author, image, isbn,  isSelected} = props;
+  
  
   const dispatch = useDispatch();
+  const book = useSelector(state=> state.book.book);
+  
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
   }
@@ -19,20 +23,21 @@ const SelectBookCard = (props) =>{
           isSelected ?
           <BookInfoBox
           onClick={()=>{
-            setOpenSelect(true);
+            dispatch(modalActions.showModal());
             }}>
-            <BookImg src={image}/>
+            <BookImg src={book.image}/>
             <BookDescBox>
-                <BookTitle>{title}</BookTitle>
-                <BookWriter>{author} 저</BookWriter>
+                <BookTitle>{book.title}</BookTitle>
+                <BookWriter>{book.author} 저</BookWriter>
             </BookDescBox>
             </BookInfoBox>
             :
+            // 검색할때 나오는 책 카드
             <BookInfoBox 
             onClick={()=>{
-            setBookId(isbn);
-            setOpenSelect(false);
-            selectBook();
+              dispatch(modalActions.closeModal());
+           
+              selectBook();
             }}>
             <BookImg src={image}/>
             <BookDescBox>

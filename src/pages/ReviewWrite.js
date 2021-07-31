@@ -8,10 +8,13 @@ import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
 import {actionCreators as reviewActions} from "../redux/modules/review";
+import { actionCreators as modalActions } from "../redux/modules/modal";
 
 
 const ReviewWrite = () => {
     const dispatch = useDispatch();
+    const is_modal = useSelector(state=> state.modal.is_modal);
+
     const quote = React.useRef();
     const content = React.useRef();
     const hashtags = React.useRef();
@@ -26,7 +29,6 @@ const ReviewWrite = () => {
         console.log(review, bookId);
     }
 
-    const [openSelect, setOpenSelect] = useState(false);
     const [bookId, setBookId] = useState("");
     const [isSelected, setIsSelected] = useState(false);
     const book = useSelector(state=> state.book.book);
@@ -37,28 +39,34 @@ const ReviewWrite = () => {
         <React.Fragment>
           {/* 책 선택 모달 열기 */}
             {
-                openSelect && <SelectBookModal setBookId={setBookId} setOpenSelect={setOpenSelect}/>
+                is_modal && <SelectBookModal/>
               }
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
-                    <LeftArrow src={left_arrow} onClick={()=>{history.goBack()}}/>
-                    <ReviewHeaderText onClick={addReview}>게시하기</ReviewHeaderText>
+                    <LeftArrow 
+                      src={left_arrow} 
+                      onClick={()=>{history.goBack()}}/>
+                    <ReviewHeaderText 
+                      onClick={()=>{addReview()}}>
+                        게시하기</ReviewHeaderText>
                 </PostHeader>
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
                 {
-                  bookId === "" ? 
-                  <BookChoice onClick={()=>{ setOpenSelect(true)}} >
-                  <img src={add_button}/>
+                  book.length===0 ? 
+                  <BookChoice 
+                    onClick={()=>{ 
+                      dispatch(modalActions.showModal())}} >
+                  <img src={add_button} alt="add btn"/>
                   <Text>리뷰할 책 선택하기</Text>
                  </BookChoice>
                  :
-                 <SelectBookCard setOpenSelect={setOpenSelect} isSelected {...book}/>
+                 <SelectBookCard isSelected/>
 
                 }
               
                 <BookChoice style={{height: "35vh"}}>
-                    <img src={add_button}/>
+                    <img src={add_button} alt="add btn"/>
                     <Text>책 사진 업로드</Text>
                     <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
                 </BookChoice>

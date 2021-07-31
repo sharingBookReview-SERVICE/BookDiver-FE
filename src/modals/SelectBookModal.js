@@ -4,12 +4,13 @@ import styled from "styled-components";
 import SelectBookCard from "../components/SelectBookCard";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
+import { actionCreators as modalActions } from "../redux/modules/modal";
 
 
 const SelectBookModal = (props) =>{
   const dispatch = useDispatch();
+  const is_modal = useSelector(state=> state.modal.is_modal);
   const search_book_list = useSelector(state => state.book.search_book_list);
-  const {setOpenSelect, setBookId} = props;
   const [searchWord, setSearchWord] = useState("");
 
 //책 검색
@@ -45,15 +46,15 @@ const SelectBookModal = (props) =>{
               {
                 search_book_list &&
                 search_book_list.map((book)=>{
-                  return(<SelectBookCard key={book.isbn} {...book} setBookId={setBookId} setOpenSelect={setOpenSelect}/>)
+                  return(<SelectBookCard key={book.isbn} {...book} />)
                 })
               }
             </Container>
 
+          {/* 팝업 닫기 */}
           <Overlay 
            onClick={()=>{
-            setOpenSelect(false);
-            console.log("클릭")
+            dispatch(modalActions.closeModal());
             }}></Overlay>
         </React.Fragment>
     )
