@@ -7,23 +7,23 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const SelectBookCard = (props) =>{
   
-  const {title, author, image, isbn,  isSelected} = props;
-  
- 
+  const {title, author, image, isbn} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
-  
+  const is_selected = useSelector(state=> state.permit.is_selected);
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
+    dispatch(permitActions.bookSelect(true));
   }
     return(
       <BookInfoWrapper>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}
         {
-          isSelected ?
+          is_selected ?
           <BookInfoBox
           onClick={()=>{
             dispatch(permitActions.showModal(true));
+            dispatch(permitActions.bookSelect(false));
             }}>
             <BookImg src={book.image}/>
             <BookDescBox>
@@ -35,9 +35,9 @@ const SelectBookCard = (props) =>{
             // 검색할때 나오는 책 카드
             <BookInfoBox 
             onClick={()=>{
-              dispatch(permitActions.showModal(false));
-           
               selectBook();
+              dispatch(permitActions.showModal(false));
+              
             }}>
             <BookImg src={image}/>
             <BookDescBox>

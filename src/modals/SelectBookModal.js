@@ -13,6 +13,7 @@ const SelectBookModal = (props) =>{
   const search_book_list = useSelector(state => state.book.search_book_list);
   const [searchWord, setSearchWord] = useState("");
 
+  console.log(search_book_list)
 //책 검색
   const searchBook = ()=>{
     if(searchWord === ""){

@@ -7,11 +7,13 @@ import instance from "../../shared/Request";
 const GET_ONE_BOOK = "book/GET_ONE_BOOK";
 const GET_BESTSELLER = "book/GET_BESTSELLER";
 const GET_SEARCH_BOOKS = "book/GET_SEARCH_BOOKS";
+const RESET_SELECTED_BOOK = "book/RESET_SELECTED_BOOK";
 
 //actioncreator
 const getOneBook = createAction(GET_ONE_BOOK, (book)=>({book}));
 const getBestSeller = createAction(GET_BESTSELLER, (book_list) =>({book_list}));
 const getSearchBooks = createAction(GET_SEARCH_BOOKS, (book_list)=>({book_list}));
+const resetSelectedBook = createAction(RESET_SELECTED_BOOK, (book)=> ({book}));
 
 //initial
 const initialState = {
@@ -50,6 +52,8 @@ const getOneBookSV = (id)=>{
     }
 }
 
+
+
 //베스트 셀러 불러오기
 const getBestSellerSV = ()=>{
     return function(dispatch){
@@ -78,6 +82,11 @@ export default handleActions(
         [GET_SEARCH_BOOKS]: (state, action) =>
         produce(state, (draft)=>{
             draft.search_book_list = action.payload.book_list;
+        }),
+        [RESET_SELECTED_BOOK]: (state, action) =>
+        produce(state,(draft)=>{
+            draft.book = [];
+            draft.search_book_list = [];
         })
  
     },
@@ -88,7 +97,8 @@ export default handleActions(
 const actionCreators = {
     getOneBookSV,
     getBestSellerSV,
-    getSearchBooksSV
+    getSearchBooksSV,
+    resetSelectedBook
 };
   
 export { actionCreators };
