@@ -8,13 +8,20 @@ import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
 import {actionCreators as reviewActions} from "../redux/modules/review";
-import { actionCreators as modalActions } from "../redux/modules/modal";
+import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as bookActions } from "../redux/modules/book";
 
 
 const ReviewWrite = () => {
     const dispatch = useDispatch();
-    const is_modal = useSelector(state=> state.modal.is_modal);
+    const is_modal = useSelector(state=> state.permit.is_modal);
+    const book = useSelector(state=> state.book.book);
 
+    React.useEffect(()=>{
+      dispatch(bookActions.resetSelectedBook());
+      dispatch(permitActions.bookSelect(false));
+    },[])
+    
     const quote = React.useRef();
     const content = React.useRef();
     const hashtags = React.useRef();
@@ -33,10 +40,6 @@ const ReviewWrite = () => {
       console.log(review, book.isbn);
       }
     }
-
-
-    const book = useSelector(state=> state.book.book);
-
 
     return (
         <React.Fragment>
@@ -58,12 +61,12 @@ const ReviewWrite = () => {
                 {book.length === 0 ? 
                   <BookChoice 
                     onClick={()=>{ 
-                      dispatch(modalActions.showModal())}} >
+                      dispatch(permitActions.showModal(true))}} >
                   <img src={add_button} alt="add btn"/>
                   <Text>리뷰할 책 선택하기</Text>
                  </BookChoice>
                  :
-                 <SelectBookCard isSelected/>
+                 <SelectBookCard/>
                 }
     
                 <BookChoice style={{height: "35vh"}}>
