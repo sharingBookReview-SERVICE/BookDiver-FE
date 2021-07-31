@@ -12,6 +12,7 @@ const SelectBookCard = (props) =>{
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
   }
+  
     return(
       <BookInfoWrapper>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}

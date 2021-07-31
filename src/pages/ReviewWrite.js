@@ -78,6 +78,7 @@ const PostWriteBox = styled.div`
   box-sizing: border-box;
   position: relative;
 `;
+
 const Text = styled.text`
   font-size: 1em;
   text-align: left;

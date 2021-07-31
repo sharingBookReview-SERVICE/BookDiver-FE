@@ -21,6 +21,7 @@ import MyReviewFind from "../pages/MyReviewFind";
 
 function App() {
   const is_nav = useSelector(state => state.permit.is_nav)
+  
 
   return (
     <React.Fragment>
