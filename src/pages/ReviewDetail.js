@@ -288,6 +288,9 @@ padding:0 0 0 16px;
 background-color:#f5f5f5;
 border:none;
 border-radius:12px;
+:focus{
+    outline:none;
+}
 `
 
 const CommentWriteButton = styled.div`

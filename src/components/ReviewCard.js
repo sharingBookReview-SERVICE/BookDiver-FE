@@ -82,7 +82,9 @@ const ReviewCard = (props) => {
                     <BookTitle>{book.title} | {book.author} </BookTitle>
                     <Quote>{quote}</Quote>
                     <Content>{content}</Content>
-                    <HashTag>{hashtags}</HashTag>
+                    <HashTag>{hashtags.map((tag)=> {
+                            return(`#${tag} `)
+                        })}</HashTag>
                 </ContentBox>
 
                 <LikeCommentBox>
