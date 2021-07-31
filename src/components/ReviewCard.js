@@ -11,10 +11,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review"
 import {history} from "../redux/configStore";
 
+import EditModal from "../modals/EditModal";
+
 const ReviewCard = (props) =>{
   //dispatch와 변수들
-  const {content, hashtags, quote, created_at} = props.review;
+  const {content, hashtags, quote, created_at, bookId} = props.review;
+
   const dispatch = useDispatch();
+
+    const is_modal = useSelector(state=> state.permit.is_modal);
   
   // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
 
@@ -58,7 +63,7 @@ const ReviewCard = (props) =>{
                   history.push('/reviewdetail')
                 }}>
 
-                    <BookTitle>돈의 속성 | 김승호 저</BookTitle>
+                    <BookTitle>{bookId.title} | {bookId.author} </BookTitle>
                     <Quote>{quote}</Quote>
                     <Content>{content}</Content>
                     <HashTag>{hashtags}</HashTag>
