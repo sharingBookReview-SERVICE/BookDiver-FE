@@ -6,16 +6,32 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, isbn} = props;
+  const {title, author, image, isbn, is_reviewDetail} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
+  console.log(is_reviewDetail)
 
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
     dispatch(permitActions.bookSelect(true));
   }
   
+
+  if(is_reviewDetail){
+    return(
+      <BookInfoWrapper>
+        <BookInfoBox>
+          <BookImg url={image}/>
+          <BookDescBox>
+              <BookTitle>{title}</BookTitle>
+              <BookWriter>{author} 저</BookWriter>
+          </BookDescBox>
+        </BookInfoBox>
+      </BookInfoWrapper>
+    )
+  }
+
     return(
       <BookInfoWrapper>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}

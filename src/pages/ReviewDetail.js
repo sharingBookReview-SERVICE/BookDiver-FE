@@ -73,7 +73,7 @@ const ReviewDetail = (props) =>{
                         </UserRightBox>
                     </CommentUserBox>
 
-                    <SelectBookCard {...book}/>
+                    <SelectBookCard {...book} is_reviewDetail/>
                     <Image src={BookImg}/>
 
                     <ContentBox>
