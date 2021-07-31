@@ -21,12 +21,13 @@ const ReviewWrite = () => {
       dispatch(bookActions.resetSelectedBook());
       dispatch(permitActions.bookSelect(false));
     },[])
+    
     const quote = React.useRef();
     const content = React.useRef();
     const hashtags = React.useRef();
 
     const addReview = () => {
-      if(book.length===0){
+      if(book.length  === 0){
         window.alert("책을 선택해주세요!");
       }
       else{
@@ -38,19 +39,13 @@ const ReviewWrite = () => {
       dispatch(reviewActions.addReviewSV(review, book.isbn));
       console.log(review, book.isbn);
       }
-       
     }
-
-
-
-
 
     return (
         <React.Fragment>
+          
           {/* 책 선택 모달 열기 */}
-            {
-                is_modal && <SelectBookModal/>
-              }
+            {is_modal && <SelectBookModal/>}
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
@@ -61,9 +56,9 @@ const ReviewWrite = () => {
                       onClick={()=>{addReview()}}>
                         게시하기</ReviewHeaderText>
                 </PostHeader>
+
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
-                {
-                  book.length===0 ? 
+                {book.length === 0 ? 
                   <BookChoice 
                     onClick={()=>{ 
                       dispatch(permitActions.showModal(true))}} >
@@ -72,9 +67,8 @@ const ReviewWrite = () => {
                  </BookChoice>
                  :
                  <SelectBookCard/>
-
                 }
-              
+    
                 <BookChoice style={{height: "35vh"}}>
                     <img src={add_button} alt="add btn"/>
                     <Text>책 사진 업로드</Text>
@@ -112,6 +106,7 @@ const PostWriteBox = styled.div`
   box-sizing: border-box;
   position: relative;
 `;
+
 const Text = styled.text`
   font-size: 1em;
   text-align: left;

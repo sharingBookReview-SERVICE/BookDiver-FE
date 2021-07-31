@@ -15,35 +15,36 @@ const SelectBookCard = (props) =>{
     dispatch(bookActions.getOneBookSV(isbn));
     dispatch(permitActions.bookSelect(true));
   }
+  
     return(
       <BookInfoWrapper>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}
         {
           is_selected ?
-          <BookInfoBox
-          onClick={()=>{
-            dispatch(permitActions.showModal(true));
-            dispatch(permitActions.bookSelect(false));
-            }}>
-            <BookImg src={book.image}/>
-            <BookDescBox>
-                <BookTitle>{book.title}</BookTitle>
-                <BookWriter>{book.author} 저</BookWriter>
-            </BookDescBox>
+            <BookInfoBox
+              onClick={()=>{
+              dispatch(permitActions.showModal(true));
+              dispatch(permitActions.bookSelect(false));
+              }}>
+              <BookImg src={book.image}/>
+              <BookDescBox>
+                  <BookTitle>{book.title}</BookTitle>
+                  <BookWriter>{book.author} 저</BookWriter>
+              </BookDescBox>
             </BookInfoBox>
             :
             // 검색할때 나오는 책 카드
             <BookInfoBox 
-            onClick={()=>{
-              selectBook();
-              dispatch(permitActions.showModal(false));
-              
-            }}>
-            <BookImg src={image}/>
-            <BookDescBox>
-                <BookTitle>{title}</BookTitle>
-                <BookWriter>{author} 저</BookWriter>
-            </BookDescBox>
+              onClick={()=>{
+                selectBook();
+                dispatch(permitActions.showModal(false));
+                
+              }}>
+              <BookImg src={image}/>
+              <BookDescBox>
+                  <BookTitle>{title}</BookTitle>
+                  <BookWriter>{author} 저</BookWriter>
+              </BookDescBox>
             </BookInfoBox>
         }
 

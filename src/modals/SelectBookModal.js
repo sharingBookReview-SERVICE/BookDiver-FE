@@ -21,7 +21,6 @@ const SelectBookModal = (props) =>{
     else{
       dispatch(bookActions.getSearchBooksSV("title", searchWord));
     }
-    
   }
 //뷰
 

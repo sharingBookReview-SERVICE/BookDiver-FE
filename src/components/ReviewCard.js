@@ -18,10 +18,8 @@ import EditModal from "../modals/EditModal";
 
 const ReviewCard = (props) => {
     //dispatch와 변수들
-    const {content, hashtags, quote, created_at, bookId} = props.review;
+    const {content, hashtags, quote, created_at, bookId, _id} = props.review;
     const dispatch = useDispatch();
-
-    const is_modal = useSelector(state => state.permit.is_modal);
 
     // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
 
@@ -39,9 +37,7 @@ const ReviewCard = (props) => {
 
     return (
         <React.Fragment>
-            {
-                is_modal && <EditModal/>
-            }
+
             <CardBox>
 
                 <CommentUserBox>
@@ -58,6 +54,7 @@ const ReviewCard = (props) => {
                         <BookmarkBorderIcon style={{color: "#9e9e9e", marginRight: "10px"}}/>
                         <MoreHorizIcon style={{color: "#9e9e9e"}} onClick = {() => {
                             dispatch(permitActions.showModal(true))
+                            dispatch(reviewActions.getFeedId(bookId._id, _id))
                         }}/>
                     </UserRightBox>
                 </CommentUserBox>
@@ -108,6 +105,7 @@ const CardBox = styled.div`
   box-sizing: border-box;
   margin: 0px 0px 6px 0px;
   background-color: #fff;
+  position:relative;
 `
 
 const CommentUserBox = styled.div`

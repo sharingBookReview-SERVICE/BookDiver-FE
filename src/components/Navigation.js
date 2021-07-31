@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { history } from "../redux/configStore";
 
 import styled from "styled-components";
@@ -11,7 +11,6 @@ import EditIcon from '@material-ui/icons/Edit';
 
 const Navigation = (props) => {
 
-    
   return (
     <BottomNavigation style={{ background: "#fafafa",position:"fixed", bottom:"0", width:"100%" }}>
       <BottomNavigationAction
