@@ -55,7 +55,7 @@ const getAllReviewSV = () => {
 //포스트 추가하기
 const addReviewSV = (review, bookId) => {
     return function(dispatch){
-
+        console.log(bookId,review)
         instance
         .post(`/books/${bookId}/reviews`, {
             quote: review.quote,
@@ -172,10 +172,6 @@ export default handleActions(
               draft.review[idx].myLike = !draft.review[idx].myLike;
             }
         }),
-        [ADD_REVIEW] : (state, action) =>
-        produce(state, (draft) => {
-            draft.all_review_list.unshift(action.payload.review);
-        })
     },
     initialState
   );
