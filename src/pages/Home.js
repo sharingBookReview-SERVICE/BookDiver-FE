@@ -23,7 +23,7 @@ const Home = (props) =>{
   },[])
 
   const reviewList = useSelector(state => state.review.all_review_list.feeds)
-  console.log(reviewList)
+
 
     return(
         <React.Fragment>
