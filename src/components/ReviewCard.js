@@ -1,5 +1,5 @@
 //import 부분
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components"
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -8,15 +8,15 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as reviewAction } from "../redux/modules/comment"
+import { actionCreators as reviewActions } from "../redux/modules/review"
 import {history} from "../redux/configStore";
 
 const ReviewCard = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
-
-  const reviewList = useSelector(state => state.review.all_review_list)
-  const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
+  console.log(props)
+const {content, hashtags, quote, created_at} = props.review;
+  // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
 
   //서버 들어오기 전 임의로 좋아요 갯수 구하는 형식 만들어놓기
 //   const reviewId = 1;
@@ -26,7 +26,7 @@ const ReviewCard = (props) =>{
   //좋아요 클릭 
   const clickLikeButton = () => {
     //props로부터 bookId와 reviewId를 받아오기
-    dispatch(reviewAction.LikeSV());
+    dispatch(reviewActions.LikeSV());
   }
 
 
@@ -40,7 +40,7 @@ const ReviewCard = (props) =>{
                           닉네임닉네임
                       </UserName>
                       <CreatedAt>
-                          2021.07.24 21:04
+                          {created_at}
                       </CreatedAt>
                     </UserLeftBox>
 
@@ -57,20 +57,21 @@ const ReviewCard = (props) =>{
                 <ContentBox onClick={()=>{
                   history.push('/reviewdetail')
                 }}>
+
                     <BookTitle>돈의 속성 | 김승호 저</BookTitle>
-                    <Quote>"나는 나보다 더 훌륭한 경영자에게 투자한다"</Quote>
-                    <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
-                    <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
+                    <Quote>{quote}</Quote>
+                    <Content>{content}</Content>
+                    <HashTag>{hashtags}</HashTag>
                 </ContentBox>
 
                 <LikeCommentBox>
-                    <LikeBox>
-                        {is_liked ?
-                        <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>
-                        : <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/> }
-                        
-                        <LikeText>좋아요 {reviewList[0].likes}개</LikeText>
-                    </LikeBox>
+                    {/*<LikeBox>*/}
+                    {/*    {is_liked ?*/}
+                    {/*    <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>*/}
+                    {/*    : <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/> }*/}
+                    {/*    */}
+                    {/*    <LikeText>좋아요 {reviewList[0].likes}개</LikeText>*/}
+                    {/*</LikeBox>*/}
                     <WriteCommentBox>
                         <CommentCount>
                             댓글 0개

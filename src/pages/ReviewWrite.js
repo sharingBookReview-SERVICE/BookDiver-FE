@@ -34,7 +34,6 @@ const ReviewWrite = () => {
       }
        
     }
-
     const book = useSelector(state=> state.book.book);
 
 
