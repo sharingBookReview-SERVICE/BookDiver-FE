@@ -20,17 +20,21 @@ const ReviewWrite = () => {
     const hashtags = React.useRef();
 
     const addReview = () => {
+      if(book.length===0){
+        window.alert("책을 선택해주세요!");
+      }
+      else{
         let review = {
-            quote: quote.current.value,
-            content: content.current.value,
-            hashtags: hashtags.current.value,
+          quote: quote.current.value,
+          content: content.current.value,
+          hashtags: hashtags.current.value,
         };
-        dispatch(reviewActions.addReviewSV(review, bookId));
-        console.log(review, bookId);
+      dispatch(reviewActions.addReviewSV(review, book.isbn));
+      console.log(review, book.isbn);
+      }
+       
     }
 
-    const [bookId, setBookId] = useState("");
-    const [isSelected, setIsSelected] = useState(false);
     const book = useSelector(state=> state.book.book);
 
 
