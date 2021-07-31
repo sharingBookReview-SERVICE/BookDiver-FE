@@ -42,9 +42,10 @@ const getAllReviewSV = () => {
     return function(dispatch){
 
         instance
-        .get('/reviews')
+        .get('/feeds')
         .then((res) => {
-            dispatch(getAllReview(res.data)); 
+            dispatch(getAllReview(res.data));
+            console.log(res)
         })
         .catch((err) => {
             console.log("전체 피드 가져오기 실패",err);
