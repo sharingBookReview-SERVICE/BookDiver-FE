@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SelectBookCard from "../components/SelectBookCard";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
-import { actionCreators as modalActions } from "../redux/modules/modal";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 
 const SelectBookModal = (props) =>{
@@ -54,7 +54,7 @@ const SelectBookModal = (props) =>{
           {/* 팝업 닫기 */}
           <Overlay 
            onClick={()=>{
-            dispatch(modalActions.closeModal());
+            dispatch(permitActions.showModal(false));
             }}></Overlay>
         </React.Fragment>
     )

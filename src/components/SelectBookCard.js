@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
-import { actionCreators as modalActions } from "../redux/modules/modal";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const SelectBookCard = (props) =>{
   
@@ -23,7 +23,7 @@ const SelectBookCard = (props) =>{
           isSelected ?
           <BookInfoBox
           onClick={()=>{
-            dispatch(modalActions.showModal());
+            dispatch(permitActions.showModal(true));
             }}>
             <BookImg src={book.image}/>
             <BookDescBox>
@@ -35,7 +35,7 @@ const SelectBookCard = (props) =>{
             // 검색할때 나오는 책 카드
             <BookInfoBox 
             onClick={()=>{
-              dispatch(modalActions.closeModal());
+              dispatch(permitActions.showModal(false));
            
               selectBook();
             }}>

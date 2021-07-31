@@ -13,9 +13,9 @@ import {history} from "../redux/configStore";
 
 const ReviewCard = (props) =>{
   //dispatch와 변수들
+  const {content, hashtags, quote, created_at} = props.review;
   const dispatch = useDispatch();
-  console.log(props)
-const {content, hashtags, quote, created_at} = props.review;
+  
   // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
 
   //서버 들어오기 전 임의로 좋아요 갯수 구하는 형식 만들어놓기

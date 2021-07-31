@@ -8,12 +8,12 @@ import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
 import {actionCreators as reviewActions} from "../redux/modules/review";
-import { actionCreators as modalActions } from "../redux/modules/modal";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 
 const ReviewWrite = () => {
     const dispatch = useDispatch();
-    const is_modal = useSelector(state=> state.modal.is_modal);
+    const is_modal = useSelector(state=> state.permit.is_modal);
 
     const quote = React.useRef();
     const content = React.useRef();
@@ -38,6 +38,7 @@ const ReviewWrite = () => {
 
 
 
+
     return (
         <React.Fragment>
           {/* 책 선택 모달 열기 */}
@@ -59,7 +60,7 @@ const ReviewWrite = () => {
                   book.length===0 ? 
                   <BookChoice 
                     onClick={()=>{ 
-                      dispatch(modalActions.showModal())}} >
+                      dispatch(permitActions.showModal(true))}} >
                   <img src={add_button} alt="add btn"/>
                   <Text>리뷰할 책 선택하기</Text>
                  </BookChoice>
