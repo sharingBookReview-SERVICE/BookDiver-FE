@@ -9,12 +9,12 @@ import {actionCreators as commentActions} from "../redux/modules/comment"
 
 const Comment = (props) =>{
     const dispatch = useDispatch();
-
+    
     const showCommentModal = () => {
         dispatch(permitActions.showModal(true))
     }
     const getCommentId = () => {
-        dispatch(commentActions.getCommentId())
+        dispatch(commentActions.getCommentId(props._id))
     }
 
     return(
