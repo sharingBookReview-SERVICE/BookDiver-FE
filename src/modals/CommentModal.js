@@ -7,7 +7,7 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as commentActions } from "../redux/modules/comment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const CommentModal = (props) =>{
     const dispatch = useDispatch();
@@ -16,14 +16,22 @@ const CommentModal = (props) =>{
         dispatch(commentActions.deleteCommentSV())
     }
 
+    const getEditId = () => {
+        dispatch(commentActions.getEditCommentId())
+    }
+
     return(
         <React.Fragment>
 
          <Container>
-            <Btn onClick={()=> {
+            <Btn 
+            onClick={()=> {
                 deleteComment()
             }}><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>댓글 삭제</Btn>
-            <Btn>
+            <Btn
+            onClick={()=>{
+                getEditId()
+            }}>
                 <CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>
             댓글 수정</Btn>
          </Container>
@@ -63,8 +71,9 @@ background: #fff;
 z-index: 100;
 position:fixed;
 `;
+
 const Btn = styled.div`
-width: 288px;
+width: 90%;
 height: 56px;
 display: flex;
 line-height: 56px;

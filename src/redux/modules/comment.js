@@ -11,6 +11,7 @@ const ADD_COMMENT = "comment/ADD_COMMENT";
 const EDIT_COMMENT = "comment/EDIT_COMMENT";
 const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const GET_COMMENT_ID = "comment/GET_COMMENT_ID"
+const GET_EDIT_ID = "comment/GET_EDIT_ID"
 
 
 //actioncreator
@@ -19,6 +20,7 @@ const addComment = createAction(ADD_COMMENT, (comment_info) => ({ comment_info }
 const editComment = createAction(EDIT_COMMENT, (id, comment) => ({id, comment}));
 const deleteComment = createAction(DELETE_COMMENT, (id) => ({id}));
 const getCommentId = createAction(GET_COMMENT_ID, (comment_id) => ({comment_id}))
+const getEditId = createAction(GET_EDIT_ID, (edit_id) => ({edit_id}))
 
 //initial
 const initialState = {
@@ -28,6 +30,9 @@ const initialState = {
     }],
     comment_id:{
       commentId:"",
+    },
+    edit_id:{
+      editId:"",
     }
 };
 
@@ -61,21 +66,26 @@ const addCommentSV = (commentInfo) => {
 }
 
 //댓글 수정
-const updateCommentSV = (comment_info) => {
-    const commentId = comment_info.commentId;
-    const bookId = comment_info.bookId;
-    const reviewId = comment_info.reviewId;
-    const comment = comment_info.comment;
+const editCommentSv = (content) => {
 
   return function (dispatch, getState, {history}){
-    instance
-    .put(`books/${bookId}/reviews/${reviewId}/comments/${commentId}`,
-    {content : comment})
-    .then((res) => {
-      console.log(res.data)
-      dispatch(editComment())
 
-    }).catch((err)=>{
+    const commentId = getState().comment.comment_id
+    const bookId = getState().review.feed_id.bookId
+    const reviewId = getState().review.feed_id.reviewId
+
+
+    instance
+    .patch(`books/${bookId}/reviews/${reviewId}/comments/${commentId}`,
+    {content : content})
+    .then((res) => {
+      // dispatch(editComment(content))
+      dispatch(getEditId(""))
+    })
+    .then((res) => {
+      dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
+    })
+    .catch((err)=>{
       console.log("댓글 수정 실패",err)
 
     })
@@ -110,6 +120,18 @@ const deleteCommentSV = (comment_info) => {
   }
 }
 
+const getEditCommentId = () => {
+  return async function (dispatch, getState, {history}){
+    const commentId = getState().comment.comment_id
+    const bookId = getState().review.feed_id.bookId
+    const reviewId = getState().review.feed_id.reviewId
+
+    await dispatch(getEditId(commentId))
+    await dispatch(reviewActions.getDetailReviewSV(bookId, reviewId)) 
+    await dispatch(permitActions.showModal(false))
+  }
+}
+
 
 
 //reducer
@@ -135,6 +157,10 @@ export default handleActions(
         [GET_COMMENT_ID]: (state, action) => 
         produce(state, (draft) => {
           draft.comment_id = action.payload.comment_id
+        }),
+        [GET_EDIT_ID]: (state, action) => 
+        produce(state, (draft) => {
+          draft.edit_id = action.payload.edit_id
         })
     },
     initialState
@@ -145,9 +171,10 @@ const actionCreators = {
     addComment,
     getComment,
     addCommentSV,
-    updateCommentSV,
+    editCommentSv,
     deleteCommentSV,
     getCommentId,
+    getEditCommentId,
 };
   
 export { actionCreators };

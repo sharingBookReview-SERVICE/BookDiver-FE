@@ -21,17 +21,12 @@ import CommentModal from "../modals/CommentModal";
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
     const is_modal = useSelector(state => state.permit.is_modal);
+    const is_editting = useSelector(state => state.comment.edit_id.editId)
     const [commentContent, setCommentContent] = useState("");
     const bookId = props.match.params.bookid;
     const reviewId = props.match.params.reviewid;
     const reviewDetail = useSelector(state => state.review.review_detail);
-    const {
-        hashtags,
-        quote,
-        content,
-        comments,
-        book,
-    } = reviewDetail;
+    const {hashtags, quote, content, comments, book,} = reviewDetail;
 
 
     //댓글 작성함수
@@ -51,6 +46,7 @@ const ReviewDetail = (props) =>{
         dispatch(reviewAction.getDetailReviewSV(bookId,reviewId))
         dispatch(reviewAction.getFeedId(bookId, reviewId)) // 수정 및 삭제를 위한 feedId
     },[])
+
 
 
     return(
@@ -106,10 +102,11 @@ const ReviewDetail = (props) =>{
 
                 {comments.map((comment, idx) => {
                     return(
-                        <Comment {...comment} key={idx} />
+                        <Comment {...comment} key={comment._id}  />
                     )
                 })}
 
+                {is_editting === "" ? 
                 <CommentInputBox>
                     <CommentInput 
                     placeholder="지금 댓글을 남겨보세요" 
@@ -120,7 +117,9 @@ const ReviewDetail = (props) =>{
                         writeComment()
                     }}>게시
                     </CommentWriteButton>
-                </CommentInputBox>
+                </CommentInputBox> 
+                : ""
+                }
 
             </ReviewDetailWrapper>
 
