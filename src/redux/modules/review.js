@@ -126,7 +126,6 @@ const getDetailReviewSV = (bookId,reviewId) => {
         instance
         .get(`/books/${bookId}/reviews/${reviewId}`)
         .then((res) => {
-            console.log(res.data)
             dispatch(getDetailReview(res.data.review));
         })
         .catch((err) => {

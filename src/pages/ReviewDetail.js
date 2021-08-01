@@ -49,6 +49,7 @@ const ReviewDetail = (props) =>{
     useEffect(()=>{
         dispatch(permitAction.showNav(false))
         dispatch(reviewAction.getDetailReviewSV(bookId,reviewId))
+        dispatch(reviewAction.getFeedId(bookId, reviewId)) // 수정 및 삭제를 위한 feedId
     },[])
 
 

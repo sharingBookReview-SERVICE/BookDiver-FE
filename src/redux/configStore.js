@@ -13,8 +13,8 @@ const history = createBrowserHistory();
 const rootReducer = combineReducers({
   review,
   permit,
-  comment,
   book,
+  comment,
   user,
   router: connectRouter(history),
 });

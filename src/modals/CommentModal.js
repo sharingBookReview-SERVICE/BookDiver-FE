@@ -6,17 +6,26 @@ import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 import { useDispatch } from "react-redux";
 
 const CommentModal = (props) =>{
     const dispatch = useDispatch();
+
+    const deleteComment = () => {
+        dispatch(commentActions.deleteCommentSV())
+    }
 
     return(
         <React.Fragment>
 
          <Container>
             <Btn><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>댓글 삭제</Btn>
-            <Btn><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>댓글 수정</Btn>
+            <Btn onClick={()=> {
+                deleteComment()
+            }}>
+                <CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>
+            댓글 수정</Btn>
          </Container>
 
          <Overlay 

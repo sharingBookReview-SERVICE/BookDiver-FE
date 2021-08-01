@@ -5,13 +5,16 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import {useDispatch} from "react-redux";
 import {actionCreators as permitActions} from "../redux/modules/permit";
+import {actionCreators as commentActions} from "../redux/modules/comment"
 
 const Comment = (props) =>{
-
     const dispatch = useDispatch();
 
     const showCommentModal = () => {
         dispatch(permitActions.showModal(true))
+    }
+    const getCommentId = () => {
+        dispatch(commentActions.getCommentId())
     }
 
     return(
@@ -34,6 +37,7 @@ const Comment = (props) =>{
                         style={{color: "#9e9e9e"}} 
                         onClick = {() => {
                             showCommentModal()
+                            getCommentId()
                         }}/>
                     </UserRightBox>
                 </CommentUserBox>

@@ -9,19 +9,24 @@ const GET_COMMENT = "comment/GET_COMMENT";
 const ADD_COMMENT = "comment/ADD_COMMENT";
 const EDIT_COMMENT = "comment/EDIT_COMMENT";
 const DELETE_COMMENT = "comment/DELETE_COMMENT";
+const GET_COMMENT_ID = "comment/GET_COMMENT_ID"
 
 //actioncreator
 const getComment = createAction(GET_COMMENT, (comment_list) => ({ comment_list }));
 const addComment = createAction(ADD_COMMENT, (comment_info) => ({ comment_info }));
 const editComment = createAction(EDIT_COMMENT, (id, comment) => ({id, comment}));
 const deleteComment = createAction(DELETE_COMMENT, (id) => ({id}));
+const getCommentId = createAction(GET_COMMENT_ID, (comment_id) => ({comment_id}))
 
 //initial
 const initialState = {
     comment_list:[{
         username:"닉네임",
         content:"정말 감명깊은 리뷰입니다",
-    }]
+    }],
+    comment_id:{
+      commentId:"",
+    }
 };
 
 
@@ -76,22 +81,25 @@ const updateCommentSV = (comment_info) => {
 
 //댓글 삭제
 const deleteCommentSV = (comment_info) => {
-  const commentId = comment_info.commentId;
-  const bookId = comment_info.bookId;
-  const reviewId = comment_info.reviewId;
-
 
   return function (dispatch, getState, {history}){
-    instance
-    .delete(`books/${bookId}/reviews/${reviewId}/comments/${commentId}`)
-    .then((res)=>{
 
-    })
-    .catch((err)=> {
-      console.log("댓글 삭제 실패",err)
+    const commentId = getState().comment.comment_id
+    const bookId = getState().review.feed_id.bookId
+    const reviewId = getState().review.feed_id.reviewId
+    console.log(commentId)
+  
 
-    })
-    dispatch(deleteComment(commentId))
+    // instance
+    // .delete(`books/${bookId}/reviews/${reviewId}/comments/${commentId}`)
+    // .then((res)=>{
+
+    // })
+    // .catch((err)=> {
+    //   console.log("댓글 삭제 실패",err)
+
+    // })
+    // dispatch(deleteComment(commentId))
   }
 }
 
@@ -116,6 +124,10 @@ export default handleActions(
           draft.comment_list = draft.comment_list.filter((l,idx) => {
             return l.id !== action.payload.id
           })
+        }),
+        [GET_COMMENT_ID]: (state, action) => 
+        produce(state, (draft) => {
+          draft.comment_id = action.payload.comment_id
         })
     },
     initialState
@@ -128,6 +140,7 @@ const actionCreators = {
     addCommentSV,
     updateCommentSV,
     deleteCommentSV,
+    getCommentId,
 };
   
 export { actionCreators };
