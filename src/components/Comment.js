@@ -1,20 +1,69 @@
 //import 부분
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components"
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as permitActions} from "../redux/modules/permit";
 import {actionCreators as commentActions} from "../redux/modules/comment"
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
 const Comment = (props) =>{
     const dispatch = useDispatch();
+    const editId = useSelector(state => state.comment.edit_id)
+    const [editContent, setEditContent] = useState("");
     
     const showCommentModal = () => {
         dispatch(permitActions.showModal(true))
     }
     const getCommentId = () => {
         dispatch(commentActions.getCommentId(props._id))
+    }
+
+    const onChangeComment = (e) => {
+        setEditContent(e.target.value)
+    }    
+
+    const editComment = (content) => {
+        dispatch(commentActions.editCommentSv(content))
+        console.log(content)
+    }
+    
+    if(editId === props._id){
+        return(
+            <React.Fragment>
+
+            <CommentBox>
+
+                <CommentUserBox>
+                    <UserLeftBox>
+                        <UserName>
+                            닉네임
+                        </UserName>
+                        <CreatedAt>
+                            {props.created_at}
+                        </CreatedAt>
+                    </UserLeftBox>
+
+                    <UserRightBox>
+                        <EditComplete 
+                            onClick={()=>{
+                            editComment(editContent)
+                        }}>수정완료
+                        </EditComplete>
+                    </UserRightBox>
+                </CommentUserBox>
+                <EditBox>
+                    <EditTextarea 
+                    defaultValue={props.content} 
+                    onChange={onChangeComment}
+                    />
+                </EditBox>
+
+            </CommentBox>
+
+        </React.Fragment>
+        )
     }
 
     return(
@@ -102,6 +151,39 @@ opacity:0.5;
 const Content = styled.p`
 font-size:14px;
 margin:0px;
+`
+
+const EditComplete = styled.div`
+font-size:14px;
+font-weight:bold;
+color:#1168d7;
+`
+
+const EditBox = styled.div`
+width: 100%;
+box-sizing: border-box;
+padding-right:24px;
+`
+
+const EditTextarea = styled.textarea`
+width: 100%;
+height: auto;
+font-family: NotoSansKR;
+font-size: 14px;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+line-height: 1.43;
+letter-spacing: -0.28px;
+text-align: left;
+padding: 0.7em 0 0 0.5em;
+border-radius: 5px;
+border: none;
+background-color: #f5f5f5;
+resize:none;
+:focus {
+    outline:none;
+}
 `
 
 export default Comment;
