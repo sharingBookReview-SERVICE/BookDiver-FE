@@ -1,7 +1,8 @@
 //import 부분
-import React, {useRef, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment"
+import { actionCreators as reviewAction } from "../redux/modules/review";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import {history} from "../redux/configStore";
 
@@ -13,24 +14,44 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Comment from "../components/Comment"
 import SelectBookCard from "../components/SelectBookCard";
 import BookImg from "../img/bookImg2.jpg"
+import CommentModal from "../modals/CommentModal";
 
 
 
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
+    const is_modal = useSelector(state => state.permit.is_modal);
+    const [commentContent, setCommentContent] = useState("");
+    const bookId = props.match.params.bookid;
+    const reviewId = props.match.params.reviewid;
+    const reviewDetail = useSelector(state => state.review.review_detail);
+    const {
+        hashtags,
+        quote,
+        content,
+        comments,
+        book,
+    } = reviewDetail;
 
-    const commentList = useSelector(state => state.comment.comment_list)
-    const commentContent = useRef();
 
     //댓글 작성함수
-    const writeComment = (comment_info) => {
-        dispatch(commentAction.addComment(comment_info))
+    const writeComment = () => {
+        const comment_info = {
+            comment: commentContent,
+            bookId: bookId,
+            reviewId: reviewId,
+            userInfo: "저팔계"}
+        dispatch(commentAction.addCommentSV(comment_info))
+        setCommentContent("")
     }
 
-    //로딩이 되고나면, 네이게이션을 없애주기.
+//네비게이션을 없애고, 리뷰 상세를 불러오기
     useEffect(()=>{
         dispatch(permitAction.showNav(false))
+        dispatch(reviewAction.getDetailReviewSV(bookId,reviewId))
+        dispatch(reviewAction.getFeedId(bookId, reviewId)) // 수정 및 삭제를 위한 feedId
     },[])
+
 
     return(
         <React.Fragment>
@@ -59,13 +80,15 @@ const ReviewDetail = (props) =>{
                         </UserRightBox>
                     </CommentUserBox>
 
-                    <SelectBookCard/>
+                    <SelectBookCard {...book} is_reviewDetail/>
                     <Image src={BookImg}/>
 
                     <ContentBox>
-                        <ContentTitle>"나는 나보다 더 훌륭한 경영자에게 투자한다"</ContentTitle>
-                        <Content>따뜻한 간에 위하여 우는 유소년에게서 있다. 보이는 설산에서 가슴이 석가는 그들의 유소년에게서 그와 철환하였는가? 속에서 이것을 스며들어 역사를 더운지라 고동을 것이다. 더운지라</Content>
-                        <HashTag>#투자서적 #자기계발 #부자되기</HashTag>
+                        <ContentTitle>{quote}</ContentTitle>
+                        <Content>{content}</Content>
+                        <HashTag>{hashtags.map((tag)=> {
+                            return(`#${tag} `)
+                        })}</HashTag>
                     </ContentBox>
 
                     <LikeCommentWrapper>
@@ -81,7 +104,7 @@ const ReviewDetail = (props) =>{
 
                 </CardBox>
 
-                {commentList.map((comment, idx) => {
+                {comments.map((comment, idx) => {
                     return(
                         <Comment {...comment} key={idx} />
                     )
@@ -90,19 +113,18 @@ const ReviewDetail = (props) =>{
                 <CommentInputBox>
                     <CommentInput 
                     placeholder="지금 댓글을 남겨보세요" 
-                    ref={commentContent}/>
+                    onChange={(e)=>{setCommentContent(e.target.value)}}
+                    value={commentContent}/>
                     <CommentWriteButton 
                     onClick={()=>{
-                        const commentInfo = {
-                            content : commentContent.current.value,
-                            username : "저팔계",
-                        }
-                        writeComment(commentInfo)
+                        writeComment()
                     }}>게시
                     </CommentWriteButton>
                 </CommentInputBox>
 
             </ReviewDetailWrapper>
+
+            { is_modal && <CommentModal/>}
         </React.Fragment>
     )
 }
@@ -272,6 +294,9 @@ padding:0 0 0 16px;
 background-color:#f5f5f5;
 border:none;
 border-radius:12px;
+:focus{
+    outline:none;
+}
 `
 
 const CommentWriteButton = styled.div`

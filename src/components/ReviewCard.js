@@ -1,5 +1,5 @@
 //import 부분
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components"
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -7,18 +7,15 @@ import BookImg from "../img/bookImg2.jpg"
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {actionCreators as reviewActions} from "../redux/modules/review"
 import {actionCreators as permitActions} from "../redux/modules/permit";
 import {history} from "../redux/configStore";
 
-import EditModal from "../modals/EditModal";
-
-
 
 const ReviewCard = (props) => {
     //dispatch와 변수들
-    const {content, hashtags, quote, created_at, bookId, _id} = props.review;
+    const {content, hashtags, quote, created_at, book, _id} = props.review;
     const dispatch = useDispatch();
 
     // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
@@ -28,10 +25,20 @@ const ReviewCard = (props) => {
 //   const idx = reviewList.findIndex((l) => l.id === reviewId);
 //   const likesCount = reviewList[idx].likes
 
+
+
     //좋아요 클릭
     const clickLikeButton = () => {
-        //props로부터 bookId와 reviewId를 받아오기
+        //props로부터 book와 reviewId를 받아오기
         dispatch(reviewActions.LikeSV());
+    }
+
+    const getFeedId = () => {
+      dispatch(reviewActions.getFeedId(book._id, _id))
+    }
+
+    const showEditModal = () => {
+      dispatch(permitActions.showModal(true))
     }
 
 
@@ -52,25 +59,31 @@ const ReviewCard = (props) => {
 
                     <UserRightBox>
                         <BookmarkBorderIcon style={{color: "#9e9e9e", marginRight: "10px"}}/>
-                        <MoreHorizIcon style={{color: "#9e9e9e"}} onClick = {() => {
-                            dispatch(permitActions.showModal(true))
-                            dispatch(reviewActions.getFeedId(bookId._id, _id))
+                        <MoreHorizIcon 
+                        style={{color: "#9e9e9e"}} 
+                        onClick = {() => {
+                          showEditModal()
+                          getFeedId()
                         }}/>
                     </UserRightBox>
                 </CommentUserBox>
 
-                <Image src={BookImg} onClick={() => {
-                    history.push('/reviewdetail')
+                <Image 
+                src={BookImg} 
+                onClick={() => {
+                    history.push(`/reviewdetail/${book._id}/${_id}`)
                 }}/>
 
                 <ContentBox onClick={() => {
-                    history.push('/reviewdetail')
+                    history.push(`/reviewdetail/${book._id}/${_id}`)
                 }}>
 
-                    <BookTitle>{bookId.title} | {bookId.author} </BookTitle>
+                    <BookTitle>{book.title} | {book.author} </BookTitle>
                     <Quote>{quote}</Quote>
                     <Content>{content}</Content>
-                    <HashTag>{hashtags}</HashTag>
+                    <HashTag>{hashtags.map((tag)=> {
+                            return(`#${tag} `)
+                        })}</HashTag>
                 </ContentBox>
 
                 <LikeCommentBox>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home"
@@ -28,7 +28,7 @@ function App() {
       <Container>
          <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
-          <Route path="/reviewdetail" exact component={ReviewDetail} />
+          <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail} />
           <Route path="/postwrite" exact component={ReviewWrite} />
           <Route path="/bookdetail" exact component={BookDetail} />
           <Route path="/login" exact component={Login} />

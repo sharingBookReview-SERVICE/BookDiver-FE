@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import reportWebVitals from '../../reportWebVitals';
 
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
@@ -9,7 +8,7 @@ const ADD_REVIEW = "review/ADD_REVIEW";
 const LIKE = "review/LIKE"
 const DELETE_REVIEW = "review/DELETE_REVIEW";
 const EDIT_REVIEW = "review/EDIT_REVIEW";
-const DETAIL_REVIEW = "review/DETAIL_REVIEW";
+const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
 const GET_FEED_ID = "review/GET_REVIEW_ID"
 
 //actioncreator
@@ -18,7 +17,7 @@ const like = createAction(LIKE, (reviewId) => ({reviewId}))
 const addReview = createAction(ADD_REVIEW, (review) => ({review}));
 const deleteReview = createAction(DELETE_REVIEW, (review) => ({review}));
 const editReview = createAction(EDIT_REVIEW, (bookId, reviewId) => ({bookId, reviewId}));
-const detailReview = createAction(DELETE_REVIEW, (bookId, reviewId) => ({bookId, reviewId}));
+const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
 const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}))
 
 //initial
@@ -37,6 +36,17 @@ const initialState = {
     feed_id: {
         bookId: "",
         reviewId: "",
+    },
+    review_detail:{
+        user:"",
+        book:"",
+        quote:"",
+        content:"",
+        hashtags:[],
+        createdAt:"",
+        comments:[],
+        myLike:true,
+        likes:10,
     }
 
 };
@@ -44,13 +54,13 @@ const initialState = {
 //middle
 //전체 피드 불러오기
 const getAllReviewSV = () => {
+    
     return function(dispatch){
 
         instance
         .get('/feeds')
         .then((res) => {
             dispatch(getAllReview(res.data));
-            console.log(res)
         })
         .catch((err) => {
             console.log("전체 피드 가져오기 실패",err);
@@ -69,7 +79,6 @@ const addReviewSV = (review, bookId) => {
             hashtags: review.hashtags,
         })
         .then((res) => {
-            console.log(res)
             dispatch(addReview(review));
         })
         .catch((err) => {
@@ -80,17 +89,14 @@ const addReviewSV = (review, bookId) => {
 
 //포스트 삭제하기
 const deleteReviewSV = () => {
-    console.log("------클릭 되었습니다.")
     return function (dispatch, getState) {
         const bookId = getState().review.feed_id.bookId
         const reviewId = getState().review.feed_id.reviewId
-        console.log(bookId, reviewId)
 
         instance
         .delete(`/books/${bookId}/reviews/${reviewId}`)
         .then((res) => {
             dispatch(deleteReview(bookId, reviewId));
-            console.log(res);
         })
         .catch((err) => {
             console.log("포스트 삭제도중 에러 발생", err);
@@ -114,14 +120,13 @@ const editReviewSV = (bookId, reviewId) => {
 };
 
 //상세보기
-const detailReviewSV = (bookId,reviewId) => {
+const getDetailReviewSV = (bookId,reviewId) => {
     return function (dispatch){
 
         instance
         .get(`/books/${bookId}/reviews/${reviewId}`)
         .then((res) => {
-            dispatch(detailReview(res.data));
-            console.log("detailReviewSV", res);
+            dispatch(getDetailReview(res.data.review));
         })
         .catch((err) => {
             console.log("상세포스트 에러 발생", err);
@@ -168,9 +173,9 @@ export default handleActions(
             let idx = draft.all_review_list.findIndex((l) => l.id === action.payload.review)
             draft.all_review_list[idx] = {...draft.all_review_list[idx], ...action.payload.review}
         }),
-        [DETAIL_REVIEW] : (state, action) =>
+        [GET_DETAIL_REVIEW] : (state, action) =>
         produce(state, (draft) => {
-            draft.review = action.payload.review;
+            draft.review_detail = action.payload.review;
         }),
         [LIKE]: (state, action) => 
         produce(state, (draft) => {
@@ -198,7 +203,7 @@ const actionCreators = {
     addReviewSV,
     deleteReviewSV,
     editReviewSV,
-    detailReviewSV,
+    getDetailReviewSV,
     getFeedId,
 };
 
