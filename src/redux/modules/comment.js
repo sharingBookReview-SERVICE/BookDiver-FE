@@ -2,6 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
 
+import { actionCreators as reviewActions } from "./review";
+
 //actions
 const GET_COMMENT = "comment/GET_COMMENT";
 const ADD_COMMENT = "comment/ADD_COMMENT";
@@ -10,7 +12,7 @@ const DELETE_COMMENT = "comment/DELETE_COMMENT";
 
 //actioncreator
 const getComment = createAction(GET_COMMENT, (comment_list) => ({ comment_list }));
-const addComment = createAction(ADD_COMMENT, (comment) => ({ comment }));
+const addComment = createAction(ADD_COMMENT, (comment_info) => ({ comment_info }));
 const editComment = createAction(EDIT_COMMENT, (id, comment) => ({id, comment}));
 const deleteComment = createAction(DELETE_COMMENT, (id) => ({id}));
 
@@ -32,12 +34,17 @@ const addCommentSV = (commentInfo) => {
 
     return function(dispatch){
       instance.post(`/books/${bookId}/reviews/${reviewId}/comments`,{
-          user:userInfo,
+          username:"",
           content: comment,
       })
         .then((res) => {
-            console.log(res);
-            dispatch(addComment(res.data));
+            const comment_info = {
+              username:"저팔계",
+              content:comment,
+            }
+            dispatch(addComment(comment_info));
+        }).then((res) => {
+          dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
         })
         .catch((err) =>{
             console.log("댓글 추가 실패",err);
@@ -99,7 +106,7 @@ export default handleActions(
         }),
         [ADD_COMMENT]: (state, action) =>
         produce(state, (draft) => {
-          draft.comment_list.unshift(action.payload.comment);
+          draft.comment_list.unshift(action.payload.comment_info);
         }),
         [EDIT_COMMENT]: (state, action) => produce(state, (draft) => {
           let idx = draft.comment_list.findIndex((l) => l.id === action.payload.id);

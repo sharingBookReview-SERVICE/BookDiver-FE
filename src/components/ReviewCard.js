@@ -1,5 +1,5 @@
 //import 부분
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components"
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -7,13 +7,10 @@ import BookImg from "../img/bookImg2.jpg"
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {actionCreators as reviewActions} from "../redux/modules/review"
 import {actionCreators as permitActions} from "../redux/modules/permit";
 import {history} from "../redux/configStore";
-
-import EditModal from "../modals/EditModal";
-
 
 
 const ReviewCard = (props) => {
@@ -27,6 +24,8 @@ const ReviewCard = (props) => {
 //   const reviewId = 1;
 //   const idx = reviewList.findIndex((l) => l.id === reviewId);
 //   const likesCount = reviewList[idx].likes
+
+
 
     //좋아요 클릭
     const clickLikeButton = () => {

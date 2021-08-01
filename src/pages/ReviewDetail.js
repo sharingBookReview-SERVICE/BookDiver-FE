@@ -1,5 +1,5 @@
 //import 부분
-import React, {useRef, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as commentAction } from "../redux/modules/comment"
 import { actionCreators as reviewAction } from "../redux/modules/review";
@@ -14,29 +14,35 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Comment from "../components/Comment"
 import SelectBookCard from "../components/SelectBookCard";
 import BookImg from "../img/bookImg2.jpg"
+import CommentModal from "../modals/CommentModal";
 
 
 
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
-    const commentList = useSelector(state => state.comment.comment_list)
-    const commentContent = useRef();
-    const bookId = props.match.params.bookid
-    const reviewId = props.match.params.reviewid
-    const reviewDetail = useSelector(state => state.review.review_detail)
+    const is_modal = useSelector(state => state.permit.is_modal);
+    const [commentContent, setCommentContent] = useState("");
+    const bookId = props.match.params.bookid;
+    const reviewId = props.match.params.reviewid;
+    const reviewDetail = useSelector(state => state.review.review_detail);
     const {
         hashtags,
         quote,
         content,
         comments,
         book,
-    } = reviewDetail
+    } = reviewDetail;
 
-    console.log(book)
 
     //댓글 작성함수
-    const writeComment = (comment_info) => {
-        dispatch(commentAction.addComment(comment_info))
+    const writeComment = () => {
+        const comment_info = {
+            comment: commentContent,
+            bookId: bookId,
+            reviewId: reviewId,
+            userInfo: "저팔계"}
+        dispatch(commentAction.addCommentSV(comment_info))
+        setCommentContent("")
     }
 
 //네비게이션을 없애고, 리뷰 상세를 불러오기
@@ -97,7 +103,7 @@ const ReviewDetail = (props) =>{
 
                 </CardBox>
 
-                {commentList.map((comment, idx) => {
+                {comments.map((comment, idx) => {
                     return(
                         <Comment {...comment} key={idx} />
                     )
@@ -106,19 +112,18 @@ const ReviewDetail = (props) =>{
                 <CommentInputBox>
                     <CommentInput 
                     placeholder="지금 댓글을 남겨보세요" 
-                    ref={commentContent}/>
+                    onChange={(e)=>{setCommentContent(e.target.value)}}
+                    value={commentContent}/>
                     <CommentWriteButton 
                     onClick={()=>{
-                        const commentInfo = {
-                            content : commentContent.current.value,
-                            username : "저팔계",
-                        }
-                        writeComment(commentInfo)
+                        writeComment()
                     }}>게시
                     </CommentWriteButton>
                 </CommentInputBox>
 
             </ReviewDetailWrapper>
+
+            { is_modal && <CommentModal/>}
         </React.Fragment>
     )
 }

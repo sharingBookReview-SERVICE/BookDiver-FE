@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route } from "react-router-dom";
 import {history} from "../redux/configStore";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home"

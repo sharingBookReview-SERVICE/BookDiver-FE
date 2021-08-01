@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import reportWebVitals from '../../reportWebVitals';
 
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
@@ -55,6 +54,7 @@ const initialState = {
 //middle
 //전체 피드 불러오기
 const getAllReviewSV = () => {
+    
     return function(dispatch){
 
         instance
@@ -126,6 +126,7 @@ const getDetailReviewSV = (bookId,reviewId) => {
         instance
         .get(`/books/${bookId}/reviews/${reviewId}`)
         .then((res) => {
+            console.log(res.data)
             dispatch(getDetailReview(res.data.review));
         })
         .catch((err) => {

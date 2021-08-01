@@ -1,5 +1,5 @@
 //import 부분
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"

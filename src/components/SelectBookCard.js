@@ -1,5 +1,5 @@
 //import 부분
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
@@ -10,14 +10,12 @@ const SelectBookCard = (props) =>{
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
-  console.log(is_reviewDetail)
 
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
     dispatch(permitActions.bookSelect(true));
   }
   
-
   if(is_reviewDetail){
     return(
       <BookInfoWrapper>
