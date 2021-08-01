@@ -3,6 +3,7 @@ import { produce } from "immer";
 import instance from "../../shared/Request";
 
 import { actionCreators as reviewActions } from "./review";
+import { actionCreators as permitActions } from "./permit";
 
 //actions
 const GET_COMMENT = "comment/GET_COMMENT";
@@ -48,7 +49,8 @@ const addCommentSV = (commentInfo) => {
               content:comment,
             }
             dispatch(addComment(comment_info));
-        }).then((res) => {
+        })
+        .then((res) => {
           dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
         })
         .catch((err) =>{
@@ -82,24 +84,28 @@ const updateCommentSV = (comment_info) => {
 //댓글 삭제
 const deleteCommentSV = (comment_info) => {
 
+  console.log("삭제 기능이 실행됩니다.")
+
   return function (dispatch, getState, {history}){
 
     const commentId = getState().comment.comment_id
     const bookId = getState().review.feed_id.bookId
     const reviewId = getState().review.feed_id.reviewId
-    console.log(commentId)
   
 
-    // instance
-    // .delete(`books/${bookId}/reviews/${reviewId}/comments/${commentId}`)
-    // .then((res)=>{
+    instance
+    .delete(`books/${bookId}/reviews/${reviewId}/comments/${commentId}`)
+    .then((res)=>{
+    })
+    .then((res) => {
+      dispatch(reviewActions.getDetailReviewSV(bookId, reviewId)) // 새로운 댓글 리스트를 불러오기
+      dispatch(permitActions.showModal(false)) // 모달 닫아주기
+    })
+    .catch((err)=> {
+      console.log("댓글 삭제 실패",err)
 
-    // })
-    // .catch((err)=> {
-    //   console.log("댓글 삭제 실패",err)
-
-    // })
-    // dispatch(deleteComment(commentId))
+    })
+    dispatch(deleteComment(commentId))
   }
 }
 

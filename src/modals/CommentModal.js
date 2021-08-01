@@ -20,10 +20,10 @@ const CommentModal = (props) =>{
         <React.Fragment>
 
          <Container>
-            <Btn><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>댓글 삭제</Btn>
             <Btn onClick={()=> {
                 deleteComment()
-            }}>
+            }}><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>댓글 삭제</Btn>
+            <Btn>
                 <CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>
             댓글 수정</Btn>
          </Container>
