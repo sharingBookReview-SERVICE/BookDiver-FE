@@ -12,6 +12,7 @@ const EDIT_COMMENT = "comment/EDIT_COMMENT";
 const DELETE_COMMENT = "comment/DELETE_COMMENT";
 const GET_COMMENT_ID = "comment/GET_COMMENT_ID"
 
+
 //actioncreator
 const getComment = createAction(GET_COMMENT, (comment_list) => ({ comment_list }));
 const addComment = createAction(ADD_COMMENT, (comment_info) => ({ comment_info }));
