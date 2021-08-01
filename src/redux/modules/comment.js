@@ -3,6 +3,7 @@ import { produce } from "immer";
 import instance from "../../shared/Request";
 
 import { actionCreators as reviewActions } from "./review";
+import { actionCreators as permitActions } from "./permit";
 
 //actions
 const GET_COMMENT = "comment/GET_COMMENT";
@@ -97,7 +98,8 @@ const deleteCommentSV = (comment_info) => {
     .then((res)=>{
     })
     .then((res) => {
-      dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
+      dispatch(reviewActions.getDetailReviewSV(bookId, reviewId)) // 새로운 댓글 리스트를 불러오기
+      dispatch(permitActions.showModal(false)) // 모달 닫아주기
     })
     .catch((err)=> {
       console.log("댓글 삭제 실패",err)
