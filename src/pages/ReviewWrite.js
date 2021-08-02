@@ -24,92 +24,92 @@ const ReviewWrite = () => {
     const fileInput = React.useRef();
 
     const setPreview = () => {
-      const reader = new FileReader();
-      const file = fileInput.current.files[0];
+        const reader = new FileReader();
+        const file = fileInput.current.files[0];
 
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        dispatch(uploadAcions.showPreview(true))
-        dispatch(uploadAcions.setPreview(reader.result))
-      }
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            dispatch(uploadAcions.showPreview(true))
+            dispatch(uploadAcions.setPreview(reader.result))
+        }
     }
 
     const selectImage = () => {
-      fileInput.current.click()
+        fileInput.current.click()
     }
 
     React.useEffect(()=>{
-      dispatch(bookActions.resetSelectedBook());
-      dispatch(permitActions.bookSelect(false));
+        dispatch(bookActions.resetSelectedBook());
+        dispatch(permitActions.bookSelect(false));
     },[])
-    
+
     const quote = React.useRef();
     const content = React.useRef();
     const hashtags = React.useRef();
 
     const addReview = () => {
-      if(book.length  === 0){
-        window.alert("책을 선택해주세요!");
-      }
-      else{
-        let review = {
-          quote: quote.current.value,
-          content: content.current.value,
-          hashtags: hashtags.current.value,
-        };
-      dispatch(reviewActions.addReviewSV(review, book.isbn));
-      console.log(review, book.isbn);
-      }
+        if(book.length  === 0){
+            window.alert("책을 선택해주세요!");
+        }
+        else{
+            let review = {
+                quote: quote.current.value,
+                content: content.current.value,
+                hashtags: hashtags.current.value,
+            };
+            dispatch(reviewActions.addReviewSV(review, book.isbn));
+            console.log(review, book.isbn);
+        }
     }
 
 
     return (
         <React.Fragment>
-          
-          {/* 책 선택 모달 열기 */}
+
+            {/* 책 선택 모달 열기 */}
             {is_modal && <SelectBookModal/>}
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
-                    <LeftArrow 
-                      src={left_arrow} 
-                      onClick={()=>{history.goBack()}}/>
-                    <ReviewHeaderText 
-                      onClick={()=>{addReview()}}>
+                    <LeftArrow
+                        src={left_arrow}
+                        onClick={()=>{history.goBack()}}/>
+                    <ReviewHeaderText
+                        onClick={()=>{addReview()}}>
                         게시하기</ReviewHeaderText>
                 </PostHeader>
 
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
-                {book.length === 0 ? 
-                  <BookChoice 
-                    onClick={()=>{ 
-                      dispatch(permitActions.showModal(true))}} >
-                  <img src={add_button} alt="add btn"/>
-                  <Text>리뷰할 책 선택하기</Text>
-                 </BookChoice>
-                 :
-                 <SelectBookCard/>
+                {book.length === 0 ?
+                    <BookChoice
+                        onClick={()=>{
+                            dispatch(permitActions.showModal(true))}} >
+                        <img src={add_button} alt="add btn"/>
+                        <Text>리뷰할 책 선택하기</Text>
+                    </BookChoice>
+                    :
+                    <SelectBookCard/>
                 }
-    
-                {is_preview ? 
-                <Image 
-                  src={preview_url} 
-                  />: 
-                <BookChoice 
-                  style={{height: "35vh"}}
-                  onClick={()=>{
-                  selectImage()
-                }}>
-                    <img src={add_button} alt="add btn"/>
-                    <Text>책 사진 업로드</Text>
-                    <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
-                </BookChoice>  
+
+                {is_preview ?
+                    <Image
+                        src={preview_url}
+                    />:
+                    <BookChoice
+                        style={{height: "35vh"}}
+                        onClick={()=>{
+                            selectImage()
+                        }}>
+                        <img src={add_button} alt="add btn"/>
+                        <Text>책 사진 업로드</Text>
+                        <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
+                    </BookChoice>
                 }
 
                 <Upload
-                type="file"
-                ref={fileInput}
-                onChange={setPreview}/>
+                    type="file"
+                    ref={fileInput}
+                    onChange={setPreview}/>
 
                 <InputQuotes>
                     <Text>인용구 작성하기</Text>
@@ -127,7 +127,7 @@ const ReviewWrite = () => {
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
-        
+
     )
 }
 
@@ -295,8 +295,3 @@ const HashInput = styled.input`
     color: #A8A8A8;
   }
 `;
-
-const Upload = styled.input`
-display: hidden;
-opacity:0;
-`
