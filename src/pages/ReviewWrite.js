@@ -7,20 +7,40 @@ import {useDispatch, useSelector} from "react-redux";
 import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
+
 import {actionCreators as reviewActions} from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
+import { actionCreators as uploadAcions } from "../redux/modules/upload";
 
 
 const ReviewWrite = () => {
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
-    const is_edit = useSelector((state) => state.review.feed_edit.feed_edit_id);
+    const is_preview = useSelector(state => state.upload.is_preview);
+    const preview_url = useSelector(state => state.upload.img_url)
+    console.log(is_preview)
     const book = useSelector(state=> state.book.book);
+    const fileInput = React.useRef();
+
+    const setPreview = () => {
+        const reader = new FileReader();
+        const file = fileInput.current.files[0];
+
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            dispatch(uploadAcions.showPreview(true))
+            dispatch(uploadAcions.setPreview(reader.result))
+        }
+    }
+
+    const selectImage = () => {
+        fileInput.current.click()
+    }
 
     React.useEffect(()=>{
-      dispatch(bookActions.resetSelectedBook());
-      dispatch(permitActions.bookSelect(false));
+        dispatch(bookActions.resetSelectedBook());
+        dispatch(permitActions.bookSelect(false));
     },[])
 
     const quote = React.useRef();
@@ -28,53 +48,69 @@ const ReviewWrite = () => {
     const hashtags = React.useRef();
 
     const addReview = () => {
-      if(book.length  === 0){
-        window.alert("책을 선택해주세요!");
-      }
-      else{
-        let review = {
-          quote: quote.current.value,
-          content: content.current.value,
-          hashtags: hashtags.current.value,
-        };
-      dispatch(reviewActions.addReviewSV(review, book.isbn));
-      console.log(review, book.isbn);
-      }
+        if(book.length  === 0){
+            window.alert("책을 선택해주세요!");
+        }
+        else{
+            let review = {
+                quote: quote.current.value,
+                content: content.current.value,
+                hashtags: hashtags.current.value,
+            };
+            dispatch(reviewActions.addReviewSV(review, book.isbn));
+            console.log(review, book.isbn);
+        }
     }
+
 
     return (
         <React.Fragment>
 
-          {/* 책 선택 모달 열기 */}
+            {/* 책 선택 모달 열기 */}
             {is_modal && <SelectBookModal/>}
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
                     <LeftArrow
-                      src={left_arrow}
-                      onClick={()=>{history.goBack()}}/>
+                        src={left_arrow}
+                        onClick={()=>{history.goBack()}}/>
                     <ReviewHeaderText
-                      onClick={()=>{addReview()}}>
+                        onClick={()=>{addReview()}}>
                         게시하기</ReviewHeaderText>
                 </PostHeader>
 
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
                 {book.length === 0 ?
-                  <BookChoice
-                    onClick={()=>{
-                      dispatch(permitActions.showModal(true))}} >
-                  <img src={add_button} alt="add btn"/>
-                  <Text>리뷰할 책 선택하기</Text>
-                 </BookChoice>
-                 :
-                 <SelectBookCard/>
+                    <BookChoice
+                        onClick={()=>{
+                            dispatch(permitActions.showModal(true))}} >
+                        <img src={add_button} alt="add btn"/>
+                        <Text>리뷰할 책 선택하기</Text>
+                    </BookChoice>
+                    :
+                    <SelectBookCard/>
                 }
 
-                <BookChoice style={{height: "35vh"}}>
-                    <img src={add_button} alt="add btn"/>
-                    <Text>책 사진 업로드</Text>
-                    <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
-                </BookChoice>
+                {is_preview ?
+                    <Image
+                        src={preview_url}
+                    />:
+                    <BookChoice
+                        style={{height: "35vh"}}
+                        onClick={()=>{
+                            selectImage()
+                        }}>
+                        <img src={add_button} alt="add btn"/>
+                        <Text>책 사진 업로드</Text>
+                        <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
+                    </BookChoice>
+                }
+
+                <Upload
+                    type="file"
+                    ref={fileInput}
+                    onChange={setPreview}/>
+
                 <InputQuotes>
                     <Text>인용구 작성하기</Text>
                     <QuotesTextarea ref={quote} placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요">
@@ -96,6 +132,14 @@ const ReviewWrite = () => {
 }
 
 export default ReviewWrite;
+
+const Image = styled.img`
+width: auto;
+height: auto;
+max-width: 100%;
+max-height: 100%;
+`
+
 const PostWriteBox = styled.div`
   width: 100vw;
   height: auto;
@@ -134,8 +178,8 @@ const LeftArrow = styled.img`
   flex-grow: 0;
   object-fit: contain;
   float: left;
-
 `;
+
 const ReviewHeaderText = styled.button`
   width: 20vw;
   height: 5vh;
@@ -169,7 +213,9 @@ const BookChoice = styled.div`
   color: #1168d7;
   font-size: 0.9em;
   box-sizing: border-box;
+  cursor:pointer;
 `;
+
 const InputQuotes = styled.div`
   width: 100vw;
   height: 20vh;
