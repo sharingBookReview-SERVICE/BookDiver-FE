@@ -7,15 +7,36 @@ import {useDispatch, useSelector} from "react-redux";
 import { history } from "../redux/configStore";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
+
 import {actionCreators as reviewActions} from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
+import { actionCreators as uploadAcions } from "../redux/modules/upload";
 
 
 const ReviewWrite = () => {
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
+    const is_preview = useSelector(state => state.upload.is_preview);
+    const preview_url = useSelector(state => state.upload.img_url)
+    console.log(is_preview)
     const book = useSelector(state=> state.book.book);
+    const fileInput = React.useRef();
+
+    const setPreview = () => {
+      const reader = new FileReader();
+      const file = fileInput.current.files[0];
+
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        dispatch(uploadAcions.showPreview(true))
+        dispatch(uploadAcions.setPreview(reader.result))
+      }
+    }
+
+    const selectImage = () => {
+      fileInput.current.click()
+    }
 
     React.useEffect(()=>{
       dispatch(bookActions.resetSelectedBook());
@@ -40,6 +61,7 @@ const ReviewWrite = () => {
       console.log(review, book.isbn);
       }
     }
+
 
     return (
         <React.Fragment>
@@ -69,11 +91,26 @@ const ReviewWrite = () => {
                  <SelectBookCard/>
                 }
     
-                <BookChoice style={{height: "35vh"}}>
+                {is_preview ? 
+                <Image 
+                  src={preview_url} 
+                  />: 
+                <BookChoice 
+                  style={{height: "35vh"}}
+                  onClick={()=>{
+                  selectImage()
+                }}>
                     <img src={add_button} alt="add btn"/>
                     <Text>책 사진 업로드</Text>
                     <Text style={{color:"#9e9e9e", fontWeight: "normal", fontSize:"1em"}}>인상깊었던 사진을 올려보세요</Text>
-                </BookChoice>
+                </BookChoice>  
+                }
+
+                <Upload
+                type="file"
+                ref={fileInput}
+                onChange={setPreview}/>
+
                 <InputQuotes>
                     <Text>인용구 작성하기</Text>
                     <QuotesTextarea ref={quote} placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요">
@@ -95,6 +132,14 @@ const ReviewWrite = () => {
 }
 
 export default ReviewWrite;
+
+const Image = styled.img`
+width: auto;
+height: auto;
+max-width: 100%;
+max-height: 100%;
+`
+
 const PostWriteBox = styled.div`
   width: 100vw;
   height: auto;
@@ -133,8 +178,8 @@ const LeftArrow = styled.img`
   flex-grow: 0;
   object-fit: contain;
   float: left;
-
 `;
+
 const ReviewHeaderText = styled.button`
   width: 20vw;
   height: 5vh;
@@ -168,7 +213,9 @@ const BookChoice = styled.div`
   color: #1168d7;
   font-size: 0.9em;
   box-sizing: border-box;
+  cursor:pointer;
 `;
+
 const InputQuotes = styled.div`
   width: 100vw;
   height: 20vh;
@@ -248,3 +295,8 @@ const HashInput = styled.input`
     color: #A8A8A8;
   }
 `;
+
+const Upload = styled.input`
+display: hidden;
+opacity:0;
+`
