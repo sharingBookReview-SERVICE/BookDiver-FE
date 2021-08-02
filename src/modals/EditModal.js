@@ -7,18 +7,23 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {history} from "../redux/configStore"
 
 
 const EditModal = (props) =>{
     const dispatch = useDispatch();
+    const bookId = useSelector(state => state.review.feed_id.bookId)
+    const reviewId = useSelector(state => state.review.feed_id.reviewId)
 
 
     return(
         <React.Fragment>
 
             <Container>
-              <Btn><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
+              <Btn onClick={() => {
+                history.push(`/postwrite/${bookId}/${reviewId}`)
+              }}><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
               <Btn><BookmarkBorderOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 저장</Btn>
               <Btn onClick={() => { 
                 dispatch(reviewActions.deleteReviewSV())

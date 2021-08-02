@@ -35,6 +35,7 @@ const ReviewCard = (props) => {
 
     const getFeedId = () => {
       dispatch(reviewActions.getFeedId(book._id, _id))
+      console.log("----------카드에서",book._id, _id)
     }
 
     const showEditModal = () => {
