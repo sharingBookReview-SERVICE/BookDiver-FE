@@ -31,9 +31,7 @@ const initialState = {
     comment_id:{
       commentId:"",
     },
-    edit_id:{
-      editId:"",
-    }
+    edit_id:"",
 };
 
 
@@ -80,7 +78,7 @@ const editCommentSv = (content) => {
     {content : content})
     .then((res) => {
       // dispatch(editComment(content))
-      dispatch(getEditId(""))
+      dispatch(getEditId(""))// 댓글작성인풋 다시 화면에 나오게 만들기 
     })
     .then((res) => {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
