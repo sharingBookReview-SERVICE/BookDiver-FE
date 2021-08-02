@@ -21,13 +21,15 @@ const EditModal = (props) =>{
               <Btn><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
               <Btn><BookmarkBorderOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 저장</Btn>
               <Btn onClick={() => { 
-                dispatch(reviewActions.deleteReviewSV())}
+                dispatch(reviewActions.deleteReviewSV())
+                dispatch(permitActions.showModal(false))
+              }
               }><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}} />게시물 삭제</Btn>
             </Container>
 
             <Overlay 
             onClick={()=>{
-            dispatch(permitActions.showModal(false));
+            dispatch(permitActions.showModal(false))
             }}>
             </Overlay>
         </React.Fragment>

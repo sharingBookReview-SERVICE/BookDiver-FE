@@ -15,24 +15,25 @@ const GET_FEED_ID = "review/GET_REVIEW_ID"
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
 const like = createAction(LIKE, (reviewId) => ({reviewId}))
 const addReview = createAction(ADD_REVIEW, (review) => ({review}));
-const deleteReview = createAction(DELETE_REVIEW, (review) => ({review}));
+const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({reviewId}));
 const editReview = createAction(EDIT_REVIEW, (bookId, reviewId) => ({bookId, reviewId}));
 const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
 const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}))
 
 //initial
 const initialState = {
-    all_review_list: [{
-        user:"",
-        book:"",
-        quote:"",
-        content:"",
-        hashtag:[],
-        createdAt:"",
-        comments:[],
-        myLike:true,
-        likes:10,
-    }],
+    all_review_list: {
+        feeds:
+        [{
+        book: {},
+        comments: [],
+        content: "",
+        created_at: "",
+        hashtags: [],
+        liked_users: [],
+        quote: "",
+        _id: ""
+    }]},
     feed_id: {
         bookId: "",
         reviewId: "",
@@ -96,7 +97,7 @@ const deleteReviewSV = () => {
         instance
         .delete(`/books/${bookId}/reviews/${reviewId}`)
         .then((res) => {
-            dispatch(deleteReview(bookId, reviewId));
+            dispatch(deleteReview(reviewId));
         })
         .catch((err) => {
             console.log("포스트 삭제도중 에러 발생", err);
@@ -164,9 +165,9 @@ export default handleActions(
         }),
         [DELETE_REVIEW] : (state, action) =>
         produce(state, (draft) => {
-            let idx = draft.all_review_list.findIndex((l) => l.id === action.payload.review);
-            if (idx !== -1) {
-                draft.all_review_list.splice(idx, 1)}
+            draft.all_review_list.feeds = draft.all_review_list.feeds.filter((l,idx) => {
+                return l._id !== action.payload.reviewId
+            })
         }),
         [EDIT_REVIEW] : (state, action) =>
         produce(state, (draft) => {
