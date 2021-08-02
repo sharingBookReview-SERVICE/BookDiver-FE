@@ -11,13 +11,16 @@ import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 const Comment = (props) =>{
     const dispatch = useDispatch();
     const editId = useSelector(state => state.comment.edit_id)
+    const commentId = props._id
     const [editContent, setEditContent] = useState("");
+
+    const getCommentId = () => {
+        dispatch(commentActions.getCommentId(commentId))
+    }
     
     const showCommentModal = () => {
         dispatch(permitActions.showModal(true))
-    }
-    const getCommentId = () => {
-        dispatch(commentActions.getCommentId(props._id))
+        getCommentId() // 모달을 띄우면서,edit혹은 delete를 위한 commentId를 받아오기 
     }
 
     const onChangeComment = (e) => {
@@ -26,10 +29,9 @@ const Comment = (props) =>{
 
     const editComment = (content) => {
         dispatch(commentActions.editCommentSv(content))
-        console.log(content)
     }
     
-    if(editId === props._id){
+    if(editId === commentId){
         return(
             <React.Fragment>
 
@@ -86,7 +88,6 @@ const Comment = (props) =>{
                         style={{color: "#9e9e9e"}} 
                         onClick = {() => {
                             showCommentModal()
-                            getCommentId()
                         }}/>
                     </UserRightBox>
                 </CommentUserBox>

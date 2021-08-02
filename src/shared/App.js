@@ -17,6 +17,7 @@ import BookDetail from "../pages/BookDetail";
 import CommentModal from "../modals/CommentModal";
 import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
+import ImageUpload from "../components/ImageUpload"
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/MyReview" exact component={MyReview} />
           <Route path="/myreviewfeed" exact component={MyReviewFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
+          <Route path="/imageupload" exact component={ImageUpload}/>
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>

@@ -49,7 +49,6 @@ const initialState = {
         myLike:true,
         likes:10,
     }
-
 };
 
 //middle

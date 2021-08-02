@@ -14,14 +14,15 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
 
 
-const ReviewWrite = () => {
+const ReviewWrite = (props) => {
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
     const is_preview = useSelector(state => state.upload.is_preview);
     const preview_url = useSelector(state => state.upload.img_url)
-    console.log(is_preview)
     const book = useSelector(state=> state.book.book);
     const fileInput = React.useRef();
+    const is_edit = props.match.params.id_edit;
+    console.log(is_edit)
 
     const setPreview = () => {
       const reader = new FileReader();
@@ -61,6 +62,12 @@ const ReviewWrite = () => {
       console.log(review, book.isbn);
       }
     }
+
+//
+//1.is_edit을 리덕스로 만들고, 이것을 통해서 조건부 렌더링 
+//2.textarea에 defaultValue에 해당 리뷰 아이디의 content를 넣어주기 
+//3. 수정에 필요한 작업을 하시면될것같아요
+
 
 
     return (
@@ -247,7 +254,7 @@ const QuotesTextarea = styled.textarea`
   border-radius: 5px;
   border: none;
   background-color: #f5f5f5;
-
+  resize:none;
   &::placeholder {
     color: #A8A8A8;
   }
@@ -297,6 +304,5 @@ const HashInput = styled.input`
 `;
 
 const Upload = styled.input`
-display: hidden;
-opacity:0;
+display: none;
 `
