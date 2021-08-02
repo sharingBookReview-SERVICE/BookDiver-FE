@@ -6,7 +6,7 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, isbn, is_reviewDetail} = props;
+  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
@@ -15,8 +15,9 @@ const SelectBookCard = (props) =>{
     dispatch(bookActions.getOneBookSV(isbn));
     dispatch(permitActions.bookSelect(true));
   }
+
   
-  if(is_reviewDetail){
+  if(is_reviewDetail || is_editReviewPage){
     return(
       <BookInfoWrapper>
         <BookInfoBox>
@@ -92,6 +93,8 @@ height:80px;
 border-radius:4px;
 background-color: #c4c4c4;
 background-image:url(${(props) => props.url ? props.url : " "});
+background-size: cover;
+box-sizing:border-box;
 `
 
 

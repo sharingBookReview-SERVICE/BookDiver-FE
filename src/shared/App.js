@@ -30,7 +30,7 @@ function App() {
                     <Route path="/" exact component={Home}/>
                     <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail}/>
                     <Route path="/postwrite" exact component={ReviewWrite}/>
-                    <Route path="/reviewwrite/:reviewid/:bookid" exact component={ReviewWrite}/>
+                    <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite}/>
                     <Route path="/bookdetail" exact component={BookDetail}/>
                     <Route path="/login" exact component={Login}/>
                     <Route path="/myprofile" exact component={MyProfile}/>
