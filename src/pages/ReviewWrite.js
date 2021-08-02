@@ -15,13 +15,14 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 const ReviewWrite = () => {
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
+    const is_edit = useSelector((state) => state.review.feed_edit.feed_edit_id);
     const book = useSelector(state=> state.book.book);
 
     React.useEffect(()=>{
       dispatch(bookActions.resetSelectedBook());
       dispatch(permitActions.bookSelect(false));
     },[])
-    
+
     const quote = React.useRef();
     const content = React.useRef();
     const hashtags = React.useRef();
@@ -43,24 +44,24 @@ const ReviewWrite = () => {
 
     return (
         <React.Fragment>
-          
+
           {/* 책 선택 모달 열기 */}
             {is_modal && <SelectBookModal/>}
             <PostWriteBox>
                 <StartPost></StartPost>
                 <PostHeader>
-                    <LeftArrow 
-                      src={left_arrow} 
+                    <LeftArrow
+                      src={left_arrow}
                       onClick={()=>{history.goBack()}}/>
-                    <ReviewHeaderText 
+                    <ReviewHeaderText
                       onClick={()=>{addReview()}}>
                         게시하기</ReviewHeaderText>
                 </PostHeader>
 
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
-                {book.length === 0 ? 
-                  <BookChoice 
-                    onClick={()=>{ 
+                {book.length === 0 ?
+                  <BookChoice
+                    onClick={()=>{
                       dispatch(permitActions.showModal(true))}} >
                   <img src={add_button} alt="add btn"/>
                   <Text>리뷰할 책 선택하기</Text>
@@ -68,7 +69,7 @@ const ReviewWrite = () => {
                  :
                  <SelectBookCard/>
                 }
-    
+
                 <BookChoice style={{height: "35vh"}}>
                     <img src={add_button} alt="add btn"/>
                     <Text>책 사진 업로드</Text>
@@ -90,7 +91,7 @@ const ReviewWrite = () => {
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
-        
+
     )
 }
 

@@ -48,6 +48,9 @@ const initialState = {
         comments:[],
         myLike:true,
         likes:10,
+    },
+    feed_edit:{
+        feed_edit_id: "",
     }
 
 };
