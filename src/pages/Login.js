@@ -23,9 +23,10 @@ const Login = (props) =>{
                         <LoginText
                         
                         >로그인하고 리뷰를 작성해보세요</LoginText>
-                        <KaKaoLogin
+                   
+                        <KaKaoBtn 
                         href={KAKAO_AUTH_URL}
-                        >카카오톡으로 시작하기</KaKaoLogin>
+                        >카카오톡으로 시작하기</KaKaoBtn>
                         <GoogleBtn>구글로 시작하기</GoogleBtn>
                     </LoginBox>
                 </Background>
@@ -73,17 +74,27 @@ letter-spacing: -0.42px;
 color: #1168d7;
 `;
 
-const KakaoBtn = styled.button`
-width: 280px;
-height: 48px;
-margin: 0 auto;
-text-align: center;
-line-height: 48px;
-border-radius: 12px;
-background-color: #f9e57e;
-font-weight: bold;
-`;
+// const KakaoBtn = styled.button`
+// width: 280px;
+// height: 48px;
+// margin: 0 auto;
+// text-align: center;
+// line-height: 48px;
+// border-radius: 12px;
+// background-color: #f9e57e;
+// font-weight: bold;
+// `;
 
+const KaKaoBtn = styled.a`
+  display: flex;
+  height: 50px;
+  background-color: #ffe500;
+  text-align: center;
+  border-radius: 4px;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+`;
 const GoogleBtn = styled.div`
 width: 280px;
 height: 48px;
