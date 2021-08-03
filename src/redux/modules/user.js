@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
+import axios from "axios";
 
 const {Kakao} = window;
 
@@ -11,6 +12,7 @@ const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
 const GET_USER_REVIEW = "GET_USER_REVIEW";
+const GET_TOKEN = "GET_TOKEN"
 
 //actioncreator
 const kakaoLogin = createAction(KAKAO_LOGIN, (user)=>({user}));
@@ -19,27 +21,43 @@ const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
+const getToken = createAction(GET_TOKEN, (token) => ({token}))
 
 //initial
 const initialState = {
     user : [],
-    review_list: []
+    review_list: [],
+    token: ""
 };
+
+const getTokenSV = () => {
+  return function(dispatch, getState){
+
+    instance.get(`users/logincheck`)
+    .then((res) => {
+      console.log(res)
+      dispatch(getToken())
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+  }
+}
 
 //middle
 //회원가입(소셜 로그인) - 수정필요
 const kakaoLoginSV= (code)=>{
   return function(dispatch, getState, {history}){
-    console.log("회원가입")
+    console.log("-------------회원가입")
 
-        instance.get(`/api/users/kakao/callback/kakao?code=${code}`)
-        .then((res)=>{
-          console.log(res);
-        })
-        .catch((err)=>{
-          console.log(err)
-        })
-      
+    instance.get(`/users/kakao/callback?code=${code}`)
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>
+        console.log(err)
+      )
   }
 }
 
@@ -135,6 +153,10 @@ export default handleActions(
           produce(state, (draft) => {
             draft.review_list = action.payload.review_list;
         }),
+        [GET_TOKEN] : (state, action) => 
+        produce(state, (draft) => {
+          draft.token = action.payload.token;
+        })
     },
     initialState
   );
@@ -146,7 +168,8 @@ const actionCreators = {
   updateUserSV,
   deleteUserSV,
   getUserReviewSV,
-  kakaoLoginSV
+  kakaoLoginSV,
+  getTokenSV
 };
   
 export { actionCreators };

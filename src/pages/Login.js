@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import KaKaoLogin from 'react-kakao-login';
 import { KAKAO_AUTH_URL} from "../shared/OAuth";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -13,7 +14,6 @@ const Login = (props) =>{
     
     const dispatch = useDispatch();
 
- 
    
     return(
         <React.Fragment>
@@ -23,7 +23,7 @@ const Login = (props) =>{
                         <LoginText
                         
                         >로그인하고 리뷰를 작성해보세요</LoginText>
-                   
+                    
                         <KaKaoBtn 
                         href={KAKAO_AUTH_URL}
                         >카카오톡으로 시작하기</KaKaoBtn>
@@ -95,6 +95,7 @@ const KaKaoBtn = styled.a`
   cursor: pointer;
   text-decoration: none;
 `;
+
 const GoogleBtn = styled.div`
 width: 280px;
 height: 48px;
