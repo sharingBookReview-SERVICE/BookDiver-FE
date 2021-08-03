@@ -139,8 +139,8 @@ const ReviewWrite = (props) => {
                     </QuotesTextarea>
                 </ReviewBox>
                 <HashTag>
-                    <Text>해시태그작성</Text><br/>
-                    <HashInput ref={hashtags} defaultValue={editHashtags} placeholder="예) 자기계발"></HashInput>
+                    <Text>해시태그작성</Text>
+                    <HashTagsInput getTags={getTags} defaultValue ={editHashtags} is_edit/>
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
