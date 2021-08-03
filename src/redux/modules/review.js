@@ -53,7 +53,6 @@ const initialState = {
     feed_edit:{
         feed_edit_id: "",
     }
-
 };
 
 //middle
