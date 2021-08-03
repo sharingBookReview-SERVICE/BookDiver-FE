@@ -5,8 +5,10 @@ import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
 import {useDispatch, useSelector} from "react-redux";
 import { history } from "../redux/configStore";
+
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
+import HashTagsInput from "../elements/HashTagsInput"
 
 import { actionCreators as reviewActions} from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
@@ -121,30 +123,24 @@ const ReviewWrite = (props) => {
                     ref={fileInput}
                     onChange={setPreview}/>
 
-                <InputQuotes>
+                <QuoteBox>
                     <Text>인용구 작성하기</Text>
                     <QuotesTextarea ref={quote} defaultValue={editQuote} placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요">
                     </QuotesTextarea>
-                </InputQuotes>
-                <AddReview>
+                </QuoteBox>
+                <ReviewBox>
                     <Text>리뷰작성</Text>
                     <QuotesTextarea ref={content} defaultValue={editContent} placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)">
                     </QuotesTextarea>
-                </AddReview>
+                </ReviewBox>
                 <HashTag>
                     <Text>해시태그작성</Text><br/>
-                    <HashInput ref={hashtags} defaultValue={editHashtags} placeholder="예) #자기계발"></HashInput>
+                    <HashInput ref={hashtags} defaultValue={editHashtags} placeholder="예) 자기계발"></HashInput>
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
       )
     }
-
-//
-//1.is_edit을 리덕스로 만들고, 이것을 통해서 조건부 렌더링 
-//2.textarea에 defaultValue에 해당 리뷰 아이디의 content를 넣어주기 
-//3. 수정에 필요한 작업을 하시면될것같아요
-
 
 
     return (
@@ -180,7 +176,7 @@ const ReviewWrite = (props) => {
                         src={preview_url}
                     />:
                     <BookChoice
-                        style={{height: "35vh"}}
+                        style={{height: "35%"}}
                         onClick={()=>{
                             selectImage()
                         }}>
@@ -195,21 +191,22 @@ const ReviewWrite = (props) => {
                     ref={fileInput}
                     onChange={setPreview}/>
 
-                <InputQuotes>
+                <QuoteBox>
                     <Text>인용구 작성하기</Text>
                     <QuotesTextarea ref={quote} placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요">
                     </QuotesTextarea>
-                </InputQuotes>
-                <AddReview>
+                </QuoteBox>
+                <ReviewBox>
                     <Text>리뷰작성</Text>
                     <QuotesTextarea ref={content} placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)">
                     </QuotesTextarea>
-                </AddReview>
+                </ReviewBox>
                 <HashTag>
                     <Text>해시태그작성</Text><br/>
-                    <HashInput ref={hashtags} placeholder="예) #자기계발"></HashInput>
+                    <HashTagsInput/>
                 </HashTag>
             </PostWriteBox>
+
         </React.Fragment>
 
     )
@@ -225,22 +222,19 @@ max-height: 100%;
 `
 
 const PostWriteBox = styled.div`
-  width: 100vw;
+  width: 100%;
   height: auto;
-  flex-grow: 0;
-  padding: 20px 0 0;
+  padding: 20px 0 40px 0;
   background-color: #FFFFFF;
-  //border: 1px solid black;
-  margin: auto;
   box-sizing: border-box;
-  position: relative;
 `;
 
 const Text = styled.text`
-  font-size: 1em;
+  font-size: 16px;
   text-align: left;
   letter-spacing: -0.28px;
-  font-weight: bolder;
+  font-weight: bold;
+  margin-bottom:5px;
 `;
 
 const StartPost = styled.div`
@@ -277,12 +271,11 @@ const ReviewHeaderText = styled.button`
   color: #9e9e9e;
   box-sizing: border-box;
   border:none;
-  //border: 1px solid black;
 `;
 
 const BookChoice = styled.div`
-  width: 80vw;
-  height: 15vh;
+  width: 90%;
+  height: 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -300,34 +293,27 @@ const BookChoice = styled.div`
   cursor:pointer;
 `;
 
-const InputQuotes = styled.div`
-  width: 100vw;
-  height: 20vh;
+const QuoteBox = styled.div`
+  width: 100%;
+  height: 15%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 1.3vh;
-  margin: 3vh 0 0;
   padding: 16px;
   background-color: #ffffff;
-  //border: 1px solid black;
   box-sizing: border-box;
 `;
 
 const QuotesTextarea = styled.textarea`
-  width: 90vw;
-  height: 20vh;
-  flex-grow: 0;
+  width: 100%;
+  height: 100%;
   font-family: NotoSansKR;
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.43;
   letter-spacing: -0.28px;
   text-align: left;
-  padding: 0.7em 0 0 0.5em;
+  padding: 7px 0 0 7px;
   border-radius: 5px;
   border: none;
   background-color: #f5f5f5;
@@ -337,27 +323,25 @@ const QuotesTextarea = styled.textarea`
   }
 `;
 
-const AddReview = styled.div`
-  width: 100vh;
-  height: 20vh;
+const ReviewBox = styled.div`
+  width: 100%;
+  height: 15%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 8px;
-  padding: 1em;
+  padding: 16px;
   background-color: #ffffff;
-  //border: 1px solid blue;
   box-sizing: border-box;
 `;
 
 const HashTag = styled.div`
-  width: 80vw;
-  height: 20vh;
+  width: 100%;
+  height: 20%;
   padding: 1em;
+  padding-bottom: 140px;
   background-color: #ffffff;
   box-sizing: border-box;
-  // border: 1px solid red;
 `;
 
 const HashInput = styled.input`
@@ -381,9 +365,5 @@ const HashInput = styled.input`
 `;
 
 const Upload = styled.input`
-<<<<<<< HEAD
 display: none;
-=======
-display:none;
->>>>>>> develop
 `

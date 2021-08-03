@@ -10,6 +10,8 @@ const SelectBookCard = (props) =>{
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
+  const bookTitle = title?.split("(")[0]
+  const selectedBookTitle = book?.title?.split("(")[0]
 
   const selectBook = ()=>{
     dispatch(bookActions.getOneBookSV(isbn));
@@ -23,7 +25,7 @@ const SelectBookCard = (props) =>{
         <BookInfoBox>
           <BookImg url={image}/>
           <BookDescBox>
-              <BookTitle>{title}</BookTitle>
+          <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
               <BookWriter>{author} 저</BookWriter>
           </BookDescBox>
         </BookInfoBox>
@@ -43,7 +45,7 @@ const SelectBookCard = (props) =>{
               }}>
               <BookImg url={book.image}/>
               <BookDescBox>
-                  <BookTitle>{book.title}</BookTitle>
+                  <BookTitle dangerouslySetInnerHTML={{__html: selectedBookTitle}}></BookTitle>
                   <BookWriter>{book.author} 저</BookWriter>
               </BookDescBox>
             </BookInfoBox>
@@ -57,7 +59,7 @@ const SelectBookCard = (props) =>{
               }}>
               <BookImg url={image}/>
               <BookDescBox>
-                  <BookTitle>{title}</BookTitle>
+                  <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
                   <BookWriter>{author} 저</BookWriter>
               </BookDescBox>
             </BookInfoBox>
@@ -70,7 +72,7 @@ const SelectBookCard = (props) =>{
 const BookInfoWrapper = styled.div`
 width:100%;
 box-sizing:border-box;
-padding:0px 24px 16px 24px;
+padding:0px 20px 16px 20px;
 `
 
 const BookInfoBox = styled.div`
@@ -97,14 +99,16 @@ background-size: cover;
 box-sizing:border-box;
 `
 
-
 const BookDescBox = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing:border-box;
+  max-width:70%;
 `
 
-const BookTitle = styled.p`
+const BookTitle = styled.div`
+  width:100%;
+  height: auto;
   color:#1168d7;
   font-size: 14px;
   font-weight: bold;
@@ -114,7 +118,7 @@ const BookTitle = styled.p`
   text-align: left;
 `
 
-const BookWriter = styled.p`
+const BookWriter = styled.div`
 font-size: 13px;
 line-height: 1.43;
 letter-spacing: -0.28px;
