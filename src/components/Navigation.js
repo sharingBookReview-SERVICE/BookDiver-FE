@@ -26,7 +26,7 @@ const Navigation = (props) => {
         value="list"
         icon={<EditIcon />}
         onClick={()=>{
-          history.push("/postwrite")
+          history.push(`/postwrite`)
         }}
       />
       <BottomNavigationAction

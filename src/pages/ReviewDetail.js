@@ -21,7 +21,7 @@ import CommentModal from "../modals/CommentModal";
 const ReviewDetail = (props) =>{
     const dispatch = useDispatch();
     const is_modal = useSelector(state => state.permit.is_modal);
-    const is_editting = useSelector(state => state.comment.edit_id.editId)
+    const is_editting = useSelector(state => state.comment.edit_id)
     const [commentContent, setCommentContent] = useState("");
     const bookId = props.match.params.bookid;
     const reviewId = props.match.params.reviewid;

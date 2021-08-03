@@ -17,6 +17,7 @@ const CommentModal = (props) =>{
     }
 
     const getEditId = () => {
+        //getEditCommentId함수 내부에서 commentId를 editId로 저장하는 작업을 진행함.
         dispatch(commentActions.getEditCommentId())
     }
 

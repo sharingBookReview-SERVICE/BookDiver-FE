@@ -6,16 +6,19 @@ const SHOW_NAV = "permit/SHOW_NAV";
 const SHOW_MODAL = "permit/SHOW_MODAL";
 const BOOK_SELECT = "permit/BOOK_SELECT";
 
+
 //actioncreator
 const showNav = createAction(SHOW_NAV, (is_nav) => ({ is_nav }));
 const showModal = createAction(SHOW_MODAL, (is_modal)=>({is_modal}));
 const bookSelect = createAction(BOOK_SELECT, (is_selected)=> ({ is_selected}));
+
 
 //initial
 const initialState = {
     is_nav: true,
     is_modal: false,
     is_selected: false,
+
 };
 
 
@@ -33,7 +36,7 @@ export default handleActions(
         [BOOK_SELECT] : (state, action) =>
         produce(state, (draft)=>{
           draft.is_selected = action.payload.is_selected;
-        })
+        }),
     },
     initialState
   );
@@ -42,7 +45,7 @@ export default handleActions(
 const actionCreators = {
     showNav,
     showModal,
-    bookSelect
+    bookSelect,
 };
   
 export { actionCreators };
