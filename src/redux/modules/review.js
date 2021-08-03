@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
+import {history} from "../configStore";
 
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
@@ -16,7 +17,7 @@ const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_lis
 const like = createAction(LIKE, (reviewId) => ({reviewId}))
 const addReview = createAction(ADD_REVIEW, (review) => ({review}));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({reviewId}));
-const editReview = createAction(EDIT_REVIEW, (bookId, reviewId) => ({bookId, reviewId}));
+const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId, review}));
 const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
 const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}))
 
@@ -48,6 +49,9 @@ const initialState = {
         comments:[],
         myLike:true,
         likes:10,
+    },
+    feed_edit:{
+        feed_edit_id: "",
     }
 };
 
@@ -71,7 +75,7 @@ const getAllReviewSV = () => {
 //포스트 추가하기
 const addReviewSV = (review, bookId) => {
     return function(dispatch){
-        console.log(bookId,review)
+
         instance
         .post(`/books/${bookId}/reviews`, {
             quote: review.quote,
@@ -79,7 +83,9 @@ const addReviewSV = (review, bookId) => {
             hashtags: review.hashtags,
         })
         .then((res) => {
+            console.log(res)
             dispatch(addReview(review));
+            history.push("/")
         })
         .catch((err) => {
             console.log("post작성 실패", err);
@@ -92,10 +98,12 @@ const deleteReviewSV = () => {
     return function (dispatch, getState) {
         const bookId = getState().review.feed_id.bookId
         const reviewId = getState().review.feed_id.reviewId
+        console.log("-----------삭제 함수를 실행합니다")
 
         instance
         .delete(`/books/${bookId}/reviews/${reviewId}`)
         .then((res) => {
+            console.log("-----------------------",res)
             dispatch(deleteReview(reviewId));
         })
         .catch((err) => {
@@ -105,13 +113,32 @@ const deleteReviewSV = () => {
 };
 
 //포스트 수정하기
-const editReviewSV = (bookId, reviewId) => {
+const editReviewSV = (bookId, reviewId, review) => {
     return function (dispatch, getState, {history}) {
+        // console.log(getState().review.all_review_list)
+        // const idx = getState().review.all_review_list.feeds.findIndex((l) => l._id === reviewId)
+        // const bookTitle = getState().review.all_review_list.feeds[idx]
+        // const bookAuthor = getState().review.all_review_list.feeds[idx]
+        // console.log(bookTitle)
+        // const reviewObj = {
+        //     title: bookTitle,
+        //     author: bookAuthor,
+        //     quote: review.quote,
+        //     content: review.content,
+        //     hashtags: review.hashtags,
+        // }
 
         instance
-        .put(`/books/${bookId}/reviews/${reviewId}`)
+        .put(`/books/${bookId}/reviews/${reviewId}`,{
+            quote: review.quote,
+            content: review.content,
+            hashtags: review.hashtags,
+        },   
+        )
         .then((res) => {
-            dispatch(editReview(res.data.result));
+            // console.log(res)
+            // dispatch(editReview(reviewId, reviewObj));
+            history.goBack()
         })
         .catch((err) => {
             console.log("포스트 수정중 에러 발생", err);
@@ -170,8 +197,8 @@ export default handleActions(
         }),
         [EDIT_REVIEW] : (state, action) =>
         produce(state, (draft) => {
-            let idx = draft.all_review_list.findIndex((l) => l.id === action.payload.review)
-            draft.all_review_list[idx] = {...draft.all_review_list[idx], ...action.payload.review}
+            let idx = draft.all_review_list.feeds.findIndex((l) => l._id === action.payload.reviewId)
+            draft.all_review_list.feeds[idx] = action.payload.review
         }),
         [GET_DETAIL_REVIEW] : (state, action) =>
         produce(state, (draft) => {
