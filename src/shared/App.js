@@ -22,10 +22,12 @@ import ImageUpload from "../components/ImageUpload"
 
 function App() {
     const is_nav = useSelector(state => state.permit.is_nav)
+    const is_modal = useSelector(state => state.permit.is_modal)
+
 
   return (
     <React.Fragment>
-      <Container>
+      <Container is_modal_opened={is_modal ? "hidden" : "scroll"} >
          <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
           <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail} />
@@ -53,7 +55,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background: #fff;
-  overflow-y: scroll;
+  overflow-y: ${(props) => props.is_modal_opened};
   overflow-x: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
