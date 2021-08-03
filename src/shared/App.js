@@ -17,7 +17,8 @@ import BookDetail from "../pages/BookDetail";
 import CommentModal from "../modals/CommentModal";
 import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
-import ImageUpload from "../components/ImageUpload"
+import ImageUpload from "../components/ImageUpload";
+import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/myreviewfeed" exact component={MyReviewFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
           <Route path="/imageupload" exact component={ImageUpload}/>
+          <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler}></Route>
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>
