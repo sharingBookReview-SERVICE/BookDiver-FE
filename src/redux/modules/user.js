@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
+import axios from "axios";
 
 const {Kakao} = window;
 
@@ -34,13 +35,15 @@ const initialState = {
 const kakaoLoginSV= (code)=>{
   return function(dispatch, getState, {history}){
     console.log("회원가입")
-        instance.get(`/api/users/kakao/callback/kakao?code=${code}`)
-        .then((res)=>{
-          console.log(res);
-        })
-        .catch((err)=>{
-          console.log(err)
-        })
+      axios.get(`http://13.124.63.103?code=${code}`)
+      .then((res)=>
+        console.log(res)
+
+      )
+      .catch((err)=>
+        console.log(err)
+      )
+   
         
 
       

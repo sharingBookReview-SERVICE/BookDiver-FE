@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import KaKaoLogin from 'react-kakao-login';
 import { KAKAO_AUTH_URL} from "../shared/OAuth";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -13,7 +14,6 @@ const Login = (props) =>{
     
     const dispatch = useDispatch();
 
- 
    
     return(
         <React.Fragment>
