@@ -2,8 +2,10 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
 
+const {Kakao} = window;
 
 //actions
+const KAKAO_LOGIN = "KAKAO_LOGIN";
 const CREATE_USER = "CREATE_USER";
 const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
@@ -11,6 +13,7 @@ const DELETE_USER = "DELETE_USER";
 const GET_USER_REVIEW = "GET_USER_REVIEW";
 
 //actioncreator
+const kakaoLogin = createAction(KAKAO_LOGIN, (user)=>({user}));
 const createUser = createAction(CREATE_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
@@ -28,6 +31,25 @@ const initialState = {
 
 //middle
 //회원가입(소셜 로그인) - 수정필요
+const kakaoLoginSV= (code)=>{
+  return function(dispatch, getState, {history}){
+    console.log("회원가입")
+    Kakao.Auth.login({
+      success: function(authObj){
+        instance.get(`/users/kakao`)
+        .then((res)=>{
+          console.log(res)
+        })
+        
+
+      },
+      fail: function ( err){
+        window.alert("회원가입 실패")
+      }
+    })
+  }
+}
+
 const createUserSV = () => {
     return function(dispatch, getState, {history}){
       //오늘 목표 불러오기
@@ -129,7 +151,8 @@ const actionCreators = {
   getUserSV,
   updateUserSV,
   deleteUserSV,
-  getUserReviewSV
+  getUserReviewSV,
+  kakaoLoginSV
 };
   
 export { actionCreators };
