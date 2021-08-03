@@ -311,7 +311,7 @@ const QuoteBox = styled.div`
 `;
 
 const QuotesTextarea = styled.textarea`
-  width: 100%;
+  width: 98%;
   height: 100%;
   font-family: NotoSansKR;
   font-size: 14px;

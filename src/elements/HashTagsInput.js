@@ -74,13 +74,13 @@ color:#fafafa;
 `
 
 const TagInput = styled.input`
-        flex: 1;
-		border: none;
-        background-color:transparent;
-		height: 46px;
-		font-size: 14px;
-		padding: 4px 0 0 0;
-		&:focus {
-			outline: transparent;
-		}
+flex: 1;
+border: none;
+background-color:transparent;
+height: 46px;
+font-size: 14px;
+padding: 4px 0 0 0;
+&:focus {
+	outline: transparent;
+}
 `
