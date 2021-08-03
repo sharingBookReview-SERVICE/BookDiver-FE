@@ -67,7 +67,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: 0px 0px 50px 0px;
+  padding: 0px 0px 40px 0px;
   position: relative;
 `;
 

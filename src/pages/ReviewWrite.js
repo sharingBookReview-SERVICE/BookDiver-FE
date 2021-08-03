@@ -1,5 +1,5 @@
 //import 부분
-import React from "react";
+import React, {useRef, useState} from "react";
 import styled from "styled-components";
 import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
@@ -28,7 +28,6 @@ const ReviewWrite = (props) => {
 
     const fileInput = React.useRef();
     const is_edit = props.match.params.id_edit;
-    console.log(is_edit)
 
     const setPreview = () => {
         const reader = new FileReader();
@@ -57,19 +56,24 @@ const ReviewWrite = (props) => {
     },[])
     
 
-    const quote = React.useRef();
-    const content = React.useRef();
-    const hashtags = React.useRef();
+    const quote = useRef();
+    const content = useRef();
+    const [hashtags, setHashTags] = useState([])
+
+    //HashTag컴포넌트로 보낼 함수
+    const getTags = (tags) => {
+      setHashTags(tags)
+    }
 
     const addReview = () => {
-        if(book.length  === 0){
+        if(books.length  === 0){
             window.alert("책을 선택해주세요!");
         }
         else{
             let review = {
                 quote: quote.current.value,
                 content: content.current.value,
-                hashtags: hashtags.current.value,
+                hashtags: hashtags,
             };
             dispatch(reviewActions.addReviewSV(review, book.isbn));
         }
@@ -79,10 +83,11 @@ const ReviewWrite = (props) => {
       const review = {
         quote: quote.current.value,
         content: content.current.value,
-        hashtags: hashtags.current.value,
+        hashtags: hashtags,
       }
       dispatch(reviewActions.editReviewSV(bookId, reviewId, review))
     }
+
 
     if(reviewId){
       return(
@@ -202,8 +207,8 @@ const ReviewWrite = (props) => {
                     </QuotesTextarea>
                 </ReviewBox>
                 <HashTag>
-                    <Text>해시태그작성</Text><br/>
-                    <HashTagsInput/>
+                    <Text>해시태그작성</Text>
+                    <HashTagsInput getTags={getTags}/>
                 </HashTag>
             </PostWriteBox>
 
@@ -224,7 +229,7 @@ max-height: 100%;
 const PostWriteBox = styled.div`
   width: 100%;
   height: auto;
-  padding: 20px 0 40px 0;
+  padding: 20px 0 60px 0;
   background-color: #FFFFFF;
   box-sizing: border-box;
 `;
@@ -337,9 +342,9 @@ const ReviewBox = styled.div`
 
 const HashTag = styled.div`
   width: 100%;
-  height: 20%;
+  height: auto;
   padding: 1em;
-  padding-bottom: 140px;
+  // padding-bottom: 140px;
   background-color: #ffffff;
   box-sizing: border-box;
 `;
@@ -358,7 +363,6 @@ const HashInput = styled.input`
   background-color: #f5f5f5;
   border: none;
   box-sizing: border-box;
-
   &::placeholder {
     color: #A8A8A8;
   }

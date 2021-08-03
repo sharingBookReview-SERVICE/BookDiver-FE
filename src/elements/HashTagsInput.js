@@ -6,12 +6,12 @@ const HashTagsInput = (props) => {
     const [tags, setTags] = useState(["ex) 자기계발"]);
     const removeTags = indexToRemove => {
         setTags(tags.filter((_, index) => index !== indexToRemove))
-        // props.selected(tags.filter((_, index) => index !== indexToRemove))
+        props.getTags(tags.filter((_, index) => index !== indexToRemove))
     }
     const addTags = (event) => {
         if(event.target.value !== ""){
             setTags([...tags, event.target.value])
-            // props.selected([...tags, event.target.value])
+            props.getTags([...tags, event.target.value])
             event.target.value = "";
         }
     }
@@ -41,12 +41,11 @@ min-height: 48px;
 border-radius: 5px;
 background-color: #f5f5f5;
 position:relative;
-margin-bottom:100px;
+margin: 5px 0px 60px 0px;
 padding: 0 8px;
 display:flex;
 flex-wrap: wrap;
 align-items:flex-start;
-
 `
 
 const TagUl = styled.ul`
