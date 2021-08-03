@@ -44,7 +44,7 @@ function App() {
           <Route path="/myreviewfeed" exact component={MyReviewFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
           <Route path="/imageupload" exact component={ImageUpload}/>
-          {/* <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler}></Route> */}
+          <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler}></Route>
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>
