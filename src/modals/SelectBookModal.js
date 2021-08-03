@@ -69,10 +69,10 @@ const Overlay = styled.div`
 
 const Container = styled.div`
 position:absolute;
-top:10%;
-left:10%;
-width: 80vw;
-height: 80vh;
+top:12%;
+left:5%;
+width: 90vw;
+height: 75vh;
 border-radius: 12px;
 justify-content: center;
 align-items: center;
