@@ -25,6 +25,8 @@ const ReviewWrite = (props) => {
     const reviewId = props.match.params?.reviewid
 
     const fileInput = React.useRef();
+    const is_edit = props.match.params.id_edit;
+    console.log(is_edit)
 
     const setPreview = () => {
         const reader = new FileReader();
@@ -137,6 +139,12 @@ const ReviewWrite = (props) => {
         </React.Fragment>
       )
     }
+
+//
+//1.is_edit을 리덕스로 만들고, 이것을 통해서 조건부 렌더링 
+//2.textarea에 defaultValue에 해당 리뷰 아이디의 content를 넣어주기 
+//3. 수정에 필요한 작업을 하시면될것같아요
+
 
 
     return (
@@ -373,5 +381,9 @@ const HashInput = styled.input`
 `;
 
 const Upload = styled.input`
+<<<<<<< HEAD
+display: none;
+=======
 display:none;
+>>>>>>> develop
 `
