@@ -23,7 +23,6 @@ import ImageUpload from "../components/ImageUpload"
 function App() {
     const is_nav = useSelector(state => state.permit.is_nav)
 
-<<<<<<< HEAD
   return (
     <React.Fragment>
       <Container>
@@ -46,31 +45,6 @@ function App() {
        </Container>
     </React.Fragment>
   );
-=======
-
-    return (
-        <React.Fragment>
-            <Container>
-                <ConnectedRouter history={history}>
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail}/>
-                    <Route path="/postwrite" exact component={ReviewWrite}/>
-                    <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite}/>
-                    <Route path="/bookdetail" exact component={BookDetail}/>
-                    <Route path="/login" exact component={Login}/>
-                    <Route path="/myprofile" exact component={MyProfile}/>
-                    <Route path="/changename" exact component={ChangeName}/>
-                    <Route path="/myreview" exact component={MyReview}/>
-                    <Route path="/modal" exact component={CommentModal}/>
-                    <Route path="/MyReview" exact component={MyReview}/>
-                    <Route path="/myreviewfeed" exact component={MyReviewFeed}/>
-                    <Route path="/myreviewfind" exact component={MyReviewFind}/>
-                </ConnectedRouter>
-                {is_nav ? <Navigation/> : ""}
-            </Container>
-        </React.Fragment>
-    );
->>>>>>> develop
 
 }
 
