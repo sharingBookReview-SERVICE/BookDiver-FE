@@ -20,20 +20,18 @@ const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
 
-
 //initial
 const initialState = {
     user : [],
     review_list: []
 };
 
-
-
 //middle
 //회원가입(소셜 로그인) - 수정필요
 const kakaoLoginSV= (code)=>{
   return function(dispatch, getState, {history}){
     console.log("회원가입")
+
         instance.get(`/api/users/kakao/callback/kakao?code=${code}`)
         .then((res)=>{
           console.log(res);
@@ -41,10 +39,7 @@ const kakaoLoginSV= (code)=>{
         .catch((err)=>{
           console.log(err)
         })
-        
-
       
-   
   }
 }
 
@@ -117,6 +112,7 @@ const getUserReviewSV = (id)=>{
     })
   }
 }
+
 //reducer
 export default handleActions(
     {
