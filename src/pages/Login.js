@@ -1,18 +1,31 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import KaKaoLogin from 'react-kakao-login';
+import { KAKAO_AUTH_URL} from "../shared/OAuth";
 
 
 
 const Login = (props) =>{
 
+    
+    const dispatch = useDispatch();
+
+ 
+   
     return(
         <React.Fragment>
             <Container>
                 <Background>
                     <LoginBox>
-                        <LoginText>로그인하고 리뷰를 작성해보세요</LoginText>
-                        <KakaoBtn>카카오톡으로 시작하기</KakaoBtn>
+                        <LoginText
+                        
+                        >로그인하고 리뷰를 작성해보세요</LoginText>
+                        <KaKaoLogin
+                        href={KAKAO_AUTH_URL}
+                        >카카오톡으로 시작하기</KaKaoLogin>
                         <GoogleBtn>구글로 시작하기</GoogleBtn>
                     </LoginBox>
                 </Background>
@@ -60,7 +73,7 @@ letter-spacing: -0.42px;
 color: #1168d7;
 `;
 
-const KakaoBtn = styled.div`
+const KakaoBtn = styled.button`
 width: 280px;
 height: 48px;
 margin: 0 auto;

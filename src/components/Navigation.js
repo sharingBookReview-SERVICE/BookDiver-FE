@@ -42,7 +42,7 @@ const Navigation = (props) => {
         value="login"
         icon={<PersonIcon />}
         onClick={()=>{
-          history.push("/myprofile")
+          history.push("/login")
         }}
       />
     </BottomNavigation>
