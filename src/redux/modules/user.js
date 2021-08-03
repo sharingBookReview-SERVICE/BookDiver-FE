@@ -34,19 +34,17 @@ const initialState = {
 const kakaoLoginSV= (code)=>{
   return function(dispatch, getState, {history}){
     console.log("회원가입")
-    Kakao.Auth.login({
-      success: function(authObj){
-        instance.get(`/users/kakao`)
+        instance.get(`/api/users/kakao/callback/kakao?code=${code}`)
         .then((res)=>{
-          console.log(res)
+          console.log(res);
+        })
+        .catch((err)=>{
+          console.log(err)
         })
         
 
-      },
-      fail: function ( err){
-        window.alert("회원가입 실패")
-      }
-    })
+      
+   
   }
 }
 
