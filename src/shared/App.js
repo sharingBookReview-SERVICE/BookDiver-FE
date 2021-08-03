@@ -32,6 +32,7 @@ function App() {
          <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
           <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail} />
+    <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite}/>
           <Route path="/postwrite" exact component={ReviewWrite} />
           <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite} />
           <Route path="/bookdetail/:bookid" exact component={BookDetail} />
