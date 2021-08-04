@@ -42,6 +42,8 @@ const ReviewWrite = (props) => {
     const [hashtags, setHashTags] = useState([])
     const [image, setImage] = useState({})
 
+    const FormData = require('form-data');
+
     //HashTag컴포넌트에서 데이터를 받아올 함수 
     const getTags = (tags) => {
         setHashTags(tags)
@@ -69,6 +71,7 @@ const ReviewWrite = (props) => {
     const setFormData = (files) => {
         const formData = new FormData();
         formData.append('file', files)
+        console.log(formData.getHeaders())
         setImage(formData)
     }
 
@@ -102,15 +105,18 @@ const ReviewWrite = (props) => {
         }
     };
 
+   
+
     const sendImage = () => {
+
       instance
-        .post(`/books/${bookId}/reviews/image`, {
-            image: image
-        }, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }})
+        .post(`/books/${books.isbn}/reviews/images`, {
+            image
+        }, {headers: {
+          'Content-Type': 'multipart/form-data',
+        }})
         .then((res) => {
+          console.log(res);
         })
         .catch((err) => {
             console.log("post작성 실패", err);
@@ -140,9 +146,7 @@ const ReviewWrite = (props) => {
                 hashtags: hashtags,
                 image: image
             };
-          //   for(var pair of image.entries()) {
-          //     console.log(typeof(pair[0])+ ', '+ typeof(pair[1])); 
-          //  }
+
 
             dispatch(reviewActions.addReviewSV(review, books.isbn));
         }
@@ -228,7 +232,7 @@ const ReviewWrite = (props) => {
                         src={left_arrow}
                         onClick={()=>{history.goBack()}}/>
                     <ReviewHeaderText
-                        onClick={()=>{addReview()}}>
+                        onClick={()=>{sendImage()}}>
                         게시하기</ReviewHeaderText>
                 </PostHeader>
 
