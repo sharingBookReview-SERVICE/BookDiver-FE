@@ -9,6 +9,7 @@ import SelectBookCard from "../components/SelectBookCard";
 import ReviewCard from "../components/ReviewCard";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as reviewActions } from "../redux/modules/review";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 //feature 사용중 push하기 
@@ -21,6 +22,7 @@ const BookDetail = (props) => {
   React.useEffect(()=>{
     dispatch(bookActions.getOneBookSV(bookId));
     dispatch(reviewActions.getReviewsBookHaveSV(bookId));
+    dispatch(permitActions.showNav(true));
   },[]);
  
     return (

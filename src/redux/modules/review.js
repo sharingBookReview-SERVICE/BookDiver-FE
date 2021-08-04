@@ -67,7 +67,6 @@ const getAllReviewSV = () => {
         instance
         .get('/feeds')
         .then((res) => {
-            console.log(res.data)
             dispatch(getAllReview(res.data));
         })
         .catch((err) => {
