@@ -5,6 +5,8 @@ import add_button from "../img/add_button.png"
 import left_arrow from "../img/left_arrow.png"
 import {useDispatch, useSelector} from "react-redux";
 import { history } from "../redux/configStore";
+import imageCompression from 'browser-image-compression';
+import instance from "../shared/Request";
 
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
@@ -15,23 +17,46 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
 
+
 const ReviewWrite = (props) => {
     const dispatch = useDispatch();
+
+    //모달 여부
     const is_modal = useSelector(state=> state.permit.is_modal);
+
+    //이미지 관련 
     const is_preview = useSelector(state => state.upload.is_preview);
     const preview_url = useSelector(state => state.upload.img_url)
+    const fileInput = React.useRef();
+
+    //책 관련 
     const books = useSelector(state=> state.book.book);
     const reviewDetail = useSelector(state => state.review.review_detail)
     const { hashtags : editHashtags, quote : editQuote, content: editContent, book } = reviewDetail;
     const bookId = props.match.params?.bookid
     const reviewId = props.match.params?.reviewid
 
-    const fileInput = React.useRef();
-    const is_edit = props.match.params.id_edit;
+    //글 작성 내용 
+    const quote = useRef();
+    const content = useRef();
+    const [hashtags, setHashTags] = useState([])
+    const [image, setImage] = useState({})
 
-    const setPreview = () => {
+    //HashTag컴포넌트에서 데이터를 받아올 함수 
+    const getTags = (tags) => {
+        setHashTags(tags)
+    }
+
+    //업로드 버튼 클릭하기 
+    const selectImage = () => {
+        fileInput?.current.click()
+    }
+
+    //이미지 가져오기
+    const getImage = () => {
         const reader = new FileReader();
         const file = fileInput.current.files[0];
+        actionImgCompress(file)
 
         reader.readAsDataURL(file);
         reader.onloadend = () => {
@@ -40,10 +65,59 @@ const ReviewWrite = (props) => {
         }
     }
 
-    const selectImage = () => {
-        fileInput.current.click()
+    //FormData로 변환하기 
+    const setFormData = (files) => {
+        const formData = new FormData();
+        formData.append('file', files)
+        setImage(formData)
     }
 
+    //이미지 압축하기 
+    const actionImgCompress = async fileSrc => {
+        console.log("압축 시작");
+      
+        const options = {
+          maxSizeMB: 0.2,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true
+        };
+
+        try {
+          const compressedFile = await imageCompression(fileSrc, options);
+      
+          // FileReader 는 File 혹은 Blob 객체를 이용하여, 파일의 내용을 읽을 수 있게 해주는 Web API
+          const reader = new FileReader();
+          reader.readAsDataURL(compressedFile);
+          reader.onloadend = () => {
+
+          // 변환 완료!
+          const base64data = reader.result;
+          console.log(base64data)
+      
+          setFormData(base64data)
+          };
+        } 
+        catch (error) {
+          console.log(error);
+        }
+    };
+
+    const sendImage = () => {
+      instance
+        .post(`/books/${bookId}/reviews/image`, {
+            image: image
+        }, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }})
+        .then((res) => {
+        })
+        .catch((err) => {
+            console.log("post작성 실패", err);
+        });
+    }
+
+    
     React.useEffect(()=>{
         dispatch(bookActions.resetSelectedBook());
         dispatch(permitActions.showModal(false));
@@ -52,19 +126,9 @@ const ReviewWrite = (props) => {
         if(reviewId){
           dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
         }
-
     },[])
     
-
-    const quote = useRef();
-    const content = useRef();
-    const [hashtags, setHashTags] = useState([])
-
-    //HashTag컴포넌트로 보낼 함수
-    const getTags = (tags) => {
-      setHashTags(tags)
-    }
-
+    //리뷰 작성하기 
     const addReview = () => {
         if(books.length  === 0){
             window.alert("책을 선택해주세요!");
@@ -74,11 +138,19 @@ const ReviewWrite = (props) => {
                 quote: quote.current.value,
                 content: content.current.value,
                 hashtags: hashtags,
+                image: image
             };
-            dispatch(reviewActions.addReviewSV(review, book.isbn));
+          //   for(var pair of image.entries()) {
+          //     console.log(typeof(pair[0])+ ', '+ typeof(pair[1])); 
+          //  }
+
+            dispatch(reviewActions.addReviewSV(review, books.isbn));
         }
     }
 
+
+
+    //리뷰수정하기 
     const editReview = () => {
       const review = {
         quote: quote.current.value,
@@ -123,10 +195,6 @@ const ReviewWrite = (props) => {
                     </BookChoice>
                 }
 
-                <Upload
-                    type="file"
-                    ref={fileInput}
-                    onChange={setPreview}/>
 
                 <QuoteBox>
                     <Text>인용구 작성하기</Text>
@@ -139,8 +207,8 @@ const ReviewWrite = (props) => {
                     </QuotesTextarea>
                 </ReviewBox>
                 <HashTag>
-                    <Text>해시태그작성</Text><br/>
-                    <HashInput ref={hashtags} defaultValue={editHashtags} placeholder="예) 자기계발"></HashInput>
+                    <Text>해시태그작성</Text>
+                    <HashTagsInput getTags={getTags} defaultValue ={editHashtags} is_edit/>
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
@@ -194,7 +262,8 @@ const ReviewWrite = (props) => {
                 <Upload
                     type="file"
                     ref={fileInput}
-                    onChange={setPreview}/>
+                    onChange={getImage}
+                    accept="image/*"/>
 
                 <QuoteBox>
                     <Text>인용구 작성하기</Text>
