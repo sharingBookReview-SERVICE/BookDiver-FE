@@ -41,8 +41,9 @@ const ReviewWrite = (props) => {
     const content = useRef();
     const [hashtags, setHashTags] = useState([])
     const [image, setImage] = useState({})
-    const [formdata, setFormdate] = useState(null)
     const [compressedImage, setCompressedImage] = useState(null);
+
+    const FormData = require('form-data');
 
     //HashTag컴포넌트에서 데이터를 받아올 함수 
     const getTags = (tags) => {
