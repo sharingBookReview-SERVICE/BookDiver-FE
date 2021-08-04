@@ -14,6 +14,11 @@ const OAuth2RedirectHandler  = (props) => {
     dispatch(userActions.kakaoLoginSV(code));
   },[])
 
+  return(
+    <>
+    </>
+  )
+
 
 };
 

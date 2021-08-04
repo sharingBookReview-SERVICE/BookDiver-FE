@@ -1,8 +1,10 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import styled from "styled-components"
 import ClearIcon from '@material-ui/icons/Clear';
 
 const HashTagsInput = (props) => {
+    const {is_edit, defaultValue} = props
+
     const [tags, setTags] = useState(["ex) 자기계발"]);
     const removeTags = indexToRemove => {
         setTags(tags.filter((_, index) => index !== indexToRemove))
@@ -15,6 +17,13 @@ const HashTagsInput = (props) => {
             event.target.value = "";
         }
     }
+    
+    useEffect(() => {
+      if(is_edit){
+        setTags(defaultValue)
+      }
+    },[])
+
     return(
         <TagBox >
             <TagUl>

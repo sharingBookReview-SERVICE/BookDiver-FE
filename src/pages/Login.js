@@ -23,7 +23,7 @@ const Login = (props) =>{
                         <LoginText
                         
                         >로그인하고 리뷰를 작성해보세요</LoginText>
-                   
+                    
                         <KaKaoBtn 
                         href={KAKAO_AUTH_URL}
                         >카카오톡으로 시작하기</KaKaoBtn>
@@ -95,6 +95,7 @@ const KaKaoBtn = styled.a`
   cursor: pointer;
   text-decoration: none;
 `;
+
 const GoogleBtn = styled.div`
 width: 280px;
 height: 48px;
