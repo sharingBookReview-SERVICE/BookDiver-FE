@@ -24,7 +24,6 @@ const Home = (props) =>{
 
   const reviewList = useSelector(state => state.review.all_review_list.feeds)
 
-
     return(
         <React.Fragment>
             <HomeBackGroundColor>
@@ -32,8 +31,8 @@ const Home = (props) =>{
 
                 {reviewList? reviewList.map((review, idx) => {
                     return(
-                        <React.Fragment key={idx}>
-                            <ReviewCard review={review} />
+                        <React.Fragment key={review._id}>
+                            <ReviewCard {...review} />
                         </React.Fragment>
                     )
                 }):
