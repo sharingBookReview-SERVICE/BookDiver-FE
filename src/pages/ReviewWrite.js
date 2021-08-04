@@ -40,7 +40,7 @@ const ReviewWrite = (props) => {
     const quote = useRef();
     const content = useRef();
     const [hashtags, setHashTags] = useState([])
-    const [image, setImage] = useState({})
+    const [image, setImage] = useState()
     const [compressedImage, setCompressedImage] = useState(null);
 
     //HashTag컴포넌트에서 데이터를 받아올 함수 
@@ -54,9 +54,9 @@ const ReviewWrite = (props) => {
     }
 
     //이미지 가져오기
-    const getImage = () => {
+    const getImage = event => {
         const reader = new FileReader();
-        const file = fileInput.current.files[0];
+        const file = event.target.files[0];
         actionImgCompress(file)
 
         reader.readAsDataURL(file);
@@ -67,28 +67,24 @@ const ReviewWrite = (props) => {
     }
 
     //FormData로 변환하기 
-    const sendFormData = async() => {
+    const sendFormData = async(image) => {
         const formData = new FormData();
         //formData에 압축 이미지 파일 저장.
-        formData.append('file', compressedImage)
+        formData.append('image', image)
         
-        await instance
+        const result = await instance
         .post(`/books/9791160022988/reviews/images`, 
         formData , 
         {headers: {'Content-Type': 'multipart/form-data',}}
-        ).then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-            console.log("post작성 실패", err);
-        });
+        )
+        return result.data
     }
 
     //이미지 보내기.
     const submit = async event => {
       event.preventDefault()
 
-      await sendFormData()
+      const result = await sendFormData(compressedImage)
     }
 
     //이미지 압축하기 
@@ -105,18 +101,7 @@ const ReviewWrite = (props) => {
         try {
           //imageCompression함수의 첫번째 인자는 파일, 두번째 인자는 옵션
           const compressedFile = await imageCompression(fileSrc, options);
-          
-          // FileReader 는 File 혹은 Blob 객체를 이용하여, 파일의 내용을 읽을 수 있게 해주는 Web API
-          const reader = new FileReader();
-          reader.readAsDataURL(compressedFile);
-          reader.onloadend = () => {
-
-          // 변환 완료!
-          const base64data = reader.result;
-          //FormData에 넣어줄 변수
-          setCompressedImage(base64data)
-      
-          };
+          setCompressedImage(compressedFile)
         } 
         catch (error) {
           console.log(error);
