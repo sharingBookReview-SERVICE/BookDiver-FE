@@ -43,8 +43,6 @@ const ReviewWrite = (props) => {
     const [image, setImage] = useState({})
     const [compressedImage, setCompressedImage] = useState(null);
 
-    const FormData = require('form-data');
-
     //HashTag컴포넌트에서 데이터를 받아올 함수 
     const getTags = (tags) => {
         setHashTags(tags)
@@ -71,6 +69,7 @@ const ReviewWrite = (props) => {
     //FormData로 변환하기 
     const sendFormData = async() => {
         const formData = new FormData();
+        //formData에 압축 이미지 파일 저장.
         formData.append('file', compressedImage)
         
         await instance
@@ -88,13 +87,15 @@ const ReviewWrite = (props) => {
     //이미지 보내기.
     const submit = async event => {
       event.preventDefault()
+
       await sendFormData()
     }
 
     //이미지 압축하기 
     const actionImgCompress = async fileSrc => {
         console.log("압축 시작");
-      
+
+        //압축할 옵션 내용
         const options = {
           maxSizeMB: 0.2,
           maxWidthOrHeight: 1920,
@@ -102,8 +103,9 @@ const ReviewWrite = (props) => {
         };
 
         try {
+          //imageCompression함수의 첫번째 인자는 파일, 두번째 인자는 옵션
           const compressedFile = await imageCompression(fileSrc, options);
-      
+          
           // FileReader 는 File 혹은 Blob 객체를 이용하여, 파일의 내용을 읽을 수 있게 해주는 Web API
           const reader = new FileReader();
           reader.readAsDataURL(compressedFile);
@@ -111,6 +113,7 @@ const ReviewWrite = (props) => {
 
           // 변환 완료!
           const base64data = reader.result;
+          //FormData에 넣어줄 변수
           setCompressedImage(base64data)
       
           };
@@ -228,7 +231,7 @@ const ReviewWrite = (props) => {
                 </ReviewBox>
                 <HashTag>
                     <Text>해시태그작성</Text>
-                    <HashTagsInput getTags={getTags} defaultValue ={editHashtags} is_edit/>
+                    <HashTagsInput getTags={getTags} defaultValue={editHashtags} is_edit/>
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
