@@ -10,7 +10,8 @@ const LIKE = "review/LIKE"
 const DELETE_REVIEW = "review/DELETE_REVIEW";
 const EDIT_REVIEW = "review/EDIT_REVIEW";
 const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
-const GET_FEED_ID = "review/GET_REVIEW_ID"
+const GET_FEED_ID = "review/GET_REVIEW_ID";
+const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
@@ -19,7 +20,8 @@ const addReview = createAction(ADD_REVIEW, (review) => ({review}));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({reviewId}));
 const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId, review}));
 const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
-const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}))
+const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}));
+const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews)=> ({reviews}));
 
 //initial
 const initialState = {
@@ -52,7 +54,8 @@ const initialState = {
     },
     feed_edit:{
         feed_edit_id: "",
-    }
+    },
+    reviews_which_book_have :[]
 };
 
 //middle
@@ -64,6 +67,7 @@ const getAllReviewSV = () => {
         instance
         .get('/feeds')
         .then((res) => {
+            console.log(res.data)
             dispatch(getAllReview(res.data));
         })
         .catch((err) => {
@@ -177,6 +181,19 @@ const LikeSV = (bookId, reviewId) => {
     };
 };
 
+//해당 책의 리뷰 가져오기
+const getReviewsBookHaveSV = (bookId) =>{
+    return function(dispatch, getState,{history}){
+        instance
+        .get(`/books/${bookId}/reviews`)
+        .then((res)=>{
+            dispatch(getReviewsBookHave(res.data.review));
+        })
+        .catch((err)=>{
+            console.log("해당 책의 리뷰 가져오기 실패", err)
+        })
+    }
+}
 
 //reducer
 export default handleActions(
@@ -206,8 +223,8 @@ export default handleActions(
         }),
         [LIKE]: (state, action) => 
         produce(state, (draft) => {
-        let idx = draft.all_review_list.findIndex((l) => l.id === action.payload.reviewId);
-            if (draft.review[idx].myLike) {
+        let idx = draft.all_review_list.feeds.findIndex((l) => l._id === action.payload.reviewId);
+            if (draft.all_review_list.feeds[idx].myLike) {
               draft.review[idx].likes = draft.review[idx].likes -1;
               draft.review[idx].myLike = !draft.review[idx].myLike;
             } else {
@@ -219,7 +236,11 @@ export default handleActions(
         produce(state, (draft) => {
             draft.feed_id.bookId = action.payload.bookId
             draft.feed_id.reviewId = action.payload.reviewId
-        } )
+        } ),
+        [GET_REVIEWS_BOOK_HAVE]:(state, action)=>
+        produce(state, (draft)=>{
+            draft.reviews_which_book_have = action.payload.reviews;
+        })
     },
     initialState
   );
@@ -232,6 +253,7 @@ const actionCreators = {
     editReviewSV,
     getDetailReviewSV,
     getFeedId,
+    getReviewsBookHaveSV
 };
 
 export { actionCreators };

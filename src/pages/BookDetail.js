@@ -7,33 +7,49 @@ import book_img from "../img/book_img.jpeg"
 import Header from "../components/Header"
 import SelectBookCard from "../components/SelectBookCard";
 import ReviewCard from "../components/ReviewCard";
+import { actionCreators as bookActions } from "../redux/modules/book";
+import { actionCreators as reviewActions } from "../redux/modules/review";
+import { useDispatch, useSelector } from "react-redux";
 
 //feature 사용중 push하기 
-const BookDetail = () => {
+const BookDetail = (props) => {
+  const dispatch = useDispatch();
+  const bookId =  props.match.params.bookid;  
+  const book = useSelector(state=> state.book.book);
+  const reviews_which_book_have = useSelector(state=> state.review.reviews_which_book_have);
 
+  React.useEffect(()=>{
+    dispatch(bookActions.getOneBookSV(bookId));
+    dispatch(reviewActions.getReviewsBookHaveSV(bookId));
+  },[]);
+ 
     return (
         <React.Fragment>
             <Grid style={{height: "5vh"}}/>
 
                   <Main>
                   <Header/>
-                  <SelectBookCard/>
+                  <SelectBookCard is_book_detail/>
                   <BookIntro>
                       책소개
                   </BookIntro>
                   <BookContents>
-                      100만 독자를 사로잡은 꿈 백화점이 다시 문을 열었다. 달러구트 꿈 백화점 두 번째 이야기.
-                      1년차 판매 사원이 된 페니는 첫 연봉협상도 하고 '꿈 산업 종사자'로 인정을 받아 '컴퍼니 구역' 접근 권한도 얻는다.
-                      하지만 '민원관리국'에서 페니가 만나게 되는 사람들은 꿈에 대한 불만으로 가득한 이들.
-                      꿈자리가 뒤숭숭한 1단계 민원 제기 고객부터 꿈꾸는 자체가 고통스러운 3단계 고객까지, 다양한 불만을 만나며 페니는 꿈을 파는 백화점의 실무에 더 깊이 다가가게 된다.
-                      "왜 저에게서 꿈까지 뺏어가려고 하시나요?"라는 메시지를 남기고 떠난 792번 단골 손님. 이 손님에겐 꿈이 왜 고통이 된 걸까?
+                    {book.description}
                   </BookContents>
                   <Grid/>
 
                 <BookReview>
-                    리뷰 (1개)
+                    리뷰 ({reviews_which_book_have.length}개)
                 </BookReview>
-                <ReviewCard/>
+                {
+                  reviews_which_book_have &&
+                  reviews_which_book_have.map((review)=>{
+                    return(
+                      <ReviewCard key={review._id} {...review} is_book_detail book={book}/>
+                    )
+                  })
+                }
+                {/* <ReviewCard/> */}
 
             </Main>
         </React.Fragment>
