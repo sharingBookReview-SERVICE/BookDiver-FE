@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
-import ClockLoader from "react-spinners/ClockLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
@@ -21,13 +21,15 @@ const Spinner = () => {
   useEffect(() => {
     dispatch(permitActions.showNav(false))
     const token = new URL(window.location.href).pathname.split("=")[1]
+    console.log(token)
     // dispatch(userActions.setUserSV(token))
   },[])
 
+  
   return (
       <React.Fragment>    
         <SpinnerWrapper>
-            <ClockLoader color={"#6cd4b8"} loading={loading} css={override} size={35}  />
+            {/* <PacmanLoader color={"#6cd4b8"} loading={loading} css={override} size={35}  /> */}
       </SpinnerWrapper>
     </React.Fragment>
   );

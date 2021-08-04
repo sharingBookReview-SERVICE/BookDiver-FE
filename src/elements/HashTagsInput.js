@@ -3,13 +3,20 @@ import styled from "styled-components"
 import ClearIcon from '@material-ui/icons/Clear';
 
 const HashTagsInput = (props) => {
-    const {is_edit, defaultValue} = props
+    // 수정화면일 때, 사용할 변수들
+    const {is_edit, defaultValue} = props 
 
+    //화면에 뿌릴 해쉬태그
     const [tags, setTags] = useState(["ex) 자기계발"]);
+
+    //해쉬태그 지우기
     const removeTags = indexToRemove => {
+        //파라미터로 들어온 idx를 제외한 태그를 setTags에 넣어주기 
         setTags(tags.filter((_, index) => index !== indexToRemove))
         props.getTags(tags.filter((_, index) => index !== indexToRemove))
     }
+
+    //해쉬태그 추가하기
     const addTags = (event) => {
         if(event.target.value !== ""){
             setTags([...tags, event.target.value])
@@ -18,11 +25,14 @@ const HashTagsInput = (props) => {
         }
     }
     
+
     useEffect(() => {
+      //is_edit이 true이면, defaultValue의 값들을 tag에 넣어주기 
       if(is_edit){
         setTags(defaultValue)
       }
     },[])
+
 
     return(
         <TagBox >
