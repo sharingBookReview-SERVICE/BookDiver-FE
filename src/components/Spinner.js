@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import ClockLoader from "react-spinners/ClockLoader";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
@@ -20,13 +21,13 @@ const Spinner = () => {
   useEffect(() => {
     dispatch(permitActions.showNav(false))
     const token = new URL(window.location.href).pathname.split("=")[1]
-    
+    dispatch(userActions.setUserSV(token))
   },[])
 
   return (
       <React.Fragment>    
         <SpinnerWrapper>
-            <PacmanLoader color={"#6cd4b8"} loading={loading} css={override} size={35}  />
+            <ClockLoader color={"#6cd4b8"} loading={loading} css={override} size={35}  />
       </SpinnerWrapper>
     </React.Fragment>
   );

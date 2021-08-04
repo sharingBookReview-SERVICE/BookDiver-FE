@@ -1,79 +1,36 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import axios from "axios";
+import Cookies from "universal-cookie";
 
-const {Kakao} = window;
+const cookies = new Cookies()
 
 //actions
-const KAKAO_LOGIN = "KAKAO_LOGIN";
-const CREATE_USER = "CREATE_USER";
 const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
 const GET_USER_REVIEW = "GET_USER_REVIEW";
-const GET_TOKEN = "GET_TOKEN"
+const SET_USER = "user/SET_USER"
+
 
 //actioncreator
-const kakaoLogin = createAction(KAKAO_LOGIN, (user)=>({user}));
-const createUser = createAction(CREATE_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
-const getToken = createAction(GET_TOKEN, (token) => ({token}))
+const setUser = createAction(SET_USER, (token) => ({token}))
+
 
 //initial
 const initialState = {
     user : [],
     review_list: [],
-    token: ""
 };
 
-const getTokenSV = () => {
-  return function(dispatch, getState){
-
-    instance.get(`users/logincheck`)
-    .then((res) => {
-      console.log(res)
-      dispatch(getToken())
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-
-  }
+const setUserSV = (token) => {
+  cookies.set("access_token", token)
 }
 
-//middle
-//회원가입(소셜 로그인) - 수정필요
-const kakaoLoginSV= (code)=>{
-  return function(dispatch, getState, {history}){
-    console.log("-------------회원가입")
-
-    instance.get(`/users/kakao/callback?code=${code}`)
-      .then((res)=>{
-        console.log(res)
-      })
-      .catch((err)=>
-        console.log(err)
-      )
-  }
-}
-
-const createUserSV = () => {
-    return function(dispatch, getState, {history}){
-      //오늘 목표 불러오기
-      instance.post('/users')
-        .then((res)=>{
-
-        })
-        .catch((err)=>{
-
-        })
-
-    }
-}
 
 //한사람의 사용자 정보 불러오기
 const getUserSV = (id)=>{
@@ -134,9 +91,6 @@ const getUserReviewSV = (id)=>{
 //reducer
 export default handleActions(
     {
-        [CREATE_USER]: (state, action) =>
-          produce(state, (draft) => {
-        }),
         [GET_USER]: (state, action) =>
           produce(state, (draft) => {
             draft.user = action.payload.user;
@@ -153,23 +107,17 @@ export default handleActions(
           produce(state, (draft) => {
             draft.review_list = action.payload.review_list;
         }),
-        [GET_TOKEN] : (state, action) => 
-        produce(state, (draft) => {
-          draft.token = action.payload.token;
-        })
     },
     initialState
   );
   
 
 const actionCreators = {
-  createUserSV,
   getUserSV,
   updateUserSV,
   deleteUserSV,
   getUserReviewSV,
-  kakaoLoginSV,
-  getTokenSV
+  setUserSV,
 };
   
 export { actionCreators };
