@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { history } from "../redux/configStore";
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage} = props;
+  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
@@ -18,15 +19,35 @@ const SelectBookCard = (props) =>{
     dispatch(permitActions.bookSelect(true));
   }
 
+    const reviewDetailInfo = useSelector(state=> state.review.review_detail);
+  
   
   if(is_reviewDetail || is_editReviewPage){
     return(
-      <BookInfoWrapper>
+      <BookInfoWrapper onClick={()=>{
+        history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
+        
+      }}>
         <BookInfoBox>
           <BookImg url={image}/>
           <BookDescBox>
           <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
               <BookWriter>{author} 저</BookWriter>
+          </BookDescBox>
+        </BookInfoBox>
+      </BookInfoWrapper>
+    )
+  }
+
+    // book detail 에서 보는 화면 
+  if(is_book_detail){
+    return(
+      <BookInfoWrapper>
+        <BookInfoBox>
+          <BookImg url={book.image}/>
+          <BookDescBox>
+          <BookTitle >{book.title}</BookTitle>
+              <BookWriter>{book.author} 저</BookWriter>
           </BookDescBox>
         </BookInfoBox>
       </BookInfoWrapper>
