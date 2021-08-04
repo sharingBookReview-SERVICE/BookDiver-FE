@@ -15,9 +15,12 @@ const override = css`
 const Spinner = () => {
   const dispatch = useDispatch();
   let [loading, setLoading] = useState(true);
-  
+
+
   useEffect(() => {
     dispatch(permitActions.showNav(false))
+    const token = new URL(window.location.href).pathname.split("=")[1]
+    
   },[])
 
   return (

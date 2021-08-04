@@ -9,6 +9,6 @@ const instance = axios.create({
 // 로그인 전이면 토큰이 없으니 못 넣어요.
 // 그럴 땐 로그인 하고 토큰을 받아왔을 때 넣어줍시다.
 instance.defaults.headers.common["authorization"] = 
-"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTA2MjdkZDcyNzkzZjEyMzZlYTY0NGIiLCJpYXQiOjE2Mjc5MDE4Njl9.N0kPztB_ihWCIZx3TC3gvpqKKGUdbfqrG_T0E9etX3s"; 
+"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTA5MzA5ZjdhNzY3MTRhYzQ3MDExYzciLCJpYXQiOjE2MjgwNTAzMDl9.0g89TfJERhuq3xgwlxYq9PJgUNX05N4c47nURWBDXd4"; 
 
 export default instance;

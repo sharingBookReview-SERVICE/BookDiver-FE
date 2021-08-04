@@ -74,6 +74,7 @@ const getAllReviewSV = () => {
 
 //포스트 추가하기
 const addReviewSV = (review, bookId) => {
+    console.log("----------북아이디",bookId)
     return function(dispatch){
 
         instance
@@ -81,7 +82,11 @@ const addReviewSV = (review, bookId) => {
             quote: review.quote,
             content: review.content,
             hashtags: review.hashtags,
-        })
+            image: review.image
+        }, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }})
         .then((res) => {
             console.log(res)
             dispatch(addReview(review));
@@ -92,6 +97,7 @@ const addReviewSV = (review, bookId) => {
         });
     };
 };
+
 
 //포스트 삭제하기
 const deleteReviewSV = () => {
@@ -115,18 +121,6 @@ const deleteReviewSV = () => {
 //포스트 수정하기
 const editReviewSV = (bookId, reviewId, review) => {
     return function (dispatch, getState, {history}) {
-        // console.log(getState().review.all_review_list)
-        // const idx = getState().review.all_review_list.feeds.findIndex((l) => l._id === reviewId)
-        // const bookTitle = getState().review.all_review_list.feeds[idx]
-        // const bookAuthor = getState().review.all_review_list.feeds[idx]
-        // console.log(bookTitle)
-        // const reviewObj = {
-        //     title: bookTitle,
-        //     author: bookAuthor,
-        //     quote: review.quote,
-        //     content: review.content,
-        //     hashtags: review.hashtags,
-        // }
 
         instance
         .put(`/books/${bookId}/reviews/${reviewId}`,{
@@ -136,7 +130,6 @@ const editReviewSV = (bookId, reviewId, review) => {
         },   
         )
         .then((res) => {
-            // console.log(res)
             // dispatch(editReview(reviewId, reviewObj));
             history.goBack()
         })

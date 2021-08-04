@@ -4,7 +4,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 const HashTagsInput = (props) => {
     const {is_edit, defaultValue} = props
-    console.log(is_edit, defaultValue)
+
     const [tags, setTags] = useState(["ex) 자기계발"]);
     const removeTags = indexToRemove => {
         setTags(tags.filter((_, index) => index !== indexToRemove))
@@ -17,6 +17,7 @@ const HashTagsInput = (props) => {
             event.target.value = "";
         }
     }
+    
     useEffect(() => {
       if(is_edit){
         setTags(defaultValue)
