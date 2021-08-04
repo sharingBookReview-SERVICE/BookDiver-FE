@@ -43,11 +43,7 @@ const kakaoLoginSV= (code)=>{
       .catch((err)=>
         console.log(err)
       )
-   
-        
 
-      
-   
   }
 }
 
