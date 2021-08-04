@@ -7,16 +7,21 @@ import BookImg from "../img/bookImg2.jpg"
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as reviewActions} from "../redux/modules/review"
 import {actionCreators as permitActions} from "../redux/modules/permit";
 import {history} from "../redux/configStore";
 
 
 const ReviewCard = (props) => {
+   
     //dispatch와 변수들
-    const {content, hashtags, quote, created_at, book, _id} = props.review;
+    const {content, hashtags, quote, created_at,book, _id, is_book_detail} = props;
     const dispatch = useDispatch();
+
+    // const reviewId = _id;
+    // const bookId = book._id;
+    
 
     // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
 
@@ -88,13 +93,12 @@ const ReviewCard = (props) => {
                 </ContentBox>
 
                 <LikeCommentBox>
-                    {/*<LikeBox>*/}
-                    {/*    {is_liked ?*/}
-                    {/*    <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>*/}
-                    {/*    : <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/> }*/}
-                    {/*    */}
-                    {/*    <LikeText>좋아요 {reviewList[0].likes}개</LikeText>*/}
-                    {/*</LikeBox>*/}
+                    <LikeBox>
+                    
+                     <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>
+                     <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/>
+                      <LikeText>좋아요 개</LikeText>
+                   </LikeBox>
                     <WriteCommentBox>
                         <CommentCount>
                             댓글 0개

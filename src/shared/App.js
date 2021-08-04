@@ -18,6 +18,7 @@ import CommentModal from "../modals/CommentModal";
 import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
 import ImageUpload from "../components/ImageUpload";
+
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 
@@ -34,7 +35,7 @@ function App() {
           <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail} />
           <Route path="/postwrite" exact component={ReviewWrite} />
           <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite} />
-          <Route path="/bookdetail" exact component={BookDetail} />
+          <Route path="/bookdetail/:bookid" exact component={BookDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
