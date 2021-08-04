@@ -3,9 +3,14 @@ import { css } from "@emotion/react";
 import ClockLoader from "react-spinners/ClockLoader";
 import styled from "styled-components";
 
+
 import { useDispatch } from "react-redux";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configStore";
+import { setCookie,setLocal } from "../shared/Cookie";
+
+
 
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
@@ -20,8 +25,10 @@ const Spinner = () => {
 
   useEffect(() => {
     dispatch(permitActions.showNav(false))
-    const token = new URL(window.location.href).pathname.split("=")[1]
-    // dispatch(userActions.setUserSV(token))
+    const token = new URL(window.location.href).pathname.split("=")[1];
+    dispatch(userActions.setUserSV(token))
+    setLocal("token", token);
+    history.push('/')
   },[])
 
   return (
