@@ -19,6 +19,7 @@ import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
+import ImageUpload from "../components/ImageUpload";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path="/myreviewfind" exact component={MyReviewFind} />
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler}/>
           <Route path="/logincheck" component={Spinner}/>
+          <Route path="/upload" component={ImageUpload}/>
          </ConnectedRouter>
         {is_nav ? <Navigation/> : ""}
        </Container>
