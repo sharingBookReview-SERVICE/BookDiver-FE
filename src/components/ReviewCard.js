@@ -16,7 +16,7 @@ import {history} from "../redux/configStore";
 const ReviewCard = (props) => {
    
     //dispatch와 변수들
-    const {content, hashtags, quote, created_at,book, _id, is_book_detail} = props;
+    const {content, hashtags, quote, created_at,book, _id, likes, comments} = props;
     const dispatch = useDispatch();
 
     // const reviewId = _id;
@@ -97,11 +97,11 @@ const ReviewCard = (props) => {
                     
                      <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>
                      <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/>
-                      <LikeText>좋아요 개</LikeText>
+                      <LikeText>좋아요 {likes}개</LikeText>
                    </LikeBox>
                     <WriteCommentBox>
                         <CommentCount>
-                            댓글 0개
+                            댓글 {comments.length}개
                         </CommentCount>
                     </WriteCommentBox>
                 </LikeCommentBox>
