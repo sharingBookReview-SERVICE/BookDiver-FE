@@ -96,7 +96,13 @@ const ReviewCard = (props) => {
                     <LikeBox>
                     
                      <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>
-                     <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/>
+                     <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}
+                     onClick={(e) => {
+                         e.preventDefault();
+                         e.stopPropagation();
+                         dispatch(reviewActions.LikeSV(book._id, _id))
+                     }}
+                     />
                       <LikeText>좋아요 개</LikeText>
                    </LikeBox>
                     <WriteCommentBox>
