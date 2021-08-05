@@ -8,9 +8,10 @@ import FeedCard from "../components/FeedCard";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import {history} from "../redux/configStore";
+import { useSelector } from "react-redux";
 
 const MyReviewFeed = () => {
-
+  const nickname = useSelector(state=> state.user.user.nickname);
 
     return (
         <React.Fragment>
@@ -28,7 +29,7 @@ const MyReviewFeed = () => {
                 <ProfileBox>
                     <ImageBox>
                         <ProfileImg></ProfileImg>
-                        <Name>닉네임</Name>
+                        <Name>{nickname}</Name>
                         <Activity>작성한 리뷰 12개 | 작성한 댓글 9개</Activity>
                     </ImageBox>
                     <MyActivityBox>
