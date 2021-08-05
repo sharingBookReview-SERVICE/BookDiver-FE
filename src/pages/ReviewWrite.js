@@ -77,27 +77,27 @@ const ReviewWrite = (props) => {
     formData.append("image", image);
     formData.append("quote", quote.current.value);
     formData.append("content", content.current.value);
-    formData.append("hashtags", hashtags);
+    formData.append("hashtags", JSON.stringify(hashtags));
 
-    const result = await instance.post(
-      `/books/9791160022988/reviews/images`,
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-    return result.data;
+    await dispatch(reviewActions.addReviewSV(formData, books.isbn));
+
+    // const result = await instance.post(
+    //   `/books/9791160022988/reviews/images`,
+    //   formData,
+    //   { headers: { "Content-Type": "multipart/form-data" } }
+    // );
+    // return result.data;
   };
 
   //이미지 보내기.
   const submit = async (event) => {
     event.preventDefault();
 
-    const result = await sendFormData(compressedImage);
+    await sendFormData(compressedImage);
   };
 
   //이미지 압축하기
   const actionImgCompress = async (fileSrc) => {
-    console.log("압축 시작");
-
     //압축할 옵션 내용
     const options = {
       maxSizeMB: 0.2,
@@ -112,25 +112,6 @@ const ReviewWrite = (props) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const sendImage = () => {
-    instance
-      .post(
-        `/books/${books.isbn}/reviews/images`,
-        {},
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("post작성 실패", err);
-      });
   };
 
   React.useEffect(() => {
