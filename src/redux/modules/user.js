@@ -17,7 +17,7 @@ const LOG_OUT = "user/LOG_OUT";
 //actioncreator
 const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
-const deleteUser = createAction(DELETE_USER, (user)=>({user}));
+const deleteUser = createAction(DELETE_USER, (userId)=>({userId}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
 const setUser = createAction(SET_USER, (user) => ({user}));
 const logOut = createAction(LOG_OUT, ()=> ({}));
@@ -108,6 +108,7 @@ const deleteUserSV = (id) =>{
     instance.delete('/users/' + id)
     .then((res)=>{
       window.alert("회원탈퇴");
+      console.log(res)
       dispatch(deleteUser(id));
     })
     .catch((err)=>{
@@ -143,6 +144,7 @@ export default handleActions(
         [DELETE_USER]: (state, action) =>
           produce(state, (draft) => {
             draft.user = [];
+            draft.is_login= false;
         }),
         [GET_USER_REVIEW]: (state, action) =>
           produce(state, (draft) => {
