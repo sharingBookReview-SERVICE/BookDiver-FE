@@ -25,7 +25,7 @@ const Spinner = () => {
 
 
   useEffect(() => {
-    dispatch(permitActions.showNav(false))
+    dispatch(permitActions.showNav(false));
  
     const token = new URL(window.location.href).pathname.split("=")[1];
     

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import {history} from "../redux/configStore";
 import { useDispatch, userSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { getLocal } from "../shared/Cookie";
 import jwt_decode from "jwt-decode";
 
 

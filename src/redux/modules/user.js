@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+import jwt_decode from "jwt-decode";
 
 
 //actions
@@ -9,7 +9,8 @@ const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
 const GET_USER_REVIEW = "GET_USER_REVIEW";
-const SET_USER = "user/SET_USER"
+const SET_USER = "user/SET_USER";
+
 
 
 //actioncreator
@@ -17,7 +18,8 @@ const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
-const setUser = createAction(SET_USER, (user) => ({user}))
+const setUser = createAction(SET_USER, (user) => ({user}));
+
 
 
 //initial
@@ -27,6 +29,25 @@ const initialState = {
       nickname: ""
     },
     review_list: [],
+    is_login: false,
+
+};
+
+const loginCheck = () => {
+  return function (dispatch, getState, { history }) {
+    const user = localStorage.getItem('token') ? true : false;
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    const userId = decoded.userId;
+    const nickname = decoded.nickname;
+
+    //localStorage에 토큰이 있는 상태(이미 로그인을 한 상태라면)
+    if (user) {
+      dispatch(setUser({userId: userId, nickname: nickname}));
+    } else {
+      console.log("로그인상태아님");
+    }
+  };
 };
 
 //회원정보 등록
@@ -128,6 +149,7 @@ export default handleActions(
         [SET_USER]: (state, action)=>
         produce(state,(draft)=>{
           draft.user = action.payload.user;
+          draft.is_login = true;
         })
     },
     initialState
@@ -140,7 +162,8 @@ const actionCreators = {
   deleteUserSV,
   getUserReviewSV,
   setUserSV,
-  setUser
+  setUser,
+  loginCheck
 };
   
 export { actionCreators };
