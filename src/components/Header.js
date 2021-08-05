@@ -6,16 +6,16 @@ import SearchIcon from '@material-ui/icons/Search';
 const Header = (props) =>{
 
     return(
-            <HeaderBox>
-                <LogoBox>
-                    <Logo>LOGO</Logo>
-                </LogoBox>
+        <HeaderBox>
+            <LogoBox>
+                <Logo>LOGO</Logo>
+            </LogoBox>
 
-                <SearchBarBox>
-                    <SearchIcon style={{width:"16px",height:"16px", position:"absolute", left:"10px", color:"#9e9e9e"}}/>
-                    <SearchBar placeholder="리뷰궁금한 책 검색"/>
-                </SearchBarBox>
-            </HeaderBox>
+            <SearchBarBox>
+                <SearchIcon style={{width:"16px",height:"16px", position:"absolute", left:"10px", color:"#9e9e9e"}}/>
+                <SearchBar placeholder="리뷰궁금한 책 검색"/>
+            </SearchBarBox>
+        </HeaderBox>
     )
 }
 
