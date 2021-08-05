@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
+import jwt_decode from "jwt-decode";
 
 const ReviewCard = (props) => {
   //dispatch와 변수들
@@ -22,21 +23,26 @@ const ReviewCard = (props) => {
     book,
     _id,
     is_book_detail,
+    myLike,
     likes,
     comments,
     image,
-    user
+    user,
   } = props;
 
   const dispatch = useDispatch();
-  const is_me = useSelector(state=> state.user.is_me);
-  const is_login = useSelector(state=> state.user.is_login);
+  const is_login = useSelector((state) => state.user.is_login);
+  const userId = useSelector((state) => state.user.user.userId);
+  let is_my_post = false;
+
+  if (user.id === userId) {
+    is_my_post = true;
+  }
 
   //좋아요 클릭
   const clickLikeButton = (props) => {
     //props로부터 book와 reviewId를 받아오기
-    dispatch(reviewActions.LikeSV(book._id, _id, likes));
-    console.log(book._id, _id, likes);
+    dispatch(reviewActions.LikeSV(book._id, _id, likes, myLike));
   };
 
   const getFeedId = () => {
@@ -48,7 +54,6 @@ const ReviewCard = (props) => {
     dispatch(permitActions.showModal(true));
   };
 
-  
   return (
     <React.Fragment>
       <CardBox>
@@ -59,24 +64,21 @@ const ReviewCard = (props) => {
           </UserLeftBox>
 
           <UserRightBox>
-            {
-              is_login &&
+            {is_login && (
               <BookmarkBorderIcon
-              style={{ color: "#9e9e9e", marginRight: "10px" }}
-            />
-            }
-          
-            {
-             is_me && 
+                style={{ color: "#9e9e9e", marginRight: "10px" }}
+              />
+            )}
+
+            {is_my_post && (
               <MoreHorizIcon
-              style={{ color: "#9e9e9e" }}
-              onClick={() => {
-                showEditModal();
-                getFeedId();
-              }}
-            />
-            }
-          
+                style={{ color: "#9e9e9e" }}
+                onClick={() => {
+                  showEditModal();
+                  getFeedId();
+                }}
+              />
+            )}
           </UserRightBox>
         </CommentUserBox>
 
@@ -108,14 +110,21 @@ const ReviewCard = (props) => {
 
         <LikeCommentBox>
           <LikeBox>
-            <FavoriteIcon
-              style={{ fontSize: "18px", color: "#1168d7" }}
-              onClick={clickLikeButton}
-            />
-            <FavoriteBorderIcon
-              style={{ fontSize: "18px", color: "#1168d7" }}
-              onClick={clickLikeButton}
-            />
+            {myLike ? (
+              <FavoriteIcon
+                style={{ fontSize: "18px", color: "#1168d7" }}
+                onClick={() => {
+                  clickLikeButton();
+                }}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                style={{ fontSize: "18px", color: "#1168d7" }}
+                onClick={() => {
+                  clickLikeButton();
+                }}
+              />
+            )}
             <LikeText>{likes}개</LikeText>
           </LikeBox>
           <WriteCommentBox>

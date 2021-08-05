@@ -14,6 +14,7 @@ const IS_ME = "user/IS_ME";
 
 
 
+
 //actioncreator
 const getUser = createAction(GET_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (userId)=>({userId}));

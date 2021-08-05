@@ -17,7 +17,7 @@ const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({
   review_list,
 }));
-const like = createAction(LIKE, (bookId, reviewId) => ({ bookId, reviewId }));
+const like = createAction(LIKE, (reviewId) => ({reviewId}));
 const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({ reviewId }));
 const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({
@@ -158,7 +158,7 @@ const LikeSV = (bookId, reviewId) => {
       .put(`/books/${bookId}/reviews/${reviewId}/like`)
       .then((res) => {
         console.log(res);
-        dispatch(like(bookId, reviewId));
+        dispatch(like(reviewId));
       })
       .catch((err) => {
         console.log("좋아요 실패", err);
