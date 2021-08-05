@@ -139,6 +139,10 @@ const ReviewCard = (props) => {
   );
 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f4cd56d ([수정] 오류수정)
 const CardBox = styled.div`
   width: 100%;
   height: auto;
