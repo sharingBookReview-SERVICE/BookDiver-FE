@@ -6,7 +6,6 @@ import left_arrow from "../img/left_arrow.png";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 import imageCompression from "browser-image-compression";
-import instance from "../shared/Request";
 
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
@@ -36,6 +35,7 @@ const ReviewWrite = (props) => {
     quote: editQuote,
     content: editContent,
     book,
+    image,
   } = reviewDetail;
   const bookId = props.match.params?.bookid;
   const reviewId = props.match.params?.reviewid;
@@ -44,7 +44,6 @@ const ReviewWrite = (props) => {
   const quote = useRef();
   const content = useRef();
   const [hashtags, setHashTags] = useState([]);
-  const [image, setImage] = useState();
   const [compressedImage, setCompressedImage] = useState(null);
 
   //HashTag컴포넌트에서 데이터를 받아올 함수
@@ -165,30 +164,9 @@ const ReviewWrite = (props) => {
 
           <SelectBookCard {...book} is_editReviewPage />
 
-          {is_preview ? (
-            <ImageBox>
-              <Image src={preview_url} />
-            </ImageBox>
-          ) : (
-            <BookChoice
-              style={{ height: "35vh" }}
-              onClick={() => {
-                selectImage();
-              }}
-            >
-              <img src={add_button} alt="add btn" />
-              <Text>책 사진 업로드</Text>
-              <Text
-                style={{
-                  color: "#9e9e9e",
-                  fontWeight: "normal",
-                  fontSize: "1em",
-                }}
-              >
-                인상깊었던 사진을 올려보세요
-              </Text>
-            </BookChoice>
-          )}
+          <ImageBox>
+            <Image src={image} />
+          </ImageBox>
 
           <QuoteBox>
             <Text>인용구 작성하기</Text>
