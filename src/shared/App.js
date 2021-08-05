@@ -5,21 +5,21 @@ import {Route} from "react-router-dom";
 import {history} from "../redux/configStore";
 import {useDispatch, useSelector} from "react-redux";
 
+
 import ReviewDetail from "../pages/ReviewDetail";
-import Home from "../pages/Home"
+import Home from "../pages/Home";
 import Navigation from "../components/Navigation";
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
 import MyReview from "../pages/MyReview";
-import ReviewWrite from "../pages/ReviewWrite"
+import ReviewWrite from "../pages/ReviewWrite";
 import BookDetail from "../pages/BookDetail";
 import CommentModal from "../modals/CommentModal";
 import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
-import ImageUpload from "../components/ImageUpload";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 
@@ -30,39 +30,46 @@ function App() {
     const user = localStorage.getItem('token') ? true : false;
 
     React.useEffect(()=>{
-      
       if(user){
         dispatch(userActions.loginCheck());
       }
-     
-
     },[]);
+  
   return (
     <React.Fragment>
-      <Container is_modal_opened={is_modal ? "hidden" : "scroll"} >
-         <ConnectedRouter history={history}>
+      <Container is_modal_opened={is_modal ? "hidden" : "scroll"}>
+        <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
-          <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail} />
+          <Route
+            path="/reviewdetail/:bookid/:reviewid"
+            exact
+            component={ReviewDetail}
+          />
           <Route path="/postwrite" exact component={ReviewWrite} />
-          <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite} />
+          <Route
+            path="/postwrite/:bookid/:reviewid"
+            exact
+            component={ReviewWrite}
+          />
           <Route path="/bookdetail/:bookid" exact component={BookDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/myreview" exact component={MyReview} />
-          <Route path="/modal" exact component={CommentModal}/>
+          <Route path="/modal" exact component={CommentModal} />
           <Route path="/MyReview" exact component={MyReview} />
           <Route path="/myreviewfeed" exact component={MyReviewFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
-          <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler}/>
-          <Route path="/logincheck" component={Spinner}/>
-          <Route path="/upload" component={ImageUpload}/>
-         </ConnectedRouter>
-        {is_nav ? <Navigation/> : ""}
-       </Container>
+          <Route
+            path="/api/users/kakao/callback"
+            component={OAuth2RedirectHandler}
+          />
+          <Route path="/logincheck" component={Spinner} />
+        </ConnectedRouter>
+        {is_nav ? <Navigation /> : ""}
+      </Container>
     </React.Fragment>
   );
-
 }
 
 const Container = styled.div`
@@ -87,6 +94,4 @@ const Container = styled.div`
   position: relative;
 `;
 
-
 export default App;
-

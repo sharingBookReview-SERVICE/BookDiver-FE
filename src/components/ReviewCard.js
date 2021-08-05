@@ -1,17 +1,16 @@
 //import 부분
 import React from "react";
-import styled from "styled-components"
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import BookImg from "../img/bookImg2.jpg"
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import styled from "styled-components";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import BookImg from "../img/bookImg2.jpg";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
-import {useDispatch, useSelector} from "react-redux";
-import {actionCreators as reviewActions} from "../redux/modules/review"
-import {actionCreators as permitActions} from "../redux/modules/permit";
-import {history} from "../redux/configStore";
-
+import { useDispatch } from "react-redux";
+import { actionCreators as reviewActions } from "../redux/modules/review";
+import { actionCreators as permitActions } from "../redux/modules/permit";
+import { history } from "../redux/configStore";
 
 const ReviewCard = (props) => {
     //dispatch와 변수들
@@ -100,6 +99,7 @@ const ReviewCard = (props) => {
 }
 
 
+
 const CardBox = styled.div`
   width: 100%;
   height: auto;
@@ -110,8 +110,8 @@ const CardBox = styled.div`
   box-sizing: border-box;
   margin: 0px 0px 6px 0px;
   background-color: #fff;
-  position:relative;
-`
+  position: relative;
+`;
 
 const CommentUserBox = styled.div`
   display: flex;
@@ -120,42 +120,41 @@ const CommentUserBox = styled.div`
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
-`
+`;
 
 const UserLeftBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
   align-items: center;
-`
+`;
 
 const UserRightBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
   align-items: center;
-`
+`;
 
 const Image = styled.img`
   width: auto;
   height: auto;
   max-width: 100%;
   max-height: 100%;
-`
+`;
 
 const UserName = styled.p`
   font-size: 14px;
   font-weight: bold;
   margin: 0px 8px 0px 0px;
-`
+`;
 
 const CreatedAt = styled.p`
   font-size: 10px;
   color: #9e9e9e;
   opacity: 0.5;
   margin: 0px;
-`
-
+`;
 
 const ContentBox = styled.div`
   width: 100%;
@@ -166,7 +165,7 @@ const ContentBox = styled.div`
   justify-content: flex-start;
   aligh-items: flex-start;
   padding: 0px 24px;
-`
+`;
 
 const BookTitle = styled.p`
   font-size: 14px;
@@ -175,7 +174,7 @@ const BookTitle = styled.p`
   color: #1168d7;
   font-weight: bold;
   margin: 16px 0px 8px 0px;
-`
+`;
 
 const Quote = styled.p`
   font-size: 14px;
@@ -183,45 +182,45 @@ const Quote = styled.p`
   line-height: 1.43;
   letter-spacing: -0.28px;
   margin: 0px 0px 16px 0px;
-`
+`;
 
 const Content = styled.p`
   font-size: 14px;
   line-height: 1.43;
   letter-spacing: -0.28px;
   margin: 0px;
-`
+`;
 
 const HashTag = styled.div`
   padding: 15px 0px;
   color: #1168d7;
   font-size: 14px;
-`
+`;
 
 const LikeBox = styled.div`
   display: flex;
   align-items: flex-end;
-`
+`;
 
 const LikeText = styled.p`
   font-size: 14px;
   margin: 0px 0px 0px 8px;
   color: #1168d7;
-`
+`;
 
 const LikeCommentBox = styled.div`
   display: flex;
   padding: 10px 24px 18px 24px;
-`
+`;
 
 const WriteCommentBox = styled.div`
   display: flex;
-`
+`;
 
 const CommentCount = styled.p`
   font-size: 14px;
   margin: 0px 0px 0px 8px;
   color: #b5b5b5;
-`
+`;
 
 export default ReviewCard;
