@@ -119,6 +119,7 @@ const ReviewCard = (props) => {
                 onClick={() => {
                   clickLikeButton();
                 }}
+<<<<<<< HEAD
               />
             ) : (
               <FavoriteBorderIcon
@@ -136,13 +137,57 @@ const ReviewCard = (props) => {
         </LikeCommentBox>
       </CardBox>
     </React.Fragment>
+=======
+            />
+          </ImageBox>
+
+          <ContentBox
+              onClick={() => {
+                history.push(`/reviewdetail/${book._id}/${_id}`);
+              }}
+          >
+            <BookTitle>
+              {book.title} | {book.author}{" "}
+            </BookTitle>
+            <Quote>{quote}</Quote>
+            <Content>{content}</Content>
+            <HashTag>
+              {hashtags.map((tag) => {
+                return `#${tag} `;
+              })}
+            </HashTag>
+          </ContentBox>
+
+          <LikeCommentBox>
+            <LikeBox>
+              {myLike?  <FavoriteIcon
+                  style={{ fontSize: "18px", color: "#1168d7" }}
+                  onClick={() =>{clickLikeButton()}}/>
+                  :
+                  <FavoriteBorderIcon
+                      style={{ fontSize: "18px", color: "#1168d7" }}
+                      onClick={()=> {clickLikeButton()}}/>
+              }
+              <FavoriteIcon
+                  style={{ fontSize: "18px", color: "#1168d7" }}
+                  onClick={clickLikeButton}
+              />
+              <FavoriteBorderIcon
+                  style={{ fontSize: "18px", color: "#1168d7" }}
+                  onclick={clickLikeButton}
+              />
+              <LikeText>{likes}개</LikeText>
+            </LikeBox>
+            <WriteCommentBox>
+              <CommentCount>댓글 개</CommentCount>
+            </WriteCommentBox>
+          </LikeCommentBox>
+        </CardBox>
+      </React.Fragment>
+>>>>>>> 484d748 ([오류] 오류수정)
   );
 };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f4cd56d ([수정] 오류수정)
 const CardBox = styled.div`
   width: 100%;
   height: auto;
