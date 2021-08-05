@@ -14,28 +14,15 @@ import {history} from "../redux/configStore";
 
 
 const ReviewCard = (props) => {
-   
     //dispatch와 변수들
-    const {content, hashtags, quote, created_at,book, _id, is_book_detail} = props;
+    const {content, hashtags, quote, created_at,book, _id, is_book_detail, likes } = props;
     const dispatch = useDispatch();
 
-    // const reviewId = _id;
-    // const bookId = book._id;
-    
-
-    // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
-
-    //서버 들어오기 전 임의로 좋아요 갯수 구하는 형식 만들어놓기
-//   const reviewId = 1;
-//   const idx = reviewList.findIndex((l) => l.id === reviewId);
-//   const likesCount = reviewList[idx].likes
-
-
-
     //좋아요 클릭
-    const clickLikeButton = () => {
+    const clickLikeButton = (props) => {
         //props로부터 book와 reviewId를 받아오기
-        dispatch(reviewActions.LikeSV());
+        dispatch(reviewActions.LikeSV(book._id, _id, likes));
+       console.log(book._id, _id, likes)
     }
 
     const getFeedId = () => {
@@ -94,10 +81,10 @@ const ReviewCard = (props) => {
 
                 <LikeCommentBox>
                     <LikeBox>
-                    
-                     <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>
-                     <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/>
-                      <LikeText>좋아요 개</LikeText>
+
+                            <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}} onClick={clickLikeButton}/>
+                            <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}} onclick={clickLikeButton}/>
+                      <LikeText>{likes}개</LikeText>
                    </LikeBox>
                     <WriteCommentBox>
                         <CommentCount>
