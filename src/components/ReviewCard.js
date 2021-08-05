@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
+import jwt_decode from "jwt-decode";
 
 const ReviewCard = (props) => {
   //dispatch와 변수들
@@ -22,21 +23,29 @@ const ReviewCard = (props) => {
     book,
     _id,
     is_book_detail,
+    myLike,
     likes,
     comments,
     image,
     user
   } = props;
 
+
   const dispatch = useDispatch();
-  const is_me = useSelector(state=> state.user.is_me);
   const is_login = useSelector(state=> state.user.is_login);
+
+  let is_my_post = false;
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+
+  if(user.id === decoded.userId){
+    is_my_post = true;
+  }
 
   //좋아요 클릭
   const clickLikeButton = (props) => {
     //props로부터 book와 reviewId를 받아오기
-    dispatch(reviewActions.LikeSV(book._id, _id, likes));
-    console.log(book._id, _id, likes);
+    dispatch(reviewActions.LikeSV(book._id, _id, likes, myLike));
   };
 
   const getFeedId = () => {
@@ -67,7 +76,7 @@ const ReviewCard = (props) => {
             }
           
             {
-             is_me && 
+             is_my_post && 
               <MoreHorizIcon
               style={{ color: "#9e9e9e" }}
               onClick={() => {
@@ -108,14 +117,15 @@ const ReviewCard = (props) => {
 
         <LikeCommentBox>
           <LikeBox>
-            <FavoriteIcon
-              style={{ fontSize: "18px", color: "#1168d7" }}
-              onClick={clickLikeButton}
-            />
-            <FavoriteBorderIcon
-              style={{ fontSize: "18px", color: "#1168d7" }}
-              onclick={clickLikeButton}
-            />
+          {myLike?  <FavoriteIcon
+
+                style={{ fontSize: "18px", color: "#1168d7" }}
+                onClick={() =>{clickLikeButton()}}/>
+                :
+                <FavoriteBorderIcon
+                    style={{ fontSize: "18px", color: "#1168d7" }}
+                    onClick={()=> {clickLikeButton()}}/>
+                }
             <LikeText>{likes}개</LikeText>
           </LikeBox>
           <WriteCommentBox>
