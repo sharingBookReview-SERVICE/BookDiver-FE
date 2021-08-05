@@ -33,12 +33,11 @@ const ReviewCard = (props) => {
 
   const dispatch = useDispatch();
   const is_login = useSelector(state=> state.user.is_login);
-
+  const userId = useSelector(state=> state.user.user.userId);
   let is_my_post = false;
-  const token = localStorage.getItem('token');
-  const decoded = jwt_decode(token);
 
-  if(user.id === decoded.userId){
+
+  if(user.id === userId){
     is_my_post = true;
   }
 
