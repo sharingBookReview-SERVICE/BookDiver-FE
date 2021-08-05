@@ -67,12 +67,14 @@ const ReviewCard = (props) => {
           </UserRightBox>
         </CommentUserBox>
 
-        <Image
-          src={image}
-          onClick={() => {
-            history.push(`/reviewdetail/${book._id}/${_id}`);
-          }}
-        />
+        <ImageBox>
+          <Image
+            src={image}
+            onClick={() => {
+              history.push(`/reviewdetail/${book._id}/${_id}`);
+            }}
+          />
+        </ImageBox>
 
         <ContentBox
           onClick={() => {
@@ -145,6 +147,14 @@ const UserRightBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
+  align-items: center;
+`;
+
+const ImageBox = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;
 

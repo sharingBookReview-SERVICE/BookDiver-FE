@@ -124,26 +124,11 @@ const ReviewWrite = (props) => {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
     }
 
+    //화면에서 나갈 때는, 이미지 내려놓고 나가기
     return () => {
       dispatch(uploadAcions.showPreview(false));
     };
   }, []);
-
-  //리뷰 작성하기
-  const addReview = () => {
-    if (books.length === 0) {
-      window.alert("책을 선택해주세요!");
-    } else {
-      let review = {
-        quote: quote.current.value,
-        content: content.current.value,
-        hashtags: hashtags,
-        image: image,
-      };
-
-      dispatch(reviewActions.addReviewSV(review, books.isbn));
-    }
-  };
 
   //리뷰수정하기
   const editReview = () => {
@@ -181,7 +166,9 @@ const ReviewWrite = (props) => {
           <SelectBookCard {...book} is_editReviewPage />
 
           {is_preview ? (
-            <Image src={preview_url} />
+            <ImageBox>
+              <Image src={preview_url} />
+            </ImageBox>
           ) : (
             <BookChoice
               style={{ height: "35vh" }}
@@ -273,7 +260,9 @@ const ReviewWrite = (props) => {
         )}
 
         {is_preview ? (
-          <Image src={preview_url} />
+          <ImageBox>
+            <Image src={preview_url} />
+          </ImageBox>
         ) : (
           <BookChoice
             style={{ height: "35%" }}
@@ -335,6 +324,14 @@ const SubmitButton = styled.button`
   color: #9e9e9e;
   box-sizing: border-box;
   border: none;
+`;
+
+const ImageBox = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Image = styled.img`
