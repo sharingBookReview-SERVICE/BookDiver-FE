@@ -104,6 +104,14 @@ const ReviewCard = (props) => {
                       style={{ fontSize: "18px", color: "#1168d7" }}
                       onClick={()=> {clickLikeButton()}}/>
               }
+              <FavoriteIcon
+                  style={{ fontSize: "18px", color: "#1168d7" }}
+                  onClick={clickLikeButton}
+              />
+              <FavoriteBorderIcon
+                  style={{ fontSize: "18px", color: "#1168d7" }}
+                  onclick={clickLikeButton}
+              />
               <LikeText>{likes}개</LikeText>
             </LikeBox>
             <WriteCommentBox>
@@ -115,10 +123,6 @@ const ReviewCard = (props) => {
   );
 };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f4cd56d ([수정] 오류수정)
 const CardBox = styled.div`
   width: 100%;
   height: auto;

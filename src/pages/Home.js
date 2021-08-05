@@ -11,33 +11,33 @@ import Header from "../components/Header";
 import EditModal from "../modals/EditModal";
 
 const Home = (props) => {
-  //dispatch와 변수들
-  const dispatch = useDispatch();
-  const is_modal = useSelector((state) => state.permit.is_modal);
+    //dispatch와 변수들
+    const dispatch = useDispatch();
+    const is_modal = useSelector((state) => state.permit.is_modal);
 
-  //로딩이 되고나면, 네이게이션을 없애주기.
-  useEffect(() => {
-    dispatch(permitAction.showNav(true));
-    dispatch(reviewActions.getAllReviewSV());
-  }, []);
+    //로딩이 되고나면, 네이게이션을 없애주기.
+    useEffect(() => {
+        dispatch(permitAction.showNav(true));
+        dispatch(reviewActions.getAllReviewSV());
+    }, []);
 
-  const reviewList = useSelector((state) => state.review.all_review_list);
+    const reviewList = useSelector((state) => state.review.all_review_list);
 
-  return (
-    <React.Fragment>
-      <HomeBackGroundColor>
-        <Header />
+    return (
+        <React.Fragment>
+            <HomeBackGroundColor>
+                <Header />
 
-        {reviewList
-          ? reviewList.map((review, idx) => {
-              return (
-                <React.Fragment key={review._id}>
-                  <ReviewCard {...review} />
-                </React.Fragment>
-              );
-            })
-          : ""}
-      </HomeBackGroundColor>
+                {reviewList
+                    ? reviewList.map((review, idx) => {
+                        return (
+                            <React.Fragment key={review._id}>
+                                <ReviewCard {...review} />
+                            </React.Fragment>
+                        );
+                    })
+                    : ""}
+            </HomeBackGroundColor>
 
    
       {is_modal && <EditModal />}

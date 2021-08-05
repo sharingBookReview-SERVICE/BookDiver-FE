@@ -35,43 +35,48 @@ function App() {
         dispatch(userActions.isMe());
       }
       console.log(user)
+
+        if(user){
+            dispatch(userActions.loginCheck());
+        }
+        console.log(user)
     },[user]);
-  
-  return (
-    <React.Fragment>
-      <Container is_modal_opened={is_modal ? "hidden" : "scroll"}>
-        <ConnectedRouter history={history}>
-          <Route path="/" exact component={Home} />
-          <Route
-            path="/reviewdetail/:bookid/:reviewid"
-            exact
-            component={ReviewDetail}
-          />
-          <Route path="/postwrite" exact component={ReviewWrite} />
-          <Route
-            path="/postwrite/:bookid/:reviewid"
-            exact
-            component={ReviewWrite}
-          />
-          <Route path="/bookdetail/:bookid" exact component={BookDetail} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/myprofile" exact component={MyProfile} />
-          <Route path="/changename" exact component={ChangeName} />
-          <Route path="/myreview" exact component={MyReview} />
-          <Route path="/modal" exact component={CommentModal} />
-          <Route path="/MyReview" exact component={MyReview} />
-          <Route path="/myreviewfeed" exact component={MyReviewFeed} />
-          <Route path="/myreviewfind" exact component={MyReviewFind} />
-          <Route
-            path="/api/users/kakao/callback"
-            component={OAuth2RedirectHandler}
-          />
-          <Route path="/logincheck" component={Spinner} />
-        </ConnectedRouter>
-        {is_nav ? <Navigation /> : ""}
-      </Container>
-    </React.Fragment>
-  );
+
+    return (
+        <React.Fragment>
+            <Container is_modal_opened={is_modal ? "hidden" : "scroll"}>
+                <ConnectedRouter history={history}>
+                    <Route path="/" exact component={Home} />
+                    <Route
+                        path="/reviewdetail/:bookid/:reviewid"
+                        exact
+                        component={ReviewDetail}
+                    />
+                    <Route path="/postwrite" exact component={ReviewWrite} />
+                    <Route
+                        path="/postwrite/:bookid/:reviewid"
+                        exact
+                        component={ReviewWrite}
+                    />
+                    <Route path="/bookdetail/:bookid" exact component={BookDetail} />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/myprofile" exact component={MyProfile} />
+                    <Route path="/changename" exact component={ChangeName} />
+                    <Route path="/myreview" exact component={MyReview} />
+                    <Route path="/modal" exact component={CommentModal} />
+                    <Route path="/MyReview" exact component={MyReview} />
+                    <Route path="/myreviewfeed" exact component={MyReviewFeed} />
+                    <Route path="/myreviewfind" exact component={MyReviewFind} />
+                    <Route
+                        path="/api/users/kakao/callback"
+                        component={OAuth2RedirectHandler}
+                    />
+                    <Route path="/logincheck" component={Spinner} />
+                </ConnectedRouter>
+                {is_nav ? <Navigation /> : ""}
+            </Container>
+        </React.Fragment>
+    );
 }
 
 const Container = styled.div`
@@ -82,11 +87,9 @@ const Container = styled.div`
   overflow-x: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
-
   background-color: #fff;
   display: flex;
   flex-direction: column;
