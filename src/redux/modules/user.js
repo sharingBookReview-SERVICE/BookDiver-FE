@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
-import jwt_decode from "jwt-decode";
+
 
 //actions
 const GET_USER = "GET_USER";
@@ -17,19 +17,34 @@ const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
-const setUser = createAction(SET_USER, (token) => ({token}))
+const setUser = createAction(SET_USER, (user) => ({user}))
 
 
 //initial
 const initialState = {
-    user : [],
+    user : {
+      userId : "",
+      nickname: ""
+    },
     review_list: [],
 };
 
-const setUserSV = (token) => {
+//회원정보 등록
+const setUserSV = (userId, nickname) => {
   return function(dispatch, getState, {history}){
-    const decoded = jwt_decode(token);
-    console.log(decoded)
+    instance
+    .put('/users/nickname/'+userId , {
+      nickname: nickname
+    })
+    .then((res)=>{
+      dispatch(setUser({userId: userId, nickname: nickname}));
+      history.push('/')
+    })
+    .catch((err)=>{
+      console.log(err);
+      window.alert('회원정보 등록 실패')
+    })
+
   }
     
 }
@@ -110,6 +125,10 @@ export default handleActions(
           produce(state, (draft) => {
             draft.review_list = action.payload.review_list;
         }),
+        [SET_USER]: (state, action)=>
+        produce(state,(draft)=>{
+          draft.user = action.payload.user;
+        })
     },
     initialState
   );
@@ -121,6 +140,7 @@ const actionCreators = {
   deleteUserSV,
   getUserReviewSV,
   setUserSV,
+  setUser
 };
   
 export { actionCreators };
