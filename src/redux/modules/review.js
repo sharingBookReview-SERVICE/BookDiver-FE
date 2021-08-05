@@ -37,21 +37,19 @@ const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({
 
 //initial
 const initialState = {
-  all_review_list: {
-    feeds: [
-      {
-        book: {},
-        comments: [],
-        content: "",
-        created_at: "",
-        hashtags: [],
-        liked_users: [],
-        quote: "",
-        _id: "",
-        likes: 0,
-      },
-    ],
-  },
+  all_review_list: [
+    {
+      book: {},
+      comments: [],
+      content: "",
+      created_at: "",
+      hashtags: [],
+      liked_users: [],
+      quote: "",
+      _id: "",
+      likes: 0,
+    },
+  ],
   feed_id: {
     bookId: "",
     reviewId: "",
@@ -203,18 +201,16 @@ export default handleActions(
       }),
     [DELETE_REVIEW]: (state, action) =>
       produce(state, (draft) => {
-        draft.all_review_list.feeds = draft.all_review_list.feeds.filter(
-          (l, idx) => {
-            return l._id !== action.payload.reviewId;
-          }
-        );
+        draft.all_review_list = draft.all_review_list.filter((l, idx) => {
+          return l._id !== action.payload.reviewId;
+        });
       }),
     [EDIT_REVIEW]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.all_review_list.feeds.findIndex(
+        let idx = draft.all_review_list.findIndex(
           (l) => l._id === action.payload.reviewId
         );
-        draft.all_review_list.feeds[idx] = action.payload.review;
+        draft.all_review_list[idx] = action.payload.review;
       }),
     [GET_DETAIL_REVIEW]: (state, action) =>
       produce(state, (draft) => {
@@ -222,19 +218,19 @@ export default handleActions(
       }),
     [LIKE]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.all_review_list.feeds.findIndex(
+        let idx = draft.all_review_list.findIndex(
           (l) => l._id === action.payload.reviewId
         );
-        if (draft.all_review_list.feeds[idx].myLike) {
-          draft.all_review_list.feeds[idx].likes =
-            draft.all_review_list.feeds[idx].likes - 1;
-          draft.all_review_list.feeds[idx].myLike =
-            !draft.all_review_list.feeds[idx].myLike;
+        if (draft.all_review_list[idx].myLike) {
+          draft.all_review_list[idx].likes =
+            draft.all_review_list[idx].likes - 1;
+          draft.all_review_list[idx].myLike =
+            !draft.all_review_list[idx].myLike;
         } else {
-          draft.all_review_list.feeds[idx].likes =
-            draft.all_review_list.feeds[idx].likes + 1;
-          draft.all_review_list.feeds[idx].myLike =
-            !draft.all_review_list.feeds[idx].myLike;
+          draft.all_review_list[idx].likes =
+            draft.all_review_list[idx].likes + 1;
+          draft.all_review_list[idx].myLike =
+            !draft.all_review_list[idx].myLike;
         }
       }),
     [GET_FEED_ID]: (state, action) =>
