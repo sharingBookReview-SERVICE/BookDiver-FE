@@ -6,12 +6,13 @@ import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookm
 import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 import LogoutModal from "../modals/LogoutModal";
 import SignoutModal from "../modals/SignoutModal";
+import { useSelector } from "react-redux";
 
 //마이 페이지
 const MyProfile = (props) =>{
     const[logooutPop, setLogOutPop] = useState(false);
     const[signoutPop , setSignOutPop] = useState(false);
-    
+    const nickname = useSelector(state=> state.user.user.nickname);
     
 
     return(
@@ -28,7 +29,7 @@ const MyProfile = (props) =>{
                     <ProfileBox>
                         <ImageBox>
                             <ProfileImg></ProfileImg>
-                            <Name>닉네임</Name>
+                            <Name>{nickname}</Name>
                             <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                         </ImageBox>
                         <MyActivityBox>

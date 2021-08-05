@@ -2,22 +2,44 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {history} from "../redux/configStore";
+import { useDispatch, userSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import jwt_decode from "jwt-decode";
 
 
 const ChangeName = (props) =>{
+  const dispatch = useDispatch();
+  const [nickname, setNickName] = useState("");
+  const token =  localStorage.getItem('token');
+  console.log(token)
+  const decoded = jwt_decode(token);
+
+  const userId = decoded.userId;
 
     return(
         <React.Fragment>
                 <Background>
                   <HeadBar>
+                    
                     <HeadBtn onClick={()=>{history.goBack()}}>뒤로가기</HeadBtn>
                     <HeadBtn>변경완료</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
+                    <h1>닉네임설정해주세요</h1>
                         <ImageBox>
                             <ProfileImg></ProfileImg>
-                             <Input></Input>
-                            <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
+                             <Input
+                               onChange={(e)=>{
+                                setNickName(e.target.value);
+                              }}
+                             
+                             onKeyPress ={(e)=>{
+                              if(e.key === "Enter"){
+                                dispatch(userActions.setUserSV(userId, nickname))
+                              }
+                            }}
+                             ></Input>
+                          
                         </ImageBox>
                     </ProfileBox>
                 </Background>

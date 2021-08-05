@@ -1,16 +1,16 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import Cookies from "universal-cookie";
+import jwt_decode from "jwt-decode";
 
-const cookies = new Cookies()
 
 //actions
 const GET_USER = "GET_USER";
 const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
 const GET_USER_REVIEW = "GET_USER_REVIEW";
-const SET_USER = "user/SET_USER"
+const SET_USER = "user/SET_USER";
+
 
 
 //actioncreator
@@ -18,17 +18,56 @@ const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (user)=>({user}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
-const setUser = createAction(SET_USER, (token) => ({token}))
+const setUser = createAction(SET_USER, (user) => ({user}));
+
 
 
 //initial
 const initialState = {
-    user : [],
+    user : {
+      userId : "",
+      nickname: ""
+    },
     review_list: [],
+    is_login: false,
+
 };
 
-const setUserSV = (token) => {
-  cookies.set("access_token", token)
+const loginCheck = () => {
+  return function (dispatch, getState, { history }) {
+    const user = localStorage.getItem('token') ? true : false;
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    const userId = decoded.userId;
+    const nickname = decoded.nickname;
+
+    //localStorage에 토큰이 있는 상태(이미 로그인을 한 상태라면)
+    if (user) {
+      dispatch(setUser({userId: userId, nickname: nickname}));
+    } else {
+      console.log("로그인상태아님");
+    }
+  };
+};
+
+//회원정보 등록
+const setUserSV = (userId, nickname) => {
+  return function(dispatch, getState, {history}){
+    instance
+    .put('/users/nickname/'+userId , {
+      nickname: nickname
+    })
+    .then((res)=>{
+      dispatch(setUser({userId: userId, nickname: nickname}));
+      history.push('/')
+    })
+    .catch((err)=>{
+      console.log(err);
+      window.alert('회원정보 등록 실패')
+    })
+
+  }
+    
 }
 
 
@@ -107,6 +146,11 @@ export default handleActions(
           produce(state, (draft) => {
             draft.review_list = action.payload.review_list;
         }),
+        [SET_USER]: (state, action)=>
+        produce(state,(draft)=>{
+          draft.user = action.payload.user;
+          draft.is_login = true;
+        })
     },
     initialState
   );
@@ -118,6 +162,8 @@ const actionCreators = {
   deleteUserSV,
   getUserReviewSV,
   setUserSV,
+  setUser,
+  loginCheck
 };
   
 export { actionCreators };
