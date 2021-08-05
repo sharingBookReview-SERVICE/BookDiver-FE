@@ -1,9 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies()
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
+import jwt_decode from "jwt-decode";
 
 //actions
 const GET_USER = "GET_USER";
@@ -28,7 +27,11 @@ const initialState = {
 };
 
 const setUserSV = (token) => {
-  cookies.set("access_token", token)
+  return function(dispatch, getState, {history}){
+    const decoded = jwt_decode(token);
+    console.log(decoded)
+  }
+    
 }
 
 
