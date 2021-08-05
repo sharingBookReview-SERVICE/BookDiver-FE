@@ -33,7 +33,8 @@ function App() {
       if(user){
         dispatch(userActions.loginCheck());
       }
-    },[]);
+      console.log(user)
+    },[user]);
   
   return (
     <React.Fragment>

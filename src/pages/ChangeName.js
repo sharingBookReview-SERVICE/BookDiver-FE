@@ -11,7 +11,6 @@ const ChangeName = (props) =>{
   const dispatch = useDispatch();
   const [nickname, setNickName] = useState("");
   const token =  localStorage.getItem('token');
-  console.log(token)
   const decoded = jwt_decode(token);
 
   const userId = decoded.userId;

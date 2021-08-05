@@ -10,15 +10,17 @@ const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
 const GET_USER_REVIEW = "GET_USER_REVIEW";
 const SET_USER = "user/SET_USER";
+const LOG_OUT = "user/LOG_OUT";
 
 
 
 //actioncreator
 const getUser = createAction(GET_USER, (user)=>({user}));
 const updateUser = createAction(UPDATE_USER, (user)=>({user}));
-const deleteUser = createAction(DELETE_USER, (user)=>({user}));
+const deleteUser = createAction(DELETE_USER, (userId)=>({userId}));
 const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
 const setUser = createAction(SET_USER, (user) => ({user}));
+const logOut = createAction(LOG_OUT, ()=> ({}));
 
 
 
@@ -106,6 +108,7 @@ const deleteUserSV = (id) =>{
     instance.delete('/users/' + id)
     .then((res)=>{
       window.alert("회원탈퇴");
+      console.log(res)
       dispatch(deleteUser(id));
     })
     .catch((err)=>{
@@ -141,6 +144,7 @@ export default handleActions(
         [DELETE_USER]: (state, action) =>
           produce(state, (draft) => {
             draft.user = [];
+            draft.is_login= false;
         }),
         [GET_USER_REVIEW]: (state, action) =>
           produce(state, (draft) => {
@@ -150,6 +154,10 @@ export default handleActions(
         produce(state,(draft)=>{
           draft.user = action.payload.user;
           draft.is_login = true;
+        }),
+        [LOG_OUT] : (state, action)=>
+        produce(state,(draft)=>{
+          draft.is_login = false;
         })
     },
     initialState
@@ -163,7 +171,8 @@ const actionCreators = {
   getUserReviewSV,
   setUserSV,
   setUser,
-  loginCheck
+  loginCheck,
+  logOut
 };
   
 export { actionCreators };
