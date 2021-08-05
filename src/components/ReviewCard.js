@@ -13,92 +13,104 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
 
 const ReviewCard = (props) => {
-    //dispatch와 변수들
-    const {content, hashtags, quote, created_at,book, _id, is_book_detail, likes, comments } = props;
-    const dispatch = useDispatch();
+  //dispatch와 변수들
+  const {
+    content,
+    hashtags,
+    quote,
+    created_at,
+    book,
+    _id,
+    is_book_detail,
+    likes,
+    comments,
+    image,
+  } = props;
+  const dispatch = useDispatch();
 
-    //좋아요 클릭
-    const clickLikeButton = (props) => {
-        //props로부터 book와 reviewId를 받아오기
-        dispatch(reviewActions.LikeSV(book._id, _id, likes));
-       console.log(book._id, _id, likes)
-    }
+  //좋아요 클릭
+  const clickLikeButton = (props) => {
+    //props로부터 book와 reviewId를 받아오기
+    dispatch(reviewActions.LikeSV(book._id, _id, likes));
+    console.log(book._id, _id, likes);
+  };
 
-    const getFeedId = () => {
-      dispatch(reviewActions.getFeedId(book._id, _id))
-      console.log("----------카드에서",book._id, _id)
-    }
+  const getFeedId = () => {
+    dispatch(reviewActions.getFeedId(book._id, _id));
+    console.log("----------카드에서", book._id, _id);
+  };
 
-    const showEditModal = () => {
-      dispatch(permitActions.showModal(true))
-    }
+  const showEditModal = () => {
+    dispatch(permitActions.showModal(true));
+  };
 
+  return (
+    <React.Fragment>
+      <CardBox>
+        <CommentUserBox>
+          <UserLeftBox>
+            <UserName>닉네임닉네임</UserName>
+            <CreatedAt>{created_at}</CreatedAt>
+          </UserLeftBox>
 
-    return (
-        <React.Fragment>
+          <UserRightBox>
+            <BookmarkBorderIcon
+              style={{ color: "#9e9e9e", marginRight: "10px" }}
+            />
+            <MoreHorizIcon
+              style={{ color: "#9e9e9e" }}
+              onClick={() => {
+                showEditModal();
+                getFeedId();
+              }}
+            />
+          </UserRightBox>
+        </CommentUserBox>
 
-            <CardBox>
+        <Image
+          src={image}
+          onClick={() => {
+            history.push(`/reviewdetail/${book._id}/${_id}`);
+          }}
+        />
 
-                <CommentUserBox>
-                    <UserLeftBox>
-                        <UserName>
-                            닉네임닉네임
-                        </UserName>
-                        <CreatedAt>
-                            {created_at}
-                        </CreatedAt>
-                    </UserLeftBox>
+        <ContentBox
+          onClick={() => {
+            history.push(`/reviewdetail/${book._id}/${_id}`);
+          }}
+        >
+          <BookTitle>
+            {book.title} | {book.author}{" "}
+          </BookTitle>
+          <Quote>{quote}</Quote>
+          <Content>{content}</Content>
+          <HashTag>
+            {hashtags.map((tag) => {
+              return `#${tag} `;
+            })}
+          </HashTag>
+        </ContentBox>
 
-                    <UserRightBox>
-                        <BookmarkBorderIcon style={{color: "#9e9e9e", marginRight: "10px"}}/>
-                        <MoreHorizIcon 
-                        style={{color: "#9e9e9e"}} 
-                        onClick = {() => {
-                          showEditModal()
-                          getFeedId()
-                        }}/>
-                    </UserRightBox>
-                </CommentUserBox>
-
-                <Image 
-                src={BookImg} 
-                onClick={() => {
-                    history.push(`/reviewdetail/${book._id}/${_id}`)
-                }}/>
-
-                <ContentBox onClick={() => {
-                    history.push(`/reviewdetail/${book._id}/${_id}`)
-                }}>
-
-                    <BookTitle>{book.title} | {book.author} </BookTitle>
-                    <Quote>{quote}</Quote>
-                    <Content>{content}</Content>
-                    <HashTag>{hashtags.map((tag)=> {
-                            return(`#${tag} `)
-                        })}</HashTag>
-                </ContentBox>
-
-                <LikeCommentBox>
-                    <LikeBox>
-
-                            <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}} onClick={clickLikeButton}/>
-                            <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}} onclick={clickLikeButton}/>
-                      <LikeText>{likes}개</LikeText>
-                   </LikeBox>
-                    <WriteCommentBox>
-                        <CommentCount>
-                            댓글 개
-                        </CommentCount>
-                    </WriteCommentBox>
-                </LikeCommentBox>
-            </CardBox>
-
-
-        </React.Fragment>
-    )
-}
-
-
+        <LikeCommentBox>
+          <LikeBox>
+            <FavoriteIcon
+              style={{ fontSize: "18px", color: "#1168d7" }}
+              onClick={clickLikeButton}
+            />
+            <FavoriteBorderIcon
+              style={{ fontSize: "18px", color: "#1168d7" }}
+              onclick={clickLikeButton}
+            />
+            <LikeText>{likes}개</LikeText>
+          </LikeBox>
+          <WriteCommentBox>
+            <CommentCount>댓글 개</CommentCount>
+          </WriteCommentBox>
+        </LikeCommentBox>
+      </CardBox>
+    </React.Fragment>
+  );
+};
 
 const CardBox = styled.div`
   width: 100%;

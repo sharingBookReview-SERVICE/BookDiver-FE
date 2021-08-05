@@ -73,20 +73,21 @@ const ReviewWrite = (props) => {
   //FormData로 변환하기
   const sendFormData = async (image) => {
     const formData = new FormData();
-    //formData에 압축 이미지 파일 저장.
+    //formData에 압축 이미지, 인용구,내용,해쉬태그 저장
     formData.append("image", image);
     formData.append("quote", quote.current.value);
     formData.append("content", content.current.value);
     formData.append("hashtags", JSON.stringify(hashtags));
 
-    await dispatch(reviewActions.addReviewSV(formData, books.isbn));
+    if (books.length === 0) {
+      window.alert("책을 선택해주세요!");
+      return;
+    } else if (!image) {
+      window.alert("이미지를 선택해주세요!");
+      return;
+    }
 
-    // const result = await instance.post(
-    //   `/books/9791160022988/reviews/images`,
-    //   formData,
-    //   { headers: { "Content-Type": "multipart/form-data" } }
-    // );
-    // return result.data;
+    await dispatch(reviewActions.addReviewSV(formData, books.isbn));
   };
 
   //이미지 보내기.

@@ -199,7 +199,7 @@ export default handleActions(
       }),
     [ADD_REVIEW]: (state, action) =>
       produce(state, (draft) => {
-        draft.all_review_list.unshift(action.payload.review);
+        draft.all_review_list.feeds.unshift(action.payload.review);
       }),
     [DELETE_REVIEW]: (state, action) =>
       produce(state, (draft) => {
