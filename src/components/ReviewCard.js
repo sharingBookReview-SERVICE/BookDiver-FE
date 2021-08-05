@@ -30,6 +30,7 @@ const ReviewCard = (props) => {
 
   const dispatch = useDispatch();
   const is_me = useSelector(state=> state.user.is_me);
+  const is_login = useSelector(state=> state.user.is_login);
 
   //좋아요 클릭
   const clickLikeButton = (props) => {
@@ -58,9 +59,13 @@ const ReviewCard = (props) => {
           </UserLeftBox>
 
           <UserRightBox>
-            <BookmarkBorderIcon
+            {
+              is_login &&
+              <BookmarkBorderIcon
               style={{ color: "#9e9e9e", marginRight: "10px" }}
             />
+            }
+          
             {
              is_me && 
               <MoreHorizIcon
