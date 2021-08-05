@@ -1,0 +1,152 @@
+diff a/src/components/ReviewCard.js b/src/components/ReviewCard.js	(rejected hunks)
+@@ -47,83 +47,147 @@
+      dispatch(permitActions.showModal(true));
+    };
+  
+ +  
+    return (
+ +    <React.Fragment>
+ +      <CardBox>
+ +        <CommentUserBox>
+ +          <UserLeftBox>
+ +            <UserName>{user.nickname}</UserName>
+ +            <CreatedAt>{created_at}</CreatedAt>
+ +          </UserLeftBox>
+ +
+ +          <UserRightBox>
+ +            {
+ +              is_login &&
+ +              <BookmarkBorderIcon
+ +              style={{ color: "#9e9e9e", marginRight: "10px" }}
+ +            />
+ +            }
+ +          
+ +            {
+ +             is_me && 
+ +              <MoreHorizIcon
+ +              style={{ color: "#9e9e9e" }}
+++
++       <React.Fragment>
++         <CardBox>
++           <CommentUserBox>
++             <UserLeftBox>
++               <UserName>닉네임닉네임</UserName>
++               <CreatedAt>{created_at}</CreatedAt>
++             </UserLeftBox>
++ 
++             <UserRightBox>
++               <BookmarkBorderIcon
++                   style={{ color: "#9e9e9e", marginRight: "10px" }}
++               />
++               <MoreHorizIcon
++                   style={{ color: "#9e9e9e" }}
++                   onClick={() => {
++                     showEditModal();
++                     getFeedId();
++                   }}
++               />
++             </UserRightBox>
++           </CommentUserBox>
++ 
++           <ImageBox>
++             <Image
++                 src={image}
++                 onClick={() => {
++                   history.push(`/reviewdetail/${book._id}/${_id}`);
++                 }}
++             />
++           </ImageBox>
++ 
++           <ContentBox
+                onClick={() => {
+-                 showEditModal();
+-                 getFeedId();
++                 history.push(`/reviewdetail/${book._id}/${_id}`);
+                }}
+ +            />
+ +            }
+ +          
+ +          </UserRightBox>
+ +        </CommentUserBox>
+ +
+ +        <ImageBox>
+ +          <Image
+ +            src={image}
+ +            onClick={() => {
+ +              history.push(`/reviewdetail/${book._id}/${_id}`);
+ +            }}
+ +          />
+ +        </ImageBox>
+ +
+ +        <ContentBox
+ +          onClick={() => {
+ +            history.push(`/reviewdetail/${book._id}/${_id}`);
+ +          }}
+ +        >
+ +          <BookTitle>
+ +            {book.title} | {book.author}{" "}
+ +          </BookTitle>
+ +          <Quote>{quote}</Quote>
+ +          <Content>{content}</Content>
+ +          <HashTag>
+ +            {hashtags.map((tag) => {
+ +              return `#${tag} `;
+ +            })}
+ +          </HashTag>
+ +        </ContentBox>
+ +
+ +        <LikeCommentBox>
+ +          <LikeBox>
+ +            <FavoriteIcon
+ +              style={{ fontSize: "18px", color: "#1168d7" }}
+ +              onClick={clickLikeButton}
+ +            />
+ +            <FavoriteBorderIcon
+ +              style={{ fontSize: "18px", color: "#1168d7" }}
+-               onclick={clickLikeButton}
+++              onClick={clickLikeButton}
+ +            />
+ +            <LikeText>{likes}개</LikeText>
+ +          </LikeBox>
+ +          <WriteCommentBox>
+ +            <CommentCount>댓글 {comments.length} 개</CommentCount>
+ +          </WriteCommentBox>
+ +        </LikeCommentBox>
+ +      </CardBox>
+ +    </React.Fragment>
++           >
++             <BookTitle>
++               {book.title} | {book.author}{" "}
++             </BookTitle>
++             <Quote>{quote}</Quote>
++             <Content>{content}</Content>
++             <HashTag>
++               {hashtags.map((tag) => {
++                 return `#${tag} `;
++               })}
++             </HashTag>
++           </ContentBox>
++ 
++           <LikeCommentBox>
++             <LikeBox>
++               <FavoriteIcon
++                   style={{ fontSize: "18px", color: "#1168d7" }}
++                   onClick={clickLikeButton}
++               />
++               <FavoriteBorderIcon
++                   style={{ fontSize: "18px", color: "#1168d7" }}
+ -                  onclick={clickLikeButton}
+++                  onClick={clickLikeButton}
++               />
++               <LikeText>{likes}개</LikeText>
++             </LikeBox>
++             <WriteCommentBox>
++               <CommentCount>댓글 개</CommentCount>
++             </WriteCommentBox>
++           </LikeCommentBox>
++         </CardBox>
++       </React.Fragment>
+++
+    );
+  };
+  
