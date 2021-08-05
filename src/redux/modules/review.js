@@ -15,7 +15,7 @@ const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
-const like = createAction(LIKE, (reviewId) => ({reviewId}))
+const like = createAction(LIKE, (bookId, reviewId) => ({bookId, reviewId}))
 const addReview = createAction(ADD_REVIEW, (review) => ({review}));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({reviewId}));
 const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId, review}));
@@ -35,7 +35,9 @@ const initialState = {
         hashtags: [],
         liked_users: [],
         quote: "",
-        _id: ""
+        _id: "",
+            likes: 0,
+
     }]},
     feed_id: {
         bookId: "",
@@ -49,13 +51,13 @@ const initialState = {
         hashtags:[],
         createdAt:"",
         comments:[],
-        myLike:true,
-        likes:10,
+        myLike:false,
+        likes:0,
     },
     feed_edit:{
         feed_edit_id: "",
     },
-    reviews_which_book_have :[]
+    reviews_which_book_have :[],
 };
 
 //middle
@@ -143,7 +145,7 @@ const editReviewSV = (bookId, reviewId, review) => {
 };
 
 //상세보기
-const getDetailReviewSV = (bookId,reviewId) => {
+const getDetailReviewSV = (bookId,reviewId, ) => {
     return function (dispatch){
 
         instance
@@ -162,10 +164,10 @@ const LikeSV = (bookId, reviewId) => {
     return function(dispatch){
 
         instance
-        .put(`books/${bookId}/reviews/${reviewId}/like`)
+        .put(`/books/${bookId}/reviews/${reviewId}/like`)
         .then((res)=>{
             console.log(res);
-            dispatch(like(reviewId));
+            dispatch(like(bookId, reviewId));
         })
         .catch((err)=>{
             console.log("좋아요 실패", err);
@@ -217,11 +219,11 @@ export default handleActions(
         produce(state, (draft) => {
         let idx = draft.all_review_list.feeds.findIndex((l) => l._id === action.payload.reviewId);
             if (draft.all_review_list.feeds[idx].myLike) {
-              draft.review[idx].likes = draft.review[idx].likes -1;
-              draft.review[idx].myLike = !draft.review[idx].myLike;
+              draft.all_review_list.feeds[idx].likes = draft.all_review_list.feeds[idx].likes -1;
+              draft.all_review_list.feeds[idx].myLike = !draft.all_review_list.feeds[idx].myLike;
             } else {
-              draft.review[idx].likes = draft.review[idx].likes +1;
-              draft.review[idx].myLike = !draft.review[idx].myLike;
+              draft.all_review_list.feeds[idx].likes = draft.all_review_list.feeds[idx].likes +1;
+              draft.all_review_list.feeds[idx].myLike = !draft.all_review_list.feeds[idx].myLike;
             }
         }),
         [GET_FEED_ID]: (state, action) => 
