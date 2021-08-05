@@ -7,9 +7,12 @@ import PersonIcon from "@material-ui/icons/Person";
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import EditIcon from '@material-ui/icons/Edit';
+import { useSelector } from "react-redux";
 
 
 const Navigation = (props) => {
+
+  const is_login = useSelector(state=> state.user.is_login);
 
   return (
     <BottomNavigation style={{ background: "#fafafa",position:"fixed", bottom:"0", width:"100%" }}>
@@ -37,14 +40,27 @@ const Navigation = (props) => {
           history.push("/myreviewfeed")
         }}
       />
-      <BottomNavigationAction
-        label="Login"
-        value="login"
-        icon={<PersonIcon />}
-        onClick={()=>{
-          history.push("/login")
-        }}
-      />
+      {
+        is_login ?
+          <BottomNavigationAction
+                  label="Login"
+                  value="login"
+                  icon={<PersonIcon />}
+                  onClick={()=>{
+                    history.push("/myprofile")
+                  }}
+                />
+          :
+          <BottomNavigationAction
+            label="Login"
+            value="login"
+            icon={<PersonIcon />}
+            onClick={()=>{
+              history.push("/login")
+            }}
+          />
+      }
+      
     </BottomNavigation>
   );
 

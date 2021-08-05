@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {ConnectedRouter} from 'connected-react-router';
 import {Route} from "react-router-dom";
 import {history} from "../redux/configStore";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home"
@@ -20,13 +20,23 @@ import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
 import ImageUpload from "../components/ImageUpload";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 
 function App() {
-    const is_nav = useSelector(state => state.permit.is_nav)
-    const is_modal = useSelector(state => state.permit.is_modal)
+    const dispatch = useDispatch();
+    const is_nav = useSelector(state => state.permit.is_nav);
+    const is_modal = useSelector(state => state.permit.is_modal);
+    const user = localStorage.getItem('token') ? true : false;
 
+    React.useEffect(()=>{
+      
+      if(user){
+        dispatch(userActions.loginCheck());
+      }
+     
 
+    },[]);
   return (
     <React.Fragment>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} >
