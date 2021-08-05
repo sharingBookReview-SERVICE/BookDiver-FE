@@ -14,7 +14,8 @@ import { history } from "../redux/configStore";
 import jwt_decode from "jwt-decode";
 
 const ReviewCard = (props) => {
-  ///주석주석주석
+  //주석주석주석
+  //주석을 달겠습니다
   //dispatch와 변수들
   const {
     content,
