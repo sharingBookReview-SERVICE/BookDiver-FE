@@ -40,7 +40,8 @@ const ReviewWrite = (props) => {
     const quote = useRef();
     const content = useRef();
     const [hashtags, setHashTags] = useState([])
-    const [image, setImage] = useState({})
+    const [image, setImage] = useState()
+    const [compressedImage, setCompressedImage] = useState(null);
 
     //HashTag컴포넌트에서 데이터를 받아올 함수 
     const getTags = (tags) => {
@@ -53,9 +54,9 @@ const ReviewWrite = (props) => {
     }
 
     //이미지 가져오기
-    const getImage = () => {
+    const getImage = event => {
         const reader = new FileReader();
-        const file = fileInput.current.files[0];
+        const file = event.target.files[0];
         actionImgCompress(file)
 
         reader.readAsDataURL(file);
@@ -66,16 +67,31 @@ const ReviewWrite = (props) => {
     }
 
     //FormData로 변환하기 
-    const setFormData = (files) => {
+    const sendFormData = async(image) => {
         const formData = new FormData();
-        formData.append('file', files)
-        setImage(formData)
+        //formData에 압축 이미지 파일 저장.
+        formData.append('image', image)
+        
+        const result = await instance
+        .post(`/books/9791160022988/reviews/images`, 
+        formData , 
+        {headers: {'Content-Type': 'multipart/form-data',}}
+        )
+        return result.data
+    }
+
+    //이미지 보내기.
+    const submit = async event => {
+      event.preventDefault()
+
+      const result = await sendFormData(compressedImage)
     }
 
     //이미지 압축하기 
     const actionImgCompress = async fileSrc => {
         console.log("압축 시작");
-      
+
+        //압축할 옵션 내용
         const options = {
           maxSizeMB: 0.2,
           maxWidthOrHeight: 1920,
@@ -83,34 +99,29 @@ const ReviewWrite = (props) => {
         };
 
         try {
+          //imageCompression함수의 첫번째 인자는 파일, 두번째 인자는 옵션
           const compressedFile = await imageCompression(fileSrc, options);
-      
-          // FileReader 는 File 혹은 Blob 객체를 이용하여, 파일의 내용을 읽을 수 있게 해주는 Web API
-          const reader = new FileReader();
-          reader.readAsDataURL(compressedFile);
-          reader.onloadend = () => {
-
-          // 변환 완료!
-          const base64data = reader.result;
-          console.log(base64data)
-      
-          setFormData(base64data)
-          };
+          setCompressedImage(compressedFile)
         } 
         catch (error) {
           console.log(error);
         }
     };
 
+
+
+   
+
     const sendImage = () => {
+
       instance
-        .post(`/books/${bookId}/reviews/image`, {
-            image: image
-        }, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }})
+        .post(`/books/${books.isbn}/reviews/images`, {
+
+        }, {headers: {
+          'Content-Type': 'multipart/form-data',
+        }})
         .then((res) => {
+          console.log(res);
         })
         .catch((err) => {
             console.log("post작성 실패", err);
@@ -140,14 +151,11 @@ const ReviewWrite = (props) => {
                 hashtags: hashtags,
                 image: image
             };
-          //   for(var pair of image.entries()) {
-          //     console.log(typeof(pair[0])+ ', '+ typeof(pair[1])); 
-          //  }
+
 
             dispatch(reviewActions.addReviewSV(review, books.isbn));
         }
     }
-
 
 
     //리뷰수정하기 
@@ -173,9 +181,9 @@ const ReviewWrite = (props) => {
                     <LeftArrow
                         src={left_arrow}
                         onClick={()=>{history.goBack()}}/>
-                    <ReviewHeaderText
+                    <SubmitButton
                         onClick={()=>{editReview()}}>
-                        수정하기</ReviewHeaderText>
+                        수정하기</SubmitButton>
                 </PostHeader>
                     
                 <SelectBookCard {...book}  is_editReviewPage/>
@@ -208,7 +216,7 @@ const ReviewWrite = (props) => {
                 </ReviewBox>
                 <HashTag>
                     <Text>해시태그작성</Text>
-                    <HashTagsInput getTags={getTags} defaultValue ={editHashtags} is_edit/>
+                    <HashTagsInput getTags={getTags} defaultValue={editHashtags} is_edit/>
                 </HashTag>
             </PostWriteBox>
         </React.Fragment>
@@ -227,9 +235,22 @@ const ReviewWrite = (props) => {
                     <LeftArrow
                         src={left_arrow}
                         onClick={()=>{history.goBack()}}/>
-                    <ReviewHeaderText
-                        onClick={()=>{addReview()}}>
-                        게시하기</ReviewHeaderText>
+
+                    <UploadForm 
+                        onSubmit={submit}>
+
+                        <Upload
+                        type="file"
+                        ref={fileInput}
+                        onChange={getImage}
+                        accept="image/*"/>
+
+                        <SubmitButton
+                        type="submit">
+                        게시하기
+                        </SubmitButton>
+
+                    </UploadForm>
                 </PostHeader>
 
                 {/* 책을 선택했으면 선택한 책 표시하기 */}
@@ -259,11 +280,7 @@ const ReviewWrite = (props) => {
                     </BookChoice>
                 }
 
-                <Upload
-                    type="file"
-                    ref={fileInput}
-                    onChange={getImage}
-                    accept="image/*"/>
+
 
                 <QuoteBox>
                     <Text>인용구 작성하기</Text>
@@ -287,6 +304,24 @@ const ReviewWrite = (props) => {
 }
 
 export default ReviewWrite;
+
+const UploadForm = styled.form`
+`
+
+const SubmitButton = styled.button`
+  width: 20vw;
+  height: 5vh;
+  flex-grow: 0;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.43;
+  float: right;
+  display: inline-block;
+  margin: 0.2em 0.2em 0 0;
+  color: #9e9e9e;
+  box-sizing: border-box;
+  border:none;
+`;
 
 const Image = styled.img`
 width: auto;
@@ -332,20 +367,7 @@ const LeftArrow = styled.img`
   float: left;
 `;
 
-const ReviewHeaderText = styled.button`
-  width: 20vw;
-  height: 5vh;
-  flex-grow: 0;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.43;
-  float: right;
-  display: inline-block;
-  margin: 0.2em 0.2em 0 0;
-  color: #9e9e9e;
-  box-sizing: border-box;
-  border:none;
-`;
+
 
 const BookChoice = styled.div`
   width: 90%;
