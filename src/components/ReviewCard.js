@@ -101,7 +101,7 @@ const ReviewCard = (props) => {
             />
             <FavoriteBorderIcon
               style={{ fontSize: "18px", color: "#1168d7" }}
-              onclick={clickLikeButton}
+              onClick={clickLikeButton}
             />
             <LikeText>{likes}개</LikeText>
           </LikeBox>
