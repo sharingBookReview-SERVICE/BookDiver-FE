@@ -17,7 +17,7 @@ const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({
   review_list,
 }));
-const like = createAction(LIKE, (reviewId) => ({reviewId}));
+const like = createAction(LIKE, (reviewId) => ({ reviewId }));
 const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({ reviewId }));
 const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({
@@ -37,7 +37,7 @@ const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({
 
 //initial
 const initialState = {
-  all_review_list:[],
+  all_review_list: [],
   feed_id: {
     bookId: "",
     reviewId: "",
@@ -66,7 +66,7 @@ const getAllReviewSV = () => {
     instance
       .get("/feeds")
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         dispatch(getAllReview(res.data));
       })
       .catch((err) => {
@@ -141,8 +141,6 @@ const getDetailReviewSV = (bookId, reviewId) => {
     instance
       .get(`/books/${bookId}/reviews/${reviewId}`)
       .then((res) => {
-        console.log("------리뷰 디테일입니다");
-        console.log(res.data);
         dispatch(getDetailReview(res.data.review));
       })
       .catch((err) => {
