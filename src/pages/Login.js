@@ -74,26 +74,22 @@ letter-spacing: -0.42px;
 color: #1168d7;
 `;
 
-// const KakaoBtn = styled.button`
-// width: 280px;
-// height: 48px;
-// margin: 0 auto;
-// text-align: center;
-// line-height: 48px;
-// border-radius: 12px;
-// background-color: #f9e57e;
-// font-weight: bold;
-// `;
 
 const KaKaoBtn = styled.a`
-  display: flex;
-  height: 50px;
-  background-color: #ffe500;
-  text-align: center;
-  border-radius: 4px;
-  align-items: center;
-  cursor: pointer;
-  text-decoration: none;
+width: 280px;
+color: black;
+height: 48px;
+margin: 0 auto;
+text-align: center;
+line-height: 48px;
+border-radius: 12px;
+background-color: #f9e57e;
+font-weight: bold;
+text-decoration:none;
+&:visited{
+    text-decoration:none;
+    color: black;
+}
 `;
 
 const GoogleBtn = styled.div`

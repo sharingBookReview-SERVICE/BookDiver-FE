@@ -1,17 +1,15 @@
 //import 부분
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configStore";
 
 
 const SignoutModal = (props) =>{
-
+  const dispatch = useDispatch();
   const {signoutPop, setSignOutPop} = props;
-
-//useEffect
-React.useEffect(()=>{
-},[]);
-
-
+  const userId = useSelector(state=> state.user.user.userId);
 
 //뷰
 
@@ -27,7 +25,12 @@ React.useEffect(()=>{
          <BtnBox>
          <Btn onClick={()=>{setSignOutPop(false)}}>취소</Btn>
          <Hr/>
-         <Btn onClick={()=>{setSignOutPop(false)}}>회원탈퇴하기</Btn>
+         <Btn onClick={()=>{
+           setSignOutPop(false)
+           dispatch(userActions.deleteUserSV(userId));
+           localStorage.removeItem('token');
+           history.push('/') 
+           }}>회원탈퇴하기</Btn>
          </BtnBox>
         
           

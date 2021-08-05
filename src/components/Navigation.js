@@ -24,34 +24,55 @@ const Navigation = (props) => {
           history.push("/")
         }}
       />
-      <BottomNavigationAction
-        label="List"
-        value="list"
-        icon={<EditIcon />}
-        onClick={()=>{
-          history.push(`/postwrite`)
-        }}
-      />
-      <BottomNavigationAction
-        label="Login"
-        value="login"
-        icon={<AllInboxIcon />}
-        onClick={()=>{
-          history.push("/myreviewfeed")
-        }}
-      />
+    
       {
-        is_login ?
+        is_login ? 
+        <React.Fragment>
+            <BottomNavigationAction
+                label="List"
+                value="list"
+                icon={<EditIcon />}
+                onClick={()=>{
+                  history.push(`/postwrite`)
+                }}
+              />
           <BottomNavigationAction
-                  label="Login"
-                  value="login"
-                  icon={<PersonIcon />}
-                  onClick={()=>{
-                    history.push("/myprofile")
-                  }}
-                />
-          :
+          label="Login"
+          value="login"
+          icon={<AllInboxIcon />}
+          onClick={()=>{
+            history.push("/myreviewfeed")
+          }}
+        />
+        <BottomNavigationAction
+            label="Login"
+            value="login"
+            icon={<PersonIcon />}
+            onClick={()=>{
+              history.push("/myprofile")
+            }}
+          />
+        </React.Fragment>
+        
+      :
+      <React.Fragment>
+            <BottomNavigationAction
+                label="List"
+                value="list"
+                icon={<EditIcon />}
+                onClick={()=>{
+                  history.push(`/login`)
+                }}
+              />
           <BottomNavigationAction
+          label="Login"
+          value="login"
+          icon={<AllInboxIcon />}
+          onClick={()=>{
+            history.push("/login")
+          }}
+        />
+        <BottomNavigationAction
             label="Login"
             value="login"
             icon={<PersonIcon />}
@@ -59,8 +80,11 @@ const Navigation = (props) => {
               history.push("/login")
             }}
           />
+        </React.Fragment>
+    
       }
-      
+    
+     
     </BottomNavigation>
   );
 

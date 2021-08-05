@@ -39,9 +39,7 @@ const Home = (props) => {
           : ""}
       </HomeBackGroundColor>
 
-      <FloatButton>
-        <AddIcon style={{ color: "#fafafa", fontSize: "30px" }} />
-      </FloatButton>
+   
       {is_modal && <EditModal />}
     </React.Fragment>
   );

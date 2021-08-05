@@ -25,7 +25,7 @@ const ReviewDetail = (props) => {
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
   console.log(reviewDetail);
-  const { hashtags, quote, content, comments, book } = reviewDetail;
+  const { hashtags, quote, content, comments, book, image } = reviewDetail;
 
   //댓글 작성함수
   const writeComment = () => {
@@ -74,7 +74,7 @@ const ReviewDetail = (props) => {
           </CommentUserBox>
 
           <SelectBookCard {...book} is_reviewDetail />
-          <Image src={BookImg} />
+          <Image src={image} />
 
           <ContentBox>
             <ContentTitle>{quote}</ContentTitle>

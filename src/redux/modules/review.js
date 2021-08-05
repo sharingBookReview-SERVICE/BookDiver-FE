@@ -37,19 +37,7 @@ const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({
 
 //initial
 const initialState = {
-  all_review_list: [
-    {
-      book: {},
-      comments: [],
-      content: "",
-      created_at: "",
-      hashtags: [],
-      liked_users: [],
-      quote: "",
-      _id: "",
-      likes: 0,
-    },
-  ],
+  all_review_list:[],
   feed_id: {
     bookId: "",
     reviewId: "",
@@ -78,6 +66,7 @@ const getAllReviewSV = () => {
     instance
       .get("/feeds")
       .then((res) => {
+        console.log(res.data)
         dispatch(getAllReview(res.data));
       })
       .catch((err) => {

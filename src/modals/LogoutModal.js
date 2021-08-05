@@ -1,10 +1,13 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import { history } from "../redux/configStore";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch } from "react-redux";
 
 const LogoutModal = (props) =>{
   //dispatch와 변수들
+  const dispatch = useDispatch();
   const {logooutPop, setLogOutPop} = props;
 
 
@@ -27,7 +30,12 @@ React.useEffect(()=>{
          <BtnBox>
          <Btn onClick={()=>{setLogOutPop(false)}}>취소</Btn>
          <Hr/>
-         <Btn onClick={()=>{setLogOutPop(false)}}>로그아웃하기</Btn>
+         <Btn onClick={()=>{
+           setLogOutPop(false)
+           dispatch(userActions.logOut());
+           localStorage.removeItem('token')
+           history.push('/')
+           }}>로그아웃하기</Btn>
          </BtnBox>
         
           
