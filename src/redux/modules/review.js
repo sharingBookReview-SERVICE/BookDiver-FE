@@ -11,25 +11,13 @@ const DELETE_REVIEW = "review/DELETE_REVIEW";
 const EDIT_REVIEW = "review/EDIT_REVIEW";
 const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
 const GET_FEED_ID = "review/GET_REVIEW_ID";
-<<<<<<< HEAD
 const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
-
-//actioncreator
-const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({ review_list }));
-const like = createAction(LIKE, (reviewId) => ({reviewId}))
-const addReview = createAction(ADD_REVIEW, (review) => ({review}));
-const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({reviewId}));
-const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId, review}));
-const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
-const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}));
-const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews)=> ({reviews}));
-=======
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({
   review_list,
 }));
-const like = createAction(LIKE, (reviewId) => ({ reviewId }));
+const like = createAction(LIKE, (bookId, reviewId) => ({ bookId, reviewId }));
 const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({ reviewId }));
 const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({
@@ -43,7 +31,9 @@ const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({
   bookId,
   reviewId,
 }));
->>>>>>> feature/imageupload
+const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({
+  reviews,
+}));
 
 //initial
 const initialState = {
@@ -57,30 +47,8 @@ const initialState = {
         hashtags: [],
         liked_users: [],
         quote: "",
-<<<<<<< HEAD
-        _id: ""
-    }]},
-    feed_id: {
-        bookId: "",
-        reviewId: "",
-    },
-    review_detail:{
-        user:"",
-        book:"",
-        quote:"",
-        content:"",
-        hashtags:[],
-        createdAt:"",
-        comments:[],
-        myLike:true,
-        likes:10,
-    },
-    feed_edit:{
-        feed_edit_id: "",
-    },
-    reviews_which_book_have :[]
-=======
         _id: "",
+        likes: 0,
       },
     ],
   },
@@ -96,13 +64,13 @@ const initialState = {
     hashtags: [],
     createdAt: "",
     comments: [],
-    myLike: true,
-    likes: 10,
+    myLike: false,
+    likes: 0,
   },
   feed_edit: {
     feed_edit_id: "",
   },
->>>>>>> feature/imageupload
+  reviews_which_book_have: [],
 };
 
 //middle
@@ -179,6 +147,7 @@ const editReviewSV = (bookId, reviewId, review) => {
 };
 
 //상세보기
+
 const getDetailReviewSV = (bookId, reviewId) => {
   return function (dispatch) {
     instance
@@ -196,10 +165,10 @@ const getDetailReviewSV = (bookId, reviewId) => {
 const LikeSV = (bookId, reviewId) => {
   return function (dispatch) {
     instance
-      .post(`books/${bookId}/reviews/${reviewId}/like`)
+      .put(`/books/${bookId}/reviews/${reviewId}/like`)
       .then((res) => {
         console.log(res);
-        dispatch(like(reviewId));
+        dispatch(like(bookId, reviewId));
       })
       .catch((err) => {
         console.log("좋아요 실패", err);
@@ -207,81 +176,20 @@ const LikeSV = (bookId, reviewId) => {
   };
 };
 
-<<<<<<< HEAD
 //해당 책의 리뷰 가져오기
-const getReviewsBookHaveSV = (bookId) =>{
-    return function(dispatch, getState,{history}){
-        instance
-        .get(`/books/${bookId}/reviews`)
-        .then((res)=>{
-            dispatch(getReviewsBookHave(res.data.review));
-        })
-        .catch((err)=>{
-            console.log("해당 책의 리뷰 가져오기 실패", err)
-        })
-    }
-}
+const getReviewsBookHaveSV = (bookId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .get(`/books/${bookId}/reviews`)
+      .then((res) => {
+        dispatch(getReviewsBookHave(res.data.review));
+      })
+      .catch((err) => {
+        console.log("해당 책의 리뷰 가져오기 실패", err);
+      });
+  };
+};
 
-//reducer
-export default handleActions(
-    {
-        [GET_ALL_REVIEW]: (state, action) =>
-        produce(state, (draft) => {
-            draft.all_review_list = action.payload.review_list;
-        }),
-        [ADD_REVIEW] : (state, action) =>
-        produce(state, (draft) => {
-            draft.all_review_list.unshift(action.payload.review);
-        }),
-        [DELETE_REVIEW] : (state, action) =>
-        produce(state, (draft) => {
-            draft.all_review_list.feeds = draft.all_review_list.feeds.filter((l,idx) => {
-                return l._id !== action.payload.reviewId
-            })
-        }),
-        [EDIT_REVIEW] : (state, action) =>
-        produce(state, (draft) => {
-            let idx = draft.all_review_list.feeds.findIndex((l) => l._id === action.payload.reviewId)
-            draft.all_review_list.feeds[idx] = action.payload.review
-        }),
-        [GET_DETAIL_REVIEW] : (state, action) =>
-        produce(state, (draft) => {
-            draft.review_detail = action.payload.review;
-        }),
-        [LIKE]: (state, action) => 
-        produce(state, (draft) => {
-        let idx = draft.all_review_list.feeds.findIndex((l) => l._id === action.payload.reviewId);
-            if (draft.all_review_list.feeds[idx].myLike) {
-              draft.review[idx].likes = draft.review[idx].likes -1;
-              draft.review[idx].myLike = !draft.review[idx].myLike;
-            } else {
-              draft.review[idx].likes = draft.review[idx].likes +1;
-              draft.review[idx].myLike = !draft.review[idx].myLike;
-            }
-        }),
-        [GET_FEED_ID]: (state, action) => 
-        produce(state, (draft) => {
-            draft.feed_id.bookId = action.payload.bookId
-            draft.feed_id.reviewId = action.payload.reviewId
-        } ),
-        [GET_REVIEWS_BOOK_HAVE]:(state, action)=>
-        produce(state, (draft)=>{
-            draft.reviews_which_book_have = action.payload.reviews;
-        })
-    },
-    initialState
-  );
-
-const actionCreators = {
-    getAllReviewSV,
-    LikeSV,
-    addReviewSV,
-    deleteReviewSV,
-    editReviewSV,
-    getDetailReviewSV,
-    getFeedId,
-    getReviewsBookHaveSV
-=======
 //reducer
 export default handleActions(
   {
@@ -291,7 +199,7 @@ export default handleActions(
       }),
     [ADD_REVIEW]: (state, action) =>
       produce(state, (draft) => {
-        draft.all_review_list.feeds.unshift(action.payload.review);
+        draft.all_review_list.unshift(action.payload.review);
       }),
     [DELETE_REVIEW]: (state, action) =>
       produce(state, (draft) => {
@@ -314,21 +222,29 @@ export default handleActions(
       }),
     [LIKE]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.all_review_list.findIndex(
-          (l) => l.id === action.payload.reviewId
+        let idx = draft.all_review_list.feeds.findIndex(
+          (l) => l._id === action.payload.reviewId
         );
-        if (draft.review[idx].myLike) {
-          draft.review[idx].likes = draft.review[idx].likes - 1;
-          draft.review[idx].myLike = !draft.review[idx].myLike;
+        if (draft.all_review_list.feeds[idx].myLike) {
+          draft.all_review_list.feeds[idx].likes =
+            draft.all_review_list.feeds[idx].likes - 1;
+          draft.all_review_list.feeds[idx].myLike =
+            !draft.all_review_list.feeds[idx].myLike;
         } else {
-          draft.review[idx].likes = draft.review[idx].likes + 1;
-          draft.review[idx].myLike = !draft.review[idx].myLike;
+          draft.all_review_list.feeds[idx].likes =
+            draft.all_review_list.feeds[idx].likes + 1;
+          draft.all_review_list.feeds[idx].myLike =
+            !draft.all_review_list.feeds[idx].myLike;
         }
       }),
     [GET_FEED_ID]: (state, action) =>
       produce(state, (draft) => {
         draft.feed_id.bookId = action.payload.bookId;
         draft.feed_id.reviewId = action.payload.reviewId;
+      }),
+    [GET_REVIEWS_BOOK_HAVE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.reviews_which_book_have = action.payload.reviews;
       }),
   },
   initialState
@@ -342,7 +258,7 @@ const actionCreators = {
   editReviewSV,
   getDetailReviewSV,
   getFeedId,
->>>>>>> feature/imageupload
+  getReviewsBookHaveSV,
 };
 
 export { actionCreators };

@@ -35,17 +35,12 @@ function App() {
             component={ReviewDetail}
           />
           <Route path="/postwrite" exact component={ReviewWrite} />
-<<<<<<< HEAD
-          <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite} />
-          <Route path="/bookdetail/:bookid" exact component={BookDetail} />
-=======
           <Route
             path="/postwrite/:bookid/:reviewid"
             exact
             component={ReviewWrite}
           />
-          <Route path="/bookdetail" exact component={BookDetail} />
->>>>>>> feature/imageupload
+          <Route path="/bookdetail/:bookid" exact component={BookDetail} />
           <Route path="/login" exact component={Login} />
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />

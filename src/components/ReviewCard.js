@@ -14,28 +14,29 @@ import { history } from "../redux/configStore";
 
 const ReviewCard = (props) => {
   //dispatch와 변수들
-  const { content, hashtags, quote, created_at, book, _id, image } =
-    props.review;
+  const {
+    content,
+    hashtags,
+    quote,
+    created_at,
+    book,
+    _id,
+    is_book_detail,
+    likes,
+    image,
+  } = props;
   const dispatch = useDispatch();
 
-  // const is_liked = useSelector(state => state.review.all_review_list[0].myLike)
-
-  //서버 들어오기 전 임의로 좋아요 갯수 구하는 형식 만들어놓기
-  //   const reviewId = 1;
-  //   const idx = reviewList.findIndex((l) => l.id === reviewId);
-  //   const likesCount = reviewList[idx].likes
-
-  // const tags = JSON.parse(hashtags);
-  // console.log(tags);
-
   //좋아요 클릭
-  const clickLikeButton = () => {
+  const clickLikeButton = (props) => {
     //props로부터 book와 reviewId를 받아오기
-    dispatch(reviewActions.LikeSV());
+    dispatch(reviewActions.LikeSV(book._id, _id, likes));
+    console.log(book._id, _id, likes);
   };
 
   const getFeedId = () => {
     dispatch(reviewActions.getFeedId(book._id, _id));
+    console.log("----------카드에서", book._id, _id);
   };
 
   const showEditModal = () => {
@@ -90,13 +91,17 @@ const ReviewCard = (props) => {
         </ContentBox>
 
         <LikeCommentBox>
-          {/*<LikeBox>*/}
-          {/*    {is_liked ?*/}
-          {/*    <FavoriteIcon style={{fontSize:"18px", color:"#1168d7"}}/>*/}
-          {/*    : <FavoriteBorderIcon style={{fontSize:"18px", color:"#1168d7"}}/> }*/}
-          {/*    */}
-          {/*    <LikeText>좋아요 {reviewList[0].likes}개</LikeText>*/}
-          {/*</LikeBox>*/}
+          <LikeBox>
+            <FavoriteIcon
+              style={{ fontSize: "18px", color: "#1168d7" }}
+              onClick={clickLikeButton}
+            />
+            <FavoriteBorderIcon
+              style={{ fontSize: "18px", color: "#1168d7" }}
+              onclick={clickLikeButton}
+            />
+            <LikeText>{likes}개</LikeText>
+          </LikeBox>
           <WriteCommentBox>
             <CommentCount>댓글 0개</CommentCount>
           </WriteCommentBox>
