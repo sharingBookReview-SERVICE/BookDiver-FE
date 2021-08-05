@@ -7,7 +7,7 @@ import BookImg from "../img/bookImg2.jpg";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
@@ -25,8 +25,11 @@ const ReviewCard = (props) => {
     likes,
     comments,
     image,
+    user
   } = props;
+
   const dispatch = useDispatch();
+  const is_me = useSelector(state=> state.user.is_me);
 
   //좋아요 클릭
   const clickLikeButton = (props) => {
@@ -44,12 +47,13 @@ const ReviewCard = (props) => {
     dispatch(permitActions.showModal(true));
   };
 
+  
   return (
     <React.Fragment>
       <CardBox>
         <CommentUserBox>
           <UserLeftBox>
-            <UserName>닉네임닉네임</UserName>
+            <UserName>{user.nickname}</UserName>
             <CreatedAt>{created_at}</CreatedAt>
           </UserLeftBox>
 
@@ -57,13 +61,17 @@ const ReviewCard = (props) => {
             <BookmarkBorderIcon
               style={{ color: "#9e9e9e", marginRight: "10px" }}
             />
-            <MoreHorizIcon
+            {
+             is_me && 
+              <MoreHorizIcon
               style={{ color: "#9e9e9e" }}
               onClick={() => {
                 showEditModal();
                 getFeedId();
               }}
             />
+            }
+          
           </UserRightBox>
         </CommentUserBox>
 
@@ -106,7 +114,7 @@ const ReviewCard = (props) => {
             <LikeText>{likes}개</LikeText>
           </LikeBox>
           <WriteCommentBox>
-            <CommentCount>댓글 개</CommentCount>
+            <CommentCount>댓글 {comments.length} 개</CommentCount>
           </WriteCommentBox>
         </LikeCommentBox>
       </CardBox>

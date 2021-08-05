@@ -32,6 +32,7 @@ function App() {
     React.useEffect(()=>{
       if(user){
         dispatch(userActions.loginCheck());
+        dispatch(userActions.isMe());
       }
       console.log(user)
     },[user]);
