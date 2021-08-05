@@ -161,6 +161,7 @@ const ReviewCard = (props) => {
           <LikeCommentBox>
             <LikeBox>
               {myLike?  <FavoriteIcon
+
                   style={{ fontSize: "18px", color: "#1168d7" }}
                   onClick={() =>{clickLikeButton()}}/>
                   :
@@ -169,13 +170,18 @@ const ReviewCard = (props) => {
                       onClick={()=> {clickLikeButton()}}/>
               }
               <FavoriteIcon
+
                   style={{ fontSize: "18px", color: "#1168d7" }}
-                  onClick={clickLikeButton}
-              />
-              <FavoriteBorderIcon
-                  style={{ fontSize: "18px", color: "#1168d7" }}
-                  onclick={clickLikeButton}
-              />
+                  onClick={() =>{clickLikeButton()}}/>
+                  :
+                  <FavoriteBorderIcon
+                      style={{ fontSize: "18px", color: "#1168d7" }}
+                      onClick={()=> {clickLikeButton()}}/>
+
+              }
+
+
+
               <LikeText>{likes}개</LikeText>
             </LikeBox>
             <WriteCommentBox>
