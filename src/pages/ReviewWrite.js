@@ -123,6 +123,10 @@ const ReviewWrite = (props) => {
     if (reviewId) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
     }
+
+    return () => {
+      dispatch(uploadAcions.showPreview(false));
+    };
   }, []);
 
   //리뷰 작성하기
