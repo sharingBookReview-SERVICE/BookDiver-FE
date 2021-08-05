@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const FeedCard = () => {
-
+//깃플로우 테스트
     return(
         <React.Fragment>
             <BookImg>
