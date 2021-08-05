@@ -18,6 +18,7 @@ const BookDetail = (props) => {
   const bookId =  props.match.params.bookid;  
   const book = useSelector(state=> state.book.book);
   const reviews_which_book_have = useSelector(state=> state.review.reviews_which_book_have);
+  const review_count = reviews_which_book_have.length;
 
   React.useEffect(()=>{
     dispatch(bookActions.getOneBookSV(bookId));
@@ -41,7 +42,7 @@ const BookDetail = (props) => {
                   <Grid/>
 
                 <BookReview>
-                    리뷰 ({reviews_which_book_have.length}개)
+                    리뷰 ({review_count}개)
                 </BookReview>
                 {
                   reviews_which_book_have &&

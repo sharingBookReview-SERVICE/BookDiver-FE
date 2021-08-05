@@ -88,7 +88,7 @@ const ReviewCard = (props) => {
                    </LikeBox>
                     <WriteCommentBox>
                         <CommentCount>
-                            댓글 0개
+                            댓글 개
                         </CommentCount>
                     </WriteCommentBox>
                 </LikeCommentBox>
