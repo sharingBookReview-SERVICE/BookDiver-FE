@@ -34,7 +34,7 @@ const Navigation = (props) => {
       />
 
       {is_login ? (
-        <div>
+        <>
           <BottomNavigationAction
             label="List"
             value="list"
@@ -59,9 +59,9 @@ const Navigation = (props) => {
               history.push("/myprofile");
             }}
           />
-        </div>
+        </>
       ) : (
-        <div>
+        <>
           <BottomNavigationAction
             label="List"
             value="list"
@@ -86,7 +86,7 @@ const Navigation = (props) => {
               history.push("/login");
             }}
           />
-        </div>
+        </>
       )}
     </BottomNavigation>
   );
