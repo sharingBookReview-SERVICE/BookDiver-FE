@@ -14,6 +14,9 @@ import { history } from "../redux/configStore";
 import jwt_decode from "jwt-decode";
 
 const ReviewCard = (props) => {
+  //주석주석주석
+  //주석을 달겠습니다
+  //한번 더 주석을 달겠습니다.
   //dispatch와 변수들
   const {
     content,
@@ -27,17 +30,15 @@ const ReviewCard = (props) => {
     likes,
     comments,
     image,
-    user
+    user,
   } = props;
 
-
   const dispatch = useDispatch();
-  const is_login = useSelector(state=> state.user.is_login);
-  const userId = useSelector(state=> state.user.user.userId);
+  const is_login = useSelector((state) => state.user.is_login);
+  const userId = useSelector((state) => state.user.user.userId);
   let is_my_post = false;
 
-
-  if(user.id === userId){
+  if (user.id === userId) {
     is_my_post = true;
   }
 
@@ -56,7 +57,6 @@ const ReviewCard = (props) => {
     dispatch(permitActions.showModal(true));
   };
 
-  
   return (
     <React.Fragment>
       <CardBox>
@@ -67,24 +67,21 @@ const ReviewCard = (props) => {
           </UserLeftBox>
 
           <UserRightBox>
-            {
-              is_login &&
+            {is_login && (
               <BookmarkBorderIcon
-              style={{ color: "#9e9e9e", marginRight: "10px" }}
-            />
-            }
-          
-            {
-             is_my_post && 
+                style={{ color: "#9e9e9e", marginRight: "10px" }}
+              />
+            )}
+
+            {is_my_post && (
               <MoreHorizIcon
-              style={{ color: "#9e9e9e" }}
-              onClick={() => {
-                showEditModal();
-                getFeedId();
-              }}
-            />
-            }
-          
+                style={{ color: "#9e9e9e" }}
+                onClick={() => {
+                  showEditModal();
+                  getFeedId();
+                }}
+              />
+            )}
           </UserRightBox>
         </CommentUserBox>
 
@@ -116,15 +113,21 @@ const ReviewCard = (props) => {
 
         <LikeCommentBox>
           <LikeBox>
-          {myLike?  <FavoriteIcon
-
+            {myLike ? (
+              <FavoriteIcon
                 style={{ fontSize: "18px", color: "#1168d7" }}
-                onClick={() =>{clickLikeButton()}}/>
-                :
-                <FavoriteBorderIcon
-                    style={{ fontSize: "18px", color: "#1168d7" }}
-                    onClick={()=> {clickLikeButton()}}/>
-                }
+                onClick={() => {
+                  clickLikeButton();
+                }}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                style={{ fontSize: "18px", color: "#1168d7" }}
+                onClick={() => {
+                  clickLikeButton();
+                }}
+              />
+            )}
             <LikeText>{likes}개</LikeText>
           </LikeBox>
           <WriteCommentBox>

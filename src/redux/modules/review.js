@@ -10,7 +10,7 @@ const LIKE = "review/LIKE";
 const DELETE_REVIEW = "review/DELETE_REVIEW";
 const EDIT_REVIEW = "review/EDIT_REVIEW";
 const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
-const GET_FEED_ID = "review/GET_REVIEW_ID";
+const GET_FEED_ID = "review/GET_FEED_ID";
 const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 
 //actioncreator
@@ -136,10 +136,13 @@ const editReviewSV = (bookId, reviewId, review) => {
 //상세보기
 
 const getDetailReviewSV = (bookId, reviewId) => {
+  console.log("-----리뷰 디테일");
   return function (dispatch) {
     instance
       .get(`/books/${bookId}/reviews/${reviewId}`)
       .then((res) => {
+        console.log("------리뷰 디테일입니다");
+        console.log(res.data);
         dispatch(getDetailReview(res.data.review));
       })
       .catch((err) => {
