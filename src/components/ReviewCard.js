@@ -7,7 +7,7 @@ import BookImg from "../img/bookImg2.jpg"
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {actionCreators as reviewActions} from "../redux/modules/review"
 import {actionCreators as permitActions} from "../redux/modules/permit";
 import {history} from "../redux/configStore";
