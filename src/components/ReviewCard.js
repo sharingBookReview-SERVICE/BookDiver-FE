@@ -15,7 +15,7 @@ import {history} from "../redux/configStore";
 
 const ReviewCard = (props) => {
     //dispatch와 변수들
-    const {content, hashtags, quote, created_at,book, _id, is_book_detail, likes } = props;
+    const {content, hashtags, quote, created_at,book, _id, is_book_detail, likes, comments } = props;
     const dispatch = useDispatch();
 
     //좋아요 클릭
