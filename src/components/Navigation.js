@@ -13,7 +13,6 @@ const Navigation = (props) => {
   //주석추가
 
   const is_login = useSelector((state) => state.user.is_login);
-  console.log("------");
 
   return (
     <BottomNavigation
@@ -34,7 +33,7 @@ const Navigation = (props) => {
       />
 
       {is_login ? (
-        <div>
+        <>
           <BottomNavigationAction
             label="List"
             value="list"
@@ -59,9 +58,9 @@ const Navigation = (props) => {
               history.push("/myprofile");
             }}
           />
-        </div>
+        </>
       ) : (
-        <div>
+        <>
           <BottomNavigationAction
             label="List"
             value="list"
@@ -86,7 +85,7 @@ const Navigation = (props) => {
               history.push("/login");
             }}
           />
-        </div>
+        </>
       )}
     </BottomNavigation>
   );

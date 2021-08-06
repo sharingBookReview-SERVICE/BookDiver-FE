@@ -26,6 +26,8 @@ const ReviewDetail = (props) => {
   const reviewDetail = useSelector((state) => state.review.review_detail);
   console.log(reviewDetail);
   const { hashtags, quote, content, comments, book, image } = reviewDetail;
+  const nickname = useSelector((state) => state.user);
+  console.log(nickname);
 
   //댓글 작성함수
   const writeComment = () => {
@@ -41,7 +43,6 @@ const ReviewDetail = (props) => {
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {
-    console.log("----------");
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
