@@ -25,7 +25,7 @@ const ReviewDetail = (props) => {
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
   console.log(reviewDetail);
-  const { hashtags, quote, content, comments, book, image } = reviewDetail;
+  const { hashtags, quote, content, comments, book, image, likes } = reviewDetail;
   const nickname = useSelector((state) => state.user);
   console.log(nickname);
 
@@ -49,80 +49,80 @@ const ReviewDetail = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
-      <ReviewDetailWrapper>
-        <BackArrowBox>
-          <ArrowBackIcon
-            onClick={() => {
-              history.goBack();
-            }}
-          />
-        </BackArrowBox>
-
-        <CardBox>
-          <CommentUserBox>
-            <UserLeftBox>
-              <UserName>닉네임닉네임</UserName>
-              <CreatedAt>2021.07.24 21:04</CreatedAt>
-            </UserLeftBox>
-
-            <UserRightBox>
-              <BookmarkBorderIcon
-                style={{ color: "#9e9e9e", marginRight: "10px" }}
-              />
-              <MoreHorizIcon style={{ color: "#9e9e9e" }} />
-            </UserRightBox>
-          </CommentUserBox>
-
-          <SelectBookCard {...book} is_reviewDetail />
-          <Image src={image} />
-
-          <ContentBox>
-            <ContentTitle>{quote}</ContentTitle>
-            <Content>{content}</Content>
-            <HashTag>
-              {hashtags.map((tag) => {
-                return `#${tag} `;
-              })}
-            </HashTag>
-          </ContentBox>
-
-          <LikeCommentWrapper>
-            <LikeCommentButton>
-              <LikeBox>좋아요10개</LikeBox>
-              <WriteCommentBox>댓글 달기</WriteCommentBox>
-            </LikeCommentButton>
-          </LikeCommentWrapper>
-        </CardBox>
-
-        {comments.map((comment, idx) => {
-          return <Comment {...comment} key={comment._id} />;
-        })}
-
-        {is_editting === "" ? (
-          <CommentInputBox>
-            <CommentInput
-              placeholder="지금 댓글을 남겨보세요"
-              onChange={(e) => {
-                setCommentContent(e.target.value);
-              }}
-              value={commentContent}
+      <React.Fragment>
+        <ReviewDetailWrapper>
+          <BackArrowBox>
+            <ArrowBackIcon
+                onClick={() => {
+                  history.goBack();
+                }}
             />
-            <CommentWriteButton
-              onClick={() => {
-                writeComment();
-              }}
-            >
-              게시
-            </CommentWriteButton>
-          </CommentInputBox>
-        ) : (
-          ""
-        )}
-      </ReviewDetailWrapper>
+          </BackArrowBox>
 
-      {is_modal && <CommentModal />}
-    </React.Fragment>
+          <CardBox>
+            <CommentUserBox>
+              <UserLeftBox>
+                <UserName>닉네임닉네임</UserName>
+                <CreatedAt>2021.07.24 21:04</CreatedAt>
+              </UserLeftBox>
+
+              <UserRightBox>
+                <BookmarkBorderIcon
+                    style={{ color: "#9e9e9e", marginRight: "10px" }}
+                />
+                <MoreHorizIcon style={{ color: "#9e9e9e" }} />
+              </UserRightBox>
+            </CommentUserBox>
+
+            <SelectBookCard {...book} is_reviewDetail />
+            <Image src={image} />
+
+            <ContentBox>
+              <ContentTitle>{quote}</ContentTitle>
+              <Content>{content}</Content>
+              <HashTag>
+                {hashtags.map((tag) => {
+                  return `#${tag} `;
+                })}
+              </HashTag>
+            </ContentBox>
+
+            <LikeCommentWrapper>
+              <LikeCommentButton>
+                <LikeBox>좋아요 {likes}개</LikeBox>
+                <WriteCommentBox>댓글 달기</WriteCommentBox>
+              </LikeCommentButton>
+            </LikeCommentWrapper>
+          </CardBox>
+
+          {comments.map((comment, idx) => {
+            return <Comment {...comment} key={comment._id} />;
+          })}
+
+          {is_editting === "" ? (
+              <CommentInputBox>
+                <CommentInput
+                    placeholder="지금 댓글을 남겨보세요"
+                    onChange={(e) => {
+                      setCommentContent(e.target.value);
+                    }}
+                    value={commentContent}
+                />
+                <CommentWriteButton
+                    onClick={() => {
+                      writeComment();
+                    }}
+                >
+                  게시
+                </CommentWriteButton>
+              </CommentInputBox>
+          ) : (
+              ""
+          )}
+        </ReviewDetailWrapper>
+
+        {is_modal && <CommentModal />}
+      </React.Fragment>
   );
 };
 
