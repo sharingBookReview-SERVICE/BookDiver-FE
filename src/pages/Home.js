@@ -22,10 +22,11 @@ const Home = (props) => {
   }, []);
 
   const reviewList = useSelector((state) => state.review.all_review_list);
+  console.log(reviewList);
 
   return (
     <React.Fragment>
-      <HomeBackGroundColor>
+      <HomeBGColor>
         <Header />
 
         {reviewList
@@ -37,15 +38,14 @@ const Home = (props) => {
               );
             })
           : ""}
-      </HomeBackGroundColor>
+      </HomeBGColor>
 
-   
       {is_modal && <EditModal />}
     </React.Fragment>
   );
 };
 
-const HomeBackGroundColor = styled.div`
+const HomeBGColor = styled.div`
   background-color: #f5f5f5;
   box-sizing: border-box;
   width: 100%;
