@@ -66,7 +66,6 @@ const getAllReviewSV = () => {
     instance
       .get("/feeds")
       .then((res) => {
-        console.log(res.data);
         dispatch(getAllReview(res.data));
       })
       .catch((err) => {
@@ -77,7 +76,6 @@ const getAllReviewSV = () => {
 
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
-  console.log("----------북아이디", bookId);
   return function (dispatch) {
     instance
       .post(`/books/${bookId}/reviews`, formData, {
@@ -100,12 +98,10 @@ const deleteReviewSV = () => {
   return function (dispatch, getState) {
     const bookId = getState().review.feed_id.bookId;
     const reviewId = getState().review.feed_id.reviewId;
-    console.log("-----------삭제 함수를 실행합니다");
 
     instance
       .delete(`/books/${bookId}/reviews/${reviewId}`)
       .then((res) => {
-        console.log("-----------------------", res);
         dispatch(deleteReview(reviewId));
       })
       .catch((err) => {
@@ -136,7 +132,6 @@ const editReviewSV = (bookId, reviewId, review) => {
 //상세보기
 
 const getDetailReviewSV = (bookId, reviewId) => {
-  console.log("-----리뷰 디테일");
   return function (dispatch) {
     instance
       .get(`/books/${bookId}/reviews/${reviewId}`)

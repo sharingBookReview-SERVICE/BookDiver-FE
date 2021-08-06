@@ -13,7 +13,6 @@ const Navigation = (props) => {
   //주석추가
 
   const is_login = useSelector((state) => state.user.is_login);
-  console.log("------");
 
   return (
     <BottomNavigation
