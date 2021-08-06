@@ -43,11 +43,7 @@ function App() {
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"}>
         <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
-          <Route
-            path="/reviewdetail/:bookid/:reviewid"
-            exact
-            component={ReviewDetail}
-          />
+          <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail}/>
           <Route path="/postwrite" exact component={ReviewWrite} />
           <Route
             path="/postwrite/:bookid/:reviewid"
@@ -88,17 +84,15 @@ const Container = styled.div`
   overflow-x: hidden;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
-
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: 0px 0px 40px 0px;
+  padding: 0px 0px 60px 0px;
   position: relative;
 `;
 

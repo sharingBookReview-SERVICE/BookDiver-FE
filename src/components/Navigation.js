@@ -5,16 +5,37 @@ import styled from "styled-components";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import AllInboxIcon from "@material-ui/icons/AllInbox";
 import SearchIcon from "@material-ui/icons/Search";
-import EditIcon from "@material-ui/icons/Edit";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
+import { makeStyles } from "@material-ui/core/styles";
+
 import Color from "../shared/Color";
 
 import { useSelector } from "react-redux";
 
+const useStyles = makeStyles((theme) => ({
+  navBox: {
+    backgroundColor: Color.mainColor,
+    position: "fixed",
+    bottom: "0",
+    width: "100%",
+    color: Color.secondColor,
+    boxShadow: "0 -3px 6px rgba(0,0,0,0.2)",
+  },
+  icon: {
+    color: Color.secondColor,
+  },
+  plusButton: {
+    color: Color.black,
+    fontSize: "48px",
+    filter: "drop-shadow(1px 1px 4px rgba(0,0,0,0.4))",
+  },
+}));
+
 const Navigation = (props) => {
   //주석추가
+  const classes = useStyles();
 
   const is_login = useSelector((state) => state.user.is_login);
 
@@ -35,20 +56,11 @@ const Navigation = (props) => {
   };
 
   return (
-    <BottomNavigation
-      showLabels
-      style={{
-        background: Color.mainColor,
-        position: "fixed",
-        bottom: "0",
-        width: "100%",
-        color: Color.secondColor,
-      }}
-    >
+    <BottomNavigation showLabels className={classes.navBox}>
       <BottomNavigationAction
         label="피드"
         value="write"
-        icon={<ListAltIcon style={{ color: Color.secondColor }} />}
+        icon={<ListAltIcon className={classes.icon} />}
         onClick={() => {
           toMain();
         }}
@@ -57,7 +69,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="통합검색"
         value="write"
-        icon={<SearchIcon style={{ color: Color.secondColor }} />}
+        icon={<SearchIcon className={classes.icon} />}
         onClick={() => {
           toMain();
         }}
@@ -65,15 +77,7 @@ const Navigation = (props) => {
 
       <BottomNavigationAction
         value="list"
-        icon={
-          <AddBoxIcon
-            style={{
-              color: Color.black,
-              fontSize: "48px",
-              boxShadow: "5px 5px 5px (0,0,0,0.2)",
-            }}
-          />
-        }
+        icon={<AddBoxIcon className={classes.plusButton} />}
         onClick={() => {
           is_login ? toPostWrite() : toLogin();
         }}
@@ -82,7 +86,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="내 피드"
         value="login"
-        icon={<AllInboxIcon style={{ color: Color.secondColor }} />}
+        icon={<SpeakerNotesIcon className={classes.icon} />}
         onClick={() => {
           is_login ? toMyReviewFeed() : toLogin();
         }}
@@ -91,7 +95,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label={is_login ? "내 정보" : "로그인"}
         value="login"
-        icon={<PersonIcon style={{ color: Color.secondColor }} />}
+        icon={<PersonIcon className={classes.icon} />}
         onClick={() => {
           is_login ? toMyProfile() : toLogin();
         }}

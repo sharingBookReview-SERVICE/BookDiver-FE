@@ -7,6 +7,7 @@ import BookImg from "../img/bookImg2.jpg";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Color from "../shared/Color";
+import profile from "../img/profile.svg"
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
@@ -55,75 +56,74 @@ const ReviewCard = (props) => {
   };
 
   return (
-      <React.Fragment>
+    <React.Fragment>
+      <CartWrapper>
         <CardBox>
           <CommentUserBox>
             <UserLeftBox>
-              <UserName>{user.nickname}</UserName>
-              <CreatedAt>{created_at}</CreatedAt>
+              <UserImage src={profile}/>
+              <Box direction={"column"}>
+                <Box direction={"row"}>
+                  <UserName>{user.nickname}</UserName>
+                  <Follower>팔로우</Follower>
+                </Box>
+                <CreatedAt>{created_at}</CreatedAt>
+              </Box>
             </UserLeftBox>
 
             <UserRightBox>
               {is_login && (
-                  <BookmarkBorderIcon
-                      style={{ color: "#9e9e9e", marginRight: "10px" }}
-                  />
+                <BookmarkBorderIcon
+                  style={{ color: "#9e9e9e", marginRight: "10px" }}
+                />
               )}
 
               {is_my_post && (
-                  <MoreHorizIcon
-                      style={{ color: "#9e9e9e" }}
-                      onClick={() => {
-                        showEditModal();
-                        getFeedId();
-                      }}
-                  />
+                <MoreHorizIcon
+                  style={{ color: "#9e9e9e" }}
+                  onClick={() => {
+                    showEditModal();
+                    getFeedId();
+                  }}
+                />
               )}
             </UserRightBox>
           </CommentUserBox>
 
-          <ImageBox>
-            <Image
-                src={image}
-                onClick={() => {
-                  history.push(`/reviewdetail/${book._id}/${_id}`);
-                }}
-            />
-          </ImageBox>
-
           <ContentBox
-              onClick={() => {
-                history.push(`/reviewdetail/${book._id}/${_id}`);
-              }}
+            onClick={() => {
+              history.push(`/reviewdetail/${book._id}/${_id}`);
+            }}
           >
             <BookTitle>
               {book.title} | {book.author}{" "}
             </BookTitle>
             <Quote>{quote}</Quote>
             <Content>{content}</Content>
-            <HashTag>
-              {hashtags.map((tag) => {
-                return `#${tag} `;
-              })}
-            </HashTag>
+
+            <HashTagBox>
+              {hashtags.map((tag, idx) => (
+                <HashTag key={idx}>{`#${tag} `}</HashTag>
+              ))}
+            </HashTagBox>
           </ContentBox>
 
           <LikeCommentBox>
             <LikeBox>
               {myLike ? (
-                  <FavoriteIcon
-                      style={{ fontSize: "18px", color: "#1168d7" }}
-                      onClick={() => {
-                        clickLikeButton();
-                      }}
-                  />
+                <FavoriteIcon
+                  style={{ fontSize: "20px", color: Color.mainColor }}
+                  onClick={() => {
+                    clickLikeButton();
+                  }}
+                />
               ) : (
-                  <FavoriteBorderIcon
-                      style={{ fontSize: "18px", color: "#1168d7" }}
-                      onClick={() => {
-                        clickLikeButton();
-                      }}
-                  />
+                <FavoriteBorderIcon
+                  style={{ fontSize: "20px", color: Color.mainColor }}
+                  onClick={() => {
+                    clickLikeButton();
+                  }}
+                />
               )}
               <LikeText>{likes}개</LikeText>
             </LikeBox>
@@ -131,21 +131,42 @@ const ReviewCard = (props) => {
               <CommentCount>댓글 {comments.length} 개</CommentCount>
             </WriteCommentBox>
           </LikeCommentBox>
+
+          <ImageBox>
+            <Image
+              src={image}
+              onClick={() => {
+                history.push(`/reviewdetail/${book._id}/${_id}`);
+              }}
+            />
+          </ImageBox>
         </CardBox>
-      </React.Fragment>
+      </CartWrapper>
+    </React.Fragment>
   );
 };
 
-const CardBox = styled.div`
+const CartWrapper = styled.div`
   width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CardBox = styled.div`
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   box-sizing: border-box;
-  margin: 0px 0px 6px 0px;
+  margin: 16px 16px 0px 16px;
   background-color: ${Color.mainColor};
+  border: 1px solid ${Color.black};
+  padding-bottom: 40px;
+  border-radius: 16px;
   position: relative;
 `;
 
@@ -162,8 +183,25 @@ const UserLeftBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `;
+
+const UserImage = styled.img`
+width:24px;
+height:24px;
+border-radius:50%;
+margin-right:7px;
+`
+
+const Box = styled.div`
+display:flex;
+flex-direction:${(props) => props.direction};
+`
+
+const Follower = styled.div`
+font-weight:bold;
+font-size:14px;
+`
 
 const UserRightBox = styled.div`
   width: auto;
@@ -189,7 +227,7 @@ const Image = styled.img`
 
 const UserName = styled.p`
   font-size: 14px;
-  font-weight: bold;
+  font-weight: normal;
   margin: 0px 8px 0px 0px;
 `;
 
@@ -214,10 +252,11 @@ const ContentBox = styled.div`
 const BookTitle = styled.p`
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: -0.28px;
-  color: #1168d7;
+  letter-spacing: -0.9px;
+  color: ${Color.black};
   font-weight: bold;
-  margin: 16px 0px 8px 0px;
+  margin: 0px 0px 8px 0px;
+  font-family: "Noto Serif KR", serif;
 `;
 
 const Quote = styled.p`
@@ -225,7 +264,9 @@ const Quote = styled.p`
   font-weight: bold;
   line-height: 1.43;
   letter-spacing: -0.28px;
-  margin: 0px 0px 16px 0px;
+  margin: 8px 0px;
+  color: ${Color.black};
+  font-weight: 700;
 `;
 
 const Content = styled.p`
@@ -233,12 +274,26 @@ const Content = styled.p`
   line-height: 1.43;
   letter-spacing: -0.28px;
   margin: 0px;
+  color: ${Color.fontgray};
 `;
 
-const HashTag = styled.div`
-  padding: 15px 0px;
-  color: #1168d7;
+const HashTagBox = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0px 10px 0px;
+  flex-wrap: wrap;
+  margin:0px;
+`;
+
+const HashTag = styled.li`
+  border: 1px solid ${Color.black};
+  border-radius: 10px;
+  color: ${Color.black};
   font-size: 14px;
+  margin-right: 5px;
+  padding: 8px;
 `;
 
 const LikeBox = styled.div`
@@ -247,14 +302,23 @@ const LikeBox = styled.div`
 `;
 
 const LikeText = styled.p`
-  font-size: 14px;
+  font-size: 16px;
   margin: 0px 0px 0px 8px;
-  color: #1168d7;
+  color: ${Color.mainColor};
 `;
 
 const LikeCommentBox = styled.div`
   display: flex;
-  padding: 10px 24px 18px 24px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${Color.black};
+  box-sizing: border-box;
+  position: absolute;
+  width: 55%;
+  height: 36px;
+  right: 0;
+  bottom: 18px;
+  border-radius: 20px 0px 0px 20px;
 `;
 
 const WriteCommentBox = styled.div`
@@ -262,9 +326,9 @@ const WriteCommentBox = styled.div`
 `;
 
 const CommentCount = styled.p`
-  font-size: 14px;
+  font-size: 16px;
   margin: 0px 0px 0px 8px;
-  color: #b5b5b5;
+  color: ${Color.mainColor};
 `;
 
 export default ReviewCard;
