@@ -6,6 +6,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import BookImg from "../img/bookImg2.jpg";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import Color from "../shared/Color";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
@@ -144,7 +145,7 @@ const CardBox = styled.div`
   align-items: flex-start;
   box-sizing: border-box;
   margin: 0px 0px 6px 0px;
-  background-color: #fff;
+  background-color: ${Color.mainColor};
   position: relative;
 `;
 
