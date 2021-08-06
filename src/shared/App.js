@@ -68,7 +68,11 @@ function App() {
             component={OAuth2RedirectHandler}
           />
           <Route path="/logincheck" exact component={Spinner} />
-          <Route path="/bookCollectionMain" exact  component = {BookCollectionMain}/>
+          <Route
+            path="/bookCollectionMain"
+            exact
+            component={BookCollectionMain}
+          />
         </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
