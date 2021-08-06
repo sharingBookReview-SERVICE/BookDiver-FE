@@ -27,6 +27,7 @@
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.37.5",
     "style-components": "^0.1.0",
     "styled-components": "^5.3.0",
     "swiper": "^6.8.1",

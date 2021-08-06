@@ -19,6 +19,7 @@ import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
+import BookCollectionMain from "../pages/BookCollectionMain";
 import { actionCreators as userActions } from "../redux/modules/user";
 import GlobalStyle from "./GlobalStyle";
 
@@ -66,7 +67,8 @@ function App() {
             path="/api/users/kakao/callback"
             component={OAuth2RedirectHandler}
           />
-          <Route path="/logincheck" component={Spinner} />
+          <Route path="/logincheck" exact component={Spinner} />
+          <Route path="/bookCollectionMain" exact  component = {BookCollectionMain}/>
         </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
