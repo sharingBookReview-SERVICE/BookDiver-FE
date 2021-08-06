@@ -29,8 +29,8 @@ const ReviewCard = (props) => {
     comments,
     image,
     user,
-  } = props;
 
+  } = props;
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const userId = useSelector((state) => state.user.user.userId);
@@ -40,10 +40,13 @@ const ReviewCard = (props) => {
     is_my_post = true;
   }
 
+
   //좋아요 클릭
   const clickLikeButton = (props) => {
     //props로부터 book와 reviewId를 받아오기
     dispatch(reviewActions.LikeSV(book._id, _id, likes, myLike));
+    console.log(book._id, _id, likes, myLike);
+
   };
 
   const getFeedId = () => {
