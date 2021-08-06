@@ -79,6 +79,8 @@ const setUserSV = (userId, nickname) => {
       nickname: nickname
     })
     .then((res)=>{
+      const token = res.data;
+      localStorage.setItem('token', token);
       dispatch(setUser({userId: userId, nickname: nickname}));
       history.push('/')
     })
