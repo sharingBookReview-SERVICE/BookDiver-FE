@@ -6,6 +6,8 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
 
+import Color from "../shared/Color"
+
 const SelectBookCard = (props) =>{
   const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail} = props;
   const dispatch = useDispatch();
@@ -106,7 +108,7 @@ align-items: center;
 gap: 12px;
 padding: 16px;
 border-radius: 12px;
-border: solid 1px #eeeeee;
+border: solid 1px ${Color.secondColor};
 box-sizing: border-box;
 `
 

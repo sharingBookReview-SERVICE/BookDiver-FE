@@ -183,7 +183,7 @@ const UserLeftBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const UserImage = styled.img`
@@ -292,7 +292,7 @@ const HashTag = styled.li`
   border-radius: 10px;
   color: ${Color.black};
   font-size: 14px;
-  margin-right: 5px;
+  margin: 0px 5px 8px 0px;
   padding: 8px;
 `;
 
