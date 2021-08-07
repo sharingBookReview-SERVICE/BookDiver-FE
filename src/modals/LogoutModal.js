@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import Color from "../shared/Color";
 
 const LogoutModal = (props) =>{
   //dispatch와 변수들
@@ -21,12 +22,12 @@ React.useEffect(()=>{
 
     return(
         <React.Fragment>
-          <Outter>
+       
          <Container>
          <Text>
          로그아웃 하시겠어요?
          </Text>
-         <Hr></Hr>
+        
          <BtnBox>
          <Btn onClick={()=>{setLogOutPop(false)}}>취소</Btn>
          <Hr/>
@@ -37,10 +38,11 @@ React.useEffect(()=>{
            history.push('/')
            }}>로그아웃하기</Btn>
          </BtnBox>
-        
-          
          </Container>
-         </Outter>
+        
+         <Overlay>
+
+         </Overlay>
         </React.Fragment>
     )
 }
@@ -48,26 +50,27 @@ React.useEffect(()=>{
 
 
 //styled components
-const Outter = styled.div`
+const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color:rgba(0, 0, 0, 0.5);
-  display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-z-index: 100;
-position: absolute;
+  z-index: 99;
+  position: fixed;
 `;
+
 const Container = styled.div`
-width: 320px;
+width: 85%;
 height: 145px;
 border-radius: 12px;
 justify-content: center;
 align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
-background: #fff;
+background: ${Color.mainColor};
+z-index: 100;
+position: absolute;
+top: 35%;
+left: 7%;
 `;
 
 const Text = styled.p`
@@ -78,18 +81,22 @@ padding: 24px;
 display: block;
 letter-spacing: -0.42px;
 font-size: 14px;
+border-bottom: 1px solid ${Color.hashtag};
+margin-bottom: 0px;
+padding-bottom: 30px;
 `;
 
 const BtnBox = styled.div`
 display: flex;
+padding: 5px;
 `;
 
 const Hr = styled.div`
-border: solid 1px #eeeeee; 
+background:${Color.hashtag}; 
 `;
 
 const Btn = styled.div`
-width: 160px;
+width: 50%;
 font-size: 14px;
 font-weight: bold;
 margin: 14px 0px;
