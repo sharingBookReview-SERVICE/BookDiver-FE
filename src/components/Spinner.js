@@ -28,14 +28,12 @@ const Spinner = () => {
     dispatch(permitActions.showNav(false));
  
     const token = new URL(window.location.href).pathname.split("=")[1];
-    
     setLocal("token", token);
   
     const decoded = jwt_decode(token);
     console.log(decoded)
 
     if(decoded.nickname){
-      dispatch(userActions.setUserSV(decoded.userId, decoded.nickname));
       history.push('/')
     }
     else{
