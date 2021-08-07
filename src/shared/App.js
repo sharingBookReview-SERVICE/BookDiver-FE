@@ -21,6 +21,7 @@ import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
 import BookCollectionMain from "../pages/BookCollectionMain";
 import CollectionDetail from "../pages/CollectionDetail";
+import Setting from "../pages/Setting";
 import { actionCreators as userActions } from "../redux/modules/user";
 import GlobalStyle from "./GlobalStyle";
 import UserFeedInfo from "../pages/UserFeedInfo";
@@ -61,7 +62,7 @@ function App() {
           <Route path="/logincheck" component={Spinner} />
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
           <Route path="/collectiondetail" exact component={CollectionDetail}/>
-          <Route path="/userfeedinfo" exact component={UserFeedInfo} />
+          <Route path="/setting" exact component={Setting}/>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
