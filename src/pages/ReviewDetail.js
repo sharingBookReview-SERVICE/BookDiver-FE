@@ -25,10 +25,8 @@ const ReviewDetail = (props) => {
   const bookId = props.match.params.bookid;
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  console.log(reviewDetail);
   const { hashtags, quote, content, comments, book, image, likes, myLike, _id } = reviewDetail;
   const nickname = useSelector((state) => state.user);
-  console.log(nickname);
 
   //댓글 작성함수
   const writeComment = () => {
@@ -45,9 +43,6 @@ const ReviewDetail = (props) => {
   //좋아요 클릭
   const clickLikeButton = (props) => {
     dispatch(reviewAction.LikeSV(book._id, _id, likes, myLike));
-    console.log("--------여기마이라이크는왜",myLike)
-
-
   };
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기

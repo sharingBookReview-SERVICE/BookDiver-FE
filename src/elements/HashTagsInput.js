@@ -4,6 +4,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import { useSelector } from "react-redux";
 import ReviewDetail from "../pages/ReviewDetail";
+import Color from "../shared/Color";
 
 const HashTagsInput = (props) => {
   // 수정화면일 때, 사용할 변수들
@@ -41,11 +42,7 @@ const HashTagsInput = (props) => {
       <TagUl>
         {tags.map((tag, index) => (
           <Tag key={index}>
-            <TagText>{tag}</TagText>
-            <ClearIcon
-              style={{ fontSize: "14px", color: "#fafafa" }}
-              onClick={() => removeTags(index)}
-            />
+            <TagText onClick={() => removeTags(index)}>{tag}</TagText>
           </Tag>
         ))}
       </TagUl>
@@ -64,8 +61,8 @@ const TagBox = styled.div`
   box-sizing: border-box;
   width: 100%;
   min-height: 48px;
-  border-radius: 5px;
-  background-color: #f5f5f5;
+  border-radius: 8px;
+  border:1px solid ${Color.borderGray};
   position: relative;
   margin: 5px 0px 60px 0px;
   padding: 0 8px;
@@ -85,9 +82,9 @@ const Tag = styled.li`
   display: flex;
   align-items: center;
   padding: 5px;
-  background-color: #1168d7;
+  background-color: ${Color.hashtag};
   border-radius: 7px;
-  border: none;
+  border: 1px solid ${Color.black};
   width: auto;
   height: 20px;
   margin-right: 5px;
@@ -96,7 +93,7 @@ const Tag = styled.li`
 
 const TagText = styled.span`
   font-size: 14px;
-  color: #fafafa;
+  color: ${Color.black};
 `;
 
 const TagInput = styled.input`
@@ -105,7 +102,6 @@ const TagInput = styled.input`
   background-color: transparent;
   height: 46px;
   font-size: 14px;
-  padding: 4px 0 0 0;
   &:focus {
     outline: transparent;
   }

@@ -47,9 +47,9 @@ const initialState = {
         book: "",
         quote: "",
         content: "",
-        hashtags: [],
+        hashtags: [""],
         createdAt: "",
-        comments: [],
+        comments: [""],
         myLike: false,
         likes: 0,
     },
@@ -143,6 +143,7 @@ const getDetailReviewSV = (bookId, reviewId) => {
         instance
             .get(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
+                console.log(res.data)
                 dispatch(getDetailReview(res.data.review));
             })
             .catch((err) => {
