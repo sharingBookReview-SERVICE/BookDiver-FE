@@ -94,9 +94,6 @@ const setUserSV = (userId, nickname) => {
 }
 
 
-
-
-
 //회원탈퇴
 const deleteUserSV = (id) =>{
   return function(dispatch, getState, {history}){
