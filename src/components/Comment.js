@@ -8,6 +8,8 @@ import {actionCreators as permitActions} from "../redux/modules/permit";
 import {actionCreators as commentActions} from "../redux/modules/comment"
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
+import Color from "../shared/Color";
+
 const Comment = (props) =>{
     const dispatch = useDispatch();
     const editId = useSelector(state => state.comment.edit_id)
@@ -36,6 +38,7 @@ const Comment = (props) =>{
             <React.Fragment>
 
             <CommentBox>
+                <CommentSizeBox>
 
                 <CommentUserBox>
                     <UserLeftBox>
@@ -61,7 +64,7 @@ const Comment = (props) =>{
                     onChange={onChangeComment}
                     />
                 </EditBox>
-
+                </CommentSizeBox>
             </CommentBox>
 
         </React.Fragment>
@@ -72,7 +75,7 @@ const Comment = (props) =>{
         <React.Fragment>
 
             <CommentBox>
-
+                <CommentSizeBox>
                 <CommentUserBox>
                     <UserLeftBox>
                         <UserName>
@@ -93,7 +96,8 @@ const Comment = (props) =>{
                 </CommentUserBox>
 
                 <Content>{props.content}</Content>
-
+                    <LikeBox>♡ 좋아요 0개</LikeBox>
+                </CommentSizeBox>
             </CommentBox>
 
         </React.Fragment>
@@ -108,16 +112,27 @@ const CommentBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 24px 24px 0px 24px;
-  margin-left:24px;
+  padding: 0 24px 0 24px;
   box-sizing:border-box;
-  background-color:#fff;
-`
+  line-height: 1.43;
+  letter-spacing: -0.28px;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: ${Color.mainColor};
+`;
+
+const CommentSizeBox = styled.div`
+
+  width: 100%;
+  min-height: 130px;
+  height: auto;
+  margin: auto;
+
+`;
 
 const CommentUserBox = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px 24px 0px 0px;
+  margin: 7px auto auto 24px;
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
@@ -135,41 +150,43 @@ const UserRightBox = styled.div`
   height: auto;
   display: flex;
   align-items: center;
-`
+  margin-right: 30px;
+`;
 
 const UserName = styled.p`
-font-size:14px;
 font-weight:bold;
 margin-right:8px;
-`
+`;
 
 const CreatedAt = styled.p`
-font-size:10px;
-color:#9e9e9e;
-opacity:0.5;
-`
+font-size:12px;
+color: ${Color.fontgray}
+`;
 
 const Content = styled.p`
-font-size:14px;
-margin:0px;
-`
+  margin: 0px auto auto 24px;
+`;
+const LikeBox = styled.div`
+width: 35%;
+  font-size: 15px;
+  margin: 13px auto auto 24px;
+`;
 
 const EditComplete = styled.div`
-font-size:14px;
 font-weight:bold;
-color:#1168d7;
-`
+color: ${Color.fontblack};
+`;
 
 const EditBox = styled.div`
 width: 100%;
 box-sizing: border-box;
 padding-right:24px;
-`
+`;
 
 const EditTextarea = styled.textarea`
-width: 100%;
+width: 85%;
 height: auto;
-font-family: NotoSansKR;
+  min-height: 96px;
 font-size: 14px;
 font-weight: normal;
 font-stretch: normal;
@@ -177,10 +194,10 @@ font-style: normal;
 line-height: 1.43;
 letter-spacing: -0.28px;
 text-align: left;
-padding: 0.7em 0 0 0.5em;
-border-radius: 5px;
-border: none;
-background-color: #f5f5f5;
+  margin: 0px auto auto 24px;
+border-radius: 12px;
+border: 1px solid ${Color.fontblack};
+  background-color: ${Color.mainColor};
 resize:none;
 :focus {
     outline:none;

@@ -1,11 +1,12 @@
 //import 부분
 import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import add_button from "../img/add_button.png";
 import left_arrow from "../img/left_arrow.png";
-import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 import imageCompression from "browser-image-compression";
+import Color from "../shared/Color";
 
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
@@ -145,7 +146,6 @@ const ReviewWrite = (props) => {
         {/* 책 선택 모달 열기 */}
         {is_modal && <SelectBookModal />}
         <PostWriteBox>
-          <StartPost></StartPost>
           <PostHeader>
             <LeftArrow
               src={left_arrow}
@@ -196,13 +196,12 @@ const ReviewWrite = (props) => {
       </React.Fragment>
     );
   }
-
+//작성하기
   return (
     <React.Fragment>
       {/* 책 선택 모달 열기 */}
       {is_modal && <SelectBookModal />}
       <PostWriteBox>
-        <StartPost></StartPost>
         <PostHeader>
           <LeftArrow
             src={left_arrow}
@@ -219,7 +218,12 @@ const ReviewWrite = (props) => {
               accept="image/*"
             />
 
-            <SubmitButton type="submit">게시하기</SubmitButton>
+            <SubmitButton type="submit"
+            style={{
+              backGroundColor: Color.mainColor,
+              color: Color.fontgray,
+
+            }}>게시하기</SubmitButton>
           </UploadForm>
         </PostHeader>
 
@@ -243,7 +247,7 @@ const ReviewWrite = (props) => {
           </ImageBox>
         ) : (
           <BookChoice
-            style={{ height: "35%" }}
+            style={{ height: "312px" }}
             onClick={() => {
               selectImage();
             }}
@@ -257,23 +261,30 @@ const ReviewWrite = (props) => {
                 fontSize: "1em",
               }}
             >
-              인상깊었던 사진을 올려보세요
+              <Text1>인상깊었던 페이지 사진을 올려보세요</Text1>
             </Text>
           </BookChoice>
         )}
 
         <QuoteBox>
-          <Text>인용구 작성하기</Text>
+          <Text
+          style={{
+            margin: "-5px 0 8px 8px",
+          }}>인용구 작성하기</Text>
           <QuotesTextarea
             ref={quote}
             placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
           ></QuotesTextarea>
         </QuoteBox>
         <ReviewBox>
-          <Text>리뷰작성</Text>
+          <Text
+          style={{
+            margin: "-5px 0 8px 8px"
+          }}>리뷰작성
+            <Notice>*필수작성</Notice></Text>
           <QuotesTextarea
             ref={content}
-            placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)"
+            placeholder="자유로운 리뷰를 작성해보세요. (최대 100자)"
           ></QuotesTextarea>
         </ReviewBox>
         <HashTag>
@@ -286,20 +297,34 @@ const ReviewWrite = (props) => {
 };
 
 export default ReviewWrite;
+const Text = styled.text`
+  font-size: 14px;
+  letter-spacing: -0.7px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Noto Serif KR', serif;
+  color: ${Color.fontblack};
+`;
+
+const Text1 = styled.div`
+  font-family: 'Noto Sans KR', sans-serif;
+  color: ${Color.fontgray};
+
+`;
 
 const UploadForm = styled.form``;
 
 const SubmitButton = styled.button`
-  width: 20vw;
-  height: 5vh;
-  flex-grow: 0;
-  font-size: 14px;
+  width: 20%;
+  height: 30px;
+  font-size: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
-  line-height: 1.43;
   float: right;
   display: inline-block;
-  margin: 0.2em 0.2em 0 0;
-  color: #9e9e9e;
+  margin: 0 5px 0 0;
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
   border: none;
 `;
@@ -323,30 +348,15 @@ const PostWriteBox = styled.div`
   width: 100%;
   height: auto;
   padding: 20px 0 60px 0;
-  background-color: #ffffff;
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
 
-const Text = styled.text`
-  font-size: 16px;
-  text-align: left;
-  letter-spacing: -0.28px;
-  font-weight: bold;
-  margin-bottom: 5px;
-`;
-
-const StartPost = styled.div`
-  background-color: #f5f5f5;
-  width: 100vw;
-  height: 3vh;
-  margin-top: -3vh;
-`;
-
 const PostHeader = styled.div`
-  width: 100vw;
-  height: 4vh;
-  background-color: #ffffff;
-  //border: 1px solid black;
+  width: 100%;
+  height: 30px;
+  background-color: ${Color.mainColor};
+  margin-bottom: 8%;
 `;
 const LeftArrow = styled.img`
   width: 10vw;
@@ -357,65 +367,74 @@ const LeftArrow = styled.img`
 `;
 
 const BookChoice = styled.div`
-  width: 90%;
-  height: 15%;
+  width: 85%;
+  height: 112px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.3vh;
-  margin: auto auto 4% auto;
+  margin: auto auto 16px auto;
   border-radius: 12px;
-  //border: solid 1px var(--system-temp-30);
-  border: 1px solid #efeeee;
+  border: 1px solid #252121;
   background-color: #ffffff;
   font-weight: bolder;
-  color: #1168d7;
+  color: ${Color.fontgray};
+  background-color: ${Color.mainColor};
   font-size: 0.9em;
   box-sizing: border-box;
   cursor: pointer;
 `;
 
 const QuoteBox = styled.div`
-  width: 100%;
-  height: 15%;
+  width: 95%;
+  height: 160px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
-  padding: 16px;
-  background-color: #ffffff;
+  margin: 36px auto auto auto;
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
 
 const QuotesTextarea = styled.textarea`
-  width: 98%;
-  height: 100%;
-  font-family: NotoSansKR;
-  font-size: 14px;
+  width: 95%;
+  height: 250px;
+  margin: auto;
+  font-family: 'Noto Sans KR', sans-serif;
   line-height: 1.43;
   letter-spacing: -0.28px;
   text-align: left;
   padding: 7px 0 0 7px;
-  border-radius: 5px;
-  border: none;
-  background-color: #f5f5f5;
+  border-radius: 12px;
+  border: 1px solid rgba(37, 33, 33, 0.2);
+  background-color: ${Color.mainColor};
   resize: none;
-  &::placeholder {
-    color: #a8a8a8;
+
+  ::placeholder {
+    color: ${Color.fontgray};
+    padding: 4px 0 0 6px;
+    
   }
+  :focus {
+    outline:none;
+  }
+  
 `;
 
 const ReviewBox = styled.div`
-  width: 100%;
-  height: 15%;
+  width: 95%;
+  height: 160px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
-  padding: 16px;
-  background-color: #ffffff;
+  margin: 36px auto auto auto;
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
+`;
+
+const Notice = styled.a`
+  margin-left: 210px;
 `;
 
 const HashTag = styled.div`
@@ -423,7 +442,7 @@ const HashTag = styled.div`
   height: auto;
   padding: 1em;
   // padding-bottom: 140px;
-  background-color: #ffffff;
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
 
@@ -442,7 +461,7 @@ const HashInput = styled.input`
   border: none;
   box-sizing: border-box;
   &::placeholder {
-    color: #a8a8a8;
+    color: ${Color.fontgray}
   }
 `;
 
