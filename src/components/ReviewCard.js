@@ -35,6 +35,8 @@ const ReviewCard = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const userId = useSelector((state) => state.user.user.userId);
+  const bookTitle = book.title.split("(")[0]
+  const bookAuthor = `${book.author} 저`
   let is_my_post = false;
 
   if (user.id === userId) {
@@ -96,7 +98,7 @@ const ReviewCard = (props) => {
             }}
           >
             <BookTitle>
-              {book.title} | {book.author}{" "}
+              {bookTitle} | {bookAuthor}
             </BookTitle>
             <Quote>{quote}</Quote>
             <Content>{content}</Content>
