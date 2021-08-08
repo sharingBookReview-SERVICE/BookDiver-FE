@@ -254,9 +254,8 @@ const BookTitle = styled.p`
   line-height: 20px;
   letter-spacing: -0.9px;
   color: ${Color.black};
-  font-weight: bold;
+
   margin: 0px 0px 8px 0px;
-  font-family: "Noto Serif KR", serif;
 `;
 
 const Quote = styled.p`
@@ -266,7 +265,8 @@ const Quote = styled.p`
   letter-spacing: -0.28px;
   margin: 8px 0px;
   color: ${Color.black};
-  font-weight: 700;
+  font-family: "Noto Serif KR", serif;
+  font-weight: 800;
 `;
 
 const Content = styled.p`

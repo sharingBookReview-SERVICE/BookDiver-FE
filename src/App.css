@@ -4,9 +4,13 @@
   text-align: center;
 }
 
+.color-test{
+  background-color: #e0d9d1;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  color:#e0d9d1cc;
 }
 
 @media (prefers-reduced-motion: no-preference) {

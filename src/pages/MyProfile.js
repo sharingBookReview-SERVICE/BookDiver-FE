@@ -7,6 +7,7 @@ import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
 import LogoutModal from "../modals/LogoutModal";
 import SignoutModal from "../modals/SignoutModal";
 import { useSelector } from "react-redux";
+import Color from "../shared/Color"
 
 //마이 페이지
 const MyProfile = (props) =>{
@@ -70,9 +71,9 @@ height: 100%;
 display: flex;
 justify-content: center;
 align-items: center;
-background: white;
+background: ${Color.mainColor};
 position: relative;
-
+padding-top:20px;
 `;
 
 const ProfileBox = styled.div`

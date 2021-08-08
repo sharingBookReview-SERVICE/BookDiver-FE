@@ -4,30 +4,50 @@ import styled from "styled-components";
 import SelectBookCard from "../components/SelectBookCard";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import Color from "../shared/Color"
+import { useEffect } from 'react';
+
+const useStyles = makeStyles((theme) => ({
+  arrow: {
+    position: "absolute",
+    top:"12px",
+    right:"8px",
+  },
+}));
 
 
 const SelectBookModal = (props) =>{
   const dispatch = useDispatch();
+  const classes = useStyles()
 
   const search_book_list = useSelector(state => state.book.search_book_list);
   const [searchWord, setSearchWord] = useState("");
   const [is_clicked, setIsClicked] = useState(false);
   const [height, setHeight] = useState("100%");
+  const [categories, setCategory] = useState(["제목","저자","출판사"])
 
-  const changeHeight = (is_clicked) => {
-    if(is_clicked){
-      setHeight("200%");
-      setIsClicked(false)
+  const openCategory = (is_clicked) => {
+    return is_clicked ? setIsClicked(false) : setIsClicked(true)
+  }
+
+  const selectCategory = (category) => {
+
+    if(category === "제목") {
+      setCategory(["제목", "저자", "출판사"])
+    }else if(category === "저자"){
+      setCategory(["저자","출판사","제목"])
     }else{
-      setHeight("100%");
-      setIsClicked(true)
+      setCategory(["출판사","제목","저자"])
     }
   }
+
 
 //책 검색
   const searchBook = ()=>{
@@ -35,11 +55,12 @@ const SelectBookModal = (props) =>{
       window.alert("검색어를 입력해주세요")
     }
     else{
-      dispatch(bookActions.getSearchBooksSV("title", searchWord));
+      dispatch(bookActions.getSearchBooksSV(categories[0], searchWord));
+      console.log(categories[0])
     }
   }
-//뷰
 
+//뷰
     return(
         <React.Fragment>
 
@@ -48,7 +69,32 @@ const SelectBookModal = (props) =>{
                 <ArrowBackIcon/>
               </ArrowBox>
               <SearchBox>
-                <Category onClick={() => {changeHeight(is_clicked)}} is_clicked={is_clicked}></Category>
+                <Category is_clicked={is_clicked}>
+                  <CategoryUl is_clicked={is_clicked}>
+                    {categories.map((category, idx) => {
+                      return(<CategoryLi 
+                        onClick={() => {
+                        openCategory(is_clicked);
+                        selectCategory(category);
+                        }} 
+                        key={idx}>
+                        {category}
+                      </CategoryLi>)
+                    })
+                    }
+                  </CategoryUl>
+                  {is_clicked ? 
+                  <ExpandLessIcon 
+                  className={classes.arrow}
+                  onClick={() => {
+                    openCategory(is_clicked);
+                    }} />
+                : <ExpandMoreIcon 
+                className={classes.arrow}
+                onClick={() => {
+                  openCategory(is_clicked);
+                  }} />}
+                </Category>
                 <Input 
                 placeholder="도서를 검색해보세요"
               
@@ -71,6 +117,7 @@ const SelectBookModal = (props) =>{
                   return(<SelectBookCard key={book.isbn} {...book} />)
                 })
               }
+
             </Container>
 
           {/* 팝업 닫기 */}
@@ -121,22 +168,26 @@ const SearchBox = styled.div`
 width:87%;
 height:48px;
 display:flex;
+justify-content:space-between;
 align-items:center;
 border:1px solid ${Color.black};
 border-radius:10px;
 margin:0 0 15px 0;
 position:relative;
-z-index:5;
+box-sizing:border-box;
+padding:0px 10px 0px 80px;
+padding-left:80px;
 `
 
-const Category = styled.div`
+const Category = styled.nav`
+opacity:0.9;
 width:80px;
-transition: ease-in-out 0.2s;
-top:0;
-left:-10;
-z-index:4;
+transition: ease-out 0.1s;
+top:0px;
+left:-1px;
+position:absolute;
 ${(props) => props.is_clicked ? 
-`height:200%;
+`height:300%;
 border-right:1px solid ${Color.black};
 border-bottom: 1px solid ${Color.black};
 border-left: 1px solid ${Color.black};
@@ -149,18 +200,44 @@ border-right:1px solid ${Color.black};
 `}
 `
 
+const CategoryUl = styled.ul`
+list-style:none;
+height:100%;
+width:100%;
+margin:0;
+padding:0;
+overflow:hidden;
+${(props) => props.is_clicked ? `
+li:nth-child(1){
+  border:none;
+  border-bottom:1px solid ${Color.black};
+  border-radius:0 0 0 10px;
+}
+` : `
+`}
+`
+
+const CategoryLi = styled.li`
+font-size:12.5px;
+height:46px;
+width:100%;
+display:flex;
+padding-left:14px;
+justify-content:flex-start;
+align-items:center;
+`
 
 const Input = styled.input`
-border-radius: 12px;
-width: auto;
-max-width:100%;
+width:80%;
 height: 48px;
 border: none;
 background-color: transparent;
-margin: 0px;
 padding-left:15px;
 :focus{
   outline:none;
+}
+&::-webkit-input-placeholder {
+  color: ${Color.fontGray};
 }
 `;
 

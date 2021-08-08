@@ -34,7 +34,7 @@ const SelectBookCard = (props) =>{
           <BookImg url={image}/>
           <BookDescBox>
           <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
-              <BookWriter>{author} 저</BookWriter>
+              <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
           </BookDescBox>
         </BookInfoBox>
       </BookInfoWrapper>
@@ -83,7 +83,7 @@ const SelectBookCard = (props) =>{
               <BookImg url={image}/>
               <BookDescBox>
                   <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
-                  <BookWriter>{author} 저</BookWriter>
+                  <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
               </BookDescBox>
             </BookInfoBox>
         }
