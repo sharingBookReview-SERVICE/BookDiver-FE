@@ -23,7 +23,6 @@ const ReviewCard = (props) => {
     created_at,
     book,
     _id,
-    is_book_detail,
     myLike,
     likes,
     comments,
@@ -37,6 +36,7 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user.userId);
   const bookTitle = book.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
+  console.log(myLike);
   let is_my_post = false;
 
   if (user.id === userId) {
@@ -44,9 +44,9 @@ const ReviewCard = (props) => {
   }
 
   //좋아요 클릭
-  const clickLikeButton = (props) => {
+  const clickLikeButton = () => {
     //props로부터 book와 reviewId를 받아오기
-    dispatch(reviewActions.LikeSV(book._id, _id, likes, myLike));
+    dispatch(reviewActions.LikeSV(book._id, _id));
   };
 
   const getFeedId = () => {
