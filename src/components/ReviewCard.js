@@ -3,7 +3,6 @@ import React from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import BookImg from "../img/bookImg2.jpg";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Color from "../shared/Color";
@@ -13,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
-import jwt_decode from "jwt-decode";
+
 
 const ReviewCard = (props) => {
   //dispatch와 변수들
@@ -32,6 +31,7 @@ const ReviewCard = (props) => {
     user,
   } = props;
 
+  
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const userId = useSelector((state) => state.user.user.userId);

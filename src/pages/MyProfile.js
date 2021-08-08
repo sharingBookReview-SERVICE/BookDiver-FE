@@ -1,21 +1,35 @@
 //import 부분
 import React, { useState } from "react";
-import styled from "styled-components";
-import {history} from "../redux/configStore";
-import CollectionsBookmarkOutlinedIcon from '@material-ui/icons/CollectionsBookmarkOutlined';
-import BookmarkOutlinedIcon from '@material-ui/icons/BookmarkOutlined';
+import { useSelector } from "react-redux";
+
 import LogoutModal from "../modals/LogoutModal";
 import SignoutModal from "../modals/SignoutModal";
-import { useSelector } from "react-redux";
+
+import styled from "styled-components";
 import Color from "../shared/Color"
+import SettingsIcon from '@material-ui/icons/Settings';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import { makeStyles } from "@material-ui/core/styles";
+import Profile from "../img/christopher-campbell-rDEOVtE7vOs-unsplash.jpg"
+
+import ProfileSwiper from "../elements/ProfileSwiper";
+
+const useStyles = makeStyles((theme) => ({
+    setting: {
+        color:Color.white,
+        padding:"10px",
+    },
+  }));
 
 //마이 페이지
 const MyProfile = (props) =>{
+    const classes = useStyles();
     const[logooutPop, setLogOutPop] = useState(false);
     const[signoutPop , setSignOutPop] = useState(false);
     const nickname = useSelector(state=> state.user.user.nickname);
-    
+    const CollectionList = ["나만의 북 컬렉션", "내가 작성한 리뷰", "내가 스크랩한 리뷰"]
 
+    
     return(
         <React.Fragment>
           {/* 로그아웃 */}
@@ -27,35 +41,33 @@ const MyProfile = (props) =>{
               signoutPop && <SignoutModal signoutPop={signoutPop} setSignOutPop={setSignOutPop}/>
           }
                 <Background>
-                    <ProfileBox>
-                        <ImageBox>
-                            <ProfileImg></ProfileImg>
-                            <Name>{nickname}</Name>
-                            <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
-                        </ImageBox>
-                        <MyActivityBox>
-                            <MyActivity>
-                                <CollectionsBookmarkOutlinedIcon style={{color:"#1168d7"}}/>
-                                <Text>내 컬렉션</Text>
-                            </MyActivity>
-                            <MyActivity>
-                                <BookmarkOutlinedIcon  style={{color:"#1168d7"}}/>
-                                <Text>저장한 에세이</Text>
-                            </MyActivity>
-                            <MyActivity>
-                            <Text style={{fontWeight:"bold",fontSize:"21px", margin: "-2px"}}>9,999</Text>
-                            <Text>팔로워</Text>
-                            </MyActivity>
-                        </MyActivityBox>
-                        <UserBtn onClick={()=>{history.push('/changename')}}>닉네임 변경</UserBtn>
-                        <UserBtn onClick={()=>{ 
-                            setLogOutPop(true);    
-                        }}>로그 아웃</UserBtn>
+                  <ProfileWrapper>
+                      <SettingBox>
+                          <NotificationsNoneIcon className={classes.setting}/>
+                          <SettingsIcon className={classes.setting}/>
+                      </SettingBox>
 
-                        <UserBtn onClick={()=>{
-                            setSignOutPop(true);
-                        }}>회원 탈퇴</UserBtn>
-                    </ProfileBox>
+                      <ProfileBox>
+                          <ImgWrapper>
+                            <ProfileImg src={Profile} />
+                          </ImgWrapper>
+
+                          <DetailBox>
+                            <UserTitle>'천재적인 범고래 다이버'</UserTitle>
+                            <UserName>독서하는 곰돌이</UserName>
+                            <PostCount>작성한 에세이 12개 | 만든 컬렉션 20개</PostCount>
+                          </DetailBox>
+
+                      </ProfileBox>
+                      
+                      <LevelDetail>'수심 0m 잠수 중' 자세히보기</LevelDetail>  
+                  </ProfileWrapper>
+                  <CollectionWrapper>
+                  {CollectionList.map((title, idx) => {
+                      return(<ProfileSwiper title={title} key={idx}/>)
+                  })}
+                  </CollectionWrapper>
+
                 </Background>
         
                         
@@ -70,83 +82,105 @@ width: 100%;
 height: 100%;
 display: flex;
 justify-content: center;
-align-items: center;
+align-items: flex-start;
 background: ${Color.mainColor};
 position: relative;
 padding-top:20px;
+flex-direction:column;
 `;
+
+const ProfileWrapper = styled.div`
+width: 100%;
+height: 35%;
+background:${Color.black};
+box-sizing:border-box;
+padding: 0px 20px 40px 20px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+`;
+
+const SettingBox = styled.div`
+width: 100%;
+height:56px;
+display:flex;
+justify-content:flex-end;
+align-items:center;
+box-sizing:border-box;
+`;
+
 
 const ProfileBox = styled.div`
-width: 360px;
-height: 360px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+height:auto;
+width:100%;
+display:flex;
+justify-content:flex-start;
+box-sizing:border-box;
+margin-top:20px;
+`
 
+const ImgWrapper = styled.div`
+width:72px;
+height:72px;
+border-radius:70%;
+overflow:hidden;
+box-sizing:border-box;
+`
+
+const ProfileImg = styled.img`
+width: 100%;
+height: 100%;
+object-fit:cover;
 `;
-const ImageBox = styled.div`
-width: 216px;
-height: 192px;
-display: flex;
+
+const DetailBox = styled.div`
+box-sizing:border-box;
+width:80%;
+height:auto;
+margin-left:10px;
+`
+const UserTitle = styled.div`
+width:100%;
+height:auto;
+color:${Color.white};
+font-family: "Noto Serif KR", serif;
+`
+const UserName = styled.div`
+width:100%;
+height:auto;
+color:${Color.white};
+font-family: "Noto Serif KR", serif;
+`
+const PostCount = styled.div`
+width:100%;
+height:auto;
+color:${Color.fontGray}
+`
+
+const LevelDetail = styled.div`
+margin: 20px 10px 0px 0px;
+width:100%;
+height:36px;
+border-radius:13px;
+display:flex;
+justify-content:center;
+align-items:center;
+box-sizing:border-box;
+background:${Color.gray};
+color:${Color.white};
+`
+
+const CollectionWrapper = styled.div`
+height:100%;
+width:100%;
+padding: 20px 0px 20px 25px;
+display:flex;
 flex-direction:column;
-justify-content: center;
-align-items: center;
-`;
+justify-content:space-between;
+align-items:space-between;
+`
 
-const ProfileImg = styled.div`
-width: 72px;
-height: 72px;
-border-radius: 72px;
-background: tomato;
-`;
-const Name = styled.p`
-font-weight: bold;
-margin: 5px;
-`;
-const Activity = styled.p`
-color: #9e9e9e;
-margin: 5px;
-font-size: 13px;
-`;
 
-const MyActivityBox = styled.div`
-width: 312px;
-height: 92px;
-border-radius: 12px;
-display: flex;
-border: 1px solid #1168d7;
-margin: 10px 0px;
-`;
-
-const MyActivity = styled.div`
-width: 104px;
-text-align: center;
-font-size: 14px;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-`;
-const Text = styled.p`
-color: #1168d7;
-margin: 5px;
-font-size: 13px;
-`;
- 
-
-const UserBtn = styled.div`
-width: 360px;
-height: 56px;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-font-weight: bold;
-&:hover{
-    color: #1168d7;
-}
-`;
 
 
 
