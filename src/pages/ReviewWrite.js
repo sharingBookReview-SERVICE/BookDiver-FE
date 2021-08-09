@@ -312,8 +312,7 @@ const Text = styled.div`
 
 const Text1 = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
-  color: ${Color.fontgray};
-
+  color: ${Color.fontGray};
 `;
 
 const UploadForm = styled.form``;

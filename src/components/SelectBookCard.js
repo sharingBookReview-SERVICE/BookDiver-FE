@@ -1,6 +1,7 @@
-//import 부분
+
 import React from "react";
 import styled from "styled-components";
+
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
@@ -93,9 +94,9 @@ const SelectBookCard = (props) =>{
 }
 
 const BookInfoWrapper = styled.div`
-width:100%;
-box-sizing:border-box;
-padding:0px 20px 16px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 20px 16px 20px; 
 `
 
 const BookInfoBox = styled.div`
@@ -113,42 +114,44 @@ box-sizing: border-box;
 `
 
 const BookImg = styled.div`
-width:60px;
-height:80px;
-border-radius:4px;
-background-color: #c4c4c4;
-background-image:url(${(props) => props.url ? props.url : " "});
-background-size: cover;
-box-sizing:border-box;
+  width: 60px;
+  height: 80px;
+  border-radius: 4px;
+  background-color: #c4c4c4;
+  background-image: url(${(props) => props.url ? props.url : " "});
+  background-size: cover;
+  box-sizing: border-box;
 `
 
 const BookDescBox = styled.div`
   display: flex;
   flex-direction: column;
-  box-sizing:border-box;
-  max-width:70%;
+  box-sizing: border-box;
+  max-width: 70%;
 `
 
 const BookTitle = styled.div`
-  width:100%;
+  width: 100%;
   height: auto;
-  color:#1168d7;
+  color: ${Color.fontBlack};
   font-size: 14px;
-  font-weight: bold;
   letter-spacing: -0.28px;
   line-height: 1.43;
-  margin: 0px 0px 5px 0px;
+  margin: 0 0 5px 2px;
   text-align: left;
+  font-weight: bolder;
+  font-family: 'Noto Serif KR', serif;
 `
 
 const BookWriter = styled.div`
-font-size: 13px;
-line-height: 1.43;
-letter-spacing: -0.28px;
-text-align: left;
-color:#c7c7c7;
-line-height: 1.43;
-margin:0px;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.28px;
+  text-align: left;
+  color: ${Color.fontGray};
+  font-family: 'Noto Sans KR', sans-serif;
+  line-height: 1.43;
+  margin: 0px 0px 5px 2px;
 `
 
 
