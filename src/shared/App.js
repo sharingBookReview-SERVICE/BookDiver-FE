@@ -22,6 +22,7 @@ import Spinner from "../components/Spinner";
 import BookCollectionMain from "../pages/BookCollectionMain";
 import { actionCreators as userActions } from "../redux/modules/user";
 import GlobalStyle from "./GlobalStyle";
+import UserFeedInfo from "../pages/UserFeedInfo";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App() {
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
           <Route path="/logincheck" component={Spinner} />
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
+          <Route path="/userfeedinfo" exact component={UserFeedInfo} />
         </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>

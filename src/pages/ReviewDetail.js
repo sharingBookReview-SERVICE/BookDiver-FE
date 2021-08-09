@@ -56,7 +56,6 @@ const ReviewDetail = (props) => {
   return (
       <React.Fragment>
         <ReviewDetailWrapper>
-
           <BackArrowBox>
             <ArrowBackIcon
                 onClick={() => {
@@ -220,7 +219,7 @@ const UserName = styled.p`
 
 const CreatedAt = styled.p`
   font-size: 10px;
-  color: ${Color.fontgray};
+  color: ${Color.fontGray};
   margin: 2px 8px 0 2.5rem;
 `;
 
@@ -244,14 +243,14 @@ const ContentTitle = styled.p`
 const Content = styled.p`
   font-size: 14px;
   letter-spacing: -0.28px;
-  color: ${Color.fontgray};
+  color: ${Color.fontGray};
   margin: 8px 20px 0 20px;
   line-height: 1.43;
 `;
 
 const HashTag = styled.div`
   padding: 15px 0;
-  color: ${Color.fontblack};
+  color: ${Color.fontBlack};
   margin: 0 20px 0 20px;
   font-size: 14px;
 `;
@@ -266,7 +265,7 @@ const LikeCommentWrapper = styled.div`
 const LikeCommentButton = styled.div`
   width: 100%;
   height: 50px;
-  border: 1px solid ${Color.fontblack};
+  border: 1px solid ${Color.fontBlack};
   border-radius: 25px;
   margin: 16px 8px 16px auto;
   display: grid;
@@ -282,7 +281,7 @@ const LikeBox = styled.div`
   height: 48px;
   color: ${Color.fontblack};
   letter-spacing: -0.28px;
-  border-right: 1px solid ${Color.fontblack};
+  border-right: 1px solid ${Color.fontBlack};
 `;
 
 const WriteCommentBox = styled.div`
@@ -314,13 +313,13 @@ const CommentInput = styled.input`
   height: 100%;
   padding: 0 0 0 16px;
   background-color: ${Color.mainColor};
-  border: 1px solid ${Color.fontblack};
+  border: 1px solid ${Color.fontBlack};
   border-radius: 12px;
   :focus {
     outline: none;
   }
   ::placeholder {
-    color: ${Color.fontgray};
+    color: ${Color.fontGray};
     font-family: 'Roboto', sans-serif;
     letter-spacing: -0.5px;
 
@@ -329,7 +328,7 @@ const CommentInput = styled.input`
 
 const CommentWriteButton = styled.div`
   cursor: pointer;
-  color: ${Color.fontgray};
+  color: ${Color.fontGray};
   position: absolute;
   right: 30px;
   font-size: 14px;

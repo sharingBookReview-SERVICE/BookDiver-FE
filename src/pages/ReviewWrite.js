@@ -304,12 +304,12 @@ const Text = styled.text`
   text-align: center;
   font-weight: bold;
   font-family: 'Noto Serif KR', serif;
-  color: ${Color.fontblack};
+  color: ${Color.fontBlack};
 `;
 
 const Text1 = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
-  color: ${Color.fontgray};
+  color: ${Color.fontGray};
 
 `;
 

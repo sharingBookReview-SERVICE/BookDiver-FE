@@ -11,7 +11,7 @@ import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import {history} from "../redux/configStore";
 import {useSelector} from "react-redux";
 
-const MyReviewFeed = () => {
+const UserFeedInfo = () => {
     const nickname = useSelector(state => state.user.user.nickname);
 
     return (
@@ -31,34 +31,39 @@ const MyReviewFeed = () => {
             </Header>
             <Background>
                 <UserBox>
-                <ProfileBox>
-                    <ImageBox>
-                        <ProfileImg></ProfileImg>
-                    </ImageBox>
-                    <UserInfo>
-                    <UserTitle>'천재적인 돌고래 다이버'</UserTitle>
-                    <Name>{nickname}</Name>
-                    <Activity>작성한 에세이 12개 | 작성한 댓글 9개</Activity>
-                    </UserInfo>
-                </ProfileBox>
+                    <ProfileBox>
+                        <ImageBox>
+                            <ProfileImg></ProfileImg>
+                        </ImageBox>
+                        <UserInfo>
+                            <UserTitle>'천재적인 돌고래 다이버'</UserTitle>
+                            <Name>{nickname}</Name>
+                            <Activity>작성한 에세이 12개 | 작성한 댓글 9개</Activity>
+                        </UserInfo>
+                    </ProfileBox>
                     <MyActivityBox>
                         <MyActivity>
-                            <CollectionsBookmarkOutlinedIcon style={{color: "#f5f2f0", fontSize: "23px", marginTop:"6px"}}/>
+                            <CollectionsBookmarkOutlinedIcon
+                                style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
                             <Text style={{marginTop: "5px"}}>컬렉션</Text>
                         </MyActivity>
                         <MyActivity>
                             {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
                             {/*<Text>저장한 에세이</Text>*/}
-                            <Text style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
+                            <Text
+                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
                             <Text style={{marginTop: "4px"}}>팔로워</Text>
                         </MyActivity>
                         <MyActivity>
-                            <Text style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
+                            <Text
+                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
                             <Text style={{marginTop: "4px"}}>팔로워</Text>
                         </MyActivity>
                     </MyActivityBox>
-                    <RankDetailButton>‘수심 0m 잠수 중’  <a style={{fontWeight: "lighter"}}>자세히보기</a></RankDetailButton>
-
+                    <FollowBox>
+                        <FollowButton>팔로우</FollowButton>
+                        <RankDetailButton>‘수심 0m 잠수 중’</RankDetailButton>
+                    </FollowBox>
                 </UserBox>
 
 
@@ -75,26 +80,22 @@ const MyReviewFeed = () => {
                 <FeedCard/>
                 <FeedCard/>
                 <FeedCard/>
-
             </FeedMain>
-            {/*<CollectButton>*/}
-            {/*    나만의 북 컬렉션 만들기*/}
-            {/*</CollectButton>*/}
         </React.Fragment>
     )
 }
 
-export default MyReviewFeed;
+export default UserFeedInfo;
 
 const Header = styled.div`
-width: 100%;
+  width: 100%;
   height: 92px;
   background-color: ${Color.fontBlack}
 `;
 
 const SearchBarBox = styled.div`
   width: 100%;
-  margin : 32px auto 32px auto;
+  margin: 32px auto 32px auto;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -113,7 +114,8 @@ const SearchBar = styled.input`
   :focus {
     outline: none;
   }
-  ::placeholder{
+
+  ::placeholder {
     color: ${Color.white};
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 200;
@@ -137,7 +139,7 @@ const UserBox = styled.div`
 const ProfileBox = styled.div`
   width: 80%;
   height: auto;
-  margin: 20px auto 0 21px;
+  margin: 20px auto 0 22px;
 
 `;
 
@@ -150,10 +152,10 @@ const ImageBox = styled.div`
 `;
 
 const UserInfo = styled.div`
-float: right;
+  float: right;
   width: 100%;
-  margin: -28.5% 0 0 0;
-  
+  margin: -28.6% 0 0 0;
+
 `
 
 const ProfileImg = styled.div`
@@ -185,7 +187,7 @@ const Activity = styled.p`
   margin: 8px 5px 5px 4.5em;
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
-  
+
 `;
 
 const MyActivityBox = styled.div`
@@ -195,8 +197,8 @@ const MyActivityBox = styled.div`
   display: flex;
   margin: 10px auto;
   border: 1px solid ${Color.fontGray};
- 
-  
+
+
 `;
 
 const MyActivity = styled.div`
@@ -215,16 +217,34 @@ const Text = styled.p`
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
 `;
+const FollowBox = styled.div`
+
+`;
+
+const FollowButton = styled.button`
+  width: 41%;
+  height: 36px;
+  background-color: ${Color.white};
+  border: none;
+  border-radius: 12px;
+  color: ${Color.fontBlack};
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 6px auto 0px 6%;
+  font-weight: 600;
+  font-size: 14px;
+`;
 
 const RankDetailButton = styled.button`
-width: 88%;
+  width: 41%;
   height: 36px;
-  background-color: ${Color.fontGray};
-  border: none;
+  background-color: ${Color.fontBlack};
+  border: 1px solid ${Color.fontGray};
   border-radius: 12px;
   color: ${Color.white};
   font-family: 'Noto Sans KR', sans-serif;
   margin: 6px auto 0px 6%;
+  font-size: 14px;
+  font-weight: 200;
 `;
 
 const FeedMain = styled.div`
@@ -233,35 +253,11 @@ const FeedMain = styled.div`
   height: auto;
   //border: 1px solid black;
   box-sizing: border-box;
+  background-color: #f5f2f0;
   display: grid;
-  grid-template-columns: 33.2% 33.3% 33.4%;
+  grid-template-columns: 33.33% 33.33% 33.33%;
   grid-auto-rows: 125px;
 `;
-//
-// const CollectButton = styled.button`
-//   width: 85%;
-//   height: 7%;
-//   position: fixed;
-//   margin: 0 auto;
-//   top: 93vh;
-//   left: 0;
-//   right: 0;
-//   z-index: 100;
-//   border: none;
-//   flex-direction: row;
-//   justify-content: flex-start;
-//   align-items: flex-start;
-//   gap: 10px;
-//   padding: 12px 69px;
-//   border-radius: 12px;
-//   background-color: #1168d7;
-//   color: #ffffff;
-//   font-size: 1em;
-//   font-weight: bold;
-//   margin: -10vh auto;
-//   display: flex;
-// `;
-//
 
 
 
