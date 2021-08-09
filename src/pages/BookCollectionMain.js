@@ -12,11 +12,12 @@ SwiperCore.use([Navigation, Pagination])
 const Collection = (props) =>{
     return (
         <Outter>
+           
+            <Overlay/>
             <Image>
-                <CollectionTitle>
+              <CollectionTitle>
                 카페에서 가볍게 읽는 자기계발 에세이 모음
                 </CollectionTitle>
-            
             </Image>
         </Outter>
     )
@@ -27,10 +28,13 @@ const BookCollectionMain = (props) =>{
             <CollectionIntro>테마별로, 혹은 기분으로
                 같은 무드의 도서만 모아서</CollectionIntro>
             <Recommend>
-            <Title>추천 컬렉션</Title>
+                <TitleWrapper>
+                    <Title>추천 컬렉션</Title>
+                    <More>더보기</More>
+                 </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={1}
+                spaceBetween={-50}
                 slidesPerView={2}
                 >
                 <SwiperSlide><Collection/></SwiperSlide>
@@ -40,10 +44,13 @@ const BookCollectionMain = (props) =>{
             </Swiper>
             </Recommend>
             <Recommend>
-            <Title>최신 컬렉션</Title>
+            <TitleWrapper>
+                <Title>최신 컬렉션</Title>
+                <More>더보기</More>
+            </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={1}
+                spaceBetween={-50}
                 slidesPerView={2}
                 >
                 <SwiperSlide><Collection/></SwiperSlide>
@@ -53,10 +60,13 @@ const BookCollectionMain = (props) =>{
             </Swiper>
             </Recommend>
             <Recommend>
-            <Title>나의 컬렉션</Title>
+            <TitleWrapper>
+                <Title>나의 컬렉션</Title>
+                <More>더보기</More>
+            </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={1}
+                spaceBetween={-50}
                 slidesPerView={2}
                 >
                 <SwiperSlide><Collection/></SwiperSlide>
@@ -80,29 +90,44 @@ padding: 44px 20px;
 `;
 const Outter = styled.div`
 `;
+const Overlay = styled.div`
+width: 160px;
+height: 160px;
+border-radius: 12px;
+background: black;
+opacity: 30%;
+position: absolute;
+`
 const Image = styled.div`
 width: 160px;
 height: 160px;
-background: pink;
 border-radius: 12px;
 background-image:URL(https://i.pinimg.com/564x/1d/56/07/1d5607356a13ae7f8eb493bc2510dbf9.jpg);
 background-size: cover;
-justify-content: center;
-display: flex;
-align-items: center;
-text-align: center;
 `;
 const CollectionTitle = styled.p`
 font-family: "Noto Serif KR", serif;
 color: ${Color.white};
 margin: 0px;
+position: absolute;
+top: 35%;
+left: 2.5%;
+width: 80%;
 `;
 
 const Recommend = styled.div`
 padding-bottom: 20px;
 `;
-const Title = styled.div`
+const TitleWrapper = styled.div`
+display: flex;
+justify-content: space-between;
 margin: 20px;
+`;
+const Title = styled.div`
+font-family: "Noto Serif KR", serif;
+font-weight : bold;
+`;
+const More = styled.div`
 font-family: "Noto Serif KR", serif;
 font-weight : bold;
 `;

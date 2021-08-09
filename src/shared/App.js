@@ -21,6 +21,7 @@ import Spinner from "../components/Spinner";
 import BookCollectionMain from "../pages/BookCollectionMain";
 import CollectionDetail from "../pages/CollectionDetail";
 import Setting from "../pages/Setting";
+import Notification from "../pages/Notification";
 import { actionCreators as userActions } from "../redux/modules/user";
 import SignoutModal from "../modals/SignoutModal";
 import GlobalStyle from "./GlobalStyle";
@@ -63,6 +64,7 @@ function App() {
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
           <Route path="/collectiondetail" exact component={CollectionDetail}/>
           <Route path="/setting" exact component={Setting}/>
+          <Route path="/notification" exact component ={Notification}/>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>

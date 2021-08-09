@@ -5,43 +5,45 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import { makeStyles } from "@material-ui/core/styles";
 
+
+const useStyles = makeStyles((theme) => ({
+    goback: {
+        padding: "0px 20px"
+    },
+    icon: {
+        position: "absolute",
+        right: "20px"
+    }
+  }));
 const Setting = (props) => {
+    const classes = useStyles();
     return(
         <Container>
             <Head>
-                <ArrowBackIcon
-                    style={{ padding: "0px 20px"}}
-                />
+                <ArrowBackIcon className={classes.goback} />
                 <Text>설정</Text>
             </Head>
             <Wrapper>
                 <PolicyOutlinedIcon/>
                 <Menu>공지사항</Menu>
-                <ArrowForwardIosOutlinedIcon 
-                style={{ position: "absolute",right: "20px"}}
-                />
+                <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
             <Wrapper>
                 <PolicyOutlinedIcon/>
                 <Menu>개인정보 처리방침</Menu>
-                <ArrowForwardIosOutlinedIcon 
-                style={{ position: "absolute",right: "20px"}}
-                />
+                <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
             <Wrapper>
                 <PolicyOutlinedIcon/>
                 <Menu>서비스 이용약관</Menu>
-                <ArrowForwardIosOutlinedIcon 
-                style={{ position: "absolute",right: "20px"}}
-                />
+                <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>    
             <Wrapper>
                 <CreateOutlinedIcon/>
                 <Menu>닉네임 변경</Menu>
-                <ArrowForwardIosOutlinedIcon 
-                style={{ position: "absolute",right: "20px"}}
-                />
+                <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
             <Bottom>
                 <Btn>로그아웃</Btn>
