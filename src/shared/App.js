@@ -4,6 +4,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
+import instance from "./Request";
 
 import Color from "./Color";
 
@@ -35,7 +36,9 @@ function App() {
   const is_nav = useSelector((state) => state.permit.is_nav);
   const is_modal = useSelector((state) => state.permit.is_modal);
   const user = localStorage.getItem("token") ? true : false;
-
+  const token = localStorage.getItem('token');
+  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  
   React.useEffect(() => {
     if (user) {
       dispatch(userActions.loginCheck());
