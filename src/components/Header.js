@@ -20,6 +20,7 @@ const Header = (props) => {
   //깃 플로우 테스트
   return (
     <React.Fragment>
+      <Wrapper>
       <HeaderPadding></HeaderPadding>
       <HeaderBox>
         <LogoBox></LogoBox>
@@ -29,14 +30,24 @@ const Header = (props) => {
           <SearchBar placeholder="리뷰궁금한 책 검색" />
         </SearchBarBox>
       </HeaderBox>
+      </Wrapper>
     </React.Fragment>
   );
 };
 
+const Wrapper = styled.div`
+background-color: ${Color.black};
+height:auto;
+width:100%;
+position:fixed;
+top:0px;
+z-index:1;
+`
+
+
 const HeaderPadding = styled.div`
   height: 20px;
   width: 100%;
-  background-color: ${Color.black};
 `;
 
 const HeaderBox = styled.div`
@@ -47,7 +58,6 @@ const HeaderBox = styled.div`
   grid-template-columns: 1fr 1fr;
   box-sizing: border-box;
   border-bottom: 1px solid #f3f3f3;
-  background-color: ${Color.black};
 `;
 
 const LogoBox = styled.div`
