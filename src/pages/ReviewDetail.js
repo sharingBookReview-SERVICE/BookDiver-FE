@@ -30,6 +30,7 @@ const ReviewDetail = (props) => {
 
   //댓글 작성함수
   const writeComment = () => {
+    if(commentContent === "") return;
     const comment_info = {
       comment: commentContent,
       bookId: bookId,
@@ -106,9 +107,11 @@ const ReviewDetail = (props) => {
             </LikeCommentWrapper>
           </CardBox>
           </ReviewDetailCard>
+          <CommentWrapper>
           {comments.map((comment, idx) => {
             return <Comment {...comment} key={comment._id} />;
           })}
+          </CommentWrapper>
 
           {is_editting === "" ? (
               <CommentInputBox>
@@ -335,10 +338,13 @@ const CommentWriteButton = styled.div`
   font-size: 14px;
   font-weight: 700;
   height: 20px;
-  
-
-
 }
 `;
+
+const CommentWrapper = styled.div`
+width:100%;
+height:auto;
+padding-bottom:70px;
+`
 
 export default ReviewDetail;

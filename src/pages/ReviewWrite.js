@@ -46,6 +46,7 @@ const ReviewWrite = (props) => {
   const content = useRef();
   const [hashtags, setHashTags] = useState([]);
   const [compressedImage, setCompressedImage] = useState(null);
+  const [test, setTest] = useState("첫번째 값이다!!");
 
   //HashTag컴포넌트에서 데이터를 받아올 함수
   const getTags = (tags) => {
@@ -115,6 +116,7 @@ const ReviewWrite = (props) => {
     }
   };
 
+
   React.useEffect(() => {
     dispatch(bookActions.resetSelectedBook());
     dispatch(permitActions.showModal(false));
@@ -122,13 +124,17 @@ const ReviewWrite = (props) => {
 
     if (reviewId) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
+      quote.current.value = editQuote;
+      content.current.value = editContent;
     }
 
     //화면에서 나갈 때는, 이미지 내려놓고 나가기
     return () => {
       dispatch(uploadAcions.showPreview(false));
     };
-  }, []);
+  }, [editQuote]);
+
+
 
   //리뷰수정하기
   const editReview = () => {
@@ -172,7 +178,6 @@ const ReviewWrite = (props) => {
             <Text>인용구 작성하기</Text>
             <QuotesTextarea
               ref={quote}
-              defaultValue={editQuote}
               placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
             ></QuotesTextarea>
           </QuoteBox>
@@ -180,7 +185,6 @@ const ReviewWrite = (props) => {
             <Text>리뷰작성</Text>
             <QuotesTextarea
               ref={content}
-              defaultValue={editContent}
               placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)"
             ></QuotesTextarea>
           </ReviewBox>

@@ -22,18 +22,14 @@ const override = css`
 const Spinner = () => {
   const dispatch = useDispatch();
   let [loading, setLoading] = useState(true);
-  console.log("-----로그인 채크 페이지")
-
 
   useEffect(() => {
     dispatch(permitActions.showNav(false));
  
     const token = new URL(window.location.href).pathname.split("=")[1];
-    console.log(token)
     setLocal("token", token);
-  
     const decoded = jwt_decode(token);
-    console.log(decoded)
+
 
     if(decoded.nickname){
       history.push('/')

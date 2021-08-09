@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     color: Color.secondColor,
     boxShadow: "0 -3px 6px rgba(0,0,0,0.2)",
-    zIndex:"1000",
+    zIndex:"2",
   },
   icon: {
     color: Color.secondColor,
