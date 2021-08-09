@@ -12,11 +12,12 @@ SwiperCore.use([Navigation, Pagination])
 const Collection = (props) =>{
     return (
         <Outter>
+           
+            <Overlay/>
             <Image>
-                <CollectionTitle>
+              <CollectionTitle>
                 카페에서 가볍게 읽는 자기계발 에세이 모음
                 </CollectionTitle>
-            
             </Image>
         </Outter>
     )
@@ -80,22 +81,29 @@ padding: 44px 20px;
 `;
 const Outter = styled.div`
 `;
+const Overlay = styled.div`
+width: 160px;
+height: 160px;
+border-radius: 12px;
+background: black;
+opacity: 30%;
+position: absolute;
+`
 const Image = styled.div`
 width: 160px;
 height: 160px;
-background: pink;
 border-radius: 12px;
 background-image:URL(https://i.pinimg.com/564x/1d/56/07/1d5607356a13ae7f8eb493bc2510dbf9.jpg);
 background-size: cover;
-justify-content: center;
-display: flex;
-align-items: center;
-text-align: center;
 `;
 const CollectionTitle = styled.p`
 font-family: "Noto Serif KR", serif;
 color: ${Color.white};
 margin: 0px;
+position: absolute;
+top: 35%;
+left: 2.5%;
+width: 80%;
 `;
 
 const Recommend = styled.div`
