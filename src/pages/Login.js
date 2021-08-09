@@ -49,7 +49,8 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 background-color: ${Color.mainColor};
-
+padding-bottom:70px;
+box-sizing:border-box;
 `;
 
 const LoginBox = styled.div`

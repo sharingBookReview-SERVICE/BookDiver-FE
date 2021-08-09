@@ -5,6 +5,8 @@ import { Route } from "react-router-dom";
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 
+import Color from "./Color";
+
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home";
 import Navigation from "../components/Navigation";
@@ -26,6 +28,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import SignoutModal from "../modals/SignoutModal";
 import GlobalStyle from "./GlobalStyle";
 import UserFeedInfo from "../pages/UserFeedInfo";
+import CollectionList from "../pages/CollectionList"
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +67,7 @@ function App() {
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
           <Route path="/collectiondetail" exact component={CollectionDetail}/>
           <Route path="/setting" exact component={Setting}/>
+          <Route path="/collectionlist" exact component={CollectionList}/>
           <Route path="/notification" exact component ={Notification}/>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
@@ -75,7 +79,7 @@ function App() {
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #fff;
+  background: ${Color.mainColor};
   overflow-y: ${(props) => props.is_modal_opened};
   overflow-x: hidden;
   -ms-overflow-style: none; /* IE and Edge */

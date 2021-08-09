@@ -126,6 +126,7 @@ const editReviewSV = (bookId, reviewId, review) => {
                 hashtags: review.hashtags,
             })
             .then((res) => {
+                console.log(res)
                 // dispatch(editReview(reviewId, reviewObj));
                 history.goBack();
             })

@@ -66,7 +66,10 @@ const SelectBookModal = (props) =>{
 
             <Container>
               <ArrowBox>
-                <ArrowBackIcon/>
+                <ArrowBackIcon 
+                onClick={()=>{
+            dispatch(permitActions.showModal(false));
+            }}/>
               </ArrowBox>
               <SearchBox>
                 <Category is_clicked={is_clicked}>
@@ -158,10 +161,10 @@ box-sizing:border-box;
 `;
 
 const ArrowBox = styled.div`
-width:85%;
+width:87%;
 display:flex;
 justify-content:flex-start;
-padding:8px 0px;
+padding:12px 0px;
 `
 
 const SearchBox = styled.div`

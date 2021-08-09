@@ -118,6 +118,7 @@ const ReviewDetail = (props) => {
                       setCommentContent(e.target.value);
                     }}
                     value={commentContent}
+                    onKeyUp={(e) => (e.key === "Enter" ? writeComment() : null)}
                 />
                 <CommentWriteButton
                     onClick={() => {

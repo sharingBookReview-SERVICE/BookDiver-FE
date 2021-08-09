@@ -32,7 +32,7 @@ const Home = (props) => {
         {reviewList
           ? reviewList.map((review, idx) => {
               return (
-                <React.Fragment key={review._id}>
+                <React.Fragment key={review.id}>
                   <ReviewCard {...review} />
                 </React.Fragment>
               );
@@ -53,7 +53,7 @@ const HomeBGColor = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 0px;
+  padding: 100px 0px 0px 0px;
 `;
 
 const FloatButton = styled.div`

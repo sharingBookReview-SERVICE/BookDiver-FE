@@ -22,7 +22,7 @@ const SelectBookCard = (props) =>{
     dispatch(permitActions.bookSelect(true));
   }
 
-    const reviewDetailInfo = useSelector(state=> state.review.review_detail);
+  const reviewDetailInfo = useSelector(state=> state.review.review_detail);
   
   
   if(is_reviewDetail || is_editReviewPage){
