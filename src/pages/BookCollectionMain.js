@@ -13,11 +13,12 @@ const Collection = (props) =>{
     return (
         <Outter>
            
-            <Overlay/>
             <Image>
-              <CollectionTitle>
-                카페에서 가볍게 읽는 자기계발 에세이 모음
+                <Overlay>
+                <CollectionTitle>
+                    카페에서 가볍게 읽는 자기계발 에세이 모음
                 </CollectionTitle>
+                </Overlay>
             </Image>
         </Outter>
     )
@@ -94,9 +95,11 @@ const Overlay = styled.div`
 width: 160px;
 height: 160px;
 border-radius: 12px;
-background: black;
-opacity: 30%;
-position: absolute;
+background: ${Color.overlay};
+// position: absolute;
+display:flex;
+justify-content:center;
+align-items:center;
 `
 const Image = styled.div`
 width: 160px;
@@ -109,10 +112,11 @@ const CollectionTitle = styled.p`
 font-family: "Noto Serif KR", serif;
 color: ${Color.white};
 margin: 0px;
-position: absolute;
-top: 35%;
-left: 2.5%;
-width: 80%;
+text-align:center;
+// position: absolute;
+// top: 35%;
+// left: 2.5%;
+// width: 80%;
 `;
 
 const Recommend = styled.div`
