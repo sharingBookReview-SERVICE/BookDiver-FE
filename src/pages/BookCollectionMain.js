@@ -28,10 +28,13 @@ const BookCollectionMain = (props) =>{
             <CollectionIntro>테마별로, 혹은 기분으로
                 같은 무드의 도서만 모아서</CollectionIntro>
             <Recommend>
-            <Title>추천 컬렉션</Title>
+                <TitleWrapper>
+                    <Title>추천 컬렉션</Title>
+                    <More>더보기</More>
+                 </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={1}
+                spaceBetween={-50}
                 slidesPerView={2}
                 >
                 <SwiperSlide><Collection/></SwiperSlide>
@@ -41,10 +44,13 @@ const BookCollectionMain = (props) =>{
             </Swiper>
             </Recommend>
             <Recommend>
-            <Title>최신 컬렉션</Title>
+            <TitleWrapper>
+                <Title>최신 컬렉션</Title>
+                <More>더보기</More>
+            </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={1}
+                spaceBetween={-50}
                 slidesPerView={2}
                 >
                 <SwiperSlide><Collection/></SwiperSlide>
@@ -54,10 +60,13 @@ const BookCollectionMain = (props) =>{
             </Swiper>
             </Recommend>
             <Recommend>
-            <Title>나의 컬렉션</Title>
+            <TitleWrapper>
+                <Title>나의 컬렉션</Title>
+                <More>더보기</More>
+            </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={1}
+                spaceBetween={-50}
                 slidesPerView={2}
                 >
                 <SwiperSlide><Collection/></SwiperSlide>
@@ -109,8 +118,16 @@ width: 80%;
 const Recommend = styled.div`
 padding-bottom: 20px;
 `;
-const Title = styled.div`
+const TitleWrapper = styled.div`
+display: flex;
+justify-content: space-between;
 margin: 20px;
+`;
+const Title = styled.div`
+font-family: "Noto Serif KR", serif;
+font-weight : bold;
+`;
+const More = styled.div`
 font-family: "Noto Serif KR", serif;
 font-weight : bold;
 `;
