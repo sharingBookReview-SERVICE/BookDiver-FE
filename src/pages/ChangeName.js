@@ -5,6 +5,8 @@ import {history} from "../redux/configStore";
 import { useDispatch, userSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import jwt_decode from "jwt-decode";
+import Color from "../shared/Color";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 const ChangeName = (props) =>{
@@ -20,11 +22,13 @@ const ChangeName = (props) =>{
                 <Background>
                   <HeadBar>
                     
-                    <HeadBtn onClick={()=>{history.goBack()}}>뒤로가기</HeadBtn>
+                    <ArrowBackIcon 
+                    style={{padding: "10px"}}
+                    onClick={()=>{history.goBack()}}></ArrowBackIcon>
                     <HeadBtn>변경완료</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
-                    <h1>닉네임설정해주세요</h1>
+    
                         <ImageBox>
                             <ProfileImg></ProfileImg>
                              <Input
@@ -41,6 +45,7 @@ const ChangeName = (props) =>{
                           
                         </ImageBox>
                     </ProfileBox>
+                    <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                 </Background>
         </React.Fragment>
     )
@@ -51,7 +56,7 @@ width: 100%;
 height: 100%;
 justify-content: top;
 align-items: top;
-background: white;
+background: ${Color.mainColor};
 
 `;
 const HeadBar = styled.div`
@@ -60,6 +65,7 @@ height: 56px;
 margin: 0 0 4px;
 display: flex;
 justify-content: space-between;
+align-items: center;
 `;
 const HeadBtn = styled.p`
 padding: 0px 5px;
@@ -69,7 +75,7 @@ font-weight: bold;
 }
 `;
 const ProfileBox = styled.div`
-width: 360px;
+width: 100%;
 height: 216px;
 display: flex;
 flex-direction: column;
@@ -78,29 +84,36 @@ align-items: center;
 
 `;
 const ImageBox = styled.div`
-width: 216px;
-height: 192px;
+width: 80%;
+height: 100%;
 display: flex;
 flex-direction:column;
 justify-content: center;
 align-items: center;
-
 `;
 
 const ProfileImg = styled.div`
-width: 72px;
-height: 72px;
+width: 100px;
+height: 100px;
 border-radius: 72px;
 background: tomato;
 margin: 10px;
+background-image:URL(https://i.pinimg.com/564x/d1/87/71/d18771205132c86d030e6ebedcc2ba9f.jpg);
+background-size: cover;
 `;
 
 const Input = styled.input`
+width: 60%;
+height: 36px;
+border-radius: 8px;
+margin: 16px 0px 0px 0px;
 `;
 const Activity = styled.p`
-    color: #9e9e9e;
+    color: ${Color.fontGray};
     margin: 5px;
-    font-size: 13px;
+    font-size: 15px;
+    text-align: center;
+  
 `;
 
 export default ChangeName;

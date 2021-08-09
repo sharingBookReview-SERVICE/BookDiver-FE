@@ -4,6 +4,8 @@ import styled from "styled-components";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Color from "../shared/Color";
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
@@ -25,6 +27,7 @@ const EditModal = (props) =>{
                 history.push(`/postwrite/${bookId}/${reviewId}`)
               }}><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
               <Btn><BookmarkBorderOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 저장</Btn>
+              <Btn><LockOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 비공개로 전환</Btn>
               <Btn onClick={() => { 
                 dispatch(reviewActions.deleteReviewSV())
                 dispatch(permitActions.showModal(false))
@@ -51,7 +54,7 @@ const Overlay = styled.div`
 `;
 
 const Container = styled.div`
-top:38%;
+top:30%;
 left:10%;
 width: 80vw;
 border-radius: 12px;
@@ -61,7 +64,7 @@ justify-content: center;
 align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
-background: #fff;
+background: ${Color.mainColor};
 z-index: 100;
 position:fixed;
 `;

@@ -6,6 +6,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import KaKaoLogin from 'react-kakao-login';
 import { KAKAO_AUTH_URL} from "../shared/OAuth";
 import { useHistory } from "react-router-dom";
+import Color from "../shared/Color";
 
 
 
@@ -17,45 +18,42 @@ const Login = (props) =>{
    
     return(
         <React.Fragment>
-            <Container>
+        
                 <Background>
-                    <LoginBox>
-                        <LoginText
-                        
-                        >로그인하고 리뷰를 작성해보세요</LoginText>
+                <LoginText>
+                        로그인 후<br/> 
+                        직접 에세이를<br/> 
+                        작성해보세요</LoginText>
                     
+                    <LoginBox>
+                     
                         <KaKaoBtn 
                         href={KAKAO_AUTH_URL}
                         >카카오톡으로 시작하기</KaKaoBtn>
                         <GoogleBtn>구글로 시작하기</GoogleBtn>
                     </LoginBox>
                 </Background>
-            </Container>
+           
         </React.Fragment>
     )
 }
 
 //styled components
-const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color: #fff;
-    
-`;
+
 
 const Background = styled.div`
 width: 100vw;
 height: 100vh;
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
-background-color: #fff;
+background-color: ${Color.mainColor};
 
 `;
 
 const LoginBox = styled.div`
 width: 100%;
-height: 100%;
 flex-direction: column;
 justify-content: center;
 align-items: center;
@@ -64,19 +62,20 @@ display: flex;
 `;
 
 const LoginText = styled.p`
+width: 75%;
 font-size: 18px;
 font-weight: bold;
 line-height: 1.52;
-text-align: center;
 padding: 24px;
 display: block;
 letter-spacing: -0.42px;
-color: #1168d7;
+font-family: "Noto Serif KR", serif;
+font-size: 21px;
 `;
 
 
 const KaKaoBtn = styled.a`
-width: 280px;
+width: 75%;
 color: black;
 height: 48px;
 margin: 0 auto;
@@ -93,7 +92,7 @@ text-decoration:none;
 `;
 
 const GoogleBtn = styled.div`
-width: 280px;
+width: 75%;
 height: 48px;
 margin: 8px 0px;
 text-align: center;

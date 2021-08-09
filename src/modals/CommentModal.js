@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import Color from "../shared/Color";
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as commentActions } from "../redux/modules/comment";
@@ -68,7 +69,7 @@ justify-content: center;
 align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
-background: #fff;
+background: ${Color.mainColor};
 z-index: 100;
 position:fixed;
 `;

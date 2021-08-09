@@ -1,6 +1,7 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
+import Color from "../shared/Color";
 
 
 const AlertModal = (props) =>{
@@ -18,13 +19,16 @@ React.useEffect(()=>{
         <React.Fragment>
          <Container>
          <Text>
-         다른 분이 사용하고 있는 닉네임이에요.
+         다른 분이 사용하고 있는 닉네임이에요.<br/>
         다른 닉네임을 입력해주세요.
          </Text>
          <Btn>확인했어요</Btn>
     
           
          </Container>
+         <Overlay>
+
+         </Overlay>
         </React.Fragment>
     )
 }
@@ -32,35 +36,45 @@ React.useEffect(()=>{
 
 
 //styled components
+
+const Overlay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color:rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  position: fixed;
+`;
+
 const Container = styled.div`
-width: 320px;
+position:absolute;
+left: 7%;
+top: 35%;
+width: 85%;
 border-radius: 12px;
 justify-content: center;
 align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
-background: #fff;
+background: ${Color.mainColor};
+z-index: 100;
 `;
 
 const Text = styled.p`
-font-size: 14px;
+font-size: 15px;
 line-height: 1.52;
 text-align: center;
 padding: 24px;
 display: block;
 letter-spacing: -0.42px;
-font-size: 14px;
 `;
 
 const Btn = styled.div`
-width: 280px;
-height: 48px;
 text-align: right;
-line-height: 48px;
 border-radius: 12px;
 font-weight: bold;
-color: #1168d7;
+color: ${Color.fontblack};
 font-size: 14px;
+padding: 0px 25px 20px 0px;
 `;
 
 export default AlertModal;

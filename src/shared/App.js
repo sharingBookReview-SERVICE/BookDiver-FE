@@ -14,13 +14,15 @@ import ChangeName from "../pages/ChangeName";
 import MyReview from "../pages/MyReview";
 import ReviewWrite from "../pages/ReviewWrite";
 import BookDetail from "../pages/BookDetail";
-import CommentModal from "../modals/CommentModal";
 import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
 import BookCollectionMain from "../pages/BookCollectionMain";
+import CollectionDetail from "../pages/CollectionDetail";
+import Setting from "../pages/Setting";
 import { actionCreators as userActions } from "../redux/modules/user";
+import SignoutModal from "../modals/SignoutModal";
 import GlobalStyle from "./GlobalStyle";
 import UserFeedInfo from "../pages/UserFeedInfo";
 
@@ -52,15 +54,16 @@ function App() {
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/myreview" exact component={MyReview} />
-          <Route path="/modal" exact component={CommentModal} />
+          <Route path="/modal" exact component={SignoutModal} />
           <Route path="/MyReview" exact component={MyReview} />
           <Route path="/myreviewfeed" exact component={MyReviewFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
           <Route path="/logincheck" component={Spinner} />
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
-          <Route path="/userfeedinfo" exact component={UserFeedInfo} />
-        </ConnectedRouter>
+          <Route path="/collectiondetail" exact component={CollectionDetail}/>
+          <Route path="/setting" exact component={Setting}/>
+          </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
     </React.Fragment>
