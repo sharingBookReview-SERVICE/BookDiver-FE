@@ -218,11 +218,11 @@ const ReviewWrite = (props) => {
               accept="image/*"
             />
 
-            <SubmitButton type="submit"
+            <SubmitButton 
+            type="submit"
             style={{
               backGroundColor: Color.mainColor,
               color: Color.fontgray,
-
             }}>게시하기</SubmitButton>
           </UploadForm>
         </PostHeader>
@@ -318,13 +318,13 @@ const Text1 = styled.div`
 const UploadForm = styled.form``;
 
 const SubmitButton = styled.button`
-  width: 20%;
+  width: auto;
   height: 30px;
   font-size: 15px;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
-  float: right;
-  display: inline-block;
+  // float: right;
+  // display: inline-block;
   margin: 0 5px 0 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
@@ -349,16 +349,20 @@ const Image = styled.img`
 const PostWriteBox = styled.div`
   width: 100%;
   height: auto;
-  padding: 20px 0 60px 0;
+  padding: 60px 0 30px 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
 
 const PostHeader = styled.div`
   width: 100%;
-  height: 30px;
+  height: 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   background-color: ${Color.mainColor};
-  margin-bottom: 8%;
+  position:fixed;
+  top:0px;
 `;
 const LeftArrow = styled.img`
   width: 10vw;
