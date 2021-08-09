@@ -34,9 +34,9 @@ const ReviewCard = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const userId = useSelector((state) => state.user.user.userId);
-  const bookTitle = book.title.split("(")[0]
+  const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
-  console.log(myLike);
+
   let is_my_post = false;
 
   if (user.id === userId) {
