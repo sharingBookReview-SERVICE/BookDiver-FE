@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: Color.secondColor,
+    width:"auto",
   },
   plusButton: {
     color: Color.black,
@@ -60,6 +61,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="피드"
         value="write"
+        className={classes.button}
         icon={<ListAltIcon className={classes.icon} />}
         onClick={() => {
           toMain();
@@ -69,6 +71,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="통합검색"
         value="write"
+        className={classes.button}
         icon={<SearchIcon className={classes.icon} />}
         onClick={() => {
           toMain();
@@ -77,6 +80,7 @@ const Navigation = (props) => {
 
       <BottomNavigationAction
         value="list"
+        className={classes.button}
         icon={<AddBoxIcon className={classes.plusButton} />}
         onClick={() => {
           is_login ? toPostWrite() : toLogin();
@@ -86,6 +90,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label="내 피드"
         value="login"
+        className={classes.button}
         icon={<SpeakerNotesIcon className={classes.icon} />}
         onClick={() => {
           is_login ? toMyReviewFeed() : toLogin();
@@ -95,6 +100,7 @@ const Navigation = (props) => {
       <BottomNavigationAction
         label={is_login ? "내 정보" : "로그인"}
         value="login"
+        className={classes.button}
         icon={<PersonIcon className={classes.icon} />}
         onClick={() => {
           is_login ? toMyProfile() : toLogin();
