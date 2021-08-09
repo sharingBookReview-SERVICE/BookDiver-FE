@@ -7,7 +7,13 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import jwt_decode from "jwt-decode";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) => ({
+  goback: {
+      padding: "10px"
+  },
+}));
 
 const ChangeName = (props) =>{
   const dispatch = useDispatch();
@@ -16,14 +22,13 @@ const ChangeName = (props) =>{
   const decoded = jwt_decode(token);
 
   const userId = decoded.userId;
-
+  const classes = useStyles();
     return(
         <React.Fragment>
                 <Background>
                   <HeadBar>
                     
-                    <ArrowBackIcon 
-                    style={{padding: "10px"}}
+                    <ArrowBackIcon className={classes.goback} 
                     onClick={()=>{history.goBack()}}></ArrowBackIcon>
                     <HeadBtn>변경완료</HeadBtn>
                   </HeadBar>
