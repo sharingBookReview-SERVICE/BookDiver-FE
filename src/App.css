@@ -1,12 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"); */
 
 .App {
   text-align: center;
 }
 
+.color-test{
+  background-color:rgba(0, 0, 0, 0.3);
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  color:#e0d9d1cc;
 }
 
 @media (prefers-reduced-motion: no-preference) {

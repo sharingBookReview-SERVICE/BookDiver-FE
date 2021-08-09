@@ -27,7 +27,7 @@ const initialState = {
 //검색한 책 불러오기
 const getSearchBooksSV = (target, query)=>{
     return function(dispatch, getState, {history}){
-        instance.get('/books?target='+ target+'&query='+ query)
+        instance.get(`/books?target=${target}&query=${query}`)
         .then((res)=>{
             dispatch(getSearchBooks(res.data.searchList));
         })
