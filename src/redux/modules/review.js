@@ -136,7 +136,6 @@ const editReviewSV = (bookId, reviewId, review) => {
 };
 
 //상세보기
-
 const getDetailReviewSV = (bookId, reviewId) => {
 
     return function (dispatch) {
@@ -154,9 +153,10 @@ const getDetailReviewSV = (bookId, reviewId) => {
 
 //라이크 버튼
     const LikeSV = (bookId, reviewId) => {
+        console.log(bookId, reviewId)
         return function (dispatch) {
             instance
-                .put(`/books/${bookId}/reviews/${reviewId}/like`)
+                .put(`/books/${bookId}/reviews/${reviewId}/likes`)
                 .then((res) => {
                     console.log(res);
                     dispatch(like(reviewId));

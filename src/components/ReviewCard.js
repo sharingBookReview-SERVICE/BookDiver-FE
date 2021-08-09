@@ -3,7 +3,6 @@ import React from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import BookImg from "../img/bookImg2.jpg";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Color from "../shared/Color";
@@ -13,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
-import jwt_decode from "jwt-decode";
+
 
 const ReviewCard = (props) => {
   //dispatch와 변수들
@@ -24,7 +23,6 @@ const ReviewCard = (props) => {
     created_at,
     book,
     _id,
-    is_book_detail,
     myLike,
     likes,
     comments,
@@ -32,9 +30,13 @@ const ReviewCard = (props) => {
     user,
   } = props;
 
+  
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const userId = useSelector((state) => state.user.user.userId);
+  const bookTitle = book.title.split("(")[0]
+  const bookAuthor = `${book.author} 저`
+  console.log(myLike);
   let is_my_post = false;
 
   if (user.id === userId) {
@@ -42,9 +44,9 @@ const ReviewCard = (props) => {
   }
 
   //좋아요 클릭
-  const clickLikeButton = (props) => {
+  const clickLikeButton = () => {
     //props로부터 book와 reviewId를 받아오기
-    dispatch(reviewActions.LikeSV(book._id, _id, likes, myLike));
+    dispatch(reviewActions.LikeSV(book._id, _id));
   };
 
   const getFeedId = () => {
@@ -96,7 +98,7 @@ const ReviewCard = (props) => {
             }}
           >
             <BookTitle>
-              {book.title} | {book.author}{" "}
+              {bookTitle} | {bookAuthor}
             </BookTitle>
             <Quote>{quote}</Quote>
             <Content>{content}</Content>
@@ -183,7 +185,7 @@ const UserLeftBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const UserImage = styled.img`
@@ -254,9 +256,8 @@ const BookTitle = styled.p`
   line-height: 20px;
   letter-spacing: -0.9px;
   color: ${Color.black};
-  font-weight: bold;
+
   margin: 0px 0px 8px 0px;
-  font-family: "Noto Serif KR", serif;
 `;
 
 const Quote = styled.p`
@@ -266,7 +267,8 @@ const Quote = styled.p`
   letter-spacing: -0.28px;
   margin: 8px 0px;
   color: ${Color.black};
-  font-weight: 700;
+  font-family: "Noto Serif KR", serif;
+  font-weight: 800;
 `;
 
 const Content = styled.p`
@@ -292,7 +294,7 @@ const HashTag = styled.li`
   border-radius: 10px;
   color: ${Color.black};
   font-size: 14px;
-  margin-right: 5px;
+  margin: 0px 5px 8px 0px;
   padding: 8px;
 `;
 

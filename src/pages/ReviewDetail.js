@@ -41,8 +41,8 @@ const ReviewDetail = (props) => {
   };
 
   //좋아요 클릭
-  const clickLikeButton = (props) => {
-    dispatch(reviewAction.LikeSV(book._id, _id, likes, myLike));
+  const clickLikeButton = () => {
+    dispatch(reviewAction.LikeSV(book._id, _id));
   };
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기

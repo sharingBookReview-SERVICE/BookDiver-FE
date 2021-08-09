@@ -297,20 +297,22 @@ const ReviewWrite = (props) => {
 };
 
 export default ReviewWrite;
-const Text = styled.text`
+
+const Text = styled.div`
   font-size: 14px;
   letter-spacing: -0.7px;
   margin-bottom: 5px;
   text-align: center;
   font-weight: bold;
   font-family: 'Noto Serif KR', serif;
-  color: ${Color.fontBlack};
+  display:flex;
+  justify-content:flex-start;
+  color: ${Color.fontblack};
 `;
 
 const Text1 = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
   color: ${Color.fontGray};
-
 `;
 
 const UploadForm = styled.form``;

@@ -11,8 +11,9 @@ const Color = {
   fontBlack: "#252121",
 
   hashtag:"#e1d9d0",
-  category: "#e0d9d1",
+  category: "#e0d9d1cc",
   kakao: "#f6e68c",
+  overlay:"rgba(0, 0, 0, 0.3)",
 };
 
 export default Color;
