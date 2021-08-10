@@ -17,6 +17,7 @@ import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
+import { actionCreators as tagActions } from "../redux/modules/tag";
 
 
 const ReviewWrite = (props) => {
@@ -123,6 +124,7 @@ const ReviewWrite = (props) => {
 
     if (reviewId) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
+      dispatch(tagActions.getTag(editHashtags));
       quote.current.value = editQuote;
       content.current.value = editContent;
     }
