@@ -66,7 +66,7 @@ const BookDetail = (props) => {
 const Main = styled.div`
   width: 100vw;
   height: 100vh;
-  flex-grow: 0;
+  padding-top:90px;
   background-color: ${Color.mainColor};
   //border: 1px solid black;
   margin : auto;
