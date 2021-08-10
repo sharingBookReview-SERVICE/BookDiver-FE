@@ -158,7 +158,7 @@ const getDetailReviewSV = (bookId, reviewId) => {
             instance
                 .put(`/books/${bookId}/reviews/${reviewId}/likes`)
                 .then((res) => {
-                    console.log(res);
+                    console.log(res.data);
                     dispatch(like(reviewId));
                 })
                 .catch((err) => {
