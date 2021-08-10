@@ -46,14 +46,11 @@ const ReviewWrite = (props) => {
   //글 작성 내용
   const quote = useRef();
   const content = useRef();
-  const [hashtags, setHashTags] = useState([]);
+  const hashtags = useSelector(state => state.tag.tags)
   const [compressedImage, setCompressedImage] = useState(null);
-  const [test, setTest] = useState("첫번째 값이다!!");
 
   //HashTag컴포넌트에서 데이터를 받아올 함수
-  const getTags = (tags) => {
-    setHashTags(tags);
-  };
+  console.log("-------", hashtags)
 
   //업로드 버튼 클릭하기
   const selectImage = () => {
@@ -193,7 +190,6 @@ const ReviewWrite = (props) => {
           <HashTag>
             <Text>해시태그작성</Text>
             <HashTagsInput
-              getTags={getTags}
               defaultValue={editHashtags}
               is_edit
             />
@@ -299,7 +295,7 @@ const ReviewWrite = (props) => {
           <TextWrapper>
             <Text>해시태그작성</Text>
           </TextWrapper>
-          <HashTagsInput getTags={getTags} />
+          <HashTagsInput/>
         </HashTag>
         <RecommandHashTagBox>
           <TextWrapper>

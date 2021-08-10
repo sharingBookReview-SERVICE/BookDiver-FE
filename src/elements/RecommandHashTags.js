@@ -3,20 +3,21 @@ import styled from "styled-components";
 import Color from "../shared/Color";
 
 import { actionCreators as tagActions } from "../redux/modules/tag";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const RecommandHashTags = (props) => {
   const dispatch = useDispatch()
 
+  const tags = useSelector(state => state.tag.recommand_tags)
+
   //화면에 뿌릴 해쉬태그
-  const [tags, setTags] = useState(["자기계발","독서","문해력","이어령"]);
 
   //해쉬태그 지우기
   const removeTag = (indexToRemove) => {
     //파라미터로 들어온 idx를 제외한 태그를 setTags에 넣어주기
-    dispatch(tagActions.removeTag(indexToRemove))
+    dispatch(tagActions.removeRecommandTag(indexToRemove))
   };
 
   const addTag = (tag) => {

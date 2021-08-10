@@ -18,10 +18,9 @@ const removeRecommandTag = createAction(REMOVE_RECOMMAND_TAG, (index) => ({index
 
 //initial
 const initialState = {
-  tags: [],
-  recommand_tags:[],
+  tags: ["ex) 자기계발"],
+  recommand_tags:["자기계발","독서","문해력","이어령"],
 };
-
 
 //reducer
 export default handleActions(
@@ -52,6 +51,7 @@ const actionCreators = {
   addTag,
   removeTag,
   setRecommandTag,
+  removeRecommandTag,
 };
   
 export { actionCreators };

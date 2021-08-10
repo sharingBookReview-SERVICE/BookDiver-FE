@@ -8,10 +8,12 @@ import review from "../redux/modules/review";
 import book from "../redux/modules/book";
 import user from "../redux/modules/user";
 import upload from "../redux/modules/upload"
+import tag from "../redux/modules/tag"
 
 
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
+  tag,
   review,
   permit,
   book,
