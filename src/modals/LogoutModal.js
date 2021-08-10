@@ -3,22 +3,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Color from "../shared/Color";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const LogoutModal = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
-  const {logooutPop, setLogOutPop} = props;
+ 
 
-
-//useEffect
-React.useEffect(()=>{
-},[]);
-
-
-
-//뷰
 
     return(
         <React.Fragment>
@@ -29,10 +22,10 @@ React.useEffect(()=>{
          </Text>
         
          <BtnBox>
-         <Btn onClick={()=>{setLogOutPop(false)}}>취소</Btn>
+         <Btn onClick={()=>{dispatch(permitActions.showModal(false))}} >취소</Btn>
          <Hr/>
          <Btn onClick={()=>{
-           setLogOutPop(false)
+           dispatch(permitActions.showModal(false))
            dispatch(userActions.logOut());
            localStorage.removeItem('token')
            history.push('/')
@@ -40,9 +33,9 @@ React.useEffect(()=>{
          </BtnBox>
          </Container>
         
-         <Overlay>
-
-         </Overlay>
+         <Overlay
+          onClick={()=>{dispatch(permitActions.showModal(false))}} 
+         />
         </React.Fragment>
     )
 }

@@ -3,6 +3,7 @@ import { produce } from "immer";
 import instance from "../../shared/Request";
 import { history } from "../configStore";
 
+  
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
 const ADD_REVIEW = "review/ADD_REVIEW";
@@ -77,7 +78,6 @@ const getAllReviewSV = () => {
 
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
-
     console.log("----------북아이디", bookId);
     return function (dispatch) {
         instance

@@ -3,6 +3,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Color from "../shared/Color";
+import { history } from "../redux/configStore";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,9 @@ const Notification = (props) =>{
     return(
         <Container>
             <Head>
-            <ArrowBackIcon className={classes.goback} />
+            <ArrowBackIcon className={classes.goback} 
+             onClick = {()=>{history.goBack()}}
+            />
                 <Text>알림</Text>
             </Head>
             <NotiCard/>

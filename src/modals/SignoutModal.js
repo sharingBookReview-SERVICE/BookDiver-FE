@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
+import permit, { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
 import Color from "../shared/Color";
 
 
 const SignoutModal = (props) =>{
   const dispatch = useDispatch();
-  const {signoutPop, setSignOutPop} = props;
   const userId = useSelector(state=> state.user.user.userId);
 
 //뷰
@@ -24,10 +24,10 @@ const SignoutModal = (props) =>{
          </Text>
      
          <BtnBox>
-         <Btn onClick={()=>{setSignOutPop(false)}}>취소</Btn>
+         <Btn onClick={()=>{ dispatch(permitActions.showModal2(false))}}>취소</Btn>
      
          <Btn onClick={()=>{
-           setSignOutPop(false)
+           dispatch(permitActions.showModal2(false));
            dispatch(userActions.deleteUserSV(userId));
            localStorage.removeItem('token');
            history.push('/') 
@@ -37,9 +37,9 @@ const SignoutModal = (props) =>{
           
          </Container>
         
-         <Overlay>
-
-         </Overlay>
+         <Overlay
+          onClick={()=>{dispatch(permitActions.showModal2(false))}}
+         />
         </React.Fragment>
     )
 }

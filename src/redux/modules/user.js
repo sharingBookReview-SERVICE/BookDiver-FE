@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 
 //actions
@@ -29,7 +30,8 @@ const isMe = createAction(IS_ME, (is_me)=>({is_me}));
 const initialState = {
     user : {
       userId : "",
-      nickname: ""
+      nickname: "",
+      token: ""
     },
     review_list: [],
     is_login: false,
@@ -64,7 +66,7 @@ const loginCheck = () => {
 
     //localStorage에 토큰이 있는 상태(이미 로그인을 한 상태라면)
     if (user) {
-      dispatch(setUser({userId: userId, nickname: nickname}));
+      dispatch(setUser({userId: userId, nickname: nickname, token: token}));
     } else {
       console.log("로그인상태아님");
     }
@@ -81,7 +83,7 @@ const setUserSV = (userId, nickname) => {
     .then((res)=>{
       const token = res.data;
       localStorage.setItem('token', token);
-      dispatch(setUser({userId: userId, nickname: nickname}));
+      dispatch(setUser({userId: userId, nickname: nickname, token: token}));
       history.push('/')
     })
     .catch((err)=>{

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import LogoutModal from "../modals/LogoutModal";
 import SignoutModal from "../modals/SignoutModal";
+import { history } from "../redux/configStore";
 
 import styled from "styled-components";
 import Color from "../shared/Color"
@@ -32,19 +33,15 @@ const MyProfile = (props) =>{
     
     return(
         <React.Fragment>
-          {/* 로그아웃 */}
-          {
-              logooutPop && <LogoutModal logooutPop={logooutPop} setLogOutPop={setLogOutPop}/>
-          }
-          {/* 회원탈퇴 */}
-          {
-              signoutPop && <SignoutModal signoutPop={signoutPop} setSignOutPop={setSignOutPop}/>
-          }
                 <Background>
                   <ProfileWrapper>
                       <SettingBox>
-                          <NotificationsNoneIcon className={classes.setting}/>
-                          <SettingsIcon className={classes.setting}/>
+                          <NotificationsNoneIcon className={classes.setting}
+                           onClick = {()=>{ history.push('/notification')}}
+                          />
+                          <SettingsIcon className={classes.setting}
+                            onClick={()=>{history.push('/setting')}}
+                          />
                       </SettingBox>
 
                       <ProfileBox>
