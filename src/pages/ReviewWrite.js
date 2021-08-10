@@ -49,9 +49,9 @@ const ReviewWrite = (props) => {
   const content = useRef();
   const hashtags = useSelector(state => state.tag.tags)
   const [compressedImage, setCompressedImage] = useState(null);
-
-  //HashTag컴포넌트에서 데이터를 받아올 함수
-  console.log("-------", hashtags)
+  const [reviewCount, setReviewCount] = useState(0);
+  const [quoteCount, setQuoteCount] = useState(0);
+  console.log(reviewCount);
 
   //업로드 버튼 클릭하기
   const selectImage = () => {
@@ -136,7 +136,6 @@ const ReviewWrite = (props) => {
   }, [editQuote]);
 
 
-
   //리뷰수정하기
   const editReview = () => {
     const review = {
@@ -146,6 +145,7 @@ const ReviewWrite = (props) => {
     };
     dispatch(reviewActions.editReviewSV(bookId, reviewId, review));
   };
+
 
   if (reviewId) {
     return (
@@ -280,8 +280,11 @@ const ReviewWrite = (props) => {
           </TextWrapper>
           <QuotesTextarea
             ref={quote}
+            maxLength="300"
+            onChange={e => setQuoteCount(e.target.value.length)}
             placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
           ></QuotesTextarea>
+          <CountBox>{quoteCount}/300</CountBox>
         </QuoteBox>
         <ReviewBox>
           <TextWrapper>
@@ -290,8 +293,11 @@ const ReviewWrite = (props) => {
           </TextWrapper>
           <QuotesTextarea
             ref={content}
+            maxLength="100"
+            onChange={e => setReviewCount(e.target.value.length)}
             placeholder="자유로운 리뷰를 작성해보세요. (최대 100자)"
           ></QuotesTextarea>
+          <CountBox>{reviewCount}/100</CountBox>
         </ReviewBox>
         <HashTag>
           <TextWrapper>
@@ -424,6 +430,7 @@ const QuoteBox = styled.div`
   margin: 36px auto auto auto;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
+  position:relative;
 `;
 
 const QuotesTextarea = styled.textarea`
@@ -434,16 +441,17 @@ const QuotesTextarea = styled.textarea`
   line-height: 1.43;
   letter-spacing: -0.28px;
   text-align: left;
-  padding: 7px 0 0 7px;
+  padding: 7px;
+  box-sizing:border-box;
   border-radius: 12px;
   border: 1px solid rgba(37, 33, 33, 0.2);
   background-color: ${Color.mainColor};
   resize: none;
-
+  font-size:15px;
   ::placeholder {
     color: ${Color.fontgray};
     padding: 4px 0 0 6px;
-    
+    font-size:15px;
   }
   :focus {
     outline:none;
@@ -460,6 +468,7 @@ const ReviewBox = styled.div`
   margin: 36px auto auto auto;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
+  position:relative;
 `;
 
 const Notice = styled.div`
@@ -485,3 +494,11 @@ box-sizing: border-box;
 const Upload = styled.input`
   display: none;
 `;
+
+const CountBox = styled.div`
+  font-size:13px;
+  color:${Color.fontGray};
+  position:absolute;
+  bottom:5px;
+  right:15px;
+`

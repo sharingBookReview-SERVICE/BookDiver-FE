@@ -23,7 +23,6 @@ const HashTagsInput = (props) => {
   const { is_edit, defaultValue } = props;
   const review_detail = useSelector((state) => state.review.review_detail);
   const tags = useSelector(state => state.tag.tags)
-  console.log(tags)
 
 
   //해쉬태그 지우기
