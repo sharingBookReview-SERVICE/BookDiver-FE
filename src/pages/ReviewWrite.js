@@ -9,6 +9,7 @@ import imageCompression from "browser-image-compression";
 import Color from "../shared/Color";
 
 import SelectBookModal from "../modals/SelectBookModal";
+import WriteCheckModal from "../modals/WriteCheckModal"
 import SelectBookCard from "../components/SelectBookCard";
 import HashTagsInput from "../elements/HashTagsInput";
 import RecommandHashTags from '../elements/RecommandHashTags';
@@ -17,6 +18,7 @@ import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
+import { actionCreators as tagActions } from "../redux/modules/tag";
 
 
 const ReviewWrite = (props) => {
@@ -24,6 +26,7 @@ const ReviewWrite = (props) => {
 
   //모달 여부
   const is_modal = useSelector((state) => state.permit.is_modal);
+  const is_written = useSelector((state) => state.permit.is_written);
 
   //이미지 관련
   const is_preview = useSelector((state) => state.upload.is_preview);
@@ -46,14 +49,11 @@ const ReviewWrite = (props) => {
   //글 작성 내용
   const quote = useRef();
   const content = useRef();
-  const [hashtags, setHashTags] = useState([]);
+  const hashtags = useSelector(state => state.tag.tags)
   const [compressedImage, setCompressedImage] = useState(null);
-  const [test, setTest] = useState("첫번째 값이다!!");
-
-  //HashTag컴포넌트에서 데이터를 받아올 함수
-  const getTags = (tags) => {
-    setHashTags(tags);
-  };
+  const [reviewCount, setReviewCount] = useState(0);
+  const [quoteCount, setQuoteCount] = useState(0);
+  console.log(reviewCount);
 
   //업로드 버튼 클릭하기
   const selectImage = () => {
@@ -71,33 +71,6 @@ const ReviewWrite = (props) => {
       dispatch(uploadAcions.showPreview(true));
       dispatch(uploadAcions.setPreview(reader.result));
     };
-  };
-
-  //FormData로 변환하기
-  const sendFormData = async (image) => {
-    const formData = new FormData();
-    //formData에 압축 이미지, 인용구,내용,해쉬태그 저장
-    formData.append("image", image);
-    formData.append("quote", quote.current.value);
-    formData.append("content", content.current.value);
-    formData.append("hashtags", JSON.stringify(hashtags));
-
-    if (books.length === 0) {
-      window.alert("책을 선택해주세요!");
-      return;
-    } else if (!image) {
-      window.alert("이미지를 선택해주세요!");
-      return;
-    }
-
-    await dispatch(reviewActions.addReviewSV(formData, books.isbn));
-  };
-
-  //이미지 보내기.
-  const submit = async (event) => {
-    event.preventDefault();
-
-    await sendFormData(compressedImage);
   };
 
   //이미지 압축하기
@@ -118,6 +91,43 @@ const ReviewWrite = (props) => {
     }
   };
 
+  //FormData로 변환하기
+  const sendFormData = async (image) => {
+    const formData = new FormData();
+    //formData에 압축 이미지, 인용구,내용,해쉬태그 저장
+    formData.append("image", image);
+    formData.append("quote", quote.current.value);
+    formData.append("content", content.current.value);
+    formData.append("hashtags", JSON.stringify(hashtags));
+
+    if (books.length === 0) {
+      dispatch(permitActions.showCheckModal(true))
+      return;
+    } else if (!image) {
+      dispatch(permitActions.showCheckModal(true))
+      return;
+    }
+
+    await dispatch(reviewActions.addReviewSV(formData, books.isbn));
+  };
+
+  //이미지 보내기.
+  const submit = async (event) => {
+    event.preventDefault();
+
+    await sendFormData(compressedImage);
+  };
+
+  //리뷰수정하기
+  const editReview = () => {
+    const review = {
+      quote: quote.current.value,
+      content: content.current.value,
+      hashtags: hashtags,
+    };
+    dispatch(reviewActions.editReviewSV(bookId, reviewId, review));
+  };
+  
 
   React.useEffect(() => {
     dispatch(bookActions.resetSelectedBook());
@@ -126,6 +136,7 @@ const ReviewWrite = (props) => {
 
     if (reviewId) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
+      dispatch(tagActions.getTag(editHashtags));
       quote.current.value = editQuote;
       content.current.value = editContent;
     }
@@ -137,22 +148,10 @@ const ReviewWrite = (props) => {
   }, [editQuote]);
 
 
-
-  //리뷰수정하기
-  const editReview = () => {
-    const review = {
-      quote: quote.current.value,
-      content: content.current.value,
-      hashtags: hashtags,
-    };
-    dispatch(reviewActions.editReviewSV(bookId, reviewId, review));
-  };
-
+  //수정하기
   if (reviewId) {
     return (
       <React.Fragment>
-        {/* 책 선택 모달 열기 */}
-        {is_modal && <SelectBookModal />}
         <PostWriteBox>
           <PostHeader>
             <LeftArrow
@@ -183,6 +182,7 @@ const ReviewWrite = (props) => {
               placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
             ></QuotesTextarea>
           </QuoteBox>
+
           <ReviewBox>
             <Text>리뷰작성</Text>
             <QuotesTextarea
@@ -190,22 +190,24 @@ const ReviewWrite = (props) => {
               placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)"
             ></QuotesTextarea>
           </ReviewBox>
+
           <HashTag>
             <Text>해시태그작성</Text>
             <HashTagsInput
-              getTags={getTags}
               defaultValue={editHashtags}
               is_edit
             />
           </HashTag>
+
         </PostWriteBox>
       </React.Fragment>
     );
   }
+
 //작성하기
   return (
     <React.Fragment>
-      {/* 책 선택 모달 열기 */}
+      {is_written && <WriteCheckModal/>}
       {is_modal && <SelectBookModal />}
       <PostWriteBox>
         <PostHeader>
@@ -233,7 +235,6 @@ const ReviewWrite = (props) => {
           </UploadForm>
         </PostHeader>
 
-        {/* 책을 선택했으면 선택한 책 표시하기 */}
         {books.length === 0 ? (
           <BookChoice
             onClick={() => {
@@ -280,33 +281,49 @@ const ReviewWrite = (props) => {
           <TextWrapper>
             <Text>인용구 작성하기</Text>
           </TextWrapper>
+
           <QuotesTextarea
             ref={quote}
+            maxLength="300"
+            onChange={e => setQuoteCount(e.target.value.length)}
             placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
           ></QuotesTextarea>
+
+          <CountBox>{quoteCount}/300</CountBox>
         </QuoteBox>
+
         <ReviewBox>
           <TextWrapper>
             <Text>리뷰작성</Text>
             <Notice>*필수작성</Notice>
           </TextWrapper>
+
           <QuotesTextarea
             ref={content}
+            maxLength="100"
+            onChange={e => setReviewCount(e.target.value.length)}
             placeholder="자유로운 리뷰를 작성해보세요. (최대 100자)"
           ></QuotesTextarea>
+
+          <CountBox>{reviewCount}/100</CountBox>
         </ReviewBox>
+
         <HashTag>
           <TextWrapper>
             <Text>해시태그작성</Text>
           </TextWrapper>
-          <HashTagsInput getTags={getTags} />
+
+          <HashTagsInput/>
         </HashTag>
+
         <RecommandHashTagBox>
           <TextWrapper>
             <Text>추천 해시태그</Text>
           </TextWrapper>
+
           <RecommandHashTags />
         </RecommandHashTagBox>
+
       </PostWriteBox>
     </React.Fragment>
   );
@@ -426,6 +443,7 @@ const QuoteBox = styled.div`
   margin: 36px auto auto auto;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
+  position:relative;
 `;
 
 const QuotesTextarea = styled.textarea`
@@ -436,16 +454,17 @@ const QuotesTextarea = styled.textarea`
   line-height: 1.43;
   letter-spacing: -0.28px;
   text-align: left;
-  padding: 7px 0 0 7px;
+  padding: 7px;
+  box-sizing:border-box;
   border-radius: 12px;
   border: 1px solid rgba(37, 33, 33, 0.2);
   background-color: ${Color.mainColor};
   resize: none;
-
+  font-size:15px;
   ::placeholder {
     color: ${Color.fontgray};
     padding: 4px 0 0 6px;
-    
+    font-size:15px;
   }
   :focus {
     outline:none;
@@ -462,6 +481,7 @@ const ReviewBox = styled.div`
   margin: 36px auto auto auto;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
+  position:relative;
 `;
 
 const Notice = styled.div`
@@ -487,3 +507,11 @@ box-sizing: border-box;
 const Upload = styled.input`
   display: none;
 `;
+
+const CountBox = styled.div`
+  font-size:13px;
+  color:${Color.fontGray};
+  position:absolute;
+  bottom:5px;
+  right:15px;
+`

@@ -10,14 +10,25 @@ import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import Comment from "../components/Comment";
 import SelectBookCard from "../components/SelectBookCard";
 import CommentModal from "../modals/CommentModal";
 import Color from "../shared/Color";
 import smile from "../img/smile.svg";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    color: Color.fontGray,
+    fontSize:"18px",
+  },
+}));
 
 const ReviewDetail = (props) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_editting = useSelector((state) => state.comment.edit_id);
@@ -26,7 +37,8 @@ const ReviewDetail = (props) => {
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const { hashtags, quote, content, comments, book, image, likes, myLike, _id } = reviewDetail;
-  const nickname = useSelector((state) => state.user);
+  const nickname = useSelector((state) => state.user.user.nickname);
+  console.log(nickname)
 
   //댓글 작성함수
   const writeComment = () => {
@@ -35,7 +47,7 @@ const ReviewDetail = (props) => {
       comment: commentContent,
       bookId: bookId,
       reviewId: reviewId,
-      userInfo: "저팔계",
+      userInfo: nickname,
     };
     dispatch(commentAction.addCommentSV(comment_info));
     setCommentContent("");
@@ -94,14 +106,23 @@ const ReviewDetail = (props) => {
 
             <LikeCommentWrapper>
               <LikeCommentButton>
-                {myLike? ( <LikeBox onClick={() => {
-                      clickLikeButton();
-                    }}><a style={{color:"red"}}>❤</a> 좋아요 {likes}개</LikeBox>
-                    ):
-                ( <LikeBox onClick={() => {
-                      clickLikeButton();
-                    }}>♡ 좋아요 {likes}개</LikeBox>
-                )}
+                {myLike? 
+                <LikeBox 
+                 onClick={() => {
+                    clickLikeButton();
+                 }}> 
+                <FavoriteIcon/> 
+                좋아요 {likes}개
+                </LikeBox>
+                    :
+                <LikeBox 
+                 onClick={() => {
+                    clickLikeButton();
+                 }}>
+                <FavoriteBorderIcon className={classes.icon}/> 
+                  좋아요 {likes}개
+                </LikeBox>
+                }
                 <WriteCommentBox>댓글 5개</WriteCommentBox>
               </LikeCommentButton>
             </LikeCommentWrapper>
