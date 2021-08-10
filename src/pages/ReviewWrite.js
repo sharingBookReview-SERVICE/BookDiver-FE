@@ -150,8 +150,6 @@ const ReviewWrite = (props) => {
   if (reviewId) {
     return (
       <React.Fragment>
-        {/* 책 선택 모달 열기 */}
-        {is_modal && <SelectBookModal />}
         <PostWriteBox>
           <PostHeader>
             <LeftArrow
