@@ -133,7 +133,13 @@ const ReviewDetail = (props) => {
                   </ImageBox>
                 </ReviewContent>
                 <ReactionBar>
-                   <Div><FavoriteBorderIcon className={classes.like}/>좋아요 {likes} 개</Div>
+                  {
+                    myLike ?
+                    <Div><FavoriteIcon className={classes.like}/>좋아요 {likes} 개</Div>
+                    :
+                    <Div><FavoriteBorderIcon className={classes.like}/>좋아요 {likes} 개</Div>
+                  }
+                  
                    <Hr></Hr>
                    <Div>댓글 {comments.length} 개</Div>
                 </ReactionBar>
@@ -173,6 +179,8 @@ const ReviewDetail = (props) => {
 const Container = styled.div`
 background: ${Color.mainColor};
 width: 100vw;
+height: auto;
+padding-bottom: 100px;
 `;
 const Head = styled.div`
 width: 100%;
@@ -280,7 +288,6 @@ background: black;
 const CommentWrapper = styled.div`
 width:100%;
 height:auto;
-padding-bottom:70px;
 `;
 
 const CommentInputBox = styled.div`
