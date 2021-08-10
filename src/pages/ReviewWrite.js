@@ -9,6 +9,7 @@ import imageCompression from "browser-image-compression";
 import Color from "../shared/Color";
 
 import SelectBookModal from "../modals/SelectBookModal";
+import WriteCheckModal from "../modals/WriteCheckModal"
 import SelectBookCard from "../components/SelectBookCard";
 import HashTagsInput from "../elements/HashTagsInput";
 import RecommandHashTags from '../elements/RecommandHashTags';
@@ -25,6 +26,7 @@ const ReviewWrite = (props) => {
 
   //모달 여부
   const is_modal = useSelector((state) => state.permit.is_modal);
+  const is_written = useSelector((state) => state.permit.is_written);
 
   //이미지 관련
   const is_preview = useSelector((state) => state.upload.is_preview);
@@ -99,10 +101,10 @@ const ReviewWrite = (props) => {
     formData.append("hashtags", JSON.stringify(hashtags));
 
     if (books.length === 0) {
-      window.alert("책을 선택해주세요!");
+      dispatch(permitActions.showCheckModal(true))
       return;
     } else if (!image) {
-      window.alert("이미지를 선택해주세요!");
+      dispatch(permitActions.showCheckModal(true))
       return;
     }
 
@@ -145,6 +147,8 @@ const ReviewWrite = (props) => {
     };
   }, [editQuote]);
 
+
+  //수정하기
   if (reviewId) {
     return (
       <React.Fragment>
@@ -199,10 +203,11 @@ const ReviewWrite = (props) => {
       </React.Fragment>
     );
   }
+
 //작성하기
   return (
     <React.Fragment>
-
+      {is_written && <WriteCheckModal/>}
       {is_modal && <SelectBookModal />}
       <PostWriteBox>
         <PostHeader>
