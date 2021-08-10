@@ -71,6 +71,24 @@ const ReviewWrite = (props) => {
     };
   };
 
+  //이미지 압축하기
+  const actionImgCompress = async (fileSrc) => {
+    //압축할 옵션 내용
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    try {
+      //imageCompression함수의 첫번째 인자는 파일, 두번째 인자는 옵션
+      const compressedFile = await imageCompression(fileSrc, options);
+      setCompressedImage(compressedFile);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //FormData로 변환하기
   const sendFormData = async (image) => {
     const formData = new FormData();
@@ -98,24 +116,16 @@ const ReviewWrite = (props) => {
     await sendFormData(compressedImage);
   };
 
-  //이미지 압축하기
-  const actionImgCompress = async (fileSrc) => {
-    //압축할 옵션 내용
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
+  //리뷰수정하기
+  const editReview = () => {
+    const review = {
+      quote: quote.current.value,
+      content: content.current.value,
+      hashtags: hashtags,
     };
-
-    try {
-      //imageCompression함수의 첫번째 인자는 파일, 두번째 인자는 옵션
-      const compressedFile = await imageCompression(fileSrc, options);
-      setCompressedImage(compressedFile);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(reviewActions.editReviewSV(bookId, reviewId, review));
   };
-
+  
 
   React.useEffect(() => {
     dispatch(bookActions.resetSelectedBook());
@@ -134,18 +144,6 @@ const ReviewWrite = (props) => {
       dispatch(uploadAcions.showPreview(false));
     };
   }, [editQuote]);
-
-
-  //리뷰수정하기
-  const editReview = () => {
-    const review = {
-      quote: quote.current.value,
-      content: content.current.value,
-      hashtags: hashtags,
-    };
-    dispatch(reviewActions.editReviewSV(bookId, reviewId, review));
-  };
-
 
   if (reviewId) {
     return (
@@ -180,6 +178,7 @@ const ReviewWrite = (props) => {
               placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
             ></QuotesTextarea>
           </QuoteBox>
+
           <ReviewBox>
             <Text>리뷰작성</Text>
             <QuotesTextarea
@@ -187,6 +186,7 @@ const ReviewWrite = (props) => {
               placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)"
             ></QuotesTextarea>
           </ReviewBox>
+
           <HashTag>
             <Text>해시태그작성</Text>
             <HashTagsInput
@@ -194,6 +194,7 @@ const ReviewWrite = (props) => {
               is_edit
             />
           </HashTag>
+
         </PostWriteBox>
       </React.Fragment>
     );
@@ -201,7 +202,7 @@ const ReviewWrite = (props) => {
 //작성하기
   return (
     <React.Fragment>
-      {/* 책 선택 모달 열기 */}
+
       {is_modal && <SelectBookModal />}
       <PostWriteBox>
         <PostHeader>
@@ -229,7 +230,6 @@ const ReviewWrite = (props) => {
           </UploadForm>
         </PostHeader>
 
-        {/* 책을 선택했으면 선택한 책 표시하기 */}
         {books.length === 0 ? (
           <BookChoice
             onClick={() => {
@@ -276,39 +276,49 @@ const ReviewWrite = (props) => {
           <TextWrapper>
             <Text>인용구 작성하기</Text>
           </TextWrapper>
+
           <QuotesTextarea
             ref={quote}
             maxLength="300"
             onChange={e => setQuoteCount(e.target.value.length)}
             placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
           ></QuotesTextarea>
+
           <CountBox>{quoteCount}/300</CountBox>
         </QuoteBox>
+
         <ReviewBox>
           <TextWrapper>
             <Text>리뷰작성</Text>
             <Notice>*필수작성</Notice>
           </TextWrapper>
+
           <QuotesTextarea
             ref={content}
             maxLength="100"
             onChange={e => setReviewCount(e.target.value.length)}
             placeholder="자유로운 리뷰를 작성해보세요. (최대 100자)"
           ></QuotesTextarea>
+
           <CountBox>{reviewCount}/100</CountBox>
         </ReviewBox>
+
         <HashTag>
           <TextWrapper>
             <Text>해시태그작성</Text>
           </TextWrapper>
+
           <HashTagsInput/>
         </HashTag>
+
         <RecommandHashTagBox>
           <TextWrapper>
             <Text>추천 해시태그</Text>
           </TextWrapper>
+
           <RecommandHashTags />
         </RecommandHashTagBox>
+
       </PostWriteBox>
     </React.Fragment>
   );
