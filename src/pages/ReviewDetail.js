@@ -37,8 +37,8 @@ const ReviewDetail = (props) => {
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const { hashtags, quote, content, comments, book, image, likes, myLike, _id } = reviewDetail;
-  const nickname = useSelector((state) => state.user);
-  console.log(myLike)
+  const nickname = useSelector((state) => state.user.user.nickname);
+  console.log(nickname)
 
   //댓글 작성함수
   const writeComment = () => {
@@ -47,7 +47,7 @@ const ReviewDetail = (props) => {
       comment: commentContent,
       bookId: bookId,
       reviewId: reviewId,
-      userInfo: "저팔계",
+      userInfo: nickname,
     };
     dispatch(commentAction.addCommentSV(comment_info));
     setCommentContent("");
