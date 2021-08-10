@@ -42,7 +42,9 @@ const Setting = (props) => {
                 signoutModal  && <SignoutModal/>
             }
             <Head>
-                <ArrowBackIcon className={classes.goback} />
+                <ArrowBackIcon className={classes.goback}
+                onClick = {()=>{history.goBack()}}
+                />
                 <Text>설정</Text>
             </Head>
             <Wrapper>
