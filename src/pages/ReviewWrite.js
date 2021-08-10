@@ -11,12 +11,13 @@ import Color from "../shared/Color";
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
 import HashTagsInput from "../elements/HashTagsInput";
+import RecommandHashTags from '../elements/RecommandHashTags';
 
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
-import RecommandHashTags from '../elements/RecommandHashTags';
+
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
@@ -302,9 +303,9 @@ const ReviewWrite = (props) => {
         </HashTag>
         <RecommandHashTagBox>
           <TextWrapper>
-            <Text>해시태그작성</Text>
+            <Text>추천 해시태그</Text>
           </TextWrapper>
-          <HashTagsInput getTags={getTags} />
+          <RecommandHashTags />
         </RecommandHashTagBox>
       </PostWriteBox>
     </React.Fragment>

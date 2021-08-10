@@ -78,7 +78,7 @@ const TagBox = styled.div`
   border-radius: 8px;
   border:1px solid ${Color.borderGray};
   position: relative;
-  margin: 5px 0px 60px 0px;
+  margin: 5px 0px 5px 0px;
   padding: 0 8px;
   display: flex;
   flex-wrap: wrap;
