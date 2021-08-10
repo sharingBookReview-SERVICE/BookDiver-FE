@@ -100,7 +100,7 @@ const ReviewCard = (props) => {
             <BookTitle>
               {bookTitle} | {bookAuthor}
             </BookTitle>
-            <Quote>{quote}</Quote>
+            <Quote >{quote}</Quote>
             <Content>{content}</Content>
 
             <HashTagBox>
@@ -269,6 +269,7 @@ const Quote = styled.p`
   color: ${Color.black};
   font-family: "Noto Serif KR", serif;
   font-weight: 800;
+  white-space: pre-line;
 `;
 
 const Content = styled.p`
@@ -277,6 +278,7 @@ const Content = styled.p`
   letter-spacing: -0.28px;
   margin: 0px;
   color: ${Color.fontgray};
+  white-space: pre-line;
 `;
 
 const HashTagBox = styled.ul`

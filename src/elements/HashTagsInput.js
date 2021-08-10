@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ClearIcon from "@material-ui/icons/Clear";
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import { useSelector } from "react-redux";
 import ReviewDetail from "../pages/ReviewDetail";
 import Color from "../shared/Color";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  close: {
+    color:Color.gray,
+    fontSize:"16px",
+  },
+}));
+
 
 const HashTagsInput = (props) => {
   // 수정화면일 때, 사용할 변수들
+  const classes = useStyles();
   const { is_edit, defaultValue } = props;
   const review_detail = useSelector((state) => state.review.review_detail);
 
@@ -42,7 +53,10 @@ const HashTagsInput = (props) => {
       <TagUl>
         {tags.map((tag, index) => (
           <Tag key={index}>
-            <TagText onClick={() => removeTags(index)}>{tag}</TagText>
+            <TagText>{tag}</TagText>
+            <CancelIcon 
+            className={classes.close}
+            onClick={() => removeTags(index)}></CancelIcon>
           </Tag>
         ))}
       </TagUl>
@@ -64,7 +78,7 @@ const TagBox = styled.div`
   border-radius: 8px;
   border:1px solid ${Color.borderGray};
   position: relative;
-  margin: 5px 0px 60px 0px;
+  margin: 5px 0px 5px 0px;
   padding: 0 8px;
   display: flex;
   flex-wrap: wrap;
@@ -94,6 +108,7 @@ const Tag = styled.li`
 const TagText = styled.span`
   font-size: 14px;
   color: ${Color.black};
+  margin-right:2px;
 `;
 
 const TagInput = styled.input`

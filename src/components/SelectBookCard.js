@@ -13,6 +13,7 @@ const SelectBookCard = (props) =>{
   const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
+  console.log(book)
   const is_selected = useSelector(state=> state.permit.is_selected);
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]

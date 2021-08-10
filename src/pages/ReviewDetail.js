@@ -82,7 +82,7 @@ const ReviewDetail = (props) => {
 
             <SelectBookCard {...book} is_reviewDetail />
             <ContentBox>
-              <ContentTitle>{quote}</ContentTitle>
+              <Quote>{quote}</Quote>
               <Content>{content}</Content>
               <HashTag>
                 {hashtags.map((tag) => {
@@ -236,12 +236,13 @@ const ContentBox = styled.div`
 
 `;
 
-const ContentTitle = styled.p`
+const Quote = styled.p`
   font-size: 14px;
   font-weight: bold;
   line-height: 1.43;
   letter-spacing: -0.28px;
   margin: -10px 20px 0 20px;
+  white-space: pre-line;
 `;
 
 const Content = styled.p`
@@ -250,6 +251,7 @@ const Content = styled.p`
   color: ${Color.fontGray};
   margin: 8px 20px 0 20px;
   line-height: 1.43;
+  white-space: pre-line;
 `;
 
 const HashTag = styled.div`
