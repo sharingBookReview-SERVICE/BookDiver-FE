@@ -16,6 +16,7 @@ import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
+import RecommandHashTags from '../elements/RecommandHashTags';
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
@@ -275,30 +276,36 @@ const ReviewWrite = (props) => {
         )}
 
         <QuoteBox>
-          <Text
-          style={{
-            margin: "-5px 0 8px 8px",
-          }}>인용구 작성하기</Text>
+          <TextWrapper>
+            <Text>인용구 작성하기</Text>
+          </TextWrapper>
           <QuotesTextarea
             ref={quote}
             placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
           ></QuotesTextarea>
         </QuoteBox>
         <ReviewBox>
-          <Text
-          style={{
-            margin: "-5px 0 8px 8px"
-          }}>리뷰작성
-            <Notice>*필수작성</Notice></Text>
+          <TextWrapper>
+            <Text>리뷰작성</Text>
+            <Notice>*필수작성</Notice>
+          </TextWrapper>
           <QuotesTextarea
             ref={content}
             placeholder="자유로운 리뷰를 작성해보세요. (최대 100자)"
           ></QuotesTextarea>
         </ReviewBox>
         <HashTag>
-          <Text>해시태그작성</Text>
+          <TextWrapper>
+            <Text>해시태그작성</Text>
+          </TextWrapper>
           <HashTagsInput getTags={getTags} />
         </HashTag>
+        <RecommandHashTagBox>
+          <TextWrapper>
+            <Text>해시태그작성</Text>
+          </TextWrapper>
+          <HashTagsInput getTags={getTags} />
+        </RecommandHashTagBox>
       </PostWriteBox>
     </React.Fragment>
   );
@@ -306,10 +313,20 @@ const ReviewWrite = (props) => {
 
 export default ReviewWrite;
 
+const TextWrapper = styled.div`
+display:flex;
+align-items:center;
+justify-content:space-between;
+width:100%;
+height:auto;
+margin-bottom:7px;
+padding:0px 8px;
+box-sizing:border-box;
+`
+
 const Text = styled.div`
   font-size: 14px;
   letter-spacing: -0.7px;
-  margin-bottom: 5px;
   text-align: center;
   font-weight: bold;
   font-family: 'Noto Serif KR', serif;
@@ -391,7 +408,6 @@ const BookChoice = styled.div`
   margin: auto auto 16px auto;
   border-radius: 12px;
   border: 1px solid #252121;
-  background-color: #ffffff;
   font-weight: bolder;
   color: ${Color.fontgray};
   background-color: ${Color.mainColor};
@@ -447,37 +463,25 @@ const ReviewBox = styled.div`
   box-sizing: border-box;
 `;
 
-const Notice = styled.a`
-  margin-left: 210px;
+const Notice = styled.div`
+  font-size:14px;
 `;
 
 const HashTag = styled.div`
   width: 100%;
   height: auto;
-  padding: 1em;
-  // padding-bottom: 140px;
+  padding: 16px;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
 
-const HashInput = styled.input`
-  width: 90vw;
-  height: 5vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  margin-top: 1vh;
-  padding: 1vh 1vw 1vh 1vw;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-  border: none;
-  box-sizing: border-box;
-  &::placeholder {
-    color: ${Color.fontgray}
-  }
-`;
+const RecommandHashTagBox = styled.div`
+width: 100%;
+height: auto;
+padding: 0px 16px;
+background-color: ${Color.mainColor};
+box-sizing: border-box;
+`
 
 const Upload = styled.input`
   display: none;

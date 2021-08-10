@@ -41,7 +41,7 @@ const getSearchBooksSV = (target, query)=>{
 //책 하나만 불러오기
 const getOneBookSV = (id)=>{
     return function(dispatch){
-        instance.get('/books/'+ id)
+        instance.get(`/books/${id}`)
         .then((res)=>{
             dispatch(getOneBook(res.data));
         })
