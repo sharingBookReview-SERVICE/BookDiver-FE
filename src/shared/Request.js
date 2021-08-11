@@ -11,6 +11,10 @@ const token = localStorage.getItem('token');
 // 그럴 땐 로그인 하고 토큰을 받아왔을 때 넣어줍시다.
 // instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-instance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : null;
+// instance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : null;
+localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTEwY2Q0OTE4NWU0YTg5NTBiMTQzMzciLCJuaWNrbmFtZSI6IkxFTyIsImlhdCI6MTYyODY2MTI5Nn0.Ws6SHML7CGsGzvoKRA2qUkcVNzB8X5rWB1dMjUlX-DQ');
+
+instance.defaults.headers.common["Authorization"] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTEwY2Q0OTE4NWU0YTg5NTBiMTQzMzciLCJuaWNrbmFtZSI6IkxFTyIsImlhdCI6MTYyODY2MTI5Nn0.Ws6SHML7CGsGzvoKRA2qUkcVNzB8X5rWB1dMjUlX-DQ';
+
 export default instance;
 

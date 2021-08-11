@@ -402,7 +402,7 @@ const Image = styled.img`
 const PostWriteBox = styled.div`
   width: 100%;
   height: auto;
-  padding: 60px 0 30px 0;
+  padding: 70px 0 30px 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
