@@ -1,5 +1,5 @@
 //import 부분
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import add_button from "../img/add_button.png";
@@ -45,16 +45,16 @@ const ReviewWrite = (props) => {
   } = reviewDetail;
   const bookId = props.match.params?.bookid;
   const reviewId = props.match.params?.reviewid;
+  const recommandTags = books?.topTags
+
 
   //글 작성 내용
   const quote = useRef();
   const content = useRef();
   const hashtags = useSelector(state => state.tag.tags)
-  console.log(hashtags)
   const [compressedImage, setCompressedImage] = useState(null);
   const [reviewCount, setReviewCount] = useState(0);
   const [quoteCount, setQuoteCount] = useState(0);
-  console.log(reviewCount);
 
   //업로드 버튼 클릭하기
   const selectImage = () => {
@@ -130,7 +130,7 @@ const ReviewWrite = (props) => {
   };
   
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(bookActions.resetSelectedBook());
     dispatch(permitActions.showModal(false));
     dispatch(permitActions.bookSelect(false));
@@ -147,6 +147,14 @@ const ReviewWrite = (props) => {
       dispatch(uploadAcions.showPreview(false));
     };
   }, [editQuote]);
+
+  const test = () => {
+    dispatch(tagActions.setRecommandTag(recommandTags))
+  }
+
+  useEffect(() => {
+    dispatch(tagActions.setRecommandTag(recommandTags))
+  },[recommandTags])
 
 
   //수정하기
@@ -316,14 +324,15 @@ const ReviewWrite = (props) => {
 
           <HashTagsInput/>
         </HashTag>
-
+        
+        {recommandTags ? 
         <RecommandHashTagBox>
           <TextWrapper>
             <Text>추천 해시태그</Text>
           </TextWrapper>
 
           <RecommandHashTags />
-        </RecommandHashTagBox>
+        </RecommandHashTagBox> : ""}
 
       </PostWriteBox>
     </React.Fragment>
