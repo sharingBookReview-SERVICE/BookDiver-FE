@@ -22,22 +22,21 @@ const Home = (props) => {
   }, []);
 
   const reviewList = useSelector((state) => state.review.all_review_list);
-
+  
 
   return (
     <React.Fragment>
       <HomeBGColor>
         <Header />
 
-        {reviewList
-          ? reviewList.map((review, idx) => {
+        {reviewList?.map((review, idx) => {
               return (
                 <React.Fragment key={review.id}>
                   <ReviewCard {...review} />
                 </React.Fragment>
               );
-            })
-          : ""}
+        })}
+
       </HomeBGColor>
 
       {is_modal && <EditModal />}

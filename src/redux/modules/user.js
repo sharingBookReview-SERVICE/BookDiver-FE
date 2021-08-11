@@ -12,7 +12,9 @@ const GET_USER_REVIEW = "GET_USER_REVIEW";
 const SET_USER = "user/SET_USER";
 const LOG_OUT = "user/LOG_OUT";
 const IS_ME = "user/IS_ME";
-
+const FOLLOW = "user/FOLLOW"
+const GET_FOLLOWING_LIST = "user/GET_FOLLOWING_LIST"
+const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
 
 
 
@@ -23,6 +25,9 @@ const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list
 const setUser = createAction(SET_USER, (user) => ({user}));
 const logOut = createAction(LOG_OUT, ()=> ({}));
 const isMe = createAction(IS_ME, (is_me)=>({is_me}));
+const follow = createAction(FOLLOW, (user) => ({user}))
+const getFollowingList = createAction(GET_FOLLOWING_LIST, (list) => ({list}))
+const getFollowerList = createAction(GET_FOLLOWER_LIST, (list) => ({list}))
 
 
 
@@ -36,7 +41,7 @@ const initialState = {
     review_list: [],
     is_login: false,
     is_me: false,
-
+    follow_list : [],
 };
 
 
@@ -124,6 +129,43 @@ const getUserReviewSV = (id)=>{
   }
 }
 
+const followSV = (id) => {
+  console.log("팔로우를 하겠습니다",id)
+  return function(dispatch, getState, {history}){
+    instance.put(`follow/${id}`)
+    .then((res)=>{
+
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+const getFollowingListSV = () => {
+  return function(dispatch, getState, {history}){
+    instance.get(`follow/followingList`)
+    .then((res)=>{
+      dispatch(getFollowingList(res.data.followingList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+const getFollowerListSV = () => {
+  return function(dispatch, getState, {history}){
+    instance.get(`follow/followerList`)
+    .then((res)=>{
+      dispatch(getFollowerList(res.data.followerList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
 
 
 //reducer
@@ -161,7 +203,15 @@ export default handleActions(
           if(draft.user.userId === decoded.userId){
             draft.is_me = true;
           }
-        })
+        }),
+        [GET_FOLLOWING_LIST] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.follow_list = action.payload.list
+        }),
+        [GET_FOLLOWER_LIST] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.follow_list = action.payload.list
+        }),
     },
     initialState
   );
@@ -175,7 +225,10 @@ const actionCreators = {
   setUser,
   loginCheck,
   logOut,
-  isMe
+  isMe,
+  followSV,
+  getFollowingListSV,
+  getFollowerListSV,
 };
   
 export { actionCreators };

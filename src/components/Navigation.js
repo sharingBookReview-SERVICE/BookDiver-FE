@@ -55,7 +55,7 @@ const Navigation = (props) => {
     history.push(`/postwrite`);
   };
   const toMyReviewFeed = () => {
-    history.push("/myreviewfeed");
+    history.push("/myfeed");
   };
   const toMyProfile = () => {
     history.push("/myprofile");

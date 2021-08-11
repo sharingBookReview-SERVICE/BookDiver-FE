@@ -29,8 +29,9 @@ import Notification from "../pages/Notification";
 import { actionCreators as userActions } from "../redux/modules/user";
 import SignoutModal from "../modals/SignoutModal";
 import GlobalStyle from "./GlobalStyle";
-import UserFeedInfo from "../pages/UserFeedInfo";
+import MyFeed from "../pages/MyFeed";
 import CollectionList from "../pages/CollectionList"
+import Follow from "../pages/Follow"
 
 function App() {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ function App() {
           <Route path="/myreview" exact component={MyReview} />
           <Route path="/modal" exact component={SignoutModal} />
           <Route path="/MyReview" exact component={MyReview} />
-          <Route path="/myreviewfeed" exact component={MyReviewFeed} />
+          <Route path="/myfeed" exact component={MyFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
           <Route path="/logincheck" component={Spinner} />
@@ -75,6 +76,8 @@ function App() {
           <Route path="/collectionlist" exact component={CollectionList}/>
           <Route path="/notification" exact component ={Notification}/>
           <Route path="/makeCollection" exact component ={MakeCollection}/>
+          <Route path="/following" exact component={Follow}/>
+          <Route path="/follower" exact component={Follow}/>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
