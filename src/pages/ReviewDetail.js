@@ -20,7 +20,6 @@ import SelectBookCard from "../components/SelectBookCard";
 import CommentModal from "../modals/CommentModal";
 import Color from "../shared/Color";
 import smile from "../img/smile.svg";
-import { makeStyles } from "@material-ui/core/styles";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,21 +45,32 @@ const ReviewDetail = (props) => {
 
   const dispatch = useDispatch();
 
+  // 로그인 하지 않았을 시 로그인 페이지로 이동
+  const token = localStorage.getItem('token');
+  if(!token){
+    history.push('/login')
+  }
+
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_editting = useSelector((state) => state.comment.edit_id);
   const [commentContent, setCommentContent] = useState("");
   const bookId = props.match.params.bookid;
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const { hashtags, quote, content, comments, book, image, likes, myLike, _id, user } = reviewDetail;
-  
+  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
+
 
   const userId = useSelector((state) => state.user.user.userId);
+  const nickname = useSelector((state) => state.user.user.nickname);
+
+  
+  //내 포스트인지 확인
   let is_my_post = false;
 
-  if (user === userId) {
+  if(userId === user?.id){
     is_my_post = true;
   }
+
   const goBack = () => {
     history.goBack();
   };
@@ -79,7 +89,7 @@ const ReviewDetail = (props) => {
 
   //좋아요 클릭
   const clickLikeButton = () => {
-    dispatch(reviewAction.LikeSV(book._id, _id));
+    dispatch(reviewAction.LikeSV(bookId, reviewId));
   };
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
@@ -90,6 +100,7 @@ const ReviewDetail = (props) => {
   }, []);
 
 
+  
   return (
     
       <Container> 
@@ -103,16 +114,13 @@ const ReviewDetail = (props) => {
                 <Userbar>
                     <EmojiEmotionsIcon className={classes.smile}/>
                     <Wrapper>
-                      <Username>
-                      닉네임닉네임닉네
-                      </Username>
-                      <CreateDt>
-                      21.07.24 21:04
-                      </CreateDt>
+                      <Username>{user?.nickname}</Username>
+                      <CreateDt>{created_at}</CreateDt>
                     </Wrapper>
-                    <Follow>
-                        팔로우
-                    </Follow>
+                    {
+                      !is_my_post && <Follow>팔로우</Follow>
+                    }
+                   
                     <BookmarkBorderIcon className={classes.icon}/>
                     {
                       is_my_post &&  <MoreHorizIcon className={classes.icon}/>
@@ -124,9 +132,10 @@ const ReviewDetail = (props) => {
                   <Quote> {quote}</Quote>
                   <Content>{content}</Content>
                   <HashTagBox>
-                  {hashtags.map((tag) => {
+                  { hashtags ?
+                  hashtags.map((tag) => {
                       return `#${tag} `;
-                    })}
+                    }) :""}
                   </HashTagBox>
                   <ImageBox>
                     <Image src={image}/>
@@ -135,20 +144,22 @@ const ReviewDetail = (props) => {
                 <ReactionBar>
                   {
                     myLike ?
-                    <Div><FavoriteIcon className={classes.like}/>좋아요 {likes} 개</Div>
+                    <Div><FavoriteIcon className={classes.like} />좋아요 {likes} 개</Div>
                     :
-                    <Div><FavoriteBorderIcon className={classes.like}/>좋아요 {likes} 개</Div>
+                    <Div><FavoriteBorderIcon className={classes.like} />좋아요 {likes} 개</Div>
                   }
                   
                    <Hr></Hr>
-                   <Div>댓글 {comments.length} 개</Div>
+                   <Div>댓글 {comments?.length} 개</Div>
                 </ReactionBar>
 
             </Outter>
             <CommentWrapper>
-                    {comments.map((comment, idx) => {
+                    {
+                      comments?
+                    comments.map((comment, idx) => {
                       return <Comment {...comment} key={comment._id} />;
-                    })}
+                    }):""}
                     </CommentWrapper>
             {is_editting === "" ? (
               <CommentInputBox>
@@ -222,6 +233,7 @@ font-size: 12px;
 const Follow = styled.div`
 margin: 0px 35px 0px 16px;
 font-weight: bold;
+width: 100%;
 `;
 
 
