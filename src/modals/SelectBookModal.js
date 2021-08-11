@@ -111,7 +111,7 @@ const SelectBookModal = (props) =>{
                   }
                 }}
                 ></Input>
-                <SearchIcon/>
+                <SearchIcon onClick={()=>{searchBook()}}/>
               </SearchBox>
               
               {

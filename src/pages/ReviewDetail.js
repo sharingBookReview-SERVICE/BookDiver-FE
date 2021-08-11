@@ -168,7 +168,7 @@ const ReviewDetail = (props) => {
             {is_editting === "" ? (
               <CommentInputBox>
                 <CommentInput
-                    className={is_empty ? 'shake-input' : null}
+                    className={is_empty ? 'shake-horizontal' : null}
                     placeholder={is_empty ? "댓글 내용을 작성해주세요" : "지금 댓글을 남겨보세요"}
                     color={is_empty ? "red" : Color.fontGray}
                     onChange={(e) => {
