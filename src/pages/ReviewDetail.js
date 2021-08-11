@@ -62,6 +62,7 @@ const ReviewDetail = (props) => {
 
   const userId = useSelector((state) => state.user.user.userId);
   const nickname = useSelector((state) => state.user.user.nickname);
+  const [is_empty, setIsEmpty] = useState(false)
 
   
   //내 포스트인지 확인
@@ -76,7 +77,10 @@ const ReviewDetail = (props) => {
   };
   //댓글 작성함수
   const writeComment = () => {
-    if(commentContent === "") return;
+    if(commentContent ===  ""){
+      setIsEmpty(true)
+      return;
+    } 
     const comment_info = {
       comment: commentContent,
       bookId: bookId,
@@ -164,10 +168,13 @@ const ReviewDetail = (props) => {
             {is_editting === "" ? (
               <CommentInputBox>
                 <CommentInput
-                    placeholder="지금 댓글을 남겨보세요"
+                    className={is_empty ? 'shake-input' : null}
+                    placeholder={is_empty ? "댓글 내용을 작성해주세요" : "지금 댓글을 남겨보세요"}
+                    color={is_empty ? "red" : Color.fontGray}
                     onChange={(e) => {
                       setCommentContent(e.target.value);
                     }}
+                    onFocus={()=>{setIsEmpty(false)}}
                     value={commentContent}
                     onKeyUp={(e) => (e.key === "Enter" ? writeComment() : null)}
                 />
@@ -329,7 +336,7 @@ const CommentInput = styled.input`
     outline: none;
   }
   ::placeholder {
-    color: ${Color.fontGray};
+    color: ${(props) => props.color};
     font-family: 'Roboto', sans-serif;
     letter-spacing: -0.5px;
   }
