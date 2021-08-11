@@ -8,7 +8,8 @@ import review from "../redux/modules/review";
 import book from "../redux/modules/book";
 import user from "../redux/modules/user";
 import upload from "../redux/modules/upload"
-import tag from "../redux/modules/tag"
+import tag from "../redux/modules/tag";
+import collection from "./modules/collection";
 
 
 const history = createBrowserHistory();
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   comment,
   user,
   upload,
+  collection,
   router: connectRouter(history),
 });
 

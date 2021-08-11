@@ -6,13 +6,13 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import Color from "../shared/Color";
+import { history } from "../redux/configStore";
 
 
 SwiperCore.use([Navigation, Pagination])
 const Collection = (props) =>{
     return (
-        <Outter>
-           
+        <Outter onClick={()=>{history.push('/collectiondetail')}}>
             <Image>
                 <Overlay>
                 <CollectionTitle>
@@ -31,7 +31,7 @@ const BookCollectionMain = (props) =>{
             <Recommend>
                 <TitleWrapper>
                     <Title>추천 컬렉션</Title>
-                    <More>더보기</More>
+                    <More onClick={()=>{history.push('/collectionlist')}}>더보기</More>
                  </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}

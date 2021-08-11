@@ -5,21 +5,32 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as collectionActions } from "../redux/modules/collection";
 import { history } from "../redux/configStore";
 
 import Color from "../shared/Color"
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail} = props;
+  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail, is_make_collection} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
-  const selectBook = ()=>{
-    dispatch(bookActions.getOneBookSV(isbn));
-    dispatch(permitActions.bookSelect(true));
+  console.log(is_make_collection)
+  async function selectBook(){
+  
+    if(is_make_collection){
+      console.log("실행됨")
+      await dispatch(bookActions.getOneBookSV(isbn));
+      await dispatch(permitActions.bookSelect(true));
+      await dispatch(collectionActions.selectBooks(book));
+    }
+    else{
+      await dispatch(bookActions.getOneBookSV(isbn));
+      await dispatch(permitActions.bookSelect(true));
+    }
   }
 
   const reviewDetailInfo = useSelector(state=> state.review.review_detail);

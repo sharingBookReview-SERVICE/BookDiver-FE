@@ -1,5 +1,6 @@
 //import 부분
 import React, { useRef, useState } from "react";
+import { history } from "../redux/configStore";
 
 import styled from "styled-components";
 import Color from "../shared/Color";
@@ -25,7 +26,7 @@ const ReviewWrite = (props) => {
     <React.Fragment>
         <Wrapper>
             <Header>
-                <ArrowBackIcon className={classes.arrow}/> 
+                <ArrowBackIcon className={classes.arrow} onClick={()=>{history.goBack()}}/> 
                 <HeaderText>추천 컬렉션</HeaderText>
             </Header>
             

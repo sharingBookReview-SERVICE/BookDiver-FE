@@ -53,9 +53,14 @@ const MakeCollection = (props) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
-    const [selected_book, setSelected_book] = React.useState([1]);
+    const [selected_book, setSelected_book] = React.useState([]);
     const book = useSelector(state=> state.book.book);
-    console.log(book)
+    const collection_book_list = useSelector(state=> state.collection.selected_Books);
+    console.log(collection_book_list)
+    // if(book) {
+    //     setSelected_book(selected_book => [...selected_book, book]);
+    // }
+    console.log(selected_book)
     const addBookBtn = ()=>{
         setSelected_book(selected_book => [...selected_book, 2]);
         console.log(selected_book)
@@ -64,7 +69,7 @@ const MakeCollection = (props) =>{
     return(
         <Container>
             {
-                is_modal && <SelectBookModal />
+                is_modal && <SelectBookModal is_make_collection />
             }
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -90,11 +95,8 @@ const MakeCollection = (props) =>{
                 <DescTextarea
                 placeholder="컬렉션에 대한 설명을 작성해주세요."></DescTextarea>
                 {
-                    selected_book.map((p, idx)=> {
-                        return(
-                            <AddBook key={idx}/>
-                        )}
-                    )
+                   selected_book.length === 0 && 
+                   <AddBook/>
                 }
                 
                 <MoreAddbtn onClick={()=>{
