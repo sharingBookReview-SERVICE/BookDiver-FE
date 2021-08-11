@@ -141,7 +141,7 @@ const Overlay = styled.div`
 `;
 
 const Container = styled.div`
-position:absolute;
+position:fixed;
 top:12%;
 left:5%;
 width: 90vw;

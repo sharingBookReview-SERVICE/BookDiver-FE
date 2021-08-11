@@ -40,6 +40,7 @@ function App() {
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   
+  
   React.useEffect(() => {
     if (user) {
       dispatch(userActions.loginCheck());
