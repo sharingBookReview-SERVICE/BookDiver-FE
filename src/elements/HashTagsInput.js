@@ -23,6 +23,7 @@ const HashTagsInput = (props) => {
   const { is_edit, defaultValue } = props;
   const review_detail = useSelector((state) => state.review.review_detail);
   const tags = useSelector(state => state.tag.tags)
+  const [is_firstClick, setIsFirstClick] = useState(false);
 
 
   //해쉬태그 지우기
@@ -34,10 +35,17 @@ const HashTagsInput = (props) => {
   //해쉬태그 추가하기
   const addTags = (event) => {
     if (event.target.value !== "") {
-      dispatch(tagActions.addTag([...tags, event.target.value]))
+      dispatch(tagActions.addTag(event.target.value))
       event.target.value = "";
     }
   };
+
+  const cleanUpTags = () => {
+    if(!is_firstClick){
+      dispatch(tagActions.removeTag(0))
+      setIsFirstClick(true)
+    }
+  }
 
   useEffect(() => {
     //is_edit이 true이면, defaultValue의 값들을 tag에 넣어주기
@@ -60,6 +68,7 @@ const HashTagsInput = (props) => {
       </TagUl>
       <TagInput
         type="text"
+        onClick={()=>{cleanUpTags()}}
         onKeyUp={(e) => (e.key === "Enter" ? addTags(e) : null)}
         placeholder="해쉬태그를 입력해주세요"
       />

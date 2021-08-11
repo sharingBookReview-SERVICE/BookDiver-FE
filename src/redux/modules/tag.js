@@ -37,6 +37,11 @@ export default handleActions(
         produce(state, (draft)=>{
           draft.tags = draft.tags.filter((_,index) => index !== action.payload.index)
         }),
+        [SET_RECOMMAND_TAG] : (state, action) => 
+        produce(state, (draft) =>{
+          console.log(action.payload.tags)
+          draft.recommand_tags = action.payload.tags
+        }),
         [REMOVE_RECOMMAND_TAG] : (state, action) =>
         produce(state, (draft) => {
           draft.recommand_tags = draft.recommand_tags.filter((_,index) => index !== action.payload.index)

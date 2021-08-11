@@ -28,7 +28,7 @@ const RecommandHashTags = (props) => {
   return (
     <TagBox>
       <TagUl>
-        {tags.map((tag, index) => (
+        {tags?.map((tag, index) => (
           <Tag 
           key={index}
           onClick={()=>{

@@ -137,14 +137,15 @@ const ReviewCard = (props) => {
             </WriteCommentBox>
           </LikeCommentBox>
 
+          {image ?
           <ImageBox>
             <Image
-              src={image}
+              url={image}
               onClick={() => {
                 history.push(`/reviewdetail/${book._id}/${_id}`);
               }}
             />
-          </ImageBox>
+          </ImageBox> : ""}
         </CardBox>
       </CartWrapper>
     </React.Fragment>
@@ -160,7 +161,7 @@ const CartWrapper = styled.div`
 `;
 
 const CardBox = styled.div`
-  width: 90%;
+  width: 90vw;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -173,6 +174,7 @@ const CardBox = styled.div`
   padding-bottom: 40px;
   border-radius: 16px;
   position: relative;
+  overflow:hidden;
 `;
 
 const CommentUserBox = styled.div`
@@ -216,18 +218,16 @@ const UserRightBox = styled.div`
 `;
 
 const ImageBox = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width:90vw;
+  height:90vw;
 `;
 
-const Image = styled.img`
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
+const Image = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image:url(${(props) => props.url});
+  background-size:cover;
+  background-position:center center;
 `;
 
 const UserName = styled.p`
@@ -259,7 +259,6 @@ const BookTitle = styled.p`
   line-height: 20px;
   letter-spacing: -0.9px;
   color: ${Color.black};
-
   margin: 0px 0px 8px 0px;
 `;
 

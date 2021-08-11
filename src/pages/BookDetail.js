@@ -20,8 +20,7 @@ const BookDetail = (props) => {
   const bookId =  props.match.params.bookid;  
   const book = useSelector(state=> state.book.book);
   const reviews_which_book_have = useSelector(state=> state.review.reviews_which_book_have);
-  console.log(reviews_which_book_have)
-  // const review_count = reviews_which_book_have?.length;
+  const review_count = reviews_which_book_have?.length;
 
   React.useEffect(()=>{
     dispatch(bookActions.getOneBookSV(bookId));
