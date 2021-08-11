@@ -14,5 +14,6 @@ const token = localStorage.getItem('token');
 instance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : null;
 
 
+
 export default instance;
 
