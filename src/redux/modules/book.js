@@ -43,6 +43,7 @@ const getOneBookSV = (id)=>{
     return function(dispatch){
         instance.get(`/books/${id}`)
         .then((res)=>{
+            console.log(res.data)
             dispatch(getOneBook(res.data));
         })
         .catch((err)=>{

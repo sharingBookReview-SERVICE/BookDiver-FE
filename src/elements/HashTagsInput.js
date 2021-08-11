@@ -34,7 +34,7 @@ const HashTagsInput = (props) => {
   //해쉬태그 추가하기
   const addTags = (event) => {
     if (event.target.value !== "") {
-      dispatch(tagActions.addTag([event.target.value]))
+      dispatch(tagActions.addTag(event.target.value))
       event.target.value = "";
     }
   };

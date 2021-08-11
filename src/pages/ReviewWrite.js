@@ -50,6 +50,7 @@ const ReviewWrite = (props) => {
   const quote = useRef();
   const content = useRef();
   const hashtags = useSelector(state => state.tag.tags)
+  console.log(hashtags)
   const [compressedImage, setCompressedImage] = useState(null);
   const [reviewCount, setReviewCount] = useState(0);
   const [quoteCount, setQuoteCount] = useState(0);

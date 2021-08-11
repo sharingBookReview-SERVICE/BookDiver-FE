@@ -56,7 +56,7 @@ const getAllReviewSV = () => {
 
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
-    console.log("----------북아이디", bookId);
+
     return function (dispatch) {
         instance
             .post(`/books/${bookId}/reviews`, formData, {
@@ -65,11 +65,13 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
+                console.log(res.data)
                 dispatch(addReview(res.data.review));
                 history.push("/");
             })
             .catch((err) => {
                 console.log("post작성 실패", err);
+                history.push("/login");
             });
     };
 };
@@ -80,12 +82,10 @@ const deleteReviewSV = () => {
     return function (dispatch, getState) {
         const bookId = getState().review.feed_id.bookId;
         const reviewId = getState().review.feed_id.reviewId;
-        console.log("-----------삭제 함수를 실행합니다");
 
         instance
             .delete(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
-                console.log("-----------------------", res);
                 dispatch(deleteReview(reviewId));
             })
             .catch((err) => {
@@ -131,7 +131,7 @@ const getDetailReviewSV = (bookId, reviewId) => {
 
 //라이크 버튼
     const LikeSV = (bookId, reviewId) => {
-        console.log(bookId, reviewId)
+
         return function (dispatch) {
             instance
                 .put(`/books/${bookId}/reviews/${reviewId}/likes`)
