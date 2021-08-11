@@ -23,6 +23,7 @@ import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
 import BookCollectionMain from "../pages/BookCollectionMain";
 import CollectionDetail from "../pages/CollectionDetail";
+import MakeCollection from "../pages/MakeCollection";
 import Setting from "../pages/Setting";
 import Notification from "../pages/Notification";
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -38,6 +39,7 @@ function App() {
   const user = localStorage.getItem("token") ? true : false;
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  
   
   React.useEffect(() => {
     if (user) {
@@ -72,6 +74,7 @@ function App() {
           <Route path="/setting" exact component={Setting}/>
           <Route path="/collectionlist" exact component={CollectionList}/>
           <Route path="/notification" exact component ={Notification}/>
+          <Route path="/makeCollection" exact component ={MakeCollection}/>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>

@@ -15,26 +15,14 @@ const GET_FEED_ID = "review/GET_FEED_ID";
 const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 
 //actioncreator
-const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({
-    review_list,
-}));
+const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({review_list}));
 const like = createAction(LIKE, (reviewId) => ({ reviewId }));
 const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({ reviewId }));
-const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({
-    reviewId,
-    review,
-}));
-const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({
-    review,
-}));
-const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({
-    bookId,
-    reviewId,
-}));
-const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({
-    reviews,
-}));
+const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId,review}));
+const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
+const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}));
+const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({reviews}));
 
 //initial
 const initialState = {
@@ -43,17 +31,7 @@ const initialState = {
         bookId: "",
         reviewId: "",
     },
-    review_detail: {
-        user: "",
-        book: "",
-        quote: "",
-        content: "",
-        hashtags: [""],
-        createdAt: "",
-        comments: [""],
-        myLike: false,
-        likes: 0,
-    },
+    review_detail: {},
     feed_edit: {
         feed_edit_id: "",
     },
@@ -158,7 +136,7 @@ const getDetailReviewSV = (bookId, reviewId) => {
             instance
                 .put(`/books/${bookId}/reviews/${reviewId}/likes`)
                 .then((res) => {
-                    console.log(res);
+                    console.log(res.data);
                     dispatch(like(reviewId));
                 })
                 .catch((err) => {

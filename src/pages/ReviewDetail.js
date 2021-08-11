@@ -10,36 +10,70 @@ import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 
+import { makeStyles } from "@material-ui/core/styles";
 import Comment from "../components/Comment";
 import SelectBookCard from "../components/SelectBookCard";
 import CommentModal from "../modals/CommentModal";
 import Color from "../shared/Color";
 import smile from "../img/smile.svg";
-import { makeStyles } from "@material-ui/core/styles";
+
 
 const useStyles = makeStyles((theme) => ({
-  icon: {
-    color: Color.fontGray,
-    fontSize:"18px",
+  goback: {
+      padding: "0px 20px"
   },
+  icon: {
+      margin: "0px 10px",
+      
+  },
+  smile :{
+    fontSize: "30px",
+    padding: "0px 20px"
+  },
+  like : {
+    margin:" 0px 5px"
+  }
 }));
+
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
+
   const dispatch = useDispatch();
+
+  // 로그인 하지 않았을 시 로그인 페이지로 이동
+  const token = localStorage.getItem('token');
+  if(!token){
+    history.push('/login')
+  }
+
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_editting = useSelector((state) => state.comment.edit_id);
   const [commentContent, setCommentContent] = useState("");
   const bookId = props.match.params.bookid;
   const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const { hashtags, quote, content, comments, book, image, likes, myLike, _id } = reviewDetail;
-  const nickname = useSelector((state) => state.user.user.nickname);
-  console.log(nickname)
+  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
 
+
+  const userId = useSelector((state) => state.user.user.userId);
+  const nickname = useSelector((state) => state.user.user.nickname);
+
+  
+  //내 포스트인지 확인
+  let is_my_post = false;
+
+  if(userId === user?.id){
+    is_my_post = true;
+  }
+
+  const goBack = () => {
+    history.goBack();
+  };
   //댓글 작성함수
   const writeComment = () => {
     if(commentContent === "") return;
@@ -55,7 +89,7 @@ const ReviewDetail = (props) => {
 
   //좋아요 클릭
   const clickLikeButton = () => {
-    dispatch(reviewAction.LikeSV(book._id, _id));
+    dispatch(reviewAction.LikeSV(bookId, reviewId));
   };
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
@@ -66,75 +100,68 @@ const ReviewDetail = (props) => {
   }, []);
 
 
+  
   return (
-      <React.Fragment>
-        <ReviewDetailWrapper>
-          <BackArrowBox>
-            <ArrowBackIcon
-                onClick={() => {
-                  history.goBack();
-                }}
-            />
-          </BackArrowBox>
-          <ReviewDetailCard>
-          <CardBox>
-            <CommentUserBox>
-              <UserLeftBox>
-                <SmileImg src={smile}/><UserName>닉네임닉네임</UserName>
-                <CreatedAt>2021.07.24 21:04</CreatedAt>
-              </UserLeftBox>
-
-              <UserRightBox>
-                <BookmarkBorderIcon
-                    style={{ color: "#9e9e9e", marginRight: "10px" }}
+    
+      <Container> 
+         {is_modal && <CommentModal />}
+            <Head>
+                <ArrowBackIcon className={classes.goback}
+                onClick = {()=>{goBack()}}
                 />
-                <MoreHorizIcon style={{ color: "#9e9e9e" }} />
-              </UserRightBox>
-            </CommentUserBox>
-
-            <SelectBookCard {...book} is_reviewDetail />
-            <ContentBox>
-              <Quote>{quote}</Quote>
-              <Content>{content}</Content>
-              <HashTag>
-                {hashtags.map((tag) => {
-                  return `#${tag} `;
-                })}
-              </HashTag>
-            </ContentBox>
-            <Image src={image} />
-
-            <LikeCommentWrapper>
-              <LikeCommentButton>
-                {myLike? 
-                <LikeBox 
-                 onClick={() => {
-                    clickLikeButton();
-                 }}> 
-                <FavoriteIcon/> 
-                좋아요 {likes}개
-                </LikeBox>
+            </Head>
+            <Outter>
+                <Userbar>
+                    <EmojiEmotionsIcon className={classes.smile}/>
+                    <Wrapper>
+                      <Username>{user?.nickname}</Username>
+                      <CreateDt>{created_at}</CreateDt>
+                    </Wrapper>
+                    {
+                      !is_my_post && <Follow>팔로우</Follow>
+                    }
+                   
+                    <BookmarkBorderIcon className={classes.icon}/>
+                    {
+                      is_my_post &&  <MoreHorizIcon className={classes.icon}/>
+                    }
+                   
+                </Userbar>
+                <SelectBookCard {...book} is_reviewDetail />
+                <ReviewContent>
+                  <Quote> {quote}</Quote>
+                  <Content>{content}</Content>
+                  <HashTagBox>
+                  { hashtags ?
+                  hashtags.map((tag) => {
+                      return `#${tag} `;
+                    }) :""}
+                  </HashTagBox>
+                  <ImageBox>
+                    <Image src={image}/>
+                  </ImageBox>
+                </ReviewContent>
+                <ReactionBar>
+                  {
+                    myLike ?
+                    <Div><FavoriteIcon className={classes.like} />좋아요 {likes} 개</Div>
                     :
-                <LikeBox 
-                 onClick={() => {
-                    clickLikeButton();
-                 }}>
-                <FavoriteBorderIcon className={classes.icon}/> 
-                  좋아요 {likes}개
-                </LikeBox>
-                }
-                <WriteCommentBox>댓글 5개</WriteCommentBox>
-              </LikeCommentButton>
-            </LikeCommentWrapper>
-          </CardBox>
-          </ReviewDetailCard>
-          <CommentWrapper>
-          {comments.map((comment, idx) => {
-            return <Comment {...comment} key={comment._id} />;
-          })}
-          </CommentWrapper>
+                    <Div><FavoriteBorderIcon className={classes.like} />좋아요 {likes} 개</Div>
+                  }
+                  
+                   <Hr></Hr>
+                   <Div>댓글 {comments?.length} 개</Div>
+                </ReactionBar>
 
-          {is_editting === "" ? (
+            </Outter>
+            <CommentWrapper>
+                    {
+                      comments?
+                    comments.map((comment, idx) => {
+                      return <Comment {...comment} key={comment._id} />;
+                    }):""}
+                    </CommentWrapper>
+            {is_editting === "" ? (
               <CommentInputBox>
                 <CommentInput
                     placeholder="지금 댓글을 남겨보세요"
@@ -155,169 +182,124 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-        </ReviewDetailWrapper>
-
-        {is_modal && <CommentModal />}
-      </React.Fragment>
+           
+      </Container>
   );
 };
 
-const SmileImg = styled.img`
-  width: 13%;
-  margin: 16px 8px 8px 0;
-  
+const Container = styled.div`
+background: ${Color.mainColor};
+width: 100vw;
+height: auto;
+padding-bottom: 100px;
+`;
+const Head = styled.div`
+width: 100%;
+align-items: center;
+display: flex;
+margin: 30px 0px;
+`;
+const Text = styled.div`
+width: 70%;
+text-align: center;
 `;
 
-const ReviewDetailWrapper = styled.div`
+const Outter = styled.div`
+width: 90%;
+height: auto;
+border: 1px solid ${Color.black};
+margin: 0 auto;
+border-radius: 16px;
+`;
+
+const Userbar = styled.div`
+width: 100%;
+height: 20%;
+height: 40px;
+margin: 16px 0px 30px;
+display: flex;
+align-items: center;
+`;
+
+const Wrapper = styled.div`
+`;
+const Username = styled.div`
+`;
+
+const CreateDt = styled.div`
+font-size: 12px;
+`;
+
+const Follow = styled.div`
+margin: 0px 35px 0px 16px;
+font-weight: bold;
+width: 100%;
+`;
+
+
+
+
+const ReviewContent = styled.div`
+`;
+
+const Quote = styled.div`
+margin-bottom: 16px;
+padding: 0px 20px;
+font-family: "Noto Serif KR", serif;
+font-weight: bold;
+`;
+
+const Content = styled.div`
+margin-bottom: 16px;
+padding: 0px 20px;
+`;
+
+const HashTagBox = styled.div`
+padding: 0px 20px;
+margin-bottom: 16px;
+`;
+const ImageBox = styled.div`
   width: 100%;
-  height: 200%;
-  background-color: ${Color.mainColor};
-  box-sizing: border-box;
-  padding-bottom: 50px;
-  font-family: 'Noto Sans KR', sans-serif;
-`;
-
-const ReviewDetailCard = styled.div`
-  width: 90%;
   height: auto;
-  border: 1px solid black;
-  margin: auto auto 16px auto;
-  border-radius: 16px;
-`;
-const BackArrowBox = styled.div`
-  height: 56px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 20px 0 20px;
   display: flex;
-  align-items: center;
-  background-color: ${Color.mainColor};
-  
-`;
-
-const CardBox = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  box-sizing: border-box;
-  border-radius: 20px;
-  background-color: ${Color.mainColor};
+  align-items: center;
 `;
 
 const Image = styled.img`
   width: auto;
   height: auto;
-  margin: auto;
   max-width: 100%;
   max-height: 100%;
 `;
-
-const CommentUserBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 16px 24px;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
+const ReactionBar = styled.div`
+border: 1px solid #242121;
+width: 90%;
+height: 56px;
+border-radius: 24px;
+margin: 0 auto;
+margin-top: 16px;
+margin-bottom: 16px;
+display: flex;
+align-items: center;
 `;
-
-const UserLeftBox = styled.div`
-  width: auto;
-  height: auto;
-  align-items: center;
+const Div = styled.div`
+display: flex;
+width: 100%;
+height: 100%;
+align-items: center;
+justify-content: center;
 `;
-
-const UserRightBox = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-`;
-
-const UserName = styled.p`
-  font-weight: bold;
-  margin: -50px 8px 0 2.5em;
-`;
-
-const CreatedAt = styled.p`
-  font-size: 10px;
-  color: ${Color.fontGray};
-  margin: 2px 8px 0 2.5rem;
-`;
-
-const ContentBox = styled.div`
-  width: 100%;
-  box-sizing: border-box;
-  height: auto;
-  display: flex;
-  flex-direction: column;
+const Hr = styled.div`
+width: 1px;
+height: 100%;
+background: black;
 
 `;
 
-const Quote = styled.p`
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.43;
-  letter-spacing: -0.28px;
-  margin: -10px 20px 0 20px;
-  white-space: pre-line;
-`;
-
-const Content = styled.p`
-  font-size: 14px;
-  letter-spacing: -0.28px;
-  color: ${Color.fontGray};
-  margin: 8px 20px 0 20px;
-  line-height: 1.43;
-  white-space: pre-line;
-`;
-
-const HashTag = styled.div`
-  padding: 15px 0;
-  color: ${Color.fontBlack};
-  margin: 0 20px 0 20px;
-  font-size: 14px;
-`;
-
-const LikeCommentWrapper = styled.div`
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  padding: 0 24px;
-`;
-
-const LikeCommentButton = styled.div`
-  width: 100%;
-  height: 50px;
-  border: 1px solid ${Color.fontBlack};
-  border-radius: 25px;
-  margin: 16px 8px 16px auto;
-  display: grid;
-  flex-direction: row;
-  grid-template-columns: 1fr 1fr;
-  box-sizing: border-box;
-`;
-
-const LikeBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  color: ${Color.fontblack};
-  letter-spacing: -0.28px;
-  border-right: 1px solid ${Color.fontBlack};
-`;
-
-const WriteCommentBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  color: ${Color.fontblack};
-  letter-spacing: -0.28px;
+const CommentWrapper = styled.div`
+width:100%;
+height:auto;
 `;
 
 const CommentInputBox = styled.div`
@@ -339,6 +321,7 @@ const CommentInput = styled.input`
   width: 100%;
   height: 100%;
   padding: 0 0 0 16px;
+  font-size: 16px;
   background-color: ${Color.mainColor};
   border: 1px solid ${Color.fontBlack};
   border-radius: 12px;
@@ -349,25 +332,17 @@ const CommentInput = styled.input`
     color: ${Color.fontGray};
     font-family: 'Roboto', sans-serif;
     letter-spacing: -0.5px;
-
   }
 `;
 
 const CommentWriteButton = styled.div`
   cursor: pointer;
+  font-size: 16px;
   color: ${Color.fontGray};
   position: absolute;
   right: 30px;
-  font-size: 14px;
   font-weight: 700;
   height: 20px;
 }
 `;
-
-const CommentWrapper = styled.div`
-width:100%;
-height:auto;
-padding-bottom:70px;
-`
-
 export default ReviewDetail;

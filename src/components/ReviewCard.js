@@ -67,7 +67,10 @@ const ReviewCard = (props) => {
               <Box direction={"column"}>
                 <Box direction={"row"}>
                   <UserName>{user.nickname}</UserName>
-                  <Follower>팔로우</Follower>
+                  {
+                    !is_my_post &&  <Follower>팔로우</Follower>
+                  }
+                 
                 </Box>
                 <CreatedAt>{created_at}</CreatedAt>
               </Box>
