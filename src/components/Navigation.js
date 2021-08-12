@@ -8,6 +8,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import SearchIcon from "@material-ui/icons/Search";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
+import BookOutlinedIcon from '@material-ui/icons/BookOutlined';
 import { makeStyles } from "@material-ui/core/styles";
 
 import Color from "../shared/Color";
@@ -47,6 +48,9 @@ const Navigation = (props) => {
   const toMain = () => {
     history.push("/");
   };
+  const toCollection = () => {
+    history.push("/bookCollectionMain");
+  };
   const toPostWrite = () => {
     history.push(`/postwrite`);
   };
@@ -70,12 +74,12 @@ const Navigation = (props) => {
       />
 
       <BottomNavigationAction
-        label="통합검색"
+        label="북컬렉션"
         value="write"
         className={classes.button}
-        icon={<SearchIcon className={classes.icon} />}
+        icon={<BookOutlinedIcon className={classes.icon} />}
         onClick={() => {
-          toMain();
+          toCollection();
         }}
       />
 

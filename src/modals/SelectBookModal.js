@@ -63,7 +63,6 @@ const SelectBookModal = (props) =>{
 //뷰
     return(
         <React.Fragment>
-
             <Container>
               <ArrowBox>
                 <ArrowBackIcon 
@@ -117,7 +116,7 @@ const SelectBookModal = (props) =>{
               {
                 search_book_list &&
                 search_book_list.map((book)=>{
-                  return(<SelectBookCard key={book.isbn} {...book} />)
+                  return(<SelectBookCard key={book.isbn} {...book} is_make_collection />)
                 })
               }
 

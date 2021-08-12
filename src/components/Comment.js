@@ -94,7 +94,7 @@ const Comment = (props) =>{
                 </CommentUserBox>
 
                 <Content>{props.content}</Content>
-                    <LikeBox>♡ 좋아요 0개</LikeBox>
+                    {/* <LikeBox>♡ 좋아요 0개</LikeBox> */}
                 </CommentSizeBox>
             </CommentBox>
 

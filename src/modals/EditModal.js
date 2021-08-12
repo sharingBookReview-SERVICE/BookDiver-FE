@@ -26,8 +26,8 @@ const EditModal = (props) =>{
               <Btn onClick={() => {
                 history.push(`/postwrite/${bookId}/${reviewId}`)
               }}><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
-              <Btn><BookmarkBorderOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 저장</Btn>
-              <Btn><LockOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 비공개로 전환</Btn>
+              {/* <Btn><BookmarkBorderOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 저장</Btn>
+              <Btn><LockOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 비공개로 전환</Btn> */}
               <Btn onClick={() => { 
                 dispatch(reviewActions.deleteReviewSV())
                 dispatch(permitActions.showModal(false))
