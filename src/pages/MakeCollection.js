@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { history } from "../redux/configStore";
+import { useSelector, useDispatch } from "react-redux";
+
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../shared/Color";
 import AddIcon from '@material-ui/icons/Add';
+
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as collectionActions } from "../redux/modules/collection";
+import { actionCreators as uploadActions } from "../redux/modules/upload";
+
 import SelectBookModal from "../modals/SelectBookModal";
 import SelectBookCard from "../components/SelectBookCard";
-import { useSelector, useDispatch } from "react-redux";
 
+
+import imageCompression from "browser-image-compression";
+
+//스타일 정의
 const useStyles = makeStyles((theme) => ({
     goback: {
         padding: "0px 20px"
@@ -34,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
+
+//책 추가하기 컴포넌트
 const AddBook = (props) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -51,13 +61,21 @@ const AddBook = (props) =>{
     )
 }
 
+//컬렉션 만들기 페이지
 const MakeCollection = (props) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
+    
+    //책 선택
     const is_modal = useSelector(state=> state.permit.is_modal);
     const collection_book_list = useSelector(state=> state.collection.selected_Books);
     const more_select = useSelector(state=> state.collection.more_select);
+
+    //이미지
+    const is_preview = useSelector((state) => state.upload.is_preview);
+    const preview_url = useSelector((state) => state.upload.img_url);
     const fileInput = React.useRef();
+    const [compressedImage, setCompressedImage] = useState(null);
 
     //책 더 추가하기
     const addMoreBtn = ()=>{
@@ -66,16 +84,43 @@ const MakeCollection = (props) =>{
         }
         else{
             window.alert("최대 10개까지 추가할 수 있습니다!")
-        }
-        
+        }   
     }
+    
   //업로드 버튼 클릭하기
     const selectImage = () => {
         fileInput?.current.click();
       };
 
+    //이미지 가져오기
+    const getImage = (event) => {
+        const reader = new FileReader();
+        const file = event.target.files[0];
+        actionImgCompress(file);
 
- 
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+        dispatch(uploadActions.showPreview(true));
+        dispatch(uploadActions.setPreview(reader.result));
+        };
+    };
+    //이미지 압축하기
+    const actionImgCompress = async (fileSrc) => {
+        //압축할 옵션 내용
+        const options = {
+        maxSizeMB: 0.2,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+        };
+
+        try {
+        //imageCompression함수의 첫번째 인자는 파일, 두번째 인자는 옵션
+        const compressedFile = await imageCompression(fileSrc, options);
+        setCompressedImage(compressedFile);
+        } catch (error) {
+        console.log(error);
+        }
+    };
 
     return(
         <Container>
@@ -99,13 +144,22 @@ const MakeCollection = (props) =>{
                 <Upload
                     type="file"
                     ref={fileInput}
+                    onChange={getImage}
                     accept="image/*"
                     />
-                <ImageSelect onClick={()=>{selectImage();}}>
-                    <AddIcon className={classes.addicon}/>
-                    <Notice className={classes.font}>컬렉션 배경 사진 업로드</Notice>
-                    <Notice >컬렉션에 어울리는 사진을 올려보세요</Notice>
-                </ImageSelect>
+                    {
+                        is_preview?
+                        <ImageBox onClick={() => {selectImage();}}>
+                          <Image src={preview_url} />
+                        </ImageBox>
+                        :
+                        <ImageSelect onClick={()=>{selectImage();}}>
+                            <AddIcon className={classes.addicon}/>
+                            <Notice className={classes.font}>컬렉션 배경 사진 업로드</Notice>
+                            <Notice >컬렉션에 어울리는 사진을 올려보세요</Notice>
+                        </ImageSelect>
+                    }
+                
                 <Label>
                     컬렉션 설명
                 </Label>
@@ -197,6 +251,22 @@ align-items: center;
 margin-bottom: 16px;
 flex-direction: column;
 `;
+
+const ImageBox = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
 const Notice = styled.div`
 `;
 const DescTextarea = styled.textarea`
