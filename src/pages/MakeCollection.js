@@ -65,8 +65,8 @@ const AddBook = (props) =>{
 const BookCard = (props) =>{
     const dispatch = useDispatch();
     const [book_description, setBookDescription] = useState("");
-
-    
+    const bookTitle = props.title?.split("(")[0]
+    console.log(props.isbn)
     const content = {
         isbn: props.isbn,
         book_description: book_description,
@@ -76,7 +76,7 @@ const BookCard = (props) =>{
             <BookInfoBox>
                 <BookImg url={props.image}/>
                 <BookDescBox>
-                <BookTitle >{props.title}</BookTitle>
+                <BookTitle >{bookTitle}</BookTitle>
                     <BookWriter>{props.author} 저</BookWriter>
                 </BookDescBox>
             </BookInfoBox>
@@ -112,9 +112,11 @@ const MakeCollection = (props) =>{
     const [compressedImage, setCompressedImage] = useState(null);
 
     useEffect(()=>{
+        dispatch(collectionActions.isMakeCollection(true));
         return ()=>{
             dispatch(collectionActions.resetSelected())
             dispatch(uploadActions.showPreview(false));
+            dispatch(collectionActions.isMakeCollection(false));
         }
     },[]);
 

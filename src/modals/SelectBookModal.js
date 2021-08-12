@@ -33,6 +33,8 @@ const SelectBookModal = (props) =>{
   const [height, setHeight] = useState("100%");
   const [categories, setCategory] = useState(["제목","저자","출판사"])
 
+  const is_make_collection = useSelector(state=> state.collection.is_make_collection);
+
   const openCategory = (is_clicked) => {
     return is_clicked ? setIsClicked(false) : setIsClicked(true)
   }
@@ -116,7 +118,7 @@ const SelectBookModal = (props) =>{
               {
                 search_book_list &&
                 search_book_list.map((book)=>{
-                  return(<SelectBookCard key={book.isbn} {...book} is_make_collection />)
+                  return(<SelectBookCard key={book.isbn} {...book} is_make_collection={is_make_collection} />)
                 })
               }
 

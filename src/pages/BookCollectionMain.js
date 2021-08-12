@@ -23,7 +23,7 @@ SwiperCore.use([Navigation, Pagination])
 //컬렉션 하나
 const Collection = (props) =>{
     return (
-        <Outter onClick={()=>{history.push('/collectiondetail')}}>
+        <Outter onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}>
             <Image url = {props.image}>
                 <Overlay>
                 <CollectionTitle>{props.is_tag? `#${props.name}`: `${props.name}`}</CollectionTitle>

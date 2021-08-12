@@ -6,6 +6,7 @@ import { history } from "../configStore";
 
 
 //actions
+const IS_MAKE_COLLECTION = "collection/IS_MAKE_COLLECTION";
 const SELECT_BOOKS = "collection/SELECT_BOOKS";
 const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
@@ -16,6 +17,7 @@ const ADD_COLLECTION_CONTENTS = "collections/ADD_COLLECTION_CONTENTS";
 
 
 //actioncreator
+const isMakeCollection = createAction(IS_MAKE_COLLECTION, (is_make_collection)=>({is_make_collection}));
 const selectBooks = createAction(SELECT_BOOKS, (book) => ({ book }));
 const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
 const resetSelected =  createAction(RESET_SELECTED, (book)=>({book}));
@@ -31,6 +33,7 @@ const initialState = {
     tag_collection_list : [],
     custom_collection_list: [],
     collection_contents :[],
+    is_make_collection : false,
 };
 
 
@@ -115,7 +118,10 @@ const addCollectionSV = (formData)=>{
 //reducer
 export default handleActions(
     {
-
+      [IS_MAKE_COLLECTION]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_make_collection = action.payload.is_make_collection;
+      }),
         [SELECT_BOOKS]: (state, action) =>
         produce(state, (draft) => {
           let index = draft.selected_Books.findIndex((p) => p.isbn === action.payload.book.isbn);
@@ -143,7 +149,7 @@ export default handleActions(
         }),
         [ADD_COLLECTION]:(state, action)=>
         produce(state, (draft)=>{
-          draft.custom_collection_list?.push(action.payload.collection);
+          draft.custom_collection_list?.unshift(action.payload.collection);
         }),
         [ADD_COLLECTION_CONTENTS]:(state, action)=>
         produce(state, (draft)=>{
@@ -158,6 +164,7 @@ export default handleActions(
   
 
 const actionCreators = {
+  isMakeCollection,
   selectBooksSV,
   moreSelect,
   resetSelected,

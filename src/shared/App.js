@@ -76,7 +76,7 @@ function App(props) {
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
           <Route path="/logincheck" component={Spinner} />
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
-          <Route path="/collectiondetail" exact component={CollectionDetail}/>
+          <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
           <Route path="/setting" exact component={Setting}/>
           <Route path="/collectionlist" exact component={CollectionList}/>
           <Route path="/notification" exact component ={Notification}/>

@@ -134,7 +134,7 @@ const ReviewWrite = (props) => {
     dispatch(bookActions.resetSelectedBook());
     dispatch(permitActions.showModal(false));
     dispatch(permitActions.bookSelect(false));
-
+    
     if (reviewId) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
       dispatch(tagActions.getTag(editHashtags));
