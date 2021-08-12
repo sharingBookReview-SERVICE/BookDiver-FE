@@ -74,7 +74,7 @@ const MyProfile = (props) =>{
 
                       </ProfileBox>
                       
-                      <LevelDetail  onClick={()=>{history.push('/levelhelp')}}>'수심 0m 잠수 중' 자세히보기</LevelDetail>  
+                      <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 0m 잠수 중' 자세히보기</LevelDetail>  
                   </ProfileWrapper>
                   <CollectionWrapper>
                   {CollectionList.map((title, idx) => {

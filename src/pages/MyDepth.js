@@ -66,7 +66,7 @@ const MyDepth = (props) => {
                 }} 
                 className={classes.arrow}/>
                 <HeaderText>나의 수심 깊이</HeaderText>
-                <Help>도움말</Help>
+                <Help onClick={()=>{history.push('/levelhelp')}}>도움말</Help>
 
             </Header>
 
