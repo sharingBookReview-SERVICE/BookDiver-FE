@@ -33,6 +33,7 @@ import MyFeed from "../pages/MyFeed";
 import CollectionList from "../pages/CollectionList"
 import Follow from "../pages/Follow"
 
+
 function App() {
   const dispatch = useDispatch();
   const is_nav = useSelector((state) => state.permit.is_nav);
@@ -47,7 +48,6 @@ function App() {
       dispatch(userActions.loginCheck());
       dispatch(userActions.isMe());
     }
-    console.log(user);
   }, [user]);
 
   return (

@@ -6,6 +6,7 @@ import { history } from "../configStore";
   
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
+const GET_MORE_REVIEW = "review/GET_MORE_REVIEW"
 const ADD_REVIEW = "review/ADD_REVIEW";
 const LIKE = "review/LIKE";
 const DELETE_REVIEW = "review/DELETE_REVIEW";
@@ -16,6 +17,7 @@ const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({review_list}));
+const getMoreReview = createAction(GET_MORE_REVIEW, (review_list) => ({review_list}));
 const like = createAction(LIKE, (reviewId) => ({ reviewId }));
 const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({ reviewId }));
@@ -54,6 +56,22 @@ const getAllReviewSV = () => {
     };
 };
 
+const getMoreReviewSV = (lastId) => {
+
+    return function (dispatch) {
+        instance
+            .get(`/feeds?lastItemId=${lastId}`)
+            .then((res) => {
+                console.log(res.data)
+                dispatch(getMoreReview(res.data));
+            })
+            .catch((err) => {
+                console.log("전체 피드 가져오기 실패", err);
+            });
+    };
+};
+
+
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
 
@@ -65,7 +83,6 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
-                console.log(res.data)
                 dispatch(addReview(res.data.review));
                 history.push("/");
             })
@@ -167,6 +184,10 @@ export default handleActions(
             produce(state, (draft) => {
                 draft.all_review_list = action.payload.review_list;
             }),
+        [GET_MORE_REVIEW]: (state, action) =>
+            produce(state, (draft) => {
+                draft.all_review_list.push(...action.payload.review_list);
+        }),
         [ADD_REVIEW]: (state, action) =>
             produce(state, (draft) => {
                 draft.all_review_list.unshift(action.payload.review);
@@ -227,6 +248,7 @@ const actionCreators = {
     getDetailReviewSV,
     getFeedId,
     getReviewsBookHaveSV,
+    getMoreReviewSV,
 };
 
 export { actionCreators };
