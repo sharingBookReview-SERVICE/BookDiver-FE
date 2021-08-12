@@ -29,6 +29,11 @@ const getSearchBooksSV = (target, query)=>{
     return function(dispatch, getState, {history}){
         instance.get(`/books?target=${target}&query=${query}`)
         .then((res)=>{
+            console.log(res.data.searchList)
+            if(!res.data.searchList){
+                window.alert("찾으시는 책이 없습니다.")
+                return;
+            }
             dispatch(getSearchBooks(res.data.searchList));
         })
         .catch((err)=>{

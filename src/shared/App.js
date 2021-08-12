@@ -26,6 +26,8 @@ import CollectionDetail from "../pages/CollectionDetail";
 import MakeCollection from "../pages/MakeCollection";
 import Setting from "../pages/Setting";
 import Notification from "../pages/Notification";
+import LevelHelp from "../pages/LevelHelp";
+
 import { actionCreators as userActions } from "../redux/modules/user";
 import SignoutModal from "../modals/SignoutModal";
 import GlobalStyle from "./GlobalStyle";
@@ -74,7 +76,7 @@ function App(props) {
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
           <Route path="/logincheck" component={Spinner} />
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
-          <Route path="/collectiondetail" exact component={CollectionDetail}/>
+          <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
           <Route path="/setting" exact component={Setting}/>
           <Route path="/collectionlist" exact component={CollectionList}/>
           <Route path="/notification" exact component ={Notification}/>
@@ -82,7 +84,8 @@ function App(props) {
           <Route path="/following" exact component={Follow}/>
           <Route path="/follower" exact component={Follow}/>
           <Route path="/mydepth" exact component={MyDepth}/>
-        </ConnectedRouter>
+          <Route path="/levelhelp" exact component ={LevelHelp}/>
+          </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
     </React.Fragment>
