@@ -63,6 +63,14 @@ const AddBook = (props) =>{
 
 //책 카드 컴포넌트
 const BookCard = (props) =>{
+    const dispatch = useDispatch();
+    const [book_description, setBookDescription] = useState("");
+
+    
+    const content = {
+        isbn: props.isbn,
+        book_description: book_description,
+    }
     return(
         <BookInfoWrapper>
             <BookInfoBox>
@@ -73,10 +81,15 @@ const BookCard = (props) =>{
                 </BookDescBox>
             </BookInfoBox>
             <Recommend 
-            placeholder="책 마다 추천이유를 적어보세요(최대 30자)"
+            placeholder="책 마다 추천이유를 적어보세요(엔터치기)"
             maxLength="30"
+            onChange={(e)=>{setBookDescription(e.target.value)}}
+            onKeyPress ={(e)=>{
+                if(e.key === "Enter"){
+                    dispatch(collectionActions.addCollection_content(content))
+                }
+              }}
             >
-
             </Recommend>
         </BookInfoWrapper>
     )
@@ -106,7 +119,8 @@ const MakeCollection = (props) =>{
     },[]);
 
     //컬렉션 작성
-
+    const title = useRef();
+    const description = useRef();
 
 
 
@@ -155,17 +169,31 @@ const MakeCollection = (props) =>{
         }
     };
 
+    const contents = useSelector(state=> state.collection.collection_contents);
 
      //FormData로 변환하기
     const sendFormData = async (image) => {
         const formData = new FormData();
         //formData에 압축 이미지, 인용구,내용,해쉬태그 저장
+        formData.append("image", image);
+        formData.append("name", title.current.value);
+        formData.append("description", description.current.value);
+        formData.append("contents", JSON.stringify(contents));
+
+        if (collection_book_list.length === 0) {
+            dispatch(permitActions.showCheckModal(true))
+            return;
+          } else if (!image) {
+            dispatch(permitActions.showCheckModal(true))
+            return;
+          }
+
+        await dispatch(collectionActions.addCollectionSV(formData));
      
     };
       //이미지 보내기.
     const submit = async (event) => {
         event.preventDefault();
-
         await sendFormData(compressedImage);
     };
 
@@ -188,10 +216,7 @@ const MakeCollection = (props) =>{
 
                     <SubmitButton 
                     type="submit"
-                    style={{
-                    backGroundColor: Color.mainColor,
-                    color: Color.fontgray,
-                    }}>게시하기</SubmitButton>
+                  >게시하기</SubmitButton>
                 </UploadForm>
 
                 {/* <Text>게시하기</Text> */}
@@ -202,7 +227,8 @@ const MakeCollection = (props) =>{
                 </Label>
                 <TitleInput
                     placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
-                    maxLength="30"                
+                    maxLength="30"     
+                    ref={title}           
                 ></TitleInput>
                 
                     {
@@ -222,7 +248,9 @@ const MakeCollection = (props) =>{
                     컬렉션 설명
                 </Label>
                 <DescTextarea
-                placeholder="컬렉션에 대한 설명을 작성해주세요."></DescTextarea>
+                placeholder="컬렉션에 대한 설명을 작성해주세요."
+                ref={description}    
+                ></DescTextarea>
                 {
                    collection_book_list.length===0? 
                    <AddBook/> 

@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import instance from "../../shared/Request";
+import { history } from "../configStore";
 
 
 //actions
@@ -10,6 +11,8 @@ const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
 const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS";
 const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS";
+const ADD_COLLECTION = "collections/ADD_COLLECTION";
+const ADD_COLLECTION_CONTENTS = "collections/ADD_COLLECTION_CONTENTS";
 
 
 //actioncreator
@@ -18,13 +21,16 @@ const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
 const resetSelected =  createAction(RESET_SELECTED, (book)=>({book}));
 const getTagCollections = createAction(GET_TAG_COLLECTIONS, (collection_list)=> ({collection_list}));
 const getCustomCollections = createAction(GET_CUSTOM_COLLLECTIONS, (collection_list)=> ({collection_list}));
+const addCollection = createAction(ADD_COLLECTION, (collection)=>({collection}));
+const addCollection_content = createAction(ADD_COLLECTION_CONTENTS, (collection)=>({collection}));
 
 //initial
 const initialState = {
     selected_Books: [],
     more_select : false,
     tag_collection_list : [],
-    custom_collection_list: []
+    custom_collection_list: [],
+    collection_contents :[],
 };
 
 
@@ -75,11 +81,32 @@ const getCustomCollectionsSV = ()=>{
       }
     })
     .then((res)=>{
+      console.log(res.data)
       dispatch(getCustomCollections(res.data.collections));
     })
     .catch((err)=>{
       console.log(err)
     })
+  }
+}
+
+//collection추가하기
+const addCollectionSV = (formData)=>{
+  return function(dispatch,{hitory}){
+    instance.post('/collections', formData, {
+      headers: {
+          "Content-Type": "multipart/form-data",
+      },
+  })
+  .then((res)=>{
+    console.log(res.data)
+    dispatch(addCollection(res.data))
+    history.push('/bookCollectionMain')
+  })
+  .catch((err) => {
+    console.log("post작성 실패", err);
+   
+  })
   }
 }
 
@@ -113,7 +140,16 @@ export default handleActions(
         [GET_CUSTOM_COLLLECTIONS]:(state, action)=>
         produce(state, (draft)=>{
           draft.custom_collection_list = action.payload.collection_list;
-        })
+        }),
+        [ADD_COLLECTION]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.custom_collection_list?.push(action.payload.collection);
+        }),
+        [ADD_COLLECTION_CONTENTS]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.collection_contents.push(action.payload.collection);
+        }),
+
  
  
     },
@@ -126,7 +162,9 @@ const actionCreators = {
   moreSelect,
   resetSelected,
   getTagCollectionsSV,
-  getCustomCollectionsSV
+  getCustomCollectionsSV,
+  addCollectionSV,
+  addCollection_content
 };
   
 export { actionCreators };
