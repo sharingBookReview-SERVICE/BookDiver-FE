@@ -22,6 +22,7 @@ const SelectBookCard = (props) =>{
   const selectBook = ()=>{
     if(is_make_collection){
       dispatch(collectionActions.selectBooksSV(isbn));
+      dispatch(collectionActions.moreSelect(false));
     }
     else{
       dispatch(bookActions.getOneBookSV(isbn));

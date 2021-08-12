@@ -6,14 +6,16 @@ import instance from "../../shared/Request";
 
 //actions
 const SELECT_BOOKS = "collection/SELECT_BOOKS";
+const MORE_SELECT = "collection/MORE_SELECT";
 
 
 //actioncreator
 const selectBooks = createAction(SELECT_BOOKS, (book) => ({ book }));
-
+const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
 //initial
 const initialState = {
     selected_Books: [],
+    more_select : false,
 };
 
 
@@ -24,7 +26,12 @@ const selectBooksSV = (id)=>{
   return function(dispatch){
       instance.get(`/books/${id}`)
       .then((res)=>{
-          dispatch(selectBooks(res.data));
+          dispatch(selectBooks({
+            title: res.data.title,
+            image: res.data.image,
+            author: res.data.author,
+            isbn: res.data.isbn
+          }));
       })
       .catch((err)=>{
           window.alert("책 하나 로드 실패");
@@ -41,8 +48,17 @@ export default handleActions(
 
         [SELECT_BOOKS]: (state, action) =>
         produce(state, (draft) => {
+          let index = draft.selected_Books.findIndex((p) => p.isbn === action.payload.book.isbn);
+         if(index>-1){
+           window.alert("중복되는 책입니다.");
+           return;
+         }
           draft.selected_Books.push(action.payload.book);
-        }) 
+        }),
+        [MORE_SELECT]: (state, action) =>
+        produce(state, (draft) => {
+          draft.more_select = action.payload.more_select;
+        }),
  
     },
     initialState
@@ -50,7 +66,8 @@ export default handleActions(
   
 
 const actionCreators = {
-  selectBooksSV
+  selectBooksSV,
+  moreSelect
 };
   
 export { actionCreators };

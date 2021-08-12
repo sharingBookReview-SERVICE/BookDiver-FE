@@ -56,11 +56,17 @@ const MakeCollection = (props) =>{
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
     const collection_book_list = useSelector(state=> state.collection.selected_Books);
+    const more_select = useSelector(state=> state.collection.more_select);
+
 
     const addMoreBtn = ()=>{
-        return(
-            <AddBook/>
-        )
+        if(collection_book_list.length<10){
+            dispatch(collectionActions.moreSelect(true))
+        }
+        else{
+            window.alert("최대 10개까지 추가할 수 있습니다!")
+        }
+        
     }
 
     return(
@@ -99,7 +105,9 @@ const MakeCollection = (props) =>{
                        return(<SelectBookCard key={book.isbn} {...book}/>)
                    })
                 }
-                
+                {
+                  more_select &&    <AddBook/> 
+                }
                 <MoreAddbtn onClick={()=>{addMoreBtn()}}>
                     <Notice className={classes.font}>책 더 추가하기</Notice>
                     <AddIcon className={classes.moreaddicon}/>
