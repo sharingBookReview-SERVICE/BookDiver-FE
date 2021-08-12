@@ -71,6 +71,7 @@ const BookCollectionMain = (props) =>{
 }
 const Container = styled.div`
 background: ${Color.mainColor};
+padding-bottom: 100px;
 `;
 const MakeBtn = styled.div`
 width: 90%;
