@@ -34,7 +34,7 @@ const ReviewCard = (props) => {
   
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-  const userId = useSelector((state) => state.user.user.userId);
+  const userId = useSelector((state) => state.user.user.id);
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
 
