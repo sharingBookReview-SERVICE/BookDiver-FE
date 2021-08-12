@@ -34,11 +34,10 @@ const MyProfile = (props) =>{
     const followerCount = useSelector(state=> state.user.user?.followerCount)
     const followingCount = useSelector(state=> state.user.user?.followingCount)
     const userId = useSelector(state => state.user.user.id)
-    const CollectionList = ["나만의 북 컬렉션", "내가 작성한 리뷰", "내가 스크랩한 리뷰"]
+    const CollectionList = ["나만의 북 컬렉션", "내가 스크랩한 리뷰"]
 
     useEffect(() => {
       if(userId){
-        console.log("-----유저 정보를 구합니다.")
         dispatch(userActions.getUserSV(userId))
       }
     },[userId])
@@ -61,6 +60,7 @@ const MyProfile = (props) =>{
                           />
                       </SettingBox>
 
+                    <Wrapper>
                       <ProfileBox>
                           <ImgWrapper>
                             <ProfileImg src={images.level1} />
@@ -74,7 +74,9 @@ const MyProfile = (props) =>{
 
                       </ProfileBox>
                       
-                      <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 0m 잠수 중' 자세히보기</LevelDetail>  
+                      <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 {level}m 잠수 중' 자세히보기</LevelDetail> 
+                    </Wrapper>
+
                   </ProfileWrapper>
                   <CollectionWrapper>
                   {CollectionList.map((title, idx) => {
@@ -90,6 +92,10 @@ const MyProfile = (props) =>{
 }
 
 //styled components
+const Wrapper = styled.div`
+width:100%;
+height:60%;
+`
 
 const Background = styled.div`
 width: 100%;
@@ -99,16 +105,15 @@ justify-content: center;
 align-items: flex-start;
 background: ${Color.mainColor};
 position: relative;
-padding-top:20px;
 flex-direction:column;
 `;
 
 const ProfileWrapper = styled.div`
-width: 100%;
-height: 35%;
+width: 100vw;
+height: 40vh;
 background:${Color.black};
 box-sizing:border-box;
-padding: 0px 20px 40px 20px;
+padding: 20px 20px 30px 20px;
 display:flex;
 flex-direction:column;
 justify-content:space-between;
@@ -154,18 +159,21 @@ width:80%;
 height:auto;
 margin-left:10px;
 `
+
 const UserTitle = styled.div`
 width:100%;
 height:auto;
 color:${Color.white};
 font-family: "Noto Serif KR", serif;
 `
+
 const UserName = styled.div`
 width:100%;
 height:auto;
 color:${Color.white};
 font-family: "Noto Serif KR", serif;
 `
+
 const PostCount = styled.div`
 width:100%;
 height:auto;
@@ -186,7 +194,7 @@ color:${Color.white};
 `
 
 const CollectionWrapper = styled.div`
-height:100%;
+height:50vh;
 width:100%;
 padding: 20px 0px 20px 25px;
 display:flex;
@@ -194,9 +202,5 @@ flex-direction:column;
 justify-content:space-between;
 align-items:space-between;
 `
-
-
-
-
 
 export default MyProfile;

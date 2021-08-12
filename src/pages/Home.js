@@ -70,20 +70,8 @@ const HomeBGColor = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 100px 0px 0px 0px;
+  padding: 15vh 0 0 0;
 `;
 
-const FloatButton = styled.div`
-  width: 56px;
-  height: 56px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  background-color: #1168d7;
-  position: fixed;
-  right: 16px;
-  bottom: 72px;
-`;
 
 export default Home;
