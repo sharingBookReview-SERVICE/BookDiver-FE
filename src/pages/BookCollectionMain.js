@@ -76,11 +76,27 @@ const BookCollectionMain = (props) =>{
                 <SwiperSlide><Collection/></SwiperSlide>
             </Swiper>
             </Recommend>
+            <MakeBtn onClick={()=>{history.push('/makeCollection')}}>나만의 북 컬렉션 만들기</MakeBtn>
         </Container>
     )
 }
 const Container = styled.div`
 background: ${Color.mainColor};
+`;
+const MakeBtn = styled.div`
+width: 90%;
+height: 56px;
+background: black;
+border-radius: 12px;
+position: fixed;
+bottom: 10%;
+left: 5%;
+z-index: 1000;
+color: ${Color.mainColor};
+text-align: center;
+line-height: 56px;
+font-size: 20px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 const CollectionIntro = styled.p`
 font-family: "Noto Serif KR", serif;

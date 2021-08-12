@@ -57,8 +57,9 @@ const MakeCollection = (props) =>{
     const is_modal = useSelector(state=> state.permit.is_modal);
     const collection_book_list = useSelector(state=> state.collection.selected_Books);
     const more_select = useSelector(state=> state.collection.more_select);
+    const fileInput = React.useRef();
 
-
+    //책 더 추가하기
     const addMoreBtn = ()=>{
         if(collection_book_list.length<10){
             dispatch(collectionActions.moreSelect(true))
@@ -68,6 +69,13 @@ const MakeCollection = (props) =>{
         }
         
     }
+  //업로드 버튼 클릭하기
+    const selectImage = () => {
+        fileInput?.current.click();
+      };
+
+
+ 
 
     return(
         <Container>
@@ -87,7 +95,13 @@ const MakeCollection = (props) =>{
                 <TitleInput
                     placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"                
                 ></TitleInput>
-                <ImageSelect>
+                
+                <Upload
+                    type="file"
+                    ref={fileInput}
+                    accept="image/*"
+                    />
+                <ImageSelect onClick={()=>{selectImage();}}>
                     <AddIcon className={classes.addicon}/>
                     <Notice className={classes.font}>컬렉션 배경 사진 업로드</Notice>
                     <Notice >컬렉션에 어울리는 사진을 올려보세요</Notice>
@@ -130,6 +144,23 @@ align-items: center;
 display: flex;
 position: fixed;
 background: ${Color.mainColor};
+`;
+const UploadForm = styled.form``;
+const Upload = styled.input`
+  display: none;
+`;
+const SubmitButton = styled.button`
+  width: auto;
+  height: 30px;
+  font-size: 15px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
+  // float: right;
+  // display: inline-block;
+  margin: 0 5px 0 0;
+  background-color: ${Color.mainColor};
+  box-sizing: border-box;
+  border: none;
 `;
 const Text = styled.div`
 width: 80%;
