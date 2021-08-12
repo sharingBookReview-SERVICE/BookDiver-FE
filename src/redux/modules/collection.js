@@ -8,20 +8,23 @@ import instance from "../../shared/Request";
 const SELECT_BOOKS = "collection/SELECT_BOOKS";
 const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
-const GET_COLLECTIONS = "collection/GET_COLLECTIONS";
+const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS";
+const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS";
 
 
 //actioncreator
 const selectBooks = createAction(SELECT_BOOKS, (book) => ({ book }));
 const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
 const resetSelected =  createAction(RESET_SELECTED, (book)=>({book}));
-const getCollections = createAction(GET_COLLECTIONS, (collection_list)=> ({collection_list}));
+const getTagCollections = createAction(GET_TAG_COLLECTIONS, (collection_list)=> ({collection_list}));
+const getCustomCollections = createAction(GET_CUSTOM_COLLLECTIONS, (collection_list)=> ({collection_list}));
 
 //initial
 const initialState = {
     selected_Books: [],
     more_select : false,
-    collection_list : []
+    tag_collection_list : [],
+    custom_collection_list: []
 };
 
 
@@ -46,19 +49,40 @@ const selectBooksSV = (id)=>{
   }
 }
 
-//collection불러오기
-const getCollectionsSV = ()=>{
+//태그 기반 collection불러오기
+const getTagCollectionsSV = ()=>{
   return function(dispatch){
-    instance.get('/collections')
+    instance.get('/collections',{
+      params: {
+        type: "tag"
+      }
+    })
     .then((res)=>{
-      console.log(res.data.collections)
-      dispatch(getCollections(res.data.collections));
+      dispatch(getTagCollections(res.data.collections));
     })
     .catch((err)=>{
       console.log(err)
     })
   }
 }
+
+//사용자가 올린 collection불러오기
+const getCustomCollectionsSV = ()=>{
+  return function(dispatch){
+    instance.get('/collections',{
+      params: {
+        type: "custom"
+      }
+    })
+    .then((res)=>{
+      dispatch(getCustomCollections(res.data.collections));
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+}
+
 
 
 //reducer
@@ -82,10 +106,15 @@ export default handleActions(
         produce(state, (draft) => {
           draft.selected_Books = [];
         }),
-        [GET_COLLECTIONS]:(state, action)=>
+        [GET_TAG_COLLECTIONS]:(state, action)=>
         produce(state, (draft)=>{
-          draft.collection_list = action.payload.collection_list;
+          draft.tag_collection_list = action.payload.collection_list;
+        }),
+        [GET_CUSTOM_COLLLECTIONS]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.custom_collection_list = action.payload.collection_list;
         })
+ 
  
     },
     initialState
@@ -96,7 +125,8 @@ const actionCreators = {
   selectBooksSV,
   moreSelect,
   resetSelected,
-  getCollectionsSV
+  getTagCollectionsSV,
+  getCustomCollectionsSV
 };
   
 export { actionCreators };
