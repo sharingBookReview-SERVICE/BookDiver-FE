@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://13.124.63.103/api", // 요청을 www.aa.com/user로 보낸다면, www.aa.com까지 기록
+  baseURL: "http://13.124.213.237/api", // 요청을 www.aa.com/user로 보낸다면, www.aa.com까지 기록
 });
 
 const token = localStorage.getItem('token');
