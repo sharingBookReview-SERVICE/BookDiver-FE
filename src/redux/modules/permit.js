@@ -8,6 +8,8 @@ const SHOW_MODAL2 = "permit/SHOW_MODAL2";
 const BOOK_SELECT = "permit/BOOK_SELECT";
 const SHOW_CHECK_MODAL = "permit/SHOW_CHECK_MODAL"
 const IS_PADDING = "permit/IS_PADDING"
+const IS_TREASURE = "permit/IS_TREASURE"
+const SHOW_TREASURE_MODAL = "permit/SHOW_TREASURE_MODAL"
 
 
 //actioncreator
@@ -17,6 +19,8 @@ const showModal2 = createAction(SHOW_MODAL2, (is_modal)=>({is_modal}));
 const bookSelect = createAction(BOOK_SELECT, (is_selected)=> ({ is_selected}));
 const showCheckModal = createAction(SHOW_CHECK_MODAL, (is_written) => ({is_written}));
 const isPadding = createAction(IS_PADDING, (is_padding) => ({is_padding}));
+const isTreasure = createAction(IS_TREASURE, (is_treasure) => ({is_treasure}))
+const showTreasureModal = createAction(SHOW_TREASURE_MODAL, (is_treasure) => ({is_treasure}))
 
 
 //initial
@@ -27,6 +31,8 @@ const initialState = {
     is_selected: false,
     is_written: false,
     is_padding: true,
+    is_treasure: true,
+    is_treasure_modal: false, 
 };
 
 
@@ -57,6 +63,14 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_padding = action.payload.is_padding;
         }),
+        [IS_TREASURE] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_treasure = action.payload.is_treasure;
+        }),
+        [SHOW_TREASURE_MODAL] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_treasure_modal = action.payload.is_treasure;
+        }),
     },
     initialState
   );
@@ -69,6 +83,8 @@ const actionCreators = {
     bookSelect,
     showCheckModal,
     isPadding,
+    isTreasure,
+    showTreasureModal,
 };
   
 export { actionCreators };
