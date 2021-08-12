@@ -5,6 +5,7 @@ import { actionCreators as commentAction } from "../redux/modules/comment";
 import {actionCreators as reviewAction } from "../redux/modules/review";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
+import { useParams } from "react-router";
 
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -19,8 +20,6 @@ import Comment from "../components/Comment";
 import SelectBookCard from "../components/SelectBookCard";
 import CommentModal from "../modals/CommentModal";
 import Color from "../shared/Color";
-import smile from "../img/smile.svg";
-
 
 const useStyles = makeStyles((theme) => ({
   goback: {
@@ -49,13 +48,16 @@ const ReviewDetail = (props) => {
   const token = localStorage.getItem('token');
   if(!token){
     history.push('/login')
+    dispatch(permitAction.showNav(true));
   }
+
+  const params = useParams();
+  const bookId = params.bookid;
+  const reviewId = params.reviewid;
 
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_editting = useSelector((state) => state.comment.edit_id);
   const [commentContent, setCommentContent] = useState("");
-  const bookId = props.match.params.bookid;
-  const reviewId = props.match.params.reviewid;
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
 

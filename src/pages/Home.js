@@ -1,19 +1,26 @@
 //import 부분
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
+import { useInView } from "react-intersection-observer";
+
 import styled from "styled-components";
 import ReviewCard from "../components/ReviewCard";
 import AddIcon from "@material-ui/icons/Add";
-
 import Header from "../components/Header";
 import EditModal from "../modals/EditModal";
 
 const Home = (props) => {
   //dispatch와 변수들
   const dispatch = useDispatch();
+  const reviewList = useSelector((state) => state.review.all_review_list);
   const is_modal = useSelector((state) => state.permit.is_modal);
+  const [Id, setId] = useState([])
+  const [ref, inView] = useInView();
+  const getMoreReview = (lastId) => {
+    if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
+  }
 
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
@@ -21,23 +28,33 @@ const Home = (props) => {
     dispatch(reviewActions.getAllReviewSV());
   }, []);
 
-  const reviewList = useSelector((state) => state.review.all_review_list);
+  useEffect(() => {
+    setId(reviewList)
+  }, [reviewList]);
+
+  useEffect(() => {
+
+    if(inView){
+      const lastReviewId = Id[Id.length - 1]?._id
+      getMoreReview(lastReviewId)
+    }
+  }, [inView]);
 
 
   return (
     <React.Fragment>
       <HomeBGColor>
         <Header />
-
-        {reviewList
-          ? reviewList.map((review, idx) => {
+ 
+        {reviewList?.map((review) => {
               return (
                 <React.Fragment key={review.id}>
-                  <ReviewCard {...review} />
+                    <ReviewCard {...review} /> 
                 </React.Fragment>
               );
-            })
-          : ""}
+        })}
+
+      <div ref={ref}></div>
       </HomeBGColor>
 
       {is_modal && <EditModal />}

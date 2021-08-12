@@ -11,8 +11,16 @@ import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import {history} from "../redux/configStore";
 import {useSelector} from "react-redux";
 
-const UserFeedInfo = () => {
+const MyFeed = () => {
     const nickname = useSelector(state => state.user.user.nickname);
+
+    const goToFollowing = () => {
+      history.push("/following")
+    }
+
+    const goToFollower = () => {
+      history.push("/follower")
+    }
 
     return (
         <React.Fragment>
@@ -47,17 +55,17 @@ const UserFeedInfo = () => {
                                 style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
                             <Text style={{marginTop: "5px"}}>컬렉션</Text>
                         </MyActivity>
-                        <MyActivity>
+                        <MyActivity onClick={() => {goToFollower()}}>
                             {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
                             {/*<Text>저장한 에세이</Text>*/}
                             <Text
                                 style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
                             <Text style={{marginTop: "4px"}}>팔로워</Text>
                         </MyActivity>
-                        <MyActivity>
+                        <MyActivity onClick={() => {goToFollowing()}}>
                             <Text
                                 style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
-                            <Text style={{marginTop: "4px"}}>팔로워</Text>
+                            <Text style={{marginTop: "4px"}}>팔로잉</Text>
                         </MyActivity>
                     </MyActivityBox>
                     <FollowBox>
@@ -85,7 +93,7 @@ const UserFeedInfo = () => {
     )
 }
 
-export default UserFeedInfo;
+export default MyFeed;
 
 const Header = styled.div`
   width: 100%;

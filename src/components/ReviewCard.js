@@ -11,6 +11,7 @@ import profile from "../img/profile.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
 
 
@@ -57,6 +58,12 @@ const ReviewCard = (props) => {
     dispatch(permitActions.showModal(true));
   };
 
+  const follow = () => {
+    // console.log("팔로우 함수 실행")
+    // dispatch(userActions.followSV(user.id))
+     dispatch(userActions.getFollowerListSV())
+  }
+
   return (
     <React.Fragment>
       <CartWrapper>
@@ -68,7 +75,7 @@ const ReviewCard = (props) => {
                 <Box direction={"row"}>
                   <UserName>{user.nickname}</UserName>
                   {
-                    !is_my_post &&  <Follower>팔로우</Follower>
+                    !is_my_post &&  <Follow onClick={()=>{follow()}}>팔로우</Follow>
                   }
                  
                 </Box>
@@ -200,7 +207,7 @@ display:flex;
 flex-direction:${(props) => props.direction};
 `
 
-const Follower = styled.div`
+const Follow = styled.div`
 font-weight:bold;
 font-size:14px;
 `

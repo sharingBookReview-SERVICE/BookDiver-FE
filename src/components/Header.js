@@ -27,7 +27,7 @@ const Header = (props) => {
 
         <SearchBarBox>
           <SearchIcon className={classes.searchIcon} />
-          <SearchBar placeholder="리뷰궁금한 책 검색" />
+          <SearchBar placeholder="궁금한 책 검색하기" />
         </SearchBarBox>
       </HeaderBox>
       </Wrapper>

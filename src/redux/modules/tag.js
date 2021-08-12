@@ -39,7 +39,6 @@ export default handleActions(
         }),
         [SET_RECOMMAND_TAG] : (state, action) => 
         produce(state, (draft) =>{
-          console.log(action.payload.tags)
           draft.recommand_tags = action.payload.tags
         }),
         [REMOVE_RECOMMAND_TAG] : (state, action) =>

@@ -7,6 +7,7 @@ const SHOW_MODAL = "permit/SHOW_MODAL";
 const SHOW_MODAL2 = "permit/SHOW_MODAL2";
 const BOOK_SELECT = "permit/BOOK_SELECT";
 const SHOW_CHECK_MODAL = "permit/SHOW_CHECK_MODAL"
+const IS_PADDING = "permit/IS_PADDING"
 
 
 //actioncreator
@@ -14,7 +15,8 @@ const showNav = createAction(SHOW_NAV, (is_nav) => ({ is_nav }));
 const showModal = createAction(SHOW_MODAL, (is_modal)=>({is_modal}));
 const showModal2 = createAction(SHOW_MODAL2, (is_modal)=>({is_modal}));
 const bookSelect = createAction(BOOK_SELECT, (is_selected)=> ({ is_selected}));
-const showCheckModal = createAction(SHOW_CHECK_MODAL, (is_written) => ({is_written}))
+const showCheckModal = createAction(SHOW_CHECK_MODAL, (is_written) => ({is_written}));
+const isPadding = createAction(IS_PADDING, (is_padding) => ({is_padding}));
 
 
 //initial
@@ -24,6 +26,7 @@ const initialState = {
     is_modal2: false,
     is_selected: false,
     is_written: false,
+    is_padding: true,
 };
 
 
@@ -49,7 +52,11 @@ export default handleActions(
         [SHOW_CHECK_MODAL] : (state, action) => 
         produce(state, (draft) => {
           draft.is_written = action.payload.is_written;
-        })
+        }),
+        [IS_PADDING] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_padding = action.payload.is_padding;
+        }),
     },
     initialState
   );
@@ -61,6 +68,7 @@ const actionCreators = {
     showModal2,
     bookSelect,
     showCheckModal,
+    isPadding,
 };
   
 export { actionCreators };
