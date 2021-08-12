@@ -48,8 +48,9 @@ const initialState = {
 //한사람의 사용자 정보 불러오기
 const getUserSV = (id)=>{
   return function(dispatch, getState, {history}){
-    instance.get(`/users/'${id}`)
+    instance.get(`/users/${id}`)
     .then((res)=>{
+      console.log(res)
       dispatch(getUser(res.data));
     })
     .catch((err)=>{
@@ -71,7 +72,7 @@ const loginCheck = () => {
 
     //localStorage에 토큰이 있는 상태(이미 로그인을 한 상태라면)
     if (user) {
-      dispatch(setUser({userId: userId, nickname: nickname, token: token}));
+      dispatch(setUser({id: userId, nickname: nickname, token: token}));
     } else {
       console.log("로그인상태아님");
     }

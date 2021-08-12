@@ -1,19 +1,20 @@
 //import 부분
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-
-import LogoutModal from "../modals/LogoutModal";
-import SignoutModal from "../modals/SignoutModal";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configStore";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 
 import styled from "styled-components";
 import Color from "../shared/Color"
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { makeStyles } from "@material-ui/core/styles";
-import Profile from "../img/christopher-campbell-rDEOVtE7vOs-unsplash.jpg"
+import {images} from "../shared/Image"
 
 import ProfileSwiper from "../elements/ProfileSwiper";
+import LogoutModal from "../modals/LogoutModal";
+import SignoutModal from "../modals/SignoutModal";
 
 const useStyles = makeStyles((theme) => ({
     setting: {
@@ -25,10 +26,26 @@ const useStyles = makeStyles((theme) => ({
 //마이 페이지
 const MyProfile = (props) =>{
     const classes = useStyles();
+    const dispatch = useDispatch();
     const[logooutPop, setLogOutPop] = useState(false);
     const[signoutPop , setSignOutPop] = useState(false);
-    const nickname = useSelector(state=> state.user.user.nickname);
+    const nickname = useSelector(state=> state.user.user.nickname)
+    const level = useSelector(state=> state.user.user?.level)
+    const followerCount = useSelector(state=> state.user.user?.followerCount)
+    const followingCount = useSelector(state=> state.user.user?.followingCount)
+    const userId = useSelector(state => state.user.user.id)
     const CollectionList = ["나만의 북 컬렉션", "내가 작성한 리뷰", "내가 스크랩한 리뷰"]
+
+    useEffect(() => {
+      if(userId){
+        console.log("-----유저 정보를 구합니다.")
+        dispatch(userActions.getUserSV(userId))
+      }
+    },[userId])
+
+    const goToMyDepth = () => {
+      history.push("/mydepth")
+    }
 
     
     return(
@@ -46,18 +63,18 @@ const MyProfile = (props) =>{
 
                       <ProfileBox>
                           <ImgWrapper>
-                            <ProfileImg src={Profile} />
+                            <ProfileImg src={images.level1} />
                           </ImgWrapper>
 
                           <DetailBox>
                             <UserTitle>'천재적인 범고래 다이버'</UserTitle>
-                            <UserName>독서하는 곰돌이</UserName>
+                            <UserName>{nickname}</UserName>
                             <PostCount>작성한 에세이 12개 | 만든 컬렉션 20개</PostCount>
                           </DetailBox>
 
                       </ProfileBox>
                       
-                      <LevelDetail>'수심 0m 잠수 중' 자세히보기</LevelDetail>  
+                      <LevelDetail onClick={() => {goToMyDepth()}}>'수심 {level}m 잠수 중' 자세히보기</LevelDetail>  
                   </ProfileWrapper>
                   <CollectionWrapper>
                   {CollectionList.map((title, idx) => {
@@ -122,6 +139,7 @@ height:72px;
 border-radius:70%;
 overflow:hidden;
 box-sizing:border-box;
+border: 1px solid ${Color.secondColor};
 `
 
 const ProfileImg = styled.img`

@@ -32,15 +32,18 @@ import GlobalStyle from "./GlobalStyle";
 import MyFeed from "../pages/MyFeed";
 import CollectionList from "../pages/CollectionList"
 import Follow from "../pages/Follow"
+import MyDepth from "../pages/MyDepth";
+import { useParams } from 'react-router';
 
 
-function App() {
+function App(props) {
   const dispatch = useDispatch();
   const is_nav = useSelector((state) => state.permit.is_nav);
   const is_modal = useSelector((state) => state.permit.is_modal);
   const user = localStorage.getItem("token") ? true : false;
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const is_padding = useSelector(state => state.permit.is_padding)
   
   
   React.useEffect(() => {
@@ -53,7 +56,7 @@ function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Container is_modal_opened={is_modal ? "hidden" : "scroll"}>
+      <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
           <Route path="/" exact component={Home} />
           <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail}/>
@@ -78,7 +81,8 @@ function App() {
           <Route path="/makeCollection" exact component ={MakeCollection}/>
           <Route path="/following" exact component={Follow}/>
           <Route path="/follower" exact component={Follow}/>
-          </ConnectedRouter>
+          <Route path="/mydepth" exact component={MyDepth}/>
+        </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
       </Container>
     </React.Fragment>
@@ -101,7 +105,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: 0px 0px 60px 0px;
+  padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
   position: relative;
 `;
 
