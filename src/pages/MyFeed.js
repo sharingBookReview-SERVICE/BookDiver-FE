@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MyFeed = () => {
     const nickname = useSelector(state => state.user.user.nickname);
+    const profileImg = useSelector(state => state.user.user.profileImage)
     const classes = useStyles()
 
     const goToFollowing = () => {
@@ -56,7 +57,7 @@ const MyFeed = () => {
                   <Wrapper>
                     <ProfileBox>
                           <ImgWrapper>
-                            <ProfileImg src={images.level1} />
+                            <ProfileImg src={images[profileImg]} />
                           </ImgWrapper>
 
                           <DetailBox>

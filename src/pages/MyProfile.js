@@ -31,6 +31,7 @@ const MyProfile = (props) =>{
     const[signoutPop , setSignOutPop] = useState(false);
     const nickname = useSelector(state=> state.user.user.nickname)
     const level = useSelector(state=> state.user.user?.level)
+    const profileImg = useSelector(state => state.user.user?.profileImage)
     const followerCount = useSelector(state=> state.user.user?.followerCount)
     const followingCount = useSelector(state=> state.user.user?.followingCount)
     const userId = useSelector(state => state.user.user.id)
@@ -63,7 +64,7 @@ const MyProfile = (props) =>{
                     <Wrapper>
                       <ProfileBox>
                           <ImgWrapper>
-                            <ProfileImg src={images.level1} />
+                            <ProfileImg src={images[profileImg]} />
                           </ImgWrapper>
 
                           <DetailBox>
