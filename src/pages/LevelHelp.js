@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../shared/Color";
 
@@ -95,8 +96,17 @@ const LevelHelp = (props) =>{
                 }
                
             </SliderContainer>
-            {/* <Button onClick={prevSlide}>Previous Slide</Button> */}
-            <Button onClick={nextSlide}>다음</Button>
+            {
+                currentSlide > 0 &&<PrevBtn onClick={prevSlide}> <ArrowBackIcon/> 이전</PrevBtn>
+            }
+            {
+                currentSlide < 3?
+                <NextBtn onClick={nextSlide}>다음  <ArrowForwardIcon/> </NextBtn>
+                :
+                <FinishBtn>내잠수상태</FinishBtn>
+            }
+            
+          
     </Container>
     )
 }
@@ -143,7 +153,40 @@ const Container = styled.div`
   width: 100%;
   overflow: hidden; // 선을 넘어간 이미지들은 보이지 않도록 처리합니다.
 `;
-const Button = styled.button`
+const PrevBtn = styled.button`
+all: unset;
+background: ${Color.black};
+border: 1px solid ${Color.white};
+padding: 0.5em 2em;
+color: ${Color.white};
+border-radius: 10px;
+position: fixed;
+bottom: 100px;
+left: 5%;
+height: 5%;
+padding: 10px 30px;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+`;
+const NextBtn = styled.button`
+all: unset;
+background: white;
+padding: 0.5em 2em;
+color: black;
+border-radius: 10px;
+position: fixed;
+bottom: 100px;
+right: 5%;
+height: 5%;
+padding: 10px 30px;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+`;
+const FinishBtn = styled.button`
 all: unset;
 background: white;
 padding: 0.5em 2em;
