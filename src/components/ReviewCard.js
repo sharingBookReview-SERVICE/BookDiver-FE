@@ -77,12 +77,7 @@ const ReviewCard = (props) => {
             </UserLeftBox>
 
             <UserRightBox>
-              {is_login && (
-                <BookmarkBorderIcon
-                  style={{ color: "#9e9e9e", marginRight: "10px" }}
-                />
-              )}
-
+              
               {is_my_post && (
                 <MoreHorizIcon
                   style={{ color: "#9e9e9e" }}

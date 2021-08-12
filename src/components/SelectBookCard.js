@@ -18,19 +18,16 @@ const SelectBookCard = (props) =>{
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
-  console.log(is_make_collection)
-  async function selectBook(){
-  
+
+  const selectBook = ()=>{
     if(is_make_collection){
-      console.log("실행됨")
-      await dispatch(bookActions.getOneBookSV(isbn));
-      await dispatch(permitActions.bookSelect(true));
-      await dispatch(collectionActions.selectBooks(book));
+      dispatch(collectionActions.selectBooksSV(isbn));
     }
     else{
-      await dispatch(bookActions.getOneBookSV(isbn));
-      await dispatch(permitActions.bookSelect(true));
+      dispatch(bookActions.getOneBookSV(isbn));
+      dispatch(permitActions.bookSelect(true));
     }
+   
   }
 
   const reviewDetailInfo = useSelector(state=> state.review.review_detail);

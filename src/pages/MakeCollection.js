@@ -6,7 +6,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Color from "../shared/Color";
 import AddIcon from '@material-ui/icons/Add';
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as collectionActions } from "../redux/modules/collection";
 import SelectBookModal from "../modals/SelectBookModal";
+import SelectBookCard from "../components/SelectBookCard";
 import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -53,17 +55,12 @@ const MakeCollection = (props) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
     const is_modal = useSelector(state=> state.permit.is_modal);
-    const [selected_book, setSelected_book] = React.useState([]);
-    const book = useSelector(state=> state.book.book);
     const collection_book_list = useSelector(state=> state.collection.selected_Books);
-    console.log(collection_book_list)
-    // if(book) {
-    //     setSelected_book(selected_book => [...selected_book, book]);
-    // }
-    console.log(selected_book)
-    const addBookBtn = ()=>{
-        setSelected_book(selected_book => [...selected_book, 2]);
-        console.log(selected_book)
+
+    const addMoreBtn = ()=>{
+        return(
+            <AddBook/>
+        )
     }
 
     return(
@@ -95,12 +92,15 @@ const MakeCollection = (props) =>{
                 <DescTextarea
                 placeholder="컬렉션에 대한 설명을 작성해주세요."></DescTextarea>
                 {
-                   selected_book.length === 0 && 
-                   <AddBook/>
+                   collection_book_list.length===0? 
+                   <AddBook/> 
+                   :
+                   collection_book_list.map((book)=>{
+                       return(<SelectBookCard key={book.isbn} {...book}/>)
+                   })
                 }
                 
-                <MoreAddbtn onClick={()=>{
-                    addBookBtn()}}>
+                <MoreAddbtn onClick={()=>{addMoreBtn()}}>
                     <Notice className={classes.font}>책 더 추가하기</Notice>
                     <AddIcon className={classes.moreaddicon}/>
                 </MoreAddbtn>

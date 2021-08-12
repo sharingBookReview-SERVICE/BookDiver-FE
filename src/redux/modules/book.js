@@ -40,6 +40,7 @@ const getSearchBooksSV = (target, query)=>{
 
 //책 하나만 불러오기
 const getOneBookSV = (id)=>{
+    console.log("책 하나만 불러오기")
     return function(dispatch){
         instance.get(`/books/${id}`)
         .then((res)=>{
@@ -51,7 +52,6 @@ const getOneBookSV = (id)=>{
         })
     }
 }
-
 
 
 //베스트 셀러 불러오기
