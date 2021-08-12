@@ -98,6 +98,12 @@ const MakeCollection = (props) =>{
     const fileInput = React.useRef();
     const [compressedImage, setCompressedImage] = useState(null);
 
+    useEffect(()=>{
+        return ()=>{
+            dispatch(collectionActions.resetSelected())
+            dispatch(uploadActions.showPreview(false));
+        }
+    },[]);
 
     //컬렉션 작성
 

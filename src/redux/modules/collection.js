@@ -7,11 +7,14 @@ import instance from "../../shared/Request";
 //actions
 const SELECT_BOOKS = "collection/SELECT_BOOKS";
 const MORE_SELECT = "collection/MORE_SELECT";
+const RESET_SELECTED = "collection/RESET_SELECTED";
 
 
 //actioncreator
 const selectBooks = createAction(SELECT_BOOKS, (book) => ({ book }));
 const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
+const resetSelected =  createAction(RESET_SELECTED, (book)=>({book}));
+
 //initial
 const initialState = {
     selected_Books: [],
@@ -59,6 +62,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.more_select = action.payload.more_select;
         }),
+        [RESET_SELECTED]: (state, action) =>
+        produce(state, (draft) => {
+          draft.selected_Books = [];
+        }),
  
     },
     initialState
@@ -67,7 +74,8 @@ export default handleActions(
 
 const actionCreators = {
   selectBooksSV,
-  moreSelect
+  moreSelect,
+  resetSelected
 };
   
 export { actionCreators };
