@@ -8,17 +8,20 @@ import instance from "../../shared/Request";
 const SELECT_BOOKS = "collection/SELECT_BOOKS";
 const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
+const GET_COLLECTIONS = "collection/GET_COLLECTIONS";
 
 
 //actioncreator
 const selectBooks = createAction(SELECT_BOOKS, (book) => ({ book }));
 const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
 const resetSelected =  createAction(RESET_SELECTED, (book)=>({book}));
+const getCollections = createAction(GET_COLLECTIONS, (collection_list)=> ({collection_list}));
 
 //initial
 const initialState = {
     selected_Books: [],
     more_select : false,
+    collection_list : []
 };
 
 
@@ -43,6 +46,19 @@ const selectBooksSV = (id)=>{
   }
 }
 
+//collection불러오기
+const getCollectionsSV = ()=>{
+  return function(dispatch){
+    instance.get('/collections')
+    .then((res)=>{
+      console.log(res.data.collections)
+      dispatch(getCollections(res.data.collections));
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+}
 
 
 //reducer
@@ -66,6 +82,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.selected_Books = [];
         }),
+        [GET_COLLECTIONS]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.collection_list = action.payload.collection_list;
+        })
  
     },
     initialState
@@ -75,7 +95,8 @@ export default handleActions(
 const actionCreators = {
   selectBooksSV,
   moreSelect,
-  resetSelected
+  resetSelected,
+  getCollectionsSV
 };
   
 export { actionCreators };
