@@ -17,13 +17,13 @@ const FOLLOW = "user/FOLLOW"
 const GET_FOLLOWING_LIST = "user/GET_FOLLOWING_LIST"
 const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
 const GET_TREASURE = "user/GET_TREASURE"
+const GET_MY_FEED ="user/GET_MY_FEED";
 
 
 
 //actioncreator
 const getUser = createAction(GET_USER, (user)=>({user}));
 const deleteUser = createAction(DELETE_USER, (userId)=>({userId}));
-const getUserReview = createAction(GET_USER_REVIEW, (review_list)=>({review_list}));
 const setUser = createAction(SET_USER, (user) => ({user}));
 const logOut = createAction(LOG_OUT, ()=> ({}));
 const isMe = createAction(IS_ME, (is_me)=>({is_me}));
@@ -31,6 +31,7 @@ const follow = createAction(FOLLOW, (user) => ({user}))
 const getFollowingList = createAction(GET_FOLLOWING_LIST, (list) => ({list}))
 const getFollowerList = createAction(GET_FOLLOWER_LIST, (list) => ({list}))
 const getTreasure = createAction(GET_TREASURE, (treasure) => ({treasure}))
+const getMyFeed = createAction(GET_MY_FEED, (my_feed)=>({my_feed}));
 
 
 
@@ -123,18 +124,6 @@ const deleteUserSV = (id) =>{
   }
 }
 
-//회원이 쓴 리뷰 불러오기
-const getUserReviewSV = (id)=>{
-  return function(dispatch, getState, {history}){
-    instance.get(`users/${id}/reviews`)
-    .then((res)=>{
-      dispatch(getUserReview(res.data));
-    })
-    .catch((err)=>{
-      window.alert("리뷰 불러오기 실패 ")
-    })
-  }
-}
 
 const followSV = (id) => {
 
@@ -212,7 +201,19 @@ const changeProfileSV = (image) => {
       console.log(res);
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      window.alert("팔로우 실패 ",err)})
+  }}
+
+
+const getMyFeedSV = ()=>{
+  return function(dispatch, getState, {history}){
+    const userId = getState().user.user.id;
+    instance.get(`/users/${userId}/feeds`)
+    .then((res)=>{
+      console.log(res.data)
+    })
+    .catch((err)=>{
+      console.log(err)
     })
   }
 }
@@ -230,10 +231,6 @@ export default handleActions(
             draft.user = [];
             draft.is_login= false;
             draft.is_me = false;
-        }),
-        [GET_USER_REVIEW]: (state, action) =>
-          produce(state, (draft) => {
-            draft.review_list = action.payload.review_list;
         }),
         [SET_USER]: (state, action)=>
         produce(state,(draft)=>{
@@ -270,7 +267,6 @@ export default handleActions(
 const actionCreators = {
   getUserSV,
   deleteUserSV,
-  getUserReviewSV,
   setUserSV,
   setUser,
   loginCheck,
@@ -281,6 +277,7 @@ const actionCreators = {
   getFollowerListSV,
   getTreasureSV,
   changeProfileSV,
+  getMyFeedSV
 };
   
 export { actionCreators };
