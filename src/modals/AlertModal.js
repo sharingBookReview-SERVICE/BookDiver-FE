@@ -1,5 +1,5 @@
 //import 부분
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Color from "../shared/Color";
 

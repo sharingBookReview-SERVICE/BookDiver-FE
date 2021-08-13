@@ -1,5 +1,5 @@
 //import 부분
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { actionCreators as commentAction } from "../redux/modules/comment";
@@ -46,15 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
-
-  // 로그인 하지 않았을 시 로그인 페이지로 이동
-  const token = localStorage.getItem('token');
-  if(!token){
-    history.push('/login')
-    dispatch(permitAction.showNav(true));
-  }
 
   const params = useParams();
   const bookId = params.bookid;
@@ -67,10 +59,20 @@ const ReviewDetail = (props) => {
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
 
-
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.user.user._id);
   const nickname = useSelector((state) => state.user.user.nickname);
   const [is_empty, setIsEmpty] = useState(false)
+  const bottomRef = useRef();
+
+  const token = localStorage.getItem('token');
+  if(!token){
+    history.push('/login')
+    dispatch(permitAction.showNav(true));
+  }
+
+  const toBottom = () => {
+    bottomRef.current.scrollIntoView({ behavior: "smooth" })
+  }
 
 
   const follow = () => {
@@ -112,6 +114,7 @@ const ReviewDetail = (props) => {
     };
     dispatch(commentAction.addCommentSV(comment_info));
     setCommentContent("");
+    toBottom()
   };
 
   //좋아요 클릭
@@ -133,7 +136,7 @@ const ReviewDetail = (props) => {
 
   
   return (
-    
+    <React.Fragment>
       <Container> 
          {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
@@ -152,7 +155,7 @@ const ReviewDetail = (props) => {
                   <UserName>{user?.nickname}</UserName>
                   {!is_my_post && <Follow onClick={()=>{follow()}}>팔로우</Follow>}
                 </Box>
-                <CreatedAt>{created_at}</CreatedAt>
+                <CreatedAt >{created_at}</CreatedAt>
               </Box>
             </UserLeftBox>
 
@@ -222,7 +225,7 @@ const ReviewDetail = (props) => {
                     }}
                     onFocus={()=>{setIsEmpty(false)}}
                     value={commentContent}
-                    onKeyUp={(e) => (e.key === "Enter" ? writeComment() : null)}
+                    onKeyPress={(e) => (e.key === "Enter" ? writeComment() : null)}
                 />
                 <CommentWriteButton
                     onClick={() => {
@@ -237,8 +240,16 @@ const ReviewDetail = (props) => {
           )}
 
       </Container>
+      <BottomDiv ref={bottomRef}></BottomDiv>
+      </React.Fragment>
   );
 };
+
+const BottomDiv = styled.div`
+height:70px;
+display:invisible;
+width:1px;
+`
 
 const UserRightBox = styled.div`
   width: auto;
@@ -275,7 +286,7 @@ const UserLeftBox = styled.div`
   align-items: center;
 `;
 
-const UserName = styled.p`
+const UserName = styled.div`
   font-size: 14px;
   font-weight: normal;
   margin: 0px 8px 0px 0px;

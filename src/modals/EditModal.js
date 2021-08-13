@@ -1,10 +1,8 @@
 //import 부분
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
-import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 

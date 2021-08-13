@@ -1,9 +1,9 @@
 //import 부분
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
-import permit, { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
 import Color from "../shared/Color";
 

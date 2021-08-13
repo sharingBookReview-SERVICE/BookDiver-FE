@@ -8,7 +8,7 @@ import Color from "../shared/Color";
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as commentActions } from "../redux/modules/comment";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const CommentModal = (props) =>{
     const dispatch = useDispatch();
