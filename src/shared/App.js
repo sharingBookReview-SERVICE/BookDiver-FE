@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { Route } from "react-router-dom";
@@ -47,25 +47,25 @@ function App(props) {
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const is_padding = useSelector(state => state.permit.is_padding)
   const is_treasure = useSelector(state => state.permit.is_treasure_modal)
-  const userId = useSelector(state => state.user.user.id)
+  const userId = useSelector(state => state.user.user._id)
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
   
 
-  
-  
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       dispatch(userActions.loginCheck());
       dispatch(userActions.isMe());
-      // getUserInfo()
+      console.log("로그인 확인을 합니다. ")
     }
+  }, [user]);
+
+
+  useEffect(() => {
     if (userId) {
       getUserInfo()
     }
-  }, [user, userId]);
-
-
-
+  }, [userId]);
+  
 
 
 

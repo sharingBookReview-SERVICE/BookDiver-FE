@@ -27,16 +27,17 @@ const useStyles = makeStyles((theme) => ({
 const ChangeProfileImg = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const userId = useSelector(state => state.user.user.id)
+    const userId = useSelector(state => state.user.user._id)
     const ownImages = useSelector(state => state.user.user.own_image)
-    console.log(ownImages)
  
     const goBack=() => {
         history.goBack();
     }
 
     useEffect(() => {
-        dispatch(userActions.getUserSV(userId))     
+        if(userId){
+            dispatch(userActions.getUserSV(userId))   
+        }
     },[])
 
 //작성하기
