@@ -55,7 +55,6 @@ const getUserSV = (id)=>{
   return function(dispatch, getState, {history}){
     instance.get(`/users/${id}`)
     .then((res)=>{
-      console.log(res)
       //레벨10 단위가 되었는지 지속적으로 확인하기
       dispatch(permitActions.showTreasureModal(res.data.treasure))
       dispatch(getUser(res.data));
@@ -197,7 +196,20 @@ const getTreasureSV = () => {
 
     instance.put(`users/profile/${userId}`, {imageName: randomImg})
     .then((res)=>{
-      console.log(res)
+      dispatch(permitActions.showNewBadge(true))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+const changeProfileSV = (image) => {
+  return function(dispatch, getState, {history}){
+    const userId = getState().user.user.id
+    instance.put(`users/${userId}`,{profileImage: image})
+    .then((res)=>{
+      console.log(res);
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -268,6 +280,7 @@ const actionCreators = {
   getFollowingListSV,
   getFollowerListSV,
   getTreasureSV,
+  changeProfileSV,
 };
   
 export { actionCreators };

@@ -17,7 +17,6 @@ import ChangeName from "../pages/ChangeName";
 import MyReview from "../pages/MyReview";
 import ReviewWrite from "../pages/ReviewWrite";
 import BookDetail from "../pages/BookDetail";
-import MyReviewFeed from "../pages/MyReviewFeed";
 import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
@@ -27,6 +26,7 @@ import MakeCollection from "../pages/MakeCollection";
 import Setting from "../pages/Setting";
 import Notification from "../pages/Notification";
 import LevelHelp from "../pages/LevelHelp";
+import ChangeProfileImg from "../pages/ChangeProfileImg"
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import SignoutModal from "../modals/SignoutModal";
@@ -74,31 +74,44 @@ function App(props) {
       <GlobalStyle />
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
+
           <Route path="/" exact component={Home} />
+
+
           <Route path="/reviewdetail/:bookid/:reviewid" exact component={ReviewDetail}/>
           <Route path="/postwrite" exact component={ReviewWrite} />
           <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite}/>
           <Route path="/bookdetail/:bookid" exact component={BookDetail} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/myprofile" exact component={MyProfile} />
-          <Route path="/changename" exact component={ChangeName} />
-          <Route path="/myreview" exact component={MyReview} />
-          <Route path="/modal" exact component={SignoutModal} />
-          <Route path="/MyReview" exact component={MyReview} />
-          <Route path="/myfeed" exact component={MyFeed} />
-          <Route path="/myreviewfind" exact component={MyReviewFind} />
-          <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
-          <Route path="/logincheck" component={Spinner} />
+
+
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
           <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
-          <Route path="/setting" exact component={Setting}/>
           <Route path="/collectionlist" exact component={CollectionList}/>
-          <Route path="/notification" exact component ={Notification}/>
           <Route path="/makeCollection" exact component ={MakeCollection}/>
-          <Route path="/following" exact component={Follow}/>
-          <Route path="/follower" exact component={Follow}/>
+
+
+          <Route path="/login" exact component={Login} />
+          <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
+          <Route path="/logincheck" component={Spinner} />
+          <Route path="/modal" exact component={SignoutModal} />
+
+
           <Route path="/mydepth" exact component={MyDepth}/>
           <Route path="/levelhelp" exact component ={LevelHelp}/>
+
+
+          <Route path="/myreview" exact component={MyReview} />
+          <Route path="/MyReview" exact component={MyReview} />
+          <Route path="/notification" exact component ={Notification}/>
+          <Route path="/myfeed" exact component={MyFeed} />
+          <Route path="/myreviewfind" exact component={MyReviewFind} />
+          <Route path="/changename" exact component={ChangeName} />
+          <Route path="/myprofile" exact component={MyProfile} />
+          <Route path="/following" exact component={Follow}/>
+          <Route path="/follower" exact component={Follow}/>
+          <Route path="/changeprofileimg" component ={ChangeProfileImg}/>
+          <Route path="/setting" exact component={Setting}/>
+
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}

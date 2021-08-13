@@ -21,7 +21,7 @@ const FollowUser = (props) => {
                         {nickname}
                     </Title>
                     <CancelButton>
-                        {location === "/follower" ? "취소" : "팔로우취소"}
+                        {location === "/follower" ? "삭제" : "팔로우취소"}
                     </CancelButton>
  
                 </Container>
