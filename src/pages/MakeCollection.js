@@ -254,6 +254,7 @@ align-items: center;
 display: flex;
 position: fixed;
 background: ${Color.mainColor};
+justify-content: space-between;
 `;
 const UploadForm = styled.form``;
 const Upload = styled.input`
@@ -267,7 +268,7 @@ const SubmitButton = styled.button`
   font-weight: bold;
   // float: right;
   // display: inline-block;
-  margin: 0 5px 0 0;
+  margin: 0 10px 0 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   border: none;
