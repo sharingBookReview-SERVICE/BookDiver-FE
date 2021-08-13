@@ -59,7 +59,7 @@ const ReviewDetail = (props) => {
   const params = useParams();
   const bookId = params.bookid;
   const reviewId = params.reviewid;
-
+  
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal)
   const is_editting = useSelector((state) => state.comment.edit_id);
@@ -188,9 +188,15 @@ const ReviewDetail = (props) => {
                 <ReactionBar>
                   {
                     myLike ?
-                    <Div><FavoriteIcon className={classes.like} />좋아요 {likes} 개</Div>
+                    <Div><FavoriteIcon className={classes.like}   
+                    onClick={() => {
+                      clickLikeButton();
+                    }}/>좋아요 {likes} 개</Div>
                     :
-                    <Div><FavoriteBorderIcon className={classes.like} />좋아요 {likes} 개</Div>
+                    <Div><FavoriteBorderIcon className={classes.like} 
+                    onClick={() => {
+                      clickLikeButton();
+                    }} />좋아요 {likes} 개</Div>
                   }
                   
                    <Hr></Hr>
