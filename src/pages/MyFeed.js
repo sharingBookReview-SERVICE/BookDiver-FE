@@ -38,6 +38,7 @@ const MyFeed = () => {
     const follower = useSelector(state => state.user.user.followerCount);
     const my_feed = useSelector(state=> state.user.my_feed);
     const my_reviews = my_feed.reviews;
+    const my_collections = my_feed.collections;
     const classes = useStyles()
 
     const goToFollowing = () => {
@@ -78,7 +79,7 @@ const MyFeed = () => {
                           <DetailBox>
                             <UserTitle>{titles[profileImg]}</UserTitle>
                             <UserName>{nickname}</UserName>
-                            <PostCount>작성한 에세이 12개 | 만든 컬렉션 20개</PostCount>
+                            <PostCount>작성한 에세이 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
                           </DetailBox>
                       </ProfileBox>
 
