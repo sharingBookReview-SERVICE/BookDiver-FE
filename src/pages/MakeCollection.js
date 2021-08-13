@@ -294,6 +294,7 @@ border: 1px solid black;
 box-sizing: border-box;
 margin-bottom: 16px;
 background: ${Color.mainColor};
+padding: 0px 10px;
 `;
 const ImageSelect = styled.div`
 width: 100%;
@@ -333,7 +334,8 @@ box-sizing: border-box;
 border-radius: 12px;
 background: ${Color.mainColor};
 margin-bottom: 16px;
-padding-top: 16px;
+padding: 10px;
+font-family: 'Noto Sans KR', sans-serif;
 `;
 const AddBookBox= styled.div`
 width: 100%;
