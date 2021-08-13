@@ -34,10 +34,13 @@ const MyDepth = (props) => {
     const is_open_treasure = useSelector(state => state.permit.is_modal)
     const is_treasure = useSelector(state => state.permit.is_treasure)
     const is_new_badge = useSelector(state => state.permit.new_badge)
-    const badgeCounts = useSelector(state => state.user.user.own_image.length)
+    const badgeCounts = useSelector(state => state.user.user.own_image?.length)
     const userBadges = useSelector(state => state.user.user.own_image)
-    console.log(badgeCounts)
- 
+
+
+    //이 값은 treasure를 확인하는 값을 가져왔을 때, 입력시켜준다. 
+    // dispatch(permitAction.isTreasure(false))
+
     const goBack=() => {
         history.goBack();
     }
@@ -47,15 +50,15 @@ const MyDepth = (props) => {
     }
 
     useEffect(() => {
-        dispatch(permitAction.showNav(false));
-        dispatch(permitAction.isPadding(false));
-        dispatch(permitAction.showTreasureModal(false))
+        dispatch(permitAction.showNav(false));  //네비게이션 없애기 
+        dispatch(permitAction.isPadding(false));  //패딩 값을 없애기 
+        dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기 
         return() => {
-            dispatch(permitAction.showNav(true));
-            dispatch(permitAction.isPadding(true));
-            dispatch(permitAction.showModal(false));
+            dispatch(permitAction.showNav(true)); //나가면서 네비게이션 보이게 하기 
+            dispatch(permitAction.isPadding(true)); //나가면서 패딩 돌려놓기 
+            dispatch(permitAction.showModal(false)); // 나가면서 모달 닫아 놓기 
         }
-    },[])
+    },[badgeCounts])
 
     
 
