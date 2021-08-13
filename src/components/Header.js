@@ -91,7 +91,7 @@ const SearchBarBox = styled.div`
 
 const SearchBar = styled.input`
   width: 100%;
-  height: 100%;
+  height: 48px;
   color: ${Color.mainColor};
   border: 1px solid ${Color.mainColor};
   border-radius: 12px;
