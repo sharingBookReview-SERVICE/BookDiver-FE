@@ -32,7 +32,7 @@ const CollectionDetail = (props) =>{
     const collection_detail = useSelector(state=> state.collection.collection_detail);
 
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
-
+    const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
     React.useEffect(()=>{
         dispatch(permitActions.showNav(false));
         dispatch(collectionActions.getCollectionDetailSV(collection_id))
@@ -47,7 +47,7 @@ const CollectionDetail = (props) =>{
             </Head>
                 <CollectionOutter>
                      <Overlay/>
-                    <Image url={image}>
+                    <Image url={image? image: defaultImg}>
                         <TitleBox>
                         <Title>{name}</Title>
                         <Nickname>{user?.nickname}</Nickname>
@@ -111,7 +111,7 @@ margin: 16px;
 const Image = styled.div`
 width: 100%;
 padding-top: 100%;
-background-image:URL( ${(props)=> (props.url)});
+background-image: url(${(props) => props.url});
 background-size: cover;
 border-radius: 12px 12px 0px 0px;
 `;

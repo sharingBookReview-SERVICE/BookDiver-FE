@@ -8,11 +8,18 @@ import Color from "../shared/Color";
 
 import { actionCreators as collectionActions } from "../redux/modules/collection";
 
+const defaultProps = {
+    book:{
+        image:"https://i.pinimg.com/564x/aa/1b/2d/aa1b2d3836d313f0e36ad341de810543.jpg",
+        title:"나는 착한 딸을 그만두기로 했다.",
+        author:"아사쿠라 마유미",
+    }
+}
 //책 카드 컴포넌트
  const CollectionBookCard = (props) =>{
     const dispatch = useDispatch();
 
-    const book = props.book? props.book :"";
+    const book = props.book? props.book : defaultProps.book;
     const book_descriptionSV = props.book_description? props.book_description : "";
 
     //책 추천 내용 저장하기 관련
@@ -23,15 +30,17 @@ import { actionCreators as collectionActions } from "../redux/modules/collection
         book_description: book_description,
     }
 
+  
+
     //collection detail에서 보는 페이지
     if(props.is_collection_detail){
         return(
             <BookInfoWrapper>
                 <BookInfoBox>
-                    <BookImg url={book.image}/>
+                    <BookImg url={book?.image}/>
                     <BookDescBox>
-                    <BookTitle >{book.title}</BookTitle>
-                        <BookWriter>{book.author} 저</BookWriter>
+                    <BookTitle >{book?.title}</BookTitle>
+                        <BookWriter>{book?.author} 저</BookWriter>
                     </BookDescBox>
                 </BookInfoBox>
                 <Recommend 
@@ -66,6 +75,7 @@ import { actionCreators as collectionActions } from "../redux/modules/collection
     }
     
 }
+
 
 
 //BookCard
