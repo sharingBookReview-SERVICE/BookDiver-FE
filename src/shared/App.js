@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { Route } from "react-router-dom";
@@ -46,15 +46,28 @@ function App(props) {
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const is_padding = useSelector(state => state.permit.is_padding)
-  const is_treasure = useSelector(state => state.permit.is_show)
+  const is_treasure = useSelector(state => state.permit.is_treasure_modal)
+  const userId = useSelector(state => state.user.user.id)
+  const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
+  
+
   
   
   React.useEffect(() => {
     if (user) {
       dispatch(userActions.loginCheck());
       dispatch(userActions.isMe());
+      // getUserInfo()
     }
-  }, [user]);
+    if (userId) {
+      getUserInfo()
+    }
+  }, [user, userId]);
+
+
+
+
+
 
   return (
     <React.Fragment>
@@ -88,6 +101,7 @@ function App(props) {
           <Route path="/levelhelp" exact component ={LevelHelp}/>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
+        {is_treasure && <TreasureModal/>}
       </Container>
     </React.Fragment>
   );

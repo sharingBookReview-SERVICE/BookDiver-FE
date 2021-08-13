@@ -3,6 +3,7 @@ import { produce } from "immer";
 import instance from "../../shared/Request";
 import { history } from "../configStore";
 
+
   
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
@@ -147,20 +148,19 @@ const getDetailReviewSV = (bookId, reviewId) => {
 };
 
 //라이크 버튼
-    const LikeSV = (bookId, reviewId) => {
+const LikeSV = (bookId, reviewId) => {
 
-        return function (dispatch) {
-            instance
-                .put(`/books/${bookId}/reviews/${reviewId}/likes`)
-                .then((res) => {
-                    console.log(res.data);
-                    dispatch(like(reviewId));
-                })
-                .catch((err) => {
-                    console.log("좋아요 실패", err);
-                });
-        };
+    return function (dispatch) {
+        instance
+            .put(`/books/${bookId}/reviews/${reviewId}/likes`)
+            .then((res) => {
+                dispatch(like(reviewId));
+            })
+            .catch((err) => {
+                console.log("좋아요 실패", err);
+            });
     };
+};
 
 
 //해당 책의 리뷰 가져오기

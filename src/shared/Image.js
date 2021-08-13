@@ -54,8 +54,6 @@ const level30 = [image_8, image_9, image_10]
 const level40 = [image_11, image_12, image_13]
 const level50 = [image_14, image_15, image_16]
 
-const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
-console.log(getRandom(0, 3));
 
 const images = {
     image_1,

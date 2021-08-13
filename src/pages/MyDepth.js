@@ -33,6 +33,7 @@ const MyDepth = (props) => {
     const classes = useStyles();
     const is_open_treasure = useSelector(state => state.permit.is_modal)
     const is_treasure = useSelector(state => state.permit.is_treasure)
+    const is_new_badge = useSelector(state => state.permit.new_badge)
  
     const goBack=() => {
         history.goBack();
@@ -45,6 +46,7 @@ const MyDepth = (props) => {
     useEffect(() => {
         dispatch(permitAction.showNav(false));
         dispatch(permitAction.isPadding(false));
+        dispatch(permitAction.showTreasureModal(false))
         return() => {
             dispatch(permitAction.showNav(true));
             dispatch(permitAction.isPadding(true));
@@ -60,7 +62,7 @@ const MyDepth = (props) => {
     <React.Fragment>
         <Wrapper>
             <Image src={Background}/>
-            <Header onClick={() => {openTreasure()}}>
+            <Header>
 
                 <ArrowBackIcon 
                 onClick={() => {
@@ -82,8 +84,9 @@ const MyDepth = (props) => {
 
 
         </Wrapper>
-        {!is_treasure && <Treasure src={treasure}/>}        
-        {is_open_treasure && <TreasureBoxModal/>}
+        <NewBadge src={images.level10[1]}/>
+        {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}        
+        {is_open_treasure && <TreasureBoxModal />}
     </React.Fragment>
   );
 };
@@ -138,7 +141,7 @@ left:34vw;
 const Image = styled.img`
 width:auto;
 height:auto;
-max-width:100%;
+max-width:99%;
 max-height:100%;
 opacity:0;
 `
@@ -168,4 +171,14 @@ z-index:10;
 const HeaderText = styled.div`
 font-size:16px;
 color:${Color.white};
+`
+
+const NewBadge = styled.img`
+width:auto;
+height:auto;
+max-width:50vw;
+max-height:50vh;
+position:fixed;
+bottom:15vh;
+left:36vw;
 `

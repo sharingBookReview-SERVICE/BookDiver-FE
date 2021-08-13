@@ -2,14 +2,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
-import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
 import Color from "../shared/Color";
+
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const TreasureBoxModal = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
+  const userLevel = useSelector(state => state.user.user.level)
  
 
 
@@ -18,13 +20,14 @@ const TreasureBoxModal = (props) =>{
        
          <Container>
             <Text>
-            10m 보물상자를 여시겠어요? 
+            {userLevel}m 보물상자를 여시겠어요? 
             </Text>
             
             <BtnBox>
                 <Hr/>
                 <Btn onClick={()=>{
                 dispatch(permitActions.showModal(false))
+                dispatch(userActions.getTreasureSV())
                 }}>열기</Btn>
             </BtnBox>
          </Container>
