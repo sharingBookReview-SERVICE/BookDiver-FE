@@ -81,14 +81,13 @@ export const BookCard = (props) =>{
                 </BookDescBox>
             </BookInfoBox>
             <Recommend 
-            placeholder="책 마다 추천이유를 적어보세요(엔터치기)"
+            placeholder="책 마다 추천이유를 적어보세요(최대30자)"
             maxLength="30"
             onChange={(e)=>{setBookDescription(e.target.value)}}
-            onKeyPress ={(e)=>{
-                if(e.key === "Enter"){
-                    dispatch(collectionActions.addCollection_content(content))
-                }
+            onBlur={(e) => {
+                dispatch(collectionActions.addCollection_content(content))
               }}
+           
             >
             </Recommend>
         </BookInfoWrapper>
@@ -113,6 +112,7 @@ const MakeCollection = (props) =>{
 
     useEffect(()=>{
         dispatch(collectionActions.isMakeCollection(true));
+        dispatch(permitActions.bookSelect(false));
         return ()=>{
             dispatch(collectionActions.resetSelected())
             dispatch(uploadActions.showPreview(false));

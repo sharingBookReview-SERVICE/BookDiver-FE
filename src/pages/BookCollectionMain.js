@@ -17,6 +17,7 @@ import Color from "../shared/Color";
 
 //action
 import collection, { actionCreators as collectionActions } from "../redux/modules/collection";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -32,6 +33,7 @@ const BookCollectionMain = (props) =>{
     const custom_collection_list = useSelector(state=> state.collection.custom_collection_list);
 
     React.useEffect(()=>{
+        dispatch(permitActions.showNav(true))
         dispatch(collectionActions.getTagCollectionsSV());
         dispatch(collectionActions.getCustomCollectionsSV());
     },[])

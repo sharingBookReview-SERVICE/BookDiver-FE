@@ -153,11 +153,26 @@ export default handleActions(
         }),
         [ADD_COLLECTION_CONTENTS]:(state, action)=>
         produce(state, (draft)=>{
-          draft.collection_contents.push(action.payload.collection);
+          //아무것도 없으면 그냥 push
+          if(draft.collection_contents.length===0){
+            draft.collection_contents.push(action.payload.collection);
+          }
+          //뭐라도 있으면 edit
+          else{
+            let idx = draft.collection_contents.findIndex(
+              (l) => l.isbn === action.payload.collection.isbn
+              );
+              if(idx>-1){
+                draft.collection_contents[idx] = action.payload.collection;
+              }
+              else{
+                draft.collection_contents.push(action.payload.collection);
+              }
+             
+          }
+         
         }),
 
- 
- 
     },
     initialState
   );
