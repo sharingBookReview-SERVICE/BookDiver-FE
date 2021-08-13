@@ -7,16 +7,20 @@ import {images} from "../shared/Image"
 import {titles} from "../shared/Titles"
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
+import {history} from "../redux/configStore";
 
 const OwnImages = (props) => {
     const dispatch = useDispatch();
+    const {image, level} = props
 
     const changeProfile = (image) => {
         dispatch(userActions.changeProfileSV(image))    
     }
 
-    const {image, level} = props
-    
+    const goBack = () => {
+        history.goBack();
+    }
+
     return(
         <React.Fragment>
             <Box>
@@ -32,7 +36,10 @@ const OwnImages = (props) => {
                             {titles[image]}
                         </Title>
                     </InfoBox>
-                    <CancelButton onClick={() => {changeProfile(image)}}>
+                    <CancelButton 
+                    onClick={() => {
+                        changeProfile(image);
+                        goBack();}}>
                         선택
                     </CancelButton>
  
