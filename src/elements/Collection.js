@@ -5,25 +5,27 @@ import { history } from "../redux/configStore";
 
 const Collection = (props) =>{
     return (
-        <Outter onClick={()=>{history.push('/collectiondetail')}}>
-            <Image>
-                <Overlay>
-                <CollectionTitle>
-                    카페에서 가볍게 읽는 자기계발 에세이 모음
-                </CollectionTitle>
-                </Overlay>
-            </Image>
-        </Outter>
+        <Outter onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}>
+        <Image url = {props.image}>
+            <Overlay>
+            <CollectionTitle>{props.is_tag? `#${props.name}`: `${props.name}`}</CollectionTitle>
+            </Overlay>
+        </Image>
+    </Outter>
     )
 }
 
-export default Collection;
+Collection.defaultProps ={
+    image:"https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg"
+}
+
+
 
 const Outter = styled.div`
 `;
 const Overlay = styled.div`
-width: 160px;
-height: 160px;
+width: 180px;
+height: 180px;
 border-radius: 12px;
 background: ${Color.overlay};
 // position: absolute;
@@ -32,10 +34,10 @@ justify-content:center;
 align-items:center;
 `
 const Image = styled.div`
-width: 160px;
-height: 160px;
+width: 180px;
+height: 180px;
 border-radius: 12px;
-background-image:URL(https://i.pinimg.com/564x/1d/56/07/1d5607356a13ae7f8eb493bc2510dbf9.jpg);
+background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 `;
 const CollectionTitle = styled.p`
@@ -48,3 +50,6 @@ text-align:center;
 // left: 2.5%;
 // width: 80%;
 `;
+
+
+export default Collection;
