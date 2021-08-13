@@ -15,6 +15,9 @@ const Comment = (props) =>{
     const editId = useSelector(state => state.comment.edit_id)
     const commentId = props._id
     const [editContent, setEditContent] = useState("");
+    
+    const comment_writer = props.user.id;
+    const my_id = useSelector(state=> state.user.user.id);
 
     const getCommentId = () => {
         dispatch(commentActions.getCommentId(commentId))
@@ -85,11 +88,15 @@ const Comment = (props) =>{
                     </UserLeftBox>
 
                     <UserRightBox>
-                        <MoreHorizIcon 
-                        style={{color: "#9e9e9e"}} 
-                        onClick = {() => {
-                            showCommentModal()
-                        }}/>
+                        {
+                            (comment_writer === my_id) &&
+                            <MoreHorizIcon 
+                            style={{color: "#9e9e9e"}} 
+                            onClick = {() => {
+                                showCommentModal()
+                            }}/>
+                        }
+                       
                     </UserRightBox>
                 </CommentUserBox>
 
