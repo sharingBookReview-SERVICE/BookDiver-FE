@@ -62,7 +62,7 @@ function App(props) {
     if (userId) {
       getUserInfo()
     }
-  }, [user, userId]);
+  }, [user]);
 
 
 

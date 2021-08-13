@@ -57,8 +57,8 @@ const Navigation = (props) => {
   const toMyReviewFeed = () => {
     history.push("/myfeed");
   };
-  const toMyProfile = () => {
-    history.push("/myprofile");
+  const toSetting = () => {
+    history.push("/setting");
   };
 
   return (
@@ -108,7 +108,7 @@ const Navigation = (props) => {
         className={classes.button}
         icon={<PersonIcon className={classes.icon} />}
         onClick={() => {
-          is_login ? toMyProfile() : toLogin();
+          is_login ? toSetting() : toLogin();
         }}
       />
     </BottomNavigation>
