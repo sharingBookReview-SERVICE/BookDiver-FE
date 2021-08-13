@@ -66,7 +66,6 @@ export const BookCard = (props) =>{
     const dispatch = useDispatch();
     const [book_description, setBookDescription] = useState("");
     const bookTitle = props.title?.split("(")[0]
-    console.log(props.isbn)
     const content = {
         isbn: props.isbn,
         book_description: book_description,

@@ -102,7 +102,6 @@ const addCollectionSV = (formData)=>{
       },
   })
   .then((res)=>{
-    console.log(res.data)
     dispatch(addCollection(res.data))
     history.push('/bookCollectionMain')
   })
@@ -149,7 +148,7 @@ export default handleActions(
         }),
         [ADD_COLLECTION]:(state, action)=>
         produce(state, (draft)=>{
-          draft.custom_collection_list?.unshift(action.payload.collection);
+          draft.custom_collection_list.unshift(action.payload.collection);
         }),
         [ADD_COLLECTION_CONTENTS]:(state, action)=>
         produce(state, (draft)=>{
