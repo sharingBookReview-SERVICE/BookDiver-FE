@@ -62,7 +62,7 @@ const AddBook = (props) =>{
 }
 
 //책 카드 컴포넌트
-const BookCard = (props) =>{
+export const BookCard = (props) =>{
     const dispatch = useDispatch();
     const [book_description, setBookDescription] = useState("");
     const bookTitle = props.title?.split("(")[0]
