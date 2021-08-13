@@ -3,16 +3,17 @@ import styled from "styled-components";
 import Color from "../shared/Color";
 
 import example from "../img/alfons-morales-YLSwjSy7stw-unsplash.jpg"
+import {images} from "../shared/Image"
 
 
 const FollowUser = (props) => {
 
-    const {location, nickname} = props
+    const {location, nickname, profileImage} = props
 
     return(
         <React.Fragment>
             <Box>
-                <Image url={example}>
+                <Image url={images[profileImage]}>
 
                 </Image>
                 <Container>

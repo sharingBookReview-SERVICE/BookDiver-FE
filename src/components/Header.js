@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
+import logo from "../img/로고.png"
 
 const useStyles = makeStyles((theme) => ({
   searchIcon: {
@@ -23,7 +24,7 @@ const Header = (props) => {
       <Wrapper>
       <HeaderPadding></HeaderPadding>
       <HeaderBox>
-        <LogoBox></LogoBox>
+        <LogoBox><Logo src={logo}/></LogoBox>
 
         <SearchBarBox>
           <SearchIcon className={classes.searchIcon} />
@@ -51,7 +52,7 @@ const HeaderPadding = styled.div`
 `;
 
 const HeaderBox = styled.div`
-  height: 72px;
+  height: 12vh;
   width: 100%;
   display: grid;
   flex-direction: row;
@@ -67,13 +68,14 @@ const LogoBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px 0px 0px 12px;
+  padding: 0px 0px 0px 25px;
 `;
 
-const Logo = styled.div`
-  font-size: 33px;
-  font-weight: 800;
-  color: #1168d7;
+const Logo = styled.img`
+width:auto;
+height:auto;
+max-width:30vw;
+max-height:30vh;
 `;
 
 const SearchBarBox = styled.div`

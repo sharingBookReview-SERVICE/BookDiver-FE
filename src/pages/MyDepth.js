@@ -15,6 +15,7 @@ import person from "../img/person.png"
 import ameba from "../img/꿈꾸는 아메바-120px.svg"
 import whiteFish from "../img/귀여운 흰동가리-120px.svg"
 import TreasureBoxModal from "../modals/TreasureBoxModal"
+import treasure from "../img/보물상자.png"
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as permitAction } from "../redux/modules/permit";
@@ -31,6 +32,7 @@ const MyDepth = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
     const is_open_treasure = useSelector(state => state.permit.is_modal)
+    const is_treasure = useSelector(state => state.permit.is_treasure)
  
     const goBack=() => {
         history.goBack();
@@ -71,12 +73,16 @@ const MyDepth = (props) => {
             </Header>
 
             <Badge src={ameba} top={"10vh"} left={"10vw"} />
-            <Badge src={whiteFish} top={"70vh"} left={"60vw"}/>
+            <Badge src={images.level10[2]} top={"60vh"} left={"60vw"}/>
+            <Badge src={images.level20[1]} top={"120vh"} left={"20vw"}/>
+            <Badge src={images.level30[0]} top={"180vh"} left={"30vw"}/>
+            <Badge src={images.level40[1]} top={"240vh"} left={"10vw"}/>
+            <Badge src={images.level50[1]} top={"300vh"} left={"60vw"}/>
             <Person src={person}/>
 
 
         </Wrapper>
-
+        {!is_treasure && <Treasure src={treasure}/>}        
         {is_open_treasure && <TreasureBoxModal/>}
     </React.Fragment>
   );
@@ -89,13 +95,24 @@ width:100vw;
 height:auto;
 display:flex;
 background: ${Color.black};
-// box-sizing:border-box;
+box-sizing:border-box;
 flex-direction:column;
 align-items:center;
 justify-content:flex-start;
 padding:80px 0px 0px 0px;
 background-image:url(${Background});
-background-size:contain;
+background-size: contain;
+background-repeat: no-repeat;
+`
+
+const Treasure = styled.img`
+width:auto;
+height:auto;
+max-width:40vw;
+max-height:40vh;
+position:fixed;
+bottom:3vh;
+left:30vw;
 `
 
 const Badge = styled.img`

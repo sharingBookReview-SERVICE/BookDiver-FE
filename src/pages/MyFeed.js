@@ -10,9 +10,25 @@ import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookm
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import {history} from "../redux/configStore";
 import {useSelector} from "react-redux";
+import {images} from "../shared/Image"
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  search: {
+    width: "18px",
+    position: "absolute",
+    left: "10px",
+    color: "#f5f2f0",
+    marginLeft: "9%"
+  },
+}));
+
 
 const MyFeed = () => {
     const nickname = useSelector(state => state.user.user.nickname);
+    const profileImg = useSelector(state => state.user.user.profileImage)
+    const classes = useStyles()
 
     const goToFollowing = () => {
       history.push("/following")
@@ -22,33 +38,35 @@ const MyFeed = () => {
       history.push("/follower")
     }
 
+
+    const goToMyDepth = () => {
+      history.push("/mydepth")
+    }
+
+
     return (
         <React.Fragment>
-            <Header>
-                <SearchBarBox>
-                    <SearchIcon
-                        style={{
-                            width: "18px",
-                            position: "absolute",
-                            left: "10px",
-                            color: "#f5f2f0",
-                            marginLeft: "9%"
-                        }}/>
-                    <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
-                </SearchBarBox>
-            </Header>
-            <Background>
+          <Container>
                 <UserBox>
+
+                  <SearchBox>
+                    <SearchIcon className={classes.search}/>
+                    <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
+                  </SearchBox>
+
+                  <Wrapper>
                     <ProfileBox>
-                        <ImageBox>
-                            <ProfileImg></ProfileImg>
-                        </ImageBox>
-                        <UserInfo>
-                            <UserTitle>'천재적인 돌고래 다이버'</UserTitle>
-                            <Name>{nickname}</Name>
-                            <Activity>작성한 에세이 12개 | 작성한 댓글 9개</Activity>
-                        </UserInfo>
-                    </ProfileBox>
+                          <ImgWrapper>
+                            <ProfileImg src={images[profileImg]} />
+                          </ImgWrapper>
+
+                          <DetailBox>
+                            <UserTitle>'천재적인 범고래 다이버'</UserTitle>
+                            <UserName>{nickname}</UserName>
+                            <PostCount>작성한 에세이 12개 | 만든 컬렉션 20개</PostCount>
+                          </DetailBox>
+                      </ProfileBox>
+
                     <MyActivityBox>
                         <MyActivity>
                             <CollectionsBookmarkOutlinedIcon
@@ -68,51 +86,49 @@ const MyFeed = () => {
                             <Text style={{marginTop: "4px"}}>팔로잉</Text>
                         </MyActivity>
                     </MyActivityBox>
-                    <FollowBox>
-                        <FollowButton>팔로우</FollowButton>
-                        <RankDetailButton>‘수심 0m 잠수 중’</RankDetailButton>
-                    </FollowBox>
+
+                    <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 0m 잠수 중' 자세히보기</LevelDetail> 
+                  </Wrapper>
                 </UserBox>
 
 
-            </Background>
             <FeedMain>
                 <FeedCard/>
                 <FeedCard/>
                 <FeedCard/>
-
-                <FeedCard/>
-                <FeedCard/>
-                <FeedCard/>
-                <FeedCard/>
-                <FeedCard/>
-                <FeedCard/>
-                <FeedCard/>
             </FeedMain>
+
+        </Container>
         </React.Fragment>
     )
 }
 
 export default MyFeed;
 
-const Header = styled.div`
-  width: 100%;
-  height: 92px;
-  background-color: ${Color.fontBlack}
-`;
+const Container = styled.div`
+width:100vw;
+height:auto;
+`
 
-const SearchBarBox = styled.div`
-  width: 100%;
-  margin: 32px auto 32px auto;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${Color.fontBlack}
-`;
+const Wrapper = styled.div`
+height:70%;
+width:100%;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+
+`
+
+const SearchBox = styled.div`
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
 
 const SearchBar = styled.input`
-  width: 80%;
+  width: 100%;
   height: 45px;
   border: 1px solid ${Color.fontGray};
   border-radius: 12px;
@@ -132,81 +148,78 @@ const SearchBar = styled.input`
   }
 `;
 
-const Background = styled.div`
-  width: 100%;
-  height: 278px;
-  border: none;
-  margin-top: -2px;
-  background-color: ${Color.fontBlack};
-`;
+
 const UserBox = styled.div`
   width: 100%;
-  height: 320px;
-
+  height: 45vh;
+  background:${Color.black};
+  padding:20px 20px 30px 20px;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
 `
+
 const ProfileBox = styled.div`
-  width: 80%;
-  height: auto;
-  margin: 20px auto 0 22px;
-
-`;
-
-
-const ImageBox = styled.div`
-  width: 100%;
-  height: 60px;
-  display: inline-block;
-  margin-top: 28px;
-`;
-
-const UserInfo = styled.div`
-  float: right;
-  width: 100%;
-  margin: -28.6% 0 0 0;
-
+height:auto;
+width:100%;
+display:flex;
+justify-content:flex-start;
+box-sizing:border-box;
+margin-top:20px;
 `
 
-const ProfileImg = styled.div`
-  width: 56px;
-  height: 56px;
-  border-radius: 72px;
-  background: tomato;
-  float: left;
-  margin-top: -4%;
+const ImgWrapper = styled.div`
+width:72px;
+height:72px;
+border-radius:70%;
+overflow:hidden;
+box-sizing:border-box;
+border: 1px solid ${Color.secondColor};
+`
+
+
+const ProfileImg = styled.img`
+width: 100%;
+height: 100%;
+object-fit:cover;
 `;
 
-const UserTitle = styled.p`
-  margin: 5px 5px 5px 4.5em;
-  color: ${Color.white};
-  font-family: 'Noto Serif KR', serif;
-  font-size: 14px;
-`;
+const UserTitle = styled.div`
+width:100%;
+height:auto;
+color:${Color.white};
+font-family: "Noto Serif KR", serif;
+`
 
-const Name = styled.p`
-  margin: -5px 5px 5px 4.5em;
-  color: ${Color.white};
-  font-family: 'Noto Serif KR', serif;
-  font-size: 14px;
-`;
+const DetailBox = styled.div`
+box-sizing:border-box;
+width:80%;
+height:auto;
+margin-left:10px;
+`
 
-const Activity = styled.p`
-  width: 100%;
-  color: ${Color.fontGray};
-  margin: 8px 5px 5px 4.5em;
-  font-size: 14px;
-  font-family: 'Noto Sans KR', sans-serif;
+const UserName = styled.div`
+width:100%;
+height:auto;
+color:${Color.white};
+font-family: "Noto Serif KR", serif;
+`
 
-`;
+const PostCount = styled.div`
+width:100%;
+height:auto;
+color:${Color.fontGray}
+`
 
 const MyActivityBox = styled.div`
-  width: 88%;
+  width: 100%;
   height: 68px;
   border-radius: 12px;
   display: flex;
   margin: 10px auto;
   border: 1px solid ${Color.fontGray};
-
-
 `;
 
 const MyActivity = styled.div`
@@ -225,35 +238,8 @@ const Text = styled.p`
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
 `;
-const FollowBox = styled.div`
 
-`;
 
-const FollowButton = styled.button`
-  width: 41%;
-  height: 36px;
-  background-color: ${Color.white};
-  border: none;
-  border-radius: 12px;
-  color: ${Color.fontBlack};
-  font-family: 'Noto Sans KR', sans-serif;
-  margin: 6px auto 0px 6%;
-  font-weight: 600;
-  font-size: 14px;
-`;
-
-const RankDetailButton = styled.button`
-  width: 41%;
-  height: 36px;
-  background-color: ${Color.fontBlack};
-  border: 1px solid ${Color.fontGray};
-  border-radius: 12px;
-  color: ${Color.white};
-  font-family: 'Noto Sans KR', sans-serif;
-  margin: 6px auto 0px 6%;
-  font-size: 14px;
-  font-weight: 200;
-`;
 
 const FeedMain = styled.div`
   width: 100%;
@@ -266,6 +252,18 @@ const FeedMain = styled.div`
   grid-template-columns: 33.33% 33.33% 33.33%;
   grid-auto-rows: 125px;
 `;
+
+const LevelDetail = styled.div`
+width:100%;
+height:36px;
+border-radius:13px;
+display:flex;
+justify-content:center;
+align-items:center;
+box-sizing:border-box;
+background:${Color.gray};
+color:${Color.white};
+`
 
 
 

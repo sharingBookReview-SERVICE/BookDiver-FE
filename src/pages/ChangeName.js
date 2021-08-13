@@ -9,6 +9,8 @@ import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 
+import {images} from "../shared/Image"
+
 const useStyles = makeStyles((theme) => ({
   goback: {
       padding: "10px"
@@ -35,7 +37,7 @@ const ChangeName = (props) =>{
                     <ProfileBox>
     
                         <ImageBox>
-                            <ProfileImg></ProfileImg>
+                            <ProfileImg url={images.level1}></ProfileImg>
                              <Input
                                onChange={(e)=>{
                                 setNickName(e.target.value);
@@ -62,15 +64,16 @@ height: 100%;
 justify-content: top;
 align-items: top;
 background: ${Color.mainColor};
-
 `;
+
 const HeadBar = styled.div`
-width: 360px;
+width: 100%;
 height: 56px;
-margin: 0 0 4px;
+padding:0px 15px;
 display: flex;
 justify-content: space-between;
 align-items: center;
+box-sizing:border-box;
 `;
 const HeadBtn = styled.p`
 padding: 0px 5px;
@@ -103,7 +106,7 @@ height: 100px;
 border-radius: 72px;
 background: tomato;
 margin: 10px;
-background-image:URL(https://i.pinimg.com/564x/d1/87/71/d18771205132c86d030e6ebedcc2ba9f.jpg);
+background-image:URL(${(props) => props.url});
 background-size: cover;
 `;
 

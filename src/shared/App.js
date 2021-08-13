@@ -35,7 +35,7 @@ import MyFeed from "../pages/MyFeed";
 import CollectionList from "../pages/CollectionList"
 import Follow from "../pages/Follow"
 import MyDepth from "../pages/MyDepth";
-import { useParams } from 'react-router';
+import TreasureModal from "../modals/TreasureModal";
 
 
 function App(props) {
@@ -46,6 +46,7 @@ function App(props) {
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const is_padding = useSelector(state => state.permit.is_padding)
+  const is_treasure = useSelector(state => state.permit.is_show)
   
   
   React.useEffect(() => {
