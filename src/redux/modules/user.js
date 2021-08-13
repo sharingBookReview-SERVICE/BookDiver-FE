@@ -137,11 +137,11 @@ const getUserReviewSV = (id)=>{
 }
 
 const followSV = (id) => {
-  console.log("팔로우를 하겠습니다",id)
+
   return function(dispatch, getState, {history}){
     instance.put(`follow/${id}`)
     .then((res)=>{
-
+      console.log(res)
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)

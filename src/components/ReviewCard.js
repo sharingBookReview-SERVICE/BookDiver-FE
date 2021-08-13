@@ -70,9 +70,7 @@ const ReviewCard = (props) => {
   }
 
   const follow = () => {
-    // console.log("팔로우 함수 실행")
-    // dispatch(userActions.followSV(user.id))
-     dispatch(userActions.getFollowerListSV())
+    dispatch(userActions.followSV(user.id))
   }
 
   return (

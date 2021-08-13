@@ -28,6 +28,10 @@ const Home = (props) => {
   useEffect(() => {
     dispatch(permitAction.showNav(true));
     dispatch(reviewActions.getAllReviewSV());
+
+    return() => {
+    dispatch(permitAction.showEditModal(false));
+    }
   }, []);
 
   useEffect(() => {
