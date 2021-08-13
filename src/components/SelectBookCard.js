@@ -34,11 +34,13 @@ const SelectBookCard = (props) =>{
   const reviewDetailInfo = useSelector(state=> state.review.review_detail);
   
   
-  if(is_reviewDetail){
+  if(is_reviewDetail || is_editReviewPage){
     return(
       <BookInfoWrapper onClick={()=>{
+        is_reviewDetail ?
         history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
-        
+        :
+        window.alert("책은 수정할 수 없습니다")
       }}>
         <BookInfoBox>
           <BookImg url={image}/>
@@ -50,19 +52,7 @@ const SelectBookCard = (props) =>{
       </BookInfoWrapper>
     )
   }
-  if(is_editReviewPage){
-    return(
-      <BookInfoWrapper>
-        <BookInfoBox>
-          <BookImg url={image}/>
-          <BookDescBox>
-          <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
-              <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
-          </BookDescBox>
-        </BookInfoBox>
-      </BookInfoWrapper>
-    )
-  }
+
 
     // book detail 에서 보는 화면 
   if(is_book_detail){
