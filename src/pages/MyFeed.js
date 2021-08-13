@@ -4,7 +4,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import ListIcon from '@material-ui/icons/List';
 
 //확인용
-import FeedCard from "../components/FeedCard";
 import Color from "../shared/Color";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
@@ -98,9 +97,7 @@ const MyFeed = () => {
 
 
             <FeedMain>
-                <FeedCard/>
-                <FeedCard/>
-                <FeedCard/>
+              
             </FeedMain>
 
         </Container>

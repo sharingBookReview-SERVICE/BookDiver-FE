@@ -55,7 +55,7 @@ const BookCollectionMain = (props) =>{
                  </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={-20}
+                spaceBetween={50}
                 slidesPerView={2}
                 >
                 {
@@ -76,7 +76,7 @@ const BookCollectionMain = (props) =>{
             </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={-20}
+                spaceBetween={50}
                 slidesPerView={2}
                 >
                {

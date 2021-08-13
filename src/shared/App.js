@@ -86,7 +86,7 @@ function App(props) {
 
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
           <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
-          <Route path="/collectionlist" exact component={CollectionList}/>
+          <Route path="/collectionlist/:type" exact component={CollectionList}/>
           <Route path="/makeCollection" exact component ={MakeCollection}/>
 
 
@@ -101,18 +101,11 @@ function App(props) {
 
 
           <Route path="/myreview" exact component={MyReview} />
-          <Route path="/MyReview" exact component={MyReview} />
           <Route path="/notification" exact component ={Notification}/>
           <Route path="/myfeed" exact component={MyFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
-          <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
-          <Route path="/logincheck" component={Spinner} />
-          <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
-          <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
-          <Route path="/setting" exact component={Setting}/>
-          <Route path="/collectionlist/:type" exact component={CollectionList}/>
-          <Route path="/notification" exact component ={Notification}/>
-          <Route path="/makeCollection" exact component ={MakeCollection}/>
+
+
           <Route path="/changename" exact component={ChangeName} />
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/following" exact component={Follow}/>
