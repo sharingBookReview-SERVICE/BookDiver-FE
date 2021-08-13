@@ -2,14 +2,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Color from "../shared/Color";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as permitActions } from "../redux/modules/permit";
+import { KAKAO_AUTH_URL} from "../shared/OAuth";
+import {Link} from 'react-router-dom'
 
 
 const LoginModal = (props) =>{
-  //dispatch와 변수들
+  const dispatch = useDispatch()
 
-//useEffect
-React.useEffect(()=>{
-},[]);
+const closeModal = () => {
+  dispatch(permitActions.showLoginModal(false))
+}
 
 
 
@@ -21,15 +25,15 @@ React.useEffect(()=>{
          <Container>
          
            <Btns>
-            <LoginText>리뷰작성을 위해선 로그인이 필요합니다.</LoginText>
-            <KakaoBtn>카카오톡으로 시작하기</KakaoBtn>
+            <LoginText>해당 서비스를 위해서는 로그인이 필요합니다.</LoginText>
+            <KakaoBtn href={KAKAO_AUTH_URL}>카카오톡으로 시작하기</KakaoBtn>
             <GoogleBtn>구글로 시작하기</GoogleBtn>
-            <CancelBtn>다음에 할게요</CancelBtn>
+            <CancelBtn onClick={() => {closeModal()}}>다음에 할게요</CancelBtn>
            </Btns>
           
          </Container>
        
-         <Overlay>
+         <Overlay onClick={() => {closeModal()}}>
 
          </Overlay>
         </React.Fragment>
@@ -49,9 +53,9 @@ const Overlay = styled.div`
 
 const Container = styled.div`
 width: 85%;
-position:absolute;
+position:fixed;
 left: 7%;
-top: 28%;
+top: 32%;
 border-radius: 12px;
 display:flex;
 justify-content: center;
@@ -80,7 +84,7 @@ justify-content:center;
 align-items:center;
 `;
 
-const KakaoBtn = styled.div`
+const KakaoBtn = styled.a`
 width: 90%;
 height: 48px;
 text-align: center;
@@ -89,6 +93,8 @@ border-radius: 12px;
 background-color: #f9e57e;
 font-weight: bold;
 margin:0px;
+text-decoration:none;
+color:${Color.black};
 `;
 
 const GoogleBtn = styled.div`

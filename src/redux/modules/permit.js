@@ -11,6 +11,7 @@ const IS_PADDING = "permit/IS_PADDING"
 const IS_TREASURE = "permit/IS_TREASURE"
 const SHOW_TREASURE_MODAL = "permit/SHOW_TREASURE_MODAL"
 const SHOW_NEW_BADGE = "permit/SHOW_NEW_BADGE"
+const SHOW_LOGIN_MODAL = "permit/SHOW_LOGIN_MODAL"
 
 
 //actioncreator
@@ -23,6 +24,7 @@ const isPadding = createAction(IS_PADDING, (is_padding) => ({is_padding}));
 const isTreasure = createAction(IS_TREASURE, (is_treasure) => ({is_treasure}))
 const showTreasureModal = createAction(SHOW_TREASURE_MODAL, (is_treasure) => ({is_treasure}))
 const showNewBadge = createAction(SHOW_NEW_BADGE, (new_badge) => ({new_badge}))
+const showLoginModal = createAction(SHOW_LOGIN_MODAL, (show_login) => ({show_login}))
 
 
 //initial
@@ -36,6 +38,7 @@ const initialState = {
     is_treasure: false,
     is_treasure_modal: false, 
     new_badge: null,
+    show_login:false,
 };
 
 
@@ -78,6 +81,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.new_badge = action.payload.new_badge;
         }),
+        [SHOW_LOGIN_MODAL] : (state, action) => 
+        produce(state, (draft) => {
+          draft.show_login = action.payload.show_login;
+        }),
     },
     initialState
   );
@@ -93,6 +100,7 @@ const actionCreators = {
     isTreasure,
     showTreasureModal,
     showNewBadge,
+    showLoginModal,
 };
   
 export { actionCreators };
