@@ -169,7 +169,7 @@ const getReviewsBookHaveSV = (bookId) => {
         instance
             .get(`/books/${bookId}/reviews`)
             .then((res) => {
-                dispatch(getReviewsBookHave(res.data.review));
+                dispatch(getReviewsBookHave(res.data.reviews));
             })
             .catch((err) => {
                 console.log("해당 책의 리뷰 가져오기 실패", err);
@@ -211,19 +211,32 @@ export default handleActions(
             }),
         [LIKE]: (state, action) =>
             produce(state, (draft) => {
+                //전체
                 let idx = draft.all_review_list.findIndex(
                     (l) => l._id === action.payload.reviewId
                 );
+                
+
                 if (draft.all_review_list[idx].myLike) {
                     draft.all_review_list[idx].likes =
                         draft.all_review_list[idx].likes - 1;
                     draft.all_review_list[idx].myLike =
-                        !draft.all_review_list[idx].myLike;
+                !draft.all_review_list[idx].myLike;
                 } else {
                     draft.all_review_list[idx].likes =
                         draft.all_review_list[idx].likes + 1;
-                    draft.all_review_list[idx].myLike =
+                        draft.all_review_list[idx].myLike =
                         !draft.all_review_list[idx].myLike;
+                }
+                //상세
+               
+                if(draft.review_detail.myLike){
+                    draft.review_detail.likes = draft.review_detail.likes-1;
+                    draft.review_detail.myLike = !draft.review_detail.myLike;
+                }
+                else{
+                    draft.review_detail.likes = draft.review_detail.likes+1;
+                    draft.review_detail.myLike = !draft.review_detail.myLike;
                 }
             }),
         [GET_FEED_ID]: (state, action) =>

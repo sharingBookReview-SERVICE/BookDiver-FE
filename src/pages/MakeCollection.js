@@ -13,7 +13,7 @@ import { actionCreators as collectionActions } from "../redux/modules/collection
 import { actionCreators as uploadActions } from "../redux/modules/upload";
 
 import SelectBookModal from "../modals/SelectBookModal";
-import SelectBookCard from "../components/SelectBookCard";
+import CollectionBookCard from "../elements/CollectionBookCard";
 
 
 import imageCompression from "browser-image-compression";
@@ -61,39 +61,6 @@ const AddBook = (props) =>{
     )
 }
 
-//책 카드 컴포넌트
-const BookCard = (props) =>{
-    const dispatch = useDispatch();
-    const [book_description, setBookDescription] = useState("");
-    const bookTitle = props.title?.split("(")[0]
-    console.log(props.isbn)
-    const content = {
-        isbn: props.isbn,
-        book_description: book_description,
-    }
-    return(
-        <BookInfoWrapper>
-            <BookInfoBox>
-                <BookImg url={props.image}/>
-                <BookDescBox>
-                <BookTitle >{bookTitle}</BookTitle>
-                    <BookWriter>{props.author} 저</BookWriter>
-                </BookDescBox>
-            </BookInfoBox>
-            <Recommend 
-            placeholder="책 마다 추천이유를 적어보세요(엔터치기)"
-            maxLength="30"
-            onChange={(e)=>{setBookDescription(e.target.value)}}
-            onKeyPress ={(e)=>{
-                if(e.key === "Enter"){
-                    dispatch(collectionActions.addCollection_content(content))
-                }
-              }}
-            >
-            </Recommend>
-        </BookInfoWrapper>
-    )
-}
 
 //컬렉션 만들기 페이지
 const MakeCollection = (props) =>{
@@ -113,6 +80,7 @@ const MakeCollection = (props) =>{
 
     useEffect(()=>{
         dispatch(collectionActions.isMakeCollection(true));
+        dispatch(permitActions.bookSelect(false));
         return ()=>{
             dispatch(collectionActions.resetSelected())
             dispatch(uploadActions.showPreview(false));
@@ -229,7 +197,7 @@ const MakeCollection = (props) =>{
                 </Label>
                 <TitleInput
                     placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
-                    maxLength="30"     
+                    maxLength="20"     
                     ref={title}           
                 ></TitleInput>
                 
@@ -258,7 +226,7 @@ const MakeCollection = (props) =>{
                    <AddBook/> 
                    :
                    collection_book_list.map((book)=>{
-                       return(<BookCard key={book.isbn} {...book}/>)
+                       return(<CollectionBookCard key={book.isbn} {...book}/>)
                    })
                 }
                 {
@@ -390,80 +358,5 @@ justify-content: center;
 align-items: center;
 `;
 
-
-//BookCard
-const BookInfoWrapper = styled.div`
-width: 100%;
-box-sizing: border-box;
-border-radius: 12px;
-border: solid 1px ${Color.secondColor};
-margin-bottom: 20px;
-`
-const BookInfoBox = styled.div`
-width: 100%;
-height: 112px;
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-gap: 12px;
-padding: 16px;
-box-sizing: border-box;
-
-`
-
-const BookImg = styled.div`
-  width: 60px;
-  height: 80px;
-  border-radius: 4px;
-  background-color: #c4c4c4;
-  background-image: url(${(props) => props.url ? props.url : " "});
-  background-size: cover;
-  box-sizing: border-box;
-`
-
-const BookDescBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  max-width: 70%;
-`
-
-const BookTitle = styled.div`
-  width: 100%;
-  height: auto;
-  color: ${Color.fontBlack};
-  font-size: 14px;
-  letter-spacing: -0.28px;
-  line-height: 1.43;
-  margin: 0 0 5px 2px;
-  text-align: left;
-  font-weight: bolder;
-  font-family: 'Noto Serif KR', serif;
-`
-
-const BookWriter = styled.div`
-  font-size: 14px;
-  line-height: 1.43;
-  letter-spacing: -0.28px;
-  text-align: left;
-  color: ${Color.fontGray};
-  font-family: 'Noto Sans KR', sans-serif;
-  line-height: 1.43;
-  margin: 0px 0px 5px 2px;
-`
-
-const Recommend = styled.input`
-height: 36px;
-width: 90%;
-border-radius: 8px;
-background: ${Color.hashtag};
-box-sizing: border-box;
-margin: 0 auto;
-margin-left: 5%;
-border: none;
-margin-bottom: 20px;
-padding-left: 10px;
-`;
 
 export default MakeCollection;

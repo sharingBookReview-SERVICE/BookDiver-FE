@@ -12,8 +12,11 @@ const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
 const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS";
 const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS";
-const ADD_COLLECTION = "collections/ADD_COLLECTION";
-const ADD_COLLECTION_CONTENTS = "collections/ADD_COLLECTION_CONTENTS";
+const ADD_COLLECTION = "collection/ADD_COLLECTION";
+const ADD_COLLECTION_CONTENTS = "collection/ADD_COLLECTION_CONTENTS";
+const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL";
+const DELETE_COLLECTION = "collection/DELETE_COLLECTION";
+const GET_COLLECTION_ID = "collection/GET_COLLECTION_ID";
 
 
 //actioncreator
@@ -25,6 +28,9 @@ const getTagCollections = createAction(GET_TAG_COLLECTIONS, (collection_list)=> 
 const getCustomCollections = createAction(GET_CUSTOM_COLLLECTIONS, (collection_list)=> ({collection_list}));
 const addCollection = createAction(ADD_COLLECTION, (collection)=>({collection}));
 const addCollection_content = createAction(ADD_COLLECTION_CONTENTS, (collection)=>({collection}));
+const getCollectionDetail = createAction(GET_COLLECTION_DETAIL, (collection)=>({collection}));
+const deleteCollection = createAction(DELETE_COLLECTION, (collectionId)=>({collectionId}));
+const getCollectionId = createAction(GET_COLLECTION_ID, (collectionId)=>({collectionId}));
 
 //initial
 const initialState = {
@@ -34,6 +40,8 @@ const initialState = {
     custom_collection_list: [],
     collection_contents :[],
     is_make_collection : false,
+    collection_detail:[],
+    collection_id : ""
 };
 
 
@@ -102,7 +110,6 @@ const addCollectionSV = (formData)=>{
       },
   })
   .then((res)=>{
-    console.log(res.data)
     dispatch(addCollection(res.data))
     history.push('/bookCollectionMain')
   })
@@ -113,6 +120,31 @@ const addCollectionSV = (formData)=>{
   }
 }
 
+//컬렉션 하나 상세보기
+const getCollectionDetailSV = (id)=>{
+  return function(dispatch){
+    instance.get(`/collections/${id}`)
+    .then((res)=>{
+      dispatch(getCollectionDetail(res.data.collection));
+    })
+    .catch((err)=>{
+      console.log("콜렉션상세보기 실패", err)
+    })
+  }
+}
+
+const deleteCollectionSV = ()=>{
+  return function(dispatch, getState, {history}){
+    const id = getState().collection.collection_id;
+    instance.delete(`collections/${id}`)
+    .then((res)=>{
+      dispatch(deleteCollection(id))
+    })
+    .catch((err)=>{
+      console.log("컬렉션 삭제 실패", err)
+    })
+  }
+}
 
 
 //reducer
@@ -149,15 +181,45 @@ export default handleActions(
         }),
         [ADD_COLLECTION]:(state, action)=>
         produce(state, (draft)=>{
-          draft.custom_collection_list?.unshift(action.payload.collection);
+          draft.custom_collection_list.push(action.payload.collection);
         }),
         [ADD_COLLECTION_CONTENTS]:(state, action)=>
         produce(state, (draft)=>{
-          draft.collection_contents.push(action.payload.collection);
+          //아무것도 없으면 그냥 push
+          if(draft.collection_contents.length===0){
+            draft.collection_contents.push(action.payload.collection);
+          }
+          //뭐라도 있으면 edit
+          else{
+            let idx = draft.collection_contents.findIndex(
+              (l) => l.isbn === action.payload.collection.isbn
+              );
+              if(idx>-1){
+                draft.collection_contents[idx] = action.payload.collection;
+              }
+              else{
+                draft.collection_contents.push(action.payload.collection);
+              }
+             
+          }
+         
         }),
+        //컬렉션 상세 보기
+        [GET_COLLECTION_DETAIL]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.collection_detail = action.payload.collection;
+        }),
+        [DELETE_COLLECTION]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.custom_collection_list = draft.custom_collection_list.filter((l, idx) => {
+            return l.id !== action.payload.collectionId;
+          });
+        }),
+        [GET_COLLECTION_ID]: (state, action)=>
+        produce(state, (draft)=>{
+          draft.collection_id = action.payload.collectionId;
+        })
 
- 
- 
     },
     initialState
   );
@@ -171,7 +233,10 @@ const actionCreators = {
   getTagCollectionsSV,
   getCustomCollectionsSV,
   addCollectionSV,
-  addCollection_content
+  addCollection_content,
+  getCollectionDetailSV,
+  deleteCollectionSV,
+  getCollectionId
 };
   
 export { actionCreators };

@@ -12,8 +12,8 @@ import FollowUser from "../elements/FollowUser";
 import Background from "../img/background.png"
 import {images} from "../shared/Image"
 import person from "../img/person.png"
-import ameba from "../img/꿈꾸는 아메바-120px.svg"
-import whiteFish from "../img/귀여운 흰동가리-120px.svg"
+// import ameba from "../img/꿈꾸는 아메바-120px.svg"
+// import whiteFish from "../img/귀여운 흰동가리-120px.svg"
 import TreasureBoxModal from "../modals/TreasureBoxModal"
 import treasure from "../img/보물상자.png"
 
