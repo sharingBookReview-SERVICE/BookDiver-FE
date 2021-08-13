@@ -1,14 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import ListIcon from '@material-ui/icons/List';
 
-//확인용
+
 import Color from "../shared/Color";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
+
 import {history} from "../redux/configStore";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+
+import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 import {images} from "../shared/Image"
 import {titles} from "../shared/Titles";
 
@@ -27,11 +31,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 const MyFeed = () => {
+    const dispatch = useDispatch();
     const nickname = useSelector(state => state.user.user.nickname);
-    const profileImg = useSelector(state => state.user.user.profileImage)
-    const following = useSelector(state => state.user.user.followingCount)
-    const follower = useSelector(state => state.user.user.followerCount)
-    console.log(follower)
+    const profileImg = useSelector(state => state.user.user.profileImage);
+    const following = useSelector(state => state.user.user.followingCount);
+    const follower = useSelector(state => state.user.user.followerCount);
+    const my_feed = useSelector(state=> state.user.my_feed);
+    const my_reviews = my_feed.reviews;
     const classes = useStyles()
 
     const goToFollowing = () => {
@@ -47,6 +53,11 @@ const MyFeed = () => {
       history.push("/mydepth")
     }
 
+
+    useEffect(()=>{
+      dispatch(permitActions.showNav(true));
+      dispatch(userActions.getMyFeedSV());
+    },[])
 
     return (
         <React.Fragment>
@@ -97,7 +108,13 @@ const MyFeed = () => {
 
 
             <FeedMain>
-              
+            {
+              my_reviews?.map((review)=>{
+                return(<FeedCard url={review.image} key={review.id} 
+                  onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
+                  />)
+              })
+            }
             </FeedMain>
 
         </Container>
@@ -109,7 +126,9 @@ export default MyFeed;
 
 const Container = styled.div`
 width:100vw;
-height:auto;
+background:${Color.mainColor};
+height: 100vh;
+padding-bottom: 100px;
 `
 
 const Wrapper = styled.div`
@@ -153,7 +172,7 @@ const SearchBar = styled.input`
 
 const UserBox = styled.div`
   width: 100%;
-  height: 45vh;
+  height: 55vh;
   background:${Color.black};
   padding:20px 20px 30px 20px;
   box-sizing:border-box;
@@ -244,17 +263,19 @@ const Text = styled.p`
 
 
 const FeedMain = styled.div`
-  width: 100%;
-  margin: auto;
-  height: auto;
-  //border: 1px solid black;
-  box-sizing: border-box;
   background-color: #f5f2f0;
   display: grid;
-  grid-template-columns: 33.33% 33.33% 33.33%;
-  grid-auto-rows: 125px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
 `;
 
+const FeedCard = styled.div`
+width: 100%;
+padding-top: 100%;
+background-image:URL( ${(props)=> (props.url)});
+background-size: cover;
+background-position: center center;
+`;
 const LevelDetail = styled.div`
 width:100%;
 height:36px;
