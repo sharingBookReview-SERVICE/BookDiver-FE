@@ -47,7 +47,7 @@ const initialState = {
     is_me: false,
     follow_list : [],
     get_treasure : false,
-    my_feed:[]
+    my_feed:[],
 };
 
 
@@ -125,13 +125,14 @@ const deleteUserSV = (id) =>{
   }
 }
 
-
+//팔로우 함수 & 팔로우 취소 함수 
 const followSV = (id) => {
 
   return function(dispatch, getState, {history}){
     instance.put(`follow/${id}`)
     .then((res)=>{
-      console.log(res.data)
+      console.log(res)
+      dispatch(getFollowingList(res.data.followingList))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -139,12 +140,14 @@ const followSV = (id) => {
   }
 }
 
+//나를 팔로우하는 유저 삭제
 const deleteFollowerSV = (id) => {
 
   return function(dispatch, getState, {history}){
     instance.put(`follow/delete/${id}`)
     .then((res)=>{
       console.log(res.data)
+      // dispatch(getFollowerList(res.data.followerList))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -197,9 +200,11 @@ const getTreasureSV = () => {
 
     const randomImg = getRandomImg(treasureNum, getRandomNum(0,3))
 
-    instance.put(`users/profile/${userId}`, {imageName: randomImg})
+    instance.put(`users/profile/image`, {imageName: randomImg})
     .then((res)=>{
-      dispatch(permitActions.showNewBadge(true))
+      dispatch(permitActions.isTreasure(false))
+      dispatch(permitActions.showNewBadge(randomImg))
+      getUserSV(userId)
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -212,7 +217,6 @@ const changeProfileSV = (image) => {
     const userId = getState().user.user._id
     instance.put(`users/${userId}`,{profileImage: image})
     .then((res)=>{
-      console.log(res);
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)})
@@ -222,10 +226,8 @@ const changeProfileSV = (image) => {
   //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = ()=>{
   return function(dispatch, getState, {history}){
-    const userId = getState().user.user._id;
-    instance.get(`/users/${userId}/feeds`)
+    instance.get(`/users/feeds/abc`)
     .then((res)=>{
-      console.log(res.data);
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
@@ -234,6 +236,18 @@ const getMyFeedSV = ()=>{
   }
 }
 
+const checkTreasureSV = () => {
+  return function(dispatch, getState, {history}){
+
+    instance.get(`users/profile/treasure`)
+    .then((res)=>{
+      dispatch(permitActions.isTreasure(res.data.treasure))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
 
 //reducer
 export default handleActions(
@@ -299,6 +313,7 @@ const actionCreators = {
   changeProfileSV,
   getMyFeedSV,
   deleteFollowerSV,
+  checkTreasureSV,
 };
   
 export { actionCreators };

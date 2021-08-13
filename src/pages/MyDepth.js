@@ -1,21 +1,17 @@
 //import 부분
-import React, { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router";
-import {Route} from "react-router-dom"
+import React, { useEffect } from "react";
 import {history} from "../redux/configStore";
 
 import styled from "styled-components";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import FollowUser from "../elements/FollowUser";
 import Background from "../img/background.png"
 import {images} from "../shared/Image"
 import person from "../img/person.png"
-// import ameba from "../img/꿈꾸는 아메바-120px.svg"
-// import whiteFish from "../img/귀여운 흰동가리-120px.svg"
 import TreasureBoxModal from "../modals/TreasureBoxModal"
 import treasure from "../img/보물상자.png"
+import {titles} from "../shared/Titles"
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as permitAction } from "../redux/modules/permit";
@@ -33,7 +29,7 @@ const MyDepth = (props) => {
     const classes = useStyles();
     const is_open_treasure = useSelector(state => state.permit.is_modal)
     const is_treasure = useSelector(state => state.permit.is_treasure)
-    const is_new_badge = useSelector(state => state.permit.new_badge)
+    const new_badge = useSelector(state => state.permit.new_badge)
     const badgeCounts = useSelector(state => state.user.user.own_image?.length)
     const userBadges = useSelector(state => state.user.user.own_image)
 
@@ -50,6 +46,7 @@ const MyDepth = (props) => {
     }
 
     useEffect(() => {
+        dispatch(userActions.checkTreasureSV())
         dispatch(permitAction.showNav(false));  //네비게이션 없애기 
         dispatch(permitAction.isPadding(false));  //패딩 값을 없애기 
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기 
@@ -57,15 +54,14 @@ const MyDepth = (props) => {
             dispatch(permitAction.showNav(true)); //나가면서 네비게이션 보이게 하기 
             dispatch(permitAction.isPadding(true)); //나가면서 패딩 돌려놓기 
             dispatch(permitAction.showModal(false)); // 나가면서 모달 닫아 놓기 
+            dispatch(permitAction.showNewBadge(null)) // 새로운 뱃지의 값을 null로 만들어놓기
         }
     },[badgeCounts])
-
-    
-
 
 //작성하기
   return (
     <React.Fragment>
+        {is_open_treasure && <TreasureBoxModal />}
         <Wrapper>
             <Image src={Background}/>
             <Header>
@@ -90,10 +86,9 @@ const MyDepth = (props) => {
 
 
         </Wrapper>
-        {is_new_badge && <NewBadge src={images.level10[1]} className={"scale-up-down-center"}/>}
-        {is_new_badge && <GetNewBadge className={"scale-up-down-center"}>'귀여운 흰동가리'를 획득하셨습니다.</GetNewBadge>}
+        {new_badge && <NewBadge src={images[new_badge]} className={"scale-up-down-center"}/>}
+        {new_badge && <GetNewBadge className={"scale-up-down-center"}>{titles[new_badge]}를 획득하셨습니다.</GetNewBadge>}
         {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}        
-        {is_open_treasure && <TreasureBoxModal />}
     </React.Fragment>
   );
 };
