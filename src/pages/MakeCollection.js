@@ -197,7 +197,7 @@ const MakeCollection = (props) =>{
                 </Label>
                 <TitleInput
                     placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
-                    maxLength="30"     
+                    maxLength="20"     
                     ref={title}           
                 ></TitleInput>
                 

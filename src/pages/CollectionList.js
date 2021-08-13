@@ -8,7 +8,10 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import styled from "styled-components";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
+
+import EditModal from "../modals/EditModal";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {
@@ -21,17 +24,38 @@ const useStyles = makeStyles((theme) => ({
 
 
   const OneCollection = (props) => {
-
+    const dispatch = useDispatch();
+    const user_id = useSelector(state=> state.user.user.id);
+    let is_my_collection= false;
+    if(props.user===user_id){
+      is_my_collection = true;
+    }
+ 
+    const is_modal = useSelector(state=> state.permit.is_modal);
+    const showEdit = ()=>{
+      dispatch(permitActions.showModal(true));
+    }
     return(
-        <Box  onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}>
-            <Image url={props.image}/>
+     
+        <Box>
+     
+            <Image url={props.image} onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}/>
             <DescriptionBox>
                 <Title>{props.name}</Title>
                 <LikeComment>
                     좋아요 {props.liked_users.length}개 | 댓글 {props.comments.length}개
                 </LikeComment>
-
             </DescriptionBox>
+            {
+              is_my_collection && 
+              <MoreHorizIcon 
+              onClick={()=>{
+                showEdit()
+                dispatch(collectionActions.getCollectionId(props.id))
+              }}
+              />
+            }
+            
         </Box>
     )
 }
@@ -43,6 +67,7 @@ OneCollection.defaultProps={
 const CollectionList = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const is_modal = useSelector(state=> state.permit.is_modal);
 
     const type = props.match.params.type;
 
@@ -64,6 +89,7 @@ const CollectionList = (props) => {
 if(type==="tag"){
   return (
     <React.Fragment>
+      
         <Wrapper>
             <Header>
                 <ArrowBackIcon className={classes.arrow} onClick={()=>{history.goBack()}}/> 
@@ -85,6 +111,9 @@ if(type==="tag"){
 if(type==="custom"){
   return (
     <React.Fragment>
+        {
+            is_modal && <EditModal is_collection />
+          }
         <Wrapper>
             <Header>
                 <ArrowBackIcon className={classes.arrow} onClick={()=>{history.goBack()}}/> 
@@ -109,7 +138,7 @@ const Box = styled.div`
 width:100%;
 height:auto;
 display:flex;
-justify-content:flex-start;
+justify-content:space-between;
 box-sizing:border-box;
 margin-bottom:10px;
 `
@@ -128,6 +157,7 @@ box-sizing:border-box;
 
 const DescriptionBox = styled.div`
 height:auto;
+width: 70%;
 display:flex;
 flex-direction:column;
 justify-content:flex-start;

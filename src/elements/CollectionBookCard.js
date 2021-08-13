@@ -35,7 +35,7 @@ import { actionCreators as collectionActions } from "../redux/modules/collection
                     </BookDescBox>
                 </BookInfoBox>
                 <Recommend 
-                value={book_descriptionSV}
+                value={book_descriptionSV} disabled
                 >
                 </Recommend>
             </BookInfoWrapper>

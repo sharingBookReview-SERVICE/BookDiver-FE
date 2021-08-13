@@ -63,9 +63,9 @@ const CollectionDetail = (props) =>{
                    }
                     </Wrapper>
                     <ReactionBar>
-                        <Div><FavoriteBorderIcon className={classes.like} />좋아요 {liked_users.length} 개</Div>
+                        <Div><FavoriteBorderIcon className={classes.like} />좋아요 {liked_users?.length} 개</Div>
                          <Hr></Hr>
-                         <Div>댓글 {comments.length} 개</Div>
+                         <Div>댓글 {comments?.length} 개</Div>
                      </ReactionBar>
                     </Wrapper>
                 </CollectionOutter>

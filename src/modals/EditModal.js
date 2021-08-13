@@ -6,20 +6,53 @@ import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutline
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Color from "../shared/Color";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
+import { actionCreators as collectionActions } from "../redux/modules/collection";
 import { useDispatch, useSelector } from "react-redux";
 import {history} from "../redux/configStore"
+
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    margin: "0px 5px 0px 0px"
+  },
+}));
+
 
 
 const EditModal = (props) =>{
     const dispatch = useDispatch();
+    const classes = useStyles();
     const bookId = useSelector(state => state.review.feed_id.bookId)
     const reviewId = useSelector(state => state.review.feed_id.reviewId)
 
+    if(props.is_collection){
+      return(
+        <React.Fragment>
 
-    return(
+            <Container>
+              <Btn><CreateOutlinedIcon className={classes.icon}/>컬렉션 수정</Btn>
+          
+              <Btn
+                onClick={()=>{dispatch(collectionActions.deleteCollectionSV())
+                  dispatch(permitActions.showModal(false))
+                }}
+              
+              ><DeleteOutlineOutlinedIcon className={classes.icon} />컬렉션 삭제</Btn>
+            </Container>
+
+            <Overlay 
+            onClick={()=>{
+            dispatch(permitActions.showModal(false))
+            }}>
+            </Overlay>
+        </React.Fragment>
+    )
+    }
+    else{
+      return(
         <React.Fragment>
 
             <Container>
@@ -42,13 +75,16 @@ const EditModal = (props) =>{
             </Overlay>
         </React.Fragment>
     )
+    }
+
+    
 }
 
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color:black;
-  z-index: 99;
+  z-index: 999;
   position: fixed;
   opacity:0.5;
 `;
@@ -65,7 +101,7 @@ align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
-z-index: 100;
+z-index: 1000;
 position:fixed;
 `;
 
