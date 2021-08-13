@@ -10,12 +10,14 @@ import ReviewCard from "../components/ReviewCard";
 import AddIcon from "@material-ui/icons/Add";
 import Header from "../components/Header";
 import EditModal from "../modals/EditModal";
+import LoginModal from "../modals/LoginModal";
 
 const Home = (props) => {
   //dispatch와 변수들
   const dispatch = useDispatch();
   const reviewList = useSelector((state) => state.review.all_review_list);
-  const is_modal = useSelector((state) => state.permit.is_modal);
+  const is_edit_modal = useSelector((state) => state.permit.is_edit_modal);
+  const show_login_modal = useSelector((state) => state.permit.show_login)
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
   const getMoreReview = (lastId) => {
@@ -26,6 +28,10 @@ const Home = (props) => {
   useEffect(() => {
     dispatch(permitAction.showNav(true));
     dispatch(reviewActions.getAllReviewSV());
+
+    return() => {
+    dispatch(permitAction.showEditModal(false));
+    }
   }, []);
 
   useEffect(() => {
@@ -57,7 +63,8 @@ const Home = (props) => {
       <div ref={ref}></div>
       </HomeBGColor>
 
-      {is_modal && <EditModal />}
+      {is_edit_modal && <EditModal />}
+      {show_login_modal && <LoginModal/>}
     </React.Fragment>
   );
 };

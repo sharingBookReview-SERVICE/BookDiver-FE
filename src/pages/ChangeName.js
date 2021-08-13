@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {history} from "../redux/configStore";
-import { useDispatch, userSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import jwt_decode from "jwt-decode";
 import Color from "../shared/Color";
@@ -22,6 +22,11 @@ const ChangeName = (props) =>{
   const [nickname, setNickName] = useState("");
   const token =  localStorage.getItem('token');
   const decoded = jwt_decode(token);
+  const profileImage = useSelector(state => state.user.user.profileImage)
+  const goToChangeImg = () => {
+    history.push("/changeprofileimg")
+  }
+
 
   const userId = decoded.userId;
   const classes = useStyles();
@@ -37,7 +42,16 @@ const ChangeName = (props) =>{
                     <ProfileBox>
     
                         <ImageBox>
-                            <ProfileImg url={images.level1}></ProfileImg>
+                            <ImgWrapper>
+                              <ProfileImg 
+                                onClick={() => {goToChangeImg()}} 
+                                src={images[profileImage]}>                                
+                              </ProfileImg>
+                            </ImgWrapper>
+                            <ProfileChangeGuide 
+                              onClick={() => {goToChangeImg()}}>
+                              프로필 사진 변경
+                            </ProfileChangeGuide>
                              <Input
                                onChange={(e)=>{
                                 setNickName(e.target.value);
@@ -100,21 +114,39 @@ justify-content: center;
 align-items: center;
 `;
 
-const ProfileImg = styled.div`
-width: 100px;
-height: 100px;
-border-radius: 72px;
-background: tomato;
-margin: 10px;
-background-image:URL(${(props) => props.url});
-background-size: cover;
+const ProfileImg = styled.img`
+width: 100%;
+height: 100%;
+object-fit:cover;
+cursor:pointer;
 `;
+
+const ImgWrapper = styled.div`
+width:72px;
+height:72px;
+border-radius:70%;
+overflow:hidden;
+box-sizing:border-box;
+background:${Color.black};
+border: 1px solid ${Color.secondColor};
+`
+
+const ProfileChangeGuide = styled.div`
+color:${Color.fontGray};
+font-size:15px;
+margin:20px 0px;
+cursor:pointer;
+`
+
 
 const Input = styled.input`
 width: 60%;
 height: 36px;
 border-radius: 8px;
-margin: 16px 0px 0px 0px;
+background:${Color.mainColor};
+:focus{
+  outline:none;
+}
 `;
 const Activity = styled.p`
     color: ${Color.fontGray};

@@ -37,7 +37,6 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user.id);
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
-
   let is_my_post = false;
 
   if (user.id === userId) {
@@ -46,8 +45,12 @@ const ReviewCard = (props) => {
 
   //좋아요 클릭
   const clickLikeButton = () => {
-    //props로부터 book와 reviewId를 받아오기
-    dispatch(reviewActions.LikeSV(book._id, _id));
+    if(is_login) {
+      dispatch(reviewActions.LikeSV(book._id, _id));
+      return;
+    }else{
+      dispatch(permitActions.showLoginModal(true))
+    }
   };
 
   const getFeedId = () => {
@@ -55,13 +58,19 @@ const ReviewCard = (props) => {
   };
 
   const showEditModal = () => {
-    dispatch(permitActions.showModal(true));
+    dispatch(permitActions.showEditModal(true));
   };
 
+  const goToReviewDetail = () => {
+    if(is_login){
+      history.push(`/reviewdetail/${book._id}/${_id}`)
+    }else{
+      dispatch(permitActions.showLoginModal(true))
+    }
+  }
+
   const follow = () => {
-    // console.log("팔로우 함수 실행")
-    // dispatch(userActions.followSV(user.id))
-     dispatch(userActions.getFollowerListSV())
+    dispatch(userActions.followSV(user.id))
   }
 
   return (
@@ -99,7 +108,7 @@ const ReviewCard = (props) => {
 
           <ContentBox
             onClick={() => {
-              history.push(`/reviewdetail/${book._id}/${_id}`);
+              goToReviewDetail();
             }}
           >
             <BookTitle>
@@ -144,7 +153,7 @@ const ReviewCard = (props) => {
             <Image
               url={image}
               onClick={() => {
-                history.push(`/reviewdetail/${book._id}/${_id}`);
+                goToReviewDetail();
               }}
             />
           </ImageBox> : ""}

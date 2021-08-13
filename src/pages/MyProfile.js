@@ -11,6 +11,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { makeStyles } from "@material-ui/core/styles";
 import {images} from "../shared/Image"
+import {titles} from "../shared/Titles"
 
 import ProfileSwiper from "../elements/ProfileSwiper";
 import LogoutModal from "../modals/LogoutModal";
@@ -68,7 +69,7 @@ const MyProfile = (props) =>{
                           </ImgWrapper>
 
                           <DetailBox>
-                            <UserTitle>'천재적인 범고래 다이버'</UserTitle>
+                            <UserTitle>{titles[profileImg]}</UserTitle>
                             <UserName>{nickname}</UserName>
                             <PostCount>작성한 에세이 12개 | 만든 컬렉션 20개</PostCount>
                           </DetailBox>

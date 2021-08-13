@@ -1,9 +1,12 @@
 //import 부분
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import {actionCreators as reviewAction } from "../redux/modules/review";
 import { actionCreators as permitAction } from "../redux/modules/permit";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 import { history } from "../redux/configStore";
 import { useParams } from "react-router";
 
@@ -14,6 +17,8 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import profile from "../img/profile.svg"
+import EditModal from "../modals/EditModal";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Comment from "../components/Comment";
@@ -56,17 +61,21 @@ const ReviewDetail = (props) => {
   const reviewId = params.reviewid;
 
   const is_modal = useSelector((state) => state.permit.is_modal);
+  const is_edit_modal = useSelector((state) => state.permit.is_edit_modal)
   const is_editting = useSelector((state) => state.comment.edit_id);
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
 
 
-  const userId = useSelector((state) => state.user.user.userId);
+  const userId = useSelector((state) => state.user.user.id);
   const nickname = useSelector((state) => state.user.user.nickname);
   const [is_empty, setIsEmpty] = useState(false)
 
-  
+
+  const follow = () => {
+    dispatch(userActions.followSV(user.id))
+  }
   //내 포스트인지 확인
   let is_my_post = false;
 
@@ -74,9 +83,21 @@ const ReviewDetail = (props) => {
     is_my_post = true;
   }
 
+  //피드의 아이디 가져오기 
+  const getFeedId = () => {
+    dispatch(reviewAction.getFeedId(bookId, reviewId));
+  };
+
+  //수정하기 모달을 띄우기
+  const showEditModal = () => {
+    dispatch(permitAction.showEditModal(true));
+  };
+
+  //뒤로가기 
   const goBack = () => {
     history.goBack();
   };
+
   //댓글 작성함수
   const writeComment = () => {
     if(commentContent ===  ""){
@@ -103,6 +124,10 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
+
+    return () => {
+      dispatch(permitAction.showEditModal(false));
+    }
   }, []);
 
 
@@ -110,6 +135,7 @@ const ReviewDetail = (props) => {
   return (
     
       <Container> 
+         {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -117,31 +143,43 @@ const ReviewDetail = (props) => {
                 />
             </Head>
             <Outter>
-                <Userbar>
-                    <EmojiEmotionsIcon className={classes.smile}/>
-                    <Wrapper>
-                      <Username>{user?.nickname}</Username>
-                      <CreateDt>{created_at}</CreateDt>
-                    </Wrapper>
-                    {
-                      !is_my_post && <Follow>팔로우</Follow>
-                    }
-                   
-                    <BookmarkBorderIcon className={classes.icon}/>
-                    {
-                      is_my_post &&  <MoreHorizIcon className={classes.icon}/>
-                    }
-                   
-                </Userbar>
+
+            <CommentUserBox>
+            <UserLeftBox>
+              <UserImage src={profile}/>
+              <Box direction={"column"}>
+                <Box direction={"row"}>
+                  <UserName>{user?.nickname}</UserName>
+                  {!is_my_post && <Follow onClick={()=>{follow()}}>팔로우</Follow>}
+                </Box>
+                <CreatedAt>{created_at}</CreatedAt>
+              </Box>
+            </UserLeftBox>
+
+            <UserRightBox>
+              
+              {is_my_post && 
+                <MoreHorizIcon
+                  style={{ color: "#9e9e9e" }}
+                  onClick={() => {
+                    showEditModal();
+                    getFeedId();
+                  }}
+                />
+              }
+            </UserRightBox>
+          </CommentUserBox>
+
+
+
                 <SelectBookCard {...book} is_reviewDetail />
                 <ReviewContent>
                   <Quote> {quote}</Quote>
                   <Content>{content}</Content>
                   <HashTagBox>
-                  { hashtags ?
-                  hashtags.map((tag) => {
+                  {hashtags?.map((tag) => {
                       return `#${tag} `;
-                    }) :""}
+                    })}
                   </HashTagBox>
                   <ImageBox>
                     <Image src={image}/>
@@ -191,10 +229,58 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-           
+
       </Container>
   );
 };
+
+const UserRightBox = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+`;
+
+const UserImage = styled.img`
+width:24px;
+height:24px;
+border-radius:50%;
+margin-right:7px;
+`
+
+const CommentUserBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const Box = styled.div`
+display:flex;
+flex-direction:${(props) => props.direction};
+`
+
+const UserLeftBox = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+`;
+
+const UserName = styled.p`
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0px 8px 0px 0px;
+`;
+
+const CreatedAt = styled.p`
+  font-size: 10px;
+  color: #9e9e9e;
+  opacity: 0.5;
+  margin: 0px;
+`;
 
 const Container = styled.div`
 background: ${Color.mainColor};
@@ -221,31 +307,12 @@ margin: 0 auto;
 border-radius: 16px;
 `;
 
-const Userbar = styled.div`
-width: 100%;
-height: 20%;
-height: 40px;
-margin: 16px 0px 30px;
-display: flex;
-align-items: center;
-`;
-
-const Wrapper = styled.div`
-`;
-const Username = styled.div`
-`;
-
-const CreateDt = styled.div`
-font-size: 12px;
-`;
 
 const Follow = styled.div`
-margin: 0px 35px 0px 16px;
 font-weight: bold;
+font-size:14px;
 width: 100%;
 `;
-
-
 
 
 const ReviewContent = styled.div`
