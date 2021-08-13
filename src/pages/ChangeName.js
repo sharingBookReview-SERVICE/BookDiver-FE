@@ -1,5 +1,5 @@
 //import 부분
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {history} from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,9 +27,15 @@ const ChangeName = (props) =>{
     history.push("/changeprofileimg")
   }
 
-
   const userId = decoded.userId;
   const classes = useStyles();
+
+  useEffect(() => {
+    if(userId){
+      dispatch(userActions.getUserSV(userId))
+    }
+  },[userId])
+
     return(
         <React.Fragment>
                 <Background>
