@@ -34,6 +34,9 @@ const MyDepth = (props) => {
     const is_open_treasure = useSelector(state => state.permit.is_modal)
     const is_treasure = useSelector(state => state.permit.is_treasure)
     const is_new_badge = useSelector(state => state.permit.new_badge)
+    const badgeCounts = useSelector(state => state.user.user.own_image.length)
+    const userBadges = useSelector(state => state.user.user.own_image)
+    console.log(badgeCounts)
  
     const goBack=() => {
         history.goBack();
@@ -74,17 +77,18 @@ const MyDepth = (props) => {
 
             </Header>
 
-            <Badge src={ameba} top={"10vh"} left={"10vw"} />
-            <Badge src={images.level10[2]} top={"60vh"} left={"60vw"}/>
-            <Badge src={images.level20[1]} top={"120vh"} left={"20vw"}/>
-            <Badge src={images.level30[0]} top={"180vh"} left={"30vw"}/>
-            <Badge src={images.level40[1]} top={"240vh"} left={"10vw"}/>
-            <Badge src={images.level50[1]} top={"300vh"} left={"60vw"}/>
+            {badgeCounts > 0 && <Badge src={images[userBadges[0]]} top={"10vh"} left={"10vw"} />}
+            {badgeCounts > 1 && <Badge src={images[userBadges[1]]} top={"60vh"} left={"60vw"}/>}
+            {badgeCounts > 2 && <Badge src={images[userBadges[2]]} top={"120vh"} left={"20vw"}/>}
+            {badgeCounts > 3 && <Badge src={images[userBadges[3]]} top={"180vh"} left={"30vw"}/>}
+            {badgeCounts > 4 && <Badge src={images[userBadges[4]]} top={"240vh"} left={"10vw"}/>}
+            {badgeCounts > 5 && <Badge src={images[userBadges[5]]} top={"300vh"} left={"60vw"}/>}
             <Person src={person}/>
 
 
         </Wrapper>
-        <NewBadge src={images.level10[1]}/>
+        {is_new_badge && <NewBadge src={images.level10[1]} className={"scale-up-down-center"}/>}
+        {is_new_badge && <GetNewBadge className={"scale-up-down-center"}>'귀여운 흰동가리'를 획득하셨습니다.</GetNewBadge>}
         {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}        
         {is_open_treasure && <TreasureBoxModal />}
     </React.Fragment>
@@ -179,6 +183,20 @@ height:auto;
 max-width:50vw;
 max-height:50vh;
 position:fixed;
-bottom:15vh;
+bottom:25vh;
 left:36vw;
+`
+
+const GetNewBadge = styled.div`
+width:70vw;
+height:12vh;
+border-radius:20px;
+background:${Color.black};
+color:${Color.white};
+display:flex;
+justify-content:center;
+align-items:center;
+position:fixed;
+bottom:5vh;
+left:15vw;
 `
