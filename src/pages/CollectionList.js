@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         <Box>
      
             <Image url={props.image} onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}/>
-            <DescriptionBox>
+            <DescriptionBox onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}>
                 <Title>{props.name}</Title>
                 <LikeComment>
                     좋아요 {props.liked_users.length}개 | 댓글 {props.comments.length}개
