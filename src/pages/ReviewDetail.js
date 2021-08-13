@@ -188,15 +188,15 @@ const ReviewDetail = (props) => {
                 <ReactionBar>
                   {
                     myLike ?
-                    <Div><FavoriteIcon className={classes.like}   
-                    onClick={() => {
+                    <Div onClick={() => {
                       clickLikeButton();
-                    }}/>좋아요 {likes} 개</Div>
+                    }}><FavoriteIcon className={classes.like}   
+                   />좋아요 {likes} 개</Div>
                     :
-                    <Div><FavoriteBorderIcon className={classes.like} 
-                    onClick={() => {
+                    <Div onClick={() => {
                       clickLikeButton();
-                    }} />좋아요 {likes} 개</Div>
+                    }} ><FavoriteBorderIcon className={classes.like} 
+                    />좋아요 {likes} 개</Div>
                   }
                   
                    <Hr></Hr>
