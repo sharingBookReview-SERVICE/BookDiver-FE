@@ -51,12 +51,12 @@ const BookDetail = (props) => {
                   reviews_which_book_have.map((review)=>{
                     return(
                         <ReviewGrid>
-                      <ReviewCard key={review._id} {...review} is_book_detail book={book}/>
+                      <ReviewCard key={review.id} {...review} is_book_detail book={book}/>
                         </ReviewGrid>
                     )
                   })
                 }
-                {/* <ReviewCard/> */}
+
 
             </Main>
         </React.Fragment>

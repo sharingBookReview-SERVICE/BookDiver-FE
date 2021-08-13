@@ -169,7 +169,7 @@ const getReviewsBookHaveSV = (bookId) => {
         instance
             .get(`/books/${bookId}/reviews`)
             .then((res) => {
-                dispatch(getReviewsBookHave(res.data.review));
+                dispatch(getReviewsBookHave(res.data.reviews));
             })
             .catch((err) => {
                 console.log("해당 책의 리뷰 가져오기 실패", err);
