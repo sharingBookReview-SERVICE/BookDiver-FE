@@ -11,6 +11,8 @@ import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 import {history} from "../redux/configStore";
 import {useSelector} from "react-redux";
 import {images} from "../shared/Image"
+import {titles} from "../shared/Titles";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 
@@ -28,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
 const MyFeed = () => {
     const nickname = useSelector(state => state.user.user.nickname);
     const profileImg = useSelector(state => state.user.user.profileImage)
+    const following = useSelector(state => state.user.user.followingCount)
+    const follower = useSelector(state => state.user.user.followerCount)
+    console.log(follower)
     const classes = useStyles()
 
     const goToFollowing = () => {
@@ -61,7 +66,7 @@ const MyFeed = () => {
                           </ImgWrapper>
 
                           <DetailBox>
-                            <UserTitle>'천재적인 범고래 다이버'</UserTitle>
+                            <UserTitle>{titles[profileImg]}</UserTitle>
                             <UserName>{nickname}</UserName>
                             <PostCount>작성한 에세이 12개 | 만든 컬렉션 20개</PostCount>
                           </DetailBox>
@@ -77,12 +82,12 @@ const MyFeed = () => {
                             {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
                             {/*<Text>저장한 에세이</Text>*/}
                             <Text
-                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
+                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{follower}</Text>
                             <Text style={{marginTop: "4px"}}>팔로워</Text>
                         </MyActivity>
                         <MyActivity onClick={() => {goToFollowing()}}>
                             <Text
-                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>9,999</Text>
+                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{following}</Text>
                             <Text style={{marginTop: "4px"}}>팔로잉</Text>
                         </MyActivity>
                     </MyActivityBox>
