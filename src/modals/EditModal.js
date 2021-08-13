@@ -30,14 +30,14 @@ const EditModal = (props) =>{
               <Btn><LockOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 비공개로 전환</Btn> */}
               <Btn onClick={() => { 
                 dispatch(reviewActions.deleteReviewSV())
-                dispatch(permitActions.showModal(false))
+                dispatch(permitActions.showEditModal(false))
               }
               }><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}} />게시물 삭제</Btn>
             </Container>
 
             <Overlay 
             onClick={()=>{
-            dispatch(permitActions.showModal(false))
+            dispatch(permitActions.showEditModal(false))
             }}>
             </Overlay>
         </React.Fragment>
@@ -54,7 +54,7 @@ const Overlay = styled.div`
 `;
 
 const Container = styled.div`
-top:30%;
+top:40%;
 left:10%;
 width: 80vw;
 border-radius: 12px;

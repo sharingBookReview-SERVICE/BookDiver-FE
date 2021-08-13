@@ -12,6 +12,7 @@ const IS_TREASURE = "permit/IS_TREASURE"
 const SHOW_TREASURE_MODAL = "permit/SHOW_TREASURE_MODAL"
 const SHOW_NEW_BADGE = "permit/SHOW_NEW_BADGE"
 const SHOW_LOGIN_MODAL = "permit/SHOW_LOGIN_MODAL"
+const SHOW_EDIT_MODAL = "permit/SHOW_EDIT_MODAL"
 
 
 //actioncreator
@@ -25,6 +26,7 @@ const isTreasure = createAction(IS_TREASURE, (is_treasure) => ({is_treasure}))
 const showTreasureModal = createAction(SHOW_TREASURE_MODAL, (is_treasure) => ({is_treasure}))
 const showNewBadge = createAction(SHOW_NEW_BADGE, (new_badge) => ({new_badge}))
 const showLoginModal = createAction(SHOW_LOGIN_MODAL, (show_login) => ({show_login}))
+const showEditModal = createAction(SHOW_EDIT_MODAL, (is_modal) => ({is_modal}))
 
 
 //initial
@@ -39,6 +41,7 @@ const initialState = {
     is_treasure_modal: false, 
     new_badge: null,
     show_login:false,
+    is_edit_modal: false,
 };
 
 
@@ -85,6 +88,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.show_login = action.payload.show_login;
         }),
+        [SHOW_EDIT_MODAL] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_edit_modal = action.payload.is_modal;
+        }),
     },
     initialState
   );
@@ -101,6 +108,7 @@ const actionCreators = {
     showTreasureModal,
     showNewBadge,
     showLoginModal,
+    showEditModal,
 };
   
 export { actionCreators };

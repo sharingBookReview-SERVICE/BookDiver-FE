@@ -16,7 +16,7 @@ const Home = (props) => {
   //dispatch와 변수들
   const dispatch = useDispatch();
   const reviewList = useSelector((state) => state.review.all_review_list);
-  const is_modal = useSelector((state) => state.permit.is_modal);
+  const is_edit_modal = useSelector((state) => state.permit.is_edit_modal);
   const show_login_modal = useSelector((state) => state.permit.show_login)
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
@@ -59,7 +59,7 @@ const Home = (props) => {
       <div ref={ref}></div>
       </HomeBGColor>
 
-      {is_modal && <EditModal />}
+      {is_edit_modal && <EditModal />}
       {show_login_modal && <LoginModal/>}
     </React.Fragment>
   );

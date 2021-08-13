@@ -58,7 +58,7 @@ const ReviewCard = (props) => {
   };
 
   const showEditModal = () => {
-    dispatch(permitActions.showModal(true));
+    dispatch(permitActions.showEditModal(true));
   };
 
   const goToReviewDetail = () => {
