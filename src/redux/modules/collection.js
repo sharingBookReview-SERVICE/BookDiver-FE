@@ -12,8 +12,9 @@ const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
 const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS";
 const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS";
-const ADD_COLLECTION = "collections/ADD_COLLECTION";
-const ADD_COLLECTION_CONTENTS = "collections/ADD_COLLECTION_CONTENTS";
+const ADD_COLLECTION = "collection/ADD_COLLECTION";
+const ADD_COLLECTION_CONTENTS = "collection/ADD_COLLECTION_CONTENTS";
+const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL";
 
 
 //actioncreator
@@ -25,6 +26,7 @@ const getTagCollections = createAction(GET_TAG_COLLECTIONS, (collection_list)=> 
 const getCustomCollections = createAction(GET_CUSTOM_COLLLECTIONS, (collection_list)=> ({collection_list}));
 const addCollection = createAction(ADD_COLLECTION, (collection)=>({collection}));
 const addCollection_content = createAction(ADD_COLLECTION_CONTENTS, (collection)=>({collection}));
+const getCollectionDetail = createAction(GET_COLLECTION_DETAIL, (collection)=>({collection}));
 
 //initial
 const initialState = {
@@ -34,6 +36,7 @@ const initialState = {
     custom_collection_list: [],
     collection_contents :[],
     is_make_collection : false,
+    collection_detail:[]
 };
 
 
@@ -112,6 +115,19 @@ const addCollectionSV = (formData)=>{
   }
 }
 
+//컬렉션 하나 상세보기
+const getCollectionDetailSV = (id)=>{
+  return function(dispatch){
+    instance.get(`/collections/${id}`)
+    .then((res)=>{
+      dispatch(getCollectionDetail(res.data.collection));
+    })
+    .catch((err)=>{
+      console.log("콜렉션상세보기 실패", err)
+    })
+  }
+}
+
 
 
 //reducer
@@ -148,7 +164,7 @@ export default handleActions(
         }),
         [ADD_COLLECTION]:(state, action)=>
         produce(state, (draft)=>{
-          draft.custom_collection_list.unshift(action.payload.collection);
+          draft.custom_collection_list.push(action.payload.collection);
         }),
         [ADD_COLLECTION_CONTENTS]:(state, action)=>
         produce(state, (draft)=>{
@@ -171,6 +187,11 @@ export default handleActions(
           }
          
         }),
+        //컬렉션 상세 보기
+        [GET_COLLECTION_DETAIL]:(state, action)=>
+        produce(state, (draft)=>{
+          draft.collection_detail = action.payload.collection;
+        }),
 
     },
     initialState
@@ -185,7 +206,8 @@ const actionCreators = {
   getTagCollectionsSV,
   getCustomCollectionsSV,
   addCollectionSV,
-  addCollection_content
+  addCollection_content,
+  getCollectionDetailSV
 };
   
 export { actionCreators };

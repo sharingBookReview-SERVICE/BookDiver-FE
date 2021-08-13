@@ -1,6 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as collectionActions } from "../redux/modules/collection";
 
 import styled from "styled-components";
 import Color from "../shared/Color";
@@ -9,8 +10,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 import { history } from "../redux/configStore";
 import { makeStyles } from "@material-ui/core/styles";
-import { BookCard } from "./MakeCollection";
+import CollectionBookCard from "../elements/CollectionBookCard";
 import Comment from "../components/Comment";
+import { Book } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     goback: {
@@ -26,9 +28,14 @@ const useStyles = makeStyles((theme) => ({
 const CollectionDetail = (props) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
+    const collection_id = props.match.params.collectionid;
+    const collection_detail = useSelector(state=> state.collection.collection_detail);
+
+    const {image, name, user,description, contents, liked_users, comments } = collection_detail;
 
     React.useEffect(()=>{
         dispatch(permitActions.showNav(false));
+        dispatch(collectionActions.getCollectionDetailSV(collection_id))
     },[]);
     return(
         <React.Fragment>
@@ -40,36 +47,34 @@ const CollectionDetail = (props) =>{
             </Head>
                 <CollectionOutter>
                      <Overlay/>
-                    <Image>
+                    <Image url={image}>
                         <TitleBox>
-                        <Title>카페에서 가볍게 읽는 자기계발 에세이 모음</Title>
-                        <Nickname>도비는 휴식이 필요해</Nickname>
+                        <Title>{name}</Title>
+                        <Nickname>{user?.nickname}</Nickname>
                         </TitleBox>
-                        
                     </Image>
                   <Wrapper>
-                    <Description>
-                    카페에서 가볍게 읽는 자기계발 에세이를 모아봤어요. 나의 위에 언덕 비둘기, 까닭이요, 다하지 써 나의 거외다. 북간도에 않은 차 계십니다. 못 차 언덕 이름과, 무엇인지 하나에 토끼, 계십니다. 추억과 다 옥 위에 북간도에 거외다. 다 하나에 위에도 이런 이네들은 속의 겨울이 까닭입니다. 불러 나는 것은 부끄러운 하늘에는 이름자 까닭입니다. 애기 이 사랑과 걱정도 어머님, 못 벌써 있습니다. 사람들의 멀리 이름과, 하나에 아름다운 하늘에는 이네들은 듯합니다. 별빛이 못 무성할 흙으로 불러 있습니다.
-                    </Description>
+                    <Description>{description}</Description>
                     <Wrapper>
-                    <BookCard></BookCard>
-                    <BookCard></BookCard>
-                    <BookCard></BookCard>
-                    <BookCard></BookCard>
-                    <BookCard></BookCard>
+                   {
+                     contents?.map((content)=>{
+                       return(<CollectionBookCard is_collection_detail {...content} key={content.id}/>)
+                     })
+                   }
                     </Wrapper>
                     <ReactionBar>
-                        <Div><FavoriteBorderIcon className={classes.like} />좋아요 0 개</Div>
+                        <Div><FavoriteBorderIcon className={classes.like} />좋아요 {liked_users.length} 개</Div>
                          <Hr></Hr>
-                         <Div>댓글 0 개</Div>
+                         <Div>댓글 {comments.length} 개</Div>
                      </ReactionBar>
                     </Wrapper>
                 </CollectionOutter>
                 <CommentList>
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
-                    <Comment/>
+                  {
+                    comments?.map((comment, idx)=>{
+                      return(<Comment {...comment} key={idx}/>)
+                    })
+                  }
                 </CommentList>
                 <CommentInputBox>
                     <CommentInput/>
@@ -106,7 +111,7 @@ margin: 16px;
 const Image = styled.div`
 width: 100%;
 padding-top: 100%;
-background-image:url(https://i.pinimg.com/564x/1d/56/07/1d5607356a13ae7f8eb493bc2510dbf9.jpg);
+background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 border-radius: 12px 12px 0px 0px;
 `;
