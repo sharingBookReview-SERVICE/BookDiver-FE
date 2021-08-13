@@ -47,6 +47,7 @@ const initialState = {
     is_me: false,
     follow_list : [],
     get_treasure : false,
+    my_feed:[]
 };
 
 
@@ -205,12 +206,14 @@ const changeProfileSV = (image) => {
   }}
 
 
+  //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = ()=>{
   return function(dispatch, getState, {history}){
     const userId = getState().user.user.id;
     instance.get(`/users/${userId}/feeds`)
     .then((res)=>{
-      console.log(res.data)
+      console.log(res.data);
+      dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
       console.log(err)
@@ -258,6 +261,10 @@ export default handleActions(
         [GET_FOLLOWER_LIST] : (state, action)=>
         produce(state, (draft)=>{
           draft.follow_list = action.payload.list
+        }),
+        [GET_MY_FEED] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.my_feed = action.payload.my_feed;
         }),
     },
     initialState

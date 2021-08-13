@@ -16,7 +16,7 @@ import Color from "../shared/Color";
 
 
 //action
-import collection, { actionCreators as collectionActions } from "../redux/modules/collection";
+import  { actionCreators as collectionActions } from "../redux/modules/collection";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
