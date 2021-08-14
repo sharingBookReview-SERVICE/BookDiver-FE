@@ -32,6 +32,8 @@ const BookCollectionMain = (props) =>{
     const tag_collection_list = useSelector(state=> state.collection.tag_collection_list);
     const custom_collection_list = useSelector(state=> state.collection.custom_collection_list);
 
+    const is_login = useSelector(state=> state.user.is_login);
+
     React.useEffect(()=>{
         dispatch(permitActions.showNav(true))
         dispatch(collectionActions.getTagCollectionsSV());
@@ -90,7 +92,10 @@ const BookCollectionMain = (props) =>{
             </Swiper>
             </Recommend>
            
-            <MakeBtn onClick={()=>{history.push('/makeCollection')}}>나만의 북 컬렉션 만들기</MakeBtn>
+           {
+               is_login &&  <MakeBtn onClick={()=>{history.push('/makeCollection')}}>나만의 북 컬렉션 만들기</MakeBtn>
+           }
+           
         </Container>
     )
 }

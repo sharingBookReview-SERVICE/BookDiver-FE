@@ -254,6 +254,7 @@ align-items: center;
 display: flex;
 position: fixed;
 background: ${Color.mainColor};
+justify-content: space-between;
 `;
 const UploadForm = styled.form``;
 const Upload = styled.input`
@@ -267,7 +268,7 @@ const SubmitButton = styled.button`
   font-weight: bold;
   // float: right;
   // display: inline-block;
-  margin: 0 5px 0 0;
+  margin: 0 10px 0 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   border: none;
@@ -294,6 +295,7 @@ border: 1px solid black;
 box-sizing: border-box;
 margin-bottom: 16px;
 background: ${Color.mainColor};
+padding: 0px 10px;
 `;
 const ImageSelect = styled.div`
 width: 100%;
@@ -333,7 +335,8 @@ box-sizing: border-box;
 border-radius: 12px;
 background: ${Color.mainColor};
 margin-bottom: 16px;
-padding-top: 16px;
+padding: 10px;
+font-family: 'Noto Sans KR', sans-serif;
 `;
 const AddBookBox= styled.div`
 width: 100%;

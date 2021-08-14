@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }
 
 OneCollection.defaultProps={
-  image :"https://i.pinimg.com/564x/8d/13/4b/8d134bac5126c22c6cb3f19271b7c35e.jpg"
+  image :"https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg"
 }
 
 const CollectionList = (props) => {

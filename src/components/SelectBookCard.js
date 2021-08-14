@@ -37,8 +37,10 @@ const SelectBookCard = (props) =>{
   if(is_reviewDetail || is_editReviewPage){
     return(
       <BookInfoWrapper onClick={()=>{
+        is_reviewDetail ?
         history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
-        
+        :
+        window.alert("책은 수정할 수 없습니다")
       }}>
         <BookInfoBox>
           <BookImg url={image}/>
@@ -50,6 +52,7 @@ const SelectBookCard = (props) =>{
       </BookInfoWrapper>
     )
   }
+
 
     // book detail 에서 보는 화면 
   if(is_book_detail){
