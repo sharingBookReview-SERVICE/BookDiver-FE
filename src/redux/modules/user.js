@@ -18,7 +18,9 @@ const GET_FOLLOWING_LIST = "user/GET_FOLLOWING_LIST"
 const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
 const GET_TREASURE = "user/GET_TREASURE"
 const GET_MY_FEED ="user/GET_MY_FEED";
-
+const GET_FOLLOWING_COUNTS = "user/GET_FOLLOWING_COUNTS";
+const GET_FOLLOWER_COUNTS = "user/GET_FOLLOWER_COUNTS"
+const IS_FOLLOW = "user/IS_FOLLOW"
 
 
 //actioncreator
@@ -32,7 +34,9 @@ const getFollowingList = createAction(GET_FOLLOWING_LIST, (list) => ({list}))
 const getFollowerList = createAction(GET_FOLLOWER_LIST, (list) => ({list}))
 const getTreasure = createAction(GET_TREASURE, (treasure) => ({treasure}))
 const getMyFeed = createAction(GET_MY_FEED, (my_feed)=>({my_feed}));
-
+const getFollowingCounts = createAction(GET_FOLLOWING_COUNTS, (counts) => ({counts}))
+const getFollowerCounts = createAction(GET_FOLLOWER_COUNTS, (counts) => ({counts}))
+const isFollow = createAction(IS_FOLLOW, (is_follow) => ({is_follow}))
 
 
 //initial
@@ -48,6 +52,9 @@ const initialState = {
     follow_list : [],
     get_treasure : false,
     my_feed:[],
+    following_counts: 0,
+    follower_counts: 0,
+    is_follow: false,
 };
 
 
@@ -58,6 +65,8 @@ const getUserSV = (id)=>{
     instance.get(`/users/${id}`)
     .then((res)=>{
       //레벨10 단위가 되었는지 지속적으로 확인하기
+      dispatch(getFollowingCounts(res.data.followingCount))
+      dispatch(getFollowerCounts(res.data.followerCount))
       dispatch(permitActions.showTreasureModal(res.data.treasure))
       dispatch(getUser(res.data));
     })
@@ -116,7 +125,6 @@ const deleteUserSV = (id) =>{
     instance.delete(`/users/${id}`)
     .then((res)=>{
       window.alert("회원탈퇴");
-      console.log(res)
       dispatch(deleteUser(id));
     })
     .catch((err)=>{
@@ -131,7 +139,7 @@ const followSV = (id) => {
   return function(dispatch, getState, {history}){
     instance.put(`follow/${id}`)
     .then((res)=>{
-      console.log(res)
+      dispatch(getFollowingCounts(res.data.followingList.length))
       dispatch(getFollowingList(res.data.followingList))
     })
     .catch((err)=>{
@@ -146,8 +154,8 @@ const deleteFollowerSV = (id) => {
   return function(dispatch, getState, {history}){
     instance.put(`follow/delete/${id}`)
     .then((res)=>{
-      console.log(res.data)
-      // dispatch(getFollowerList(res.data.followerList))
+      dispatch(getFollowerCounts(res.data.followerList.length))
+      dispatch(getFollowerList(res.data.followerList))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -293,6 +301,18 @@ export default handleActions(
         produce(state, (draft)=>{
           draft.my_feed = action.payload.my_feed;
         }),
+        [GET_FOLLOWING_COUNTS] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.following_counts = action.payload.counts;
+        }),
+        [GET_FOLLOWER_COUNTS] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.follower_counts = action.payload.counts;
+        }),
+        [IS_FOLLOW] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.is_follow = action.payload.is_follow;
+        }),
     },
     initialState
   );
@@ -314,6 +334,7 @@ const actionCreators = {
   getMyFeedSV,
   deleteFollowerSV,
   checkTreasureSV,
+  isFollow,
 };
   
 export { actionCreators };

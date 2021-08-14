@@ -277,6 +277,8 @@ const CommentUserBox = styled.div`
 const Box = styled.div`
 display:flex;
 flex-direction:${(props) => props.direction};
+width:100%;
+justify-content:flex-start;
 `
 
 const UserLeftBox = styled.div`
@@ -290,6 +292,9 @@ const UserName = styled.div`
   font-size: 14px;
   font-weight: normal;
   margin: 0px 8px 0px 0px;
+  width:auto;
+  height:auto;
+  min-width:30px;
 `;
 
 const CreatedAt = styled.p`
@@ -328,7 +333,7 @@ border-radius: 16px;
 const Follow = styled.div`
 font-weight: bold;
 font-size:14px;
-width: 100%;
+width: auto;
 `;
 
 

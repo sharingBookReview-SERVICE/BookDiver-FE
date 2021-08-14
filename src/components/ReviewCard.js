@@ -13,6 +13,7 @@ import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom/cjs/react-dom.development";
 
 
 const ReviewCard = (props) => {
@@ -37,6 +38,9 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user._id);
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
+  const is_follow = useSelector(state => state.user.is_follow)
+  console.log("-----------팔로우 확인", is_follow)
+
   let is_my_post = false;
 
   if (user.id === userId) {
@@ -71,6 +75,7 @@ const ReviewCard = (props) => {
 
   const follow = () => {
     dispatch(userActions.followSV(user.id))
+    dispatch(userActions.isFollow(true))
   }
 
   return (
@@ -84,7 +89,7 @@ const ReviewCard = (props) => {
                 <Box direction={"row"}>
                   <UserName>{user.nickname}</UserName>
                   {
-                    !is_my_post &&  <Follow onClick={()=>{follow()}}>팔로우</Follow>
+                    !is_my_post &&  <Follow onClick={()=>{follow()}}>{is_follow ? "팔로잉" : "팔로우"}</Follow>
                   }
                  
                 </Box>

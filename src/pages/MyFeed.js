@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const MyFeed = () => {
+    const classes = useStyles()
     const dispatch = useDispatch();
     const nickname = useSelector(state => state.user.user.nickname);
     const profileImg = useSelector(state => state.user.user.profileImage);
@@ -39,7 +40,9 @@ const MyFeed = () => {
     const my_feed = useSelector(state=> state.user.my_feed);
     const my_reviews = my_feed.reviews;
     const my_collections = my_feed.collections;
-    const classes = useStyles()
+    const followingCounts = useSelector(state => state.user.following_counts)
+    const followerCounts = useSelector(state => state.user.follower_counts)
+    console.log(followingCounts, followerCounts)
 
     const goToFollowing = () => {
       history.push("/following")
@@ -48,7 +51,6 @@ const MyFeed = () => {
     const goToFollower = () => {
       history.push("/follower")
     }
-
 
     const goToMyDepth = () => {
       history.push("/mydepth")
@@ -93,12 +95,12 @@ const MyFeed = () => {
                             {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
                             {/*<Text>저장한 에세이</Text>*/}
                             <Text
-                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{follower}</Text>
+                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followerCounts}</Text>
                             <Text style={{marginTop: "4px"}}>팔로워</Text>
                         </MyActivity>
                         <MyActivity onClick={() => {goToFollowing()}}>
                             <Text
-                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{following}</Text>
+                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followingCounts}</Text>
                             <Text style={{marginTop: "4px"}}>팔로잉</Text>
                         </MyActivity>
                     </MyActivityBox>
