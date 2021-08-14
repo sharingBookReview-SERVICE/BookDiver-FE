@@ -25,12 +25,15 @@ const useStyles = makeStyles((theme) => ({
 
   const OneCollection = (props) => {
     const dispatch = useDispatch();
-    const user_id = useSelector(state=> state.user.user.id);
+    const user_id = useSelector(state=> state.user.user._id);
+    const is_login = useSelector(state=> state.user.is_login);
+
     let is_my_collection= false;
     if(props.user===user_id){
       is_my_collection = true;
     }
  
+    console.log(is_my_collection)
     const is_modal = useSelector(state=> state.permit.is_modal);
     const showEdit = ()=>{
       dispatch(permitActions.showModal(true));
@@ -39,8 +42,16 @@ const useStyles = makeStyles((theme) => ({
      
         <Box>
      
-            <Image url={props.image} onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}/>
-            <DescriptionBox onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}>
+            <Image url={props.image} 
+            onClick={()=>{
+              is_login?
+              history.push(`/collectiondetail/${props.id}`)
+              : history.push('/login')
+            }}/>
+            <DescriptionBox onClick={()=>{  
+              is_login?
+              history.push(`/collectiondetail/${props.id}`)
+              : history.push('/login')}}>
                 <Title>{props.name}</Title>
                 <LikeComment>
                     좋아요 {props.liked_users.length}개 | 댓글 {props.comments.length}개

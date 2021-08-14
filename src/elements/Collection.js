@@ -2,10 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import Color from "../shared/Color";
 import { history } from "../redux/configStore";
+import { useSelector } from "react-redux";
 
 const Collection = (props) =>{
+    const is_login = useSelector(state=> state.user.is_login);
     return (
-        <Outter onClick={()=>{history.push(`/collectiondetail/${props.id}`)}}>
+        <Outter
+        onClick={()=>{
+            is_login?
+            history.push(`/collectiondetail/${props.id}`)
+            : history.push('/login')
+          }}>
         <Image url = {props.image}>
             <Overlay>
             <CollectionTitle>{props.is_tag? `#${props.name}`: `${props.name}`}</CollectionTitle>
