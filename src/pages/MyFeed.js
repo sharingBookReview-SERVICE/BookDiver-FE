@@ -37,6 +37,7 @@ const MyFeed = () => {
     const profileImg = useSelector(state => state.user.user.profileImage);
     const following = useSelector(state => state.user.user.followingCount);
     const follower = useSelector(state => state.user.user.followerCount);
+    const level = useSelector(state=> state.user.user.level);
     const my_feed = useSelector(state=> state.user.my_feed);
     const my_reviews = my_feed.reviews;
     const my_collections = my_feed.collections;
@@ -105,7 +106,7 @@ const MyFeed = () => {
                         </MyActivity>
                     </MyActivityBox>
 
-                    <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 0m 잠수 중' 자세히보기</LevelDetail> 
+                    <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 {level}m 잠수 중' 자세히보기</LevelDetail> 
                   </Wrapper>
                 </UserBox>
 
@@ -191,7 +192,7 @@ width:100%;
 display:flex;
 justify-content:flex-start;
 box-sizing:border-box;
-margin-top:20px;
+margin: 20px 0px;
 `
 
 const ImgWrapper = styled.div`

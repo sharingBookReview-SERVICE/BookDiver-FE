@@ -345,6 +345,7 @@ margin-bottom: 16px;
 padding: 0px 20px;
 font-family: "Noto Serif KR", serif;
 font-weight: bold;
+white-space: pre-line;
 `;
 
 const Content = styled.div`
