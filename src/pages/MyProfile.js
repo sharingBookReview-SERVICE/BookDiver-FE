@@ -14,8 +14,6 @@ import {images} from "../shared/Image"
 import {titles} from "../shared/Titles"
 
 import ProfileSwiper from "../elements/ProfileSwiper";
-import LogoutModal from "../modals/LogoutModal";
-import SignoutModal from "../modals/SignoutModal";
 
 const useStyles = makeStyles((theme) => ({
     setting: {
