@@ -1,11 +1,10 @@
 //import 부분
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Color from "../shared/Color";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { KAKAO_AUTH_URL} from "../shared/OAuth";
-import {Link} from 'react-router-dom'
 
 
 const LoginModal = (props) =>{

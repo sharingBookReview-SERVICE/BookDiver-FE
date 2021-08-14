@@ -18,7 +18,7 @@ const removeRecommandTag = createAction(REMOVE_RECOMMAND_TAG, (index) => ({index
 
 //initial
 const initialState = {
-  tags: ["ex) 자기계발"],
+  tags: [],
   recommand_tags:["자기계발","독서","문해력","이어령"],
 };
 

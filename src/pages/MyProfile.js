@@ -35,7 +35,8 @@ const MyProfile = (props) =>{
     const profileImg = useSelector(state => state.user.user?.profileImage)
     const followerCount = useSelector(state=> state.user.user?.followerCount)
     const followingCount = useSelector(state=> state.user.user?.followingCount)
-    const userId = useSelector(state => state.user.user.id)
+    const userId = useSelector(state => state.user.user._id)
+    console.log(userId)
     const CollectionList = ["나만의 북 컬렉션", "내가 스크랩한 리뷰"]
 
     useEffect(() => {

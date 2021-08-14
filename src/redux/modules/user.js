@@ -38,7 +38,7 @@ const getMyFeed = createAction(GET_MY_FEED, (my_feed)=>({my_feed}));
 //initial
 const initialState = {
     user : {
-      userId : "",
+      _id : "",
       nickname: "",
       token: ""
     },
@@ -47,7 +47,7 @@ const initialState = {
     is_me: false,
     follow_list : [],
     get_treasure : false,
-    my_feed:[]
+    my_feed:[],
 };
 
 
@@ -80,7 +80,7 @@ const loginCheck = () => {
 
     //localStorage에 토큰이 있는 상태(이미 로그인을 한 상태라면)
     if (user) {
-      dispatch(setUser({id: userId, nickname: nickname, token: token}));
+      dispatch(setUser({_id: userId, nickname: nickname, token: token}));
     } else {
       console.log("로그인상태아님");
     }
@@ -97,7 +97,7 @@ const setUserSV = (userId, nickname) => {
     .then((res)=>{
       const token = res.data;
       localStorage.setItem('token', token);
-      dispatch(setUser({userId: userId, nickname: nickname, token: token}));
+      dispatch(setUser({_id: userId, nickname: nickname, token: token}));
       history.push('/')
     })
     .catch((err)=>{
@@ -125,13 +125,29 @@ const deleteUserSV = (id) =>{
   }
 }
 
-
+//팔로우 함수 & 팔로우 취소 함수 
 const followSV = (id) => {
 
   return function(dispatch, getState, {history}){
     instance.put(`follow/${id}`)
     .then((res)=>{
       console.log(res)
+      dispatch(getFollowingList(res.data.followingList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+//나를 팔로우하는 유저 삭제
+const deleteFollowerSV = (id) => {
+
+  return function(dispatch, getState, {history}){
+    instance.put(`follow/delete/${id}`)
+    .then((res)=>{
+      console.log(res.data)
+      // dispatch(getFollowerList(res.data.followerList))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -166,7 +182,7 @@ const getFollowerListSV = () => {
 const getTreasureSV = () => {
 
   return function(dispatch, getState, {history}){
-    const userId = getState().user.user.id
+    const userId = getState().user.user._id
     const treasureNum = `treasure_${getState().user.user.level}`.slice(0, -1) // 유저에 줄 보물의 종류를 구하기 
     const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min); // 랜덤한 숫자를 
 
@@ -184,9 +200,11 @@ const getTreasureSV = () => {
 
     const randomImg = getRandomImg(treasureNum, getRandomNum(0,3))
 
-    instance.put(`users/profile/${userId}`, {imageName: randomImg})
+    instance.put(`users/profile/image`, {imageName: randomImg})
     .then((res)=>{
-      dispatch(permitActions.showNewBadge(true))
+      dispatch(permitActions.isTreasure(false))
+      dispatch(permitActions.showNewBadge(randomImg))
+      getUserSV(userId)
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -196,10 +214,9 @@ const getTreasureSV = () => {
 
 const changeProfileSV = (image) => {
   return function(dispatch, getState, {history}){
-    const userId = getState().user.user.id
+    const userId = getState().user.user._id
     instance.put(`users/${userId}`,{profileImage: image})
     .then((res)=>{
-      console.log(res);
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)})
@@ -209,10 +226,8 @@ const changeProfileSV = (image) => {
   //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = ()=>{
   return function(dispatch, getState, {history}){
-    const userId = getState().user.user.id;
-    instance.get(`/users/${userId}/feeds`)
+    instance.get(`/users/feeds/abc`)
     .then((res)=>{
-      console.log(res.data);
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
@@ -221,6 +236,18 @@ const getMyFeedSV = ()=>{
   }
 }
 
+const checkTreasureSV = () => {
+  return function(dispatch, getState, {history}){
+
+    instance.get(`users/profile/treasure`)
+    .then((res)=>{
+      dispatch(permitActions.isTreasure(res.data.treasure))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
 
 //reducer
 export default handleActions(
@@ -284,7 +311,9 @@ const actionCreators = {
   getFollowerListSV,
   getTreasureSV,
   changeProfileSV,
-  getMyFeedSV
+  getMyFeedSV,
+  deleteFollowerSV,
+  checkTreasureSV,
 };
   
 export { actionCreators };

@@ -11,7 +11,11 @@ const FollowUser = (props) => {
     const {location, nickname, profileImage, id} = props
     // console.log(props);
     const unfollow = () => {
-        dispatch(userActions.followSV(id))
+        if(location === "/follower"){
+            dispatch(userActions.deleteFollowerSV(id))
+        }else{
+            dispatch(userActions.followSV(id))
+        }
       }
 
     return(

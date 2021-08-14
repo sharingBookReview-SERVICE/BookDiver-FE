@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import Color from "../shared/Color"
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   arrow: {
