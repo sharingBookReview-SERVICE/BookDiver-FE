@@ -310,15 +310,12 @@ width: 100vw;
 height: auto;
 padding-bottom: 100px;
 `;
+
 const Head = styled.div`
 width: 100%;
 align-items: center;
 display: flex;
 margin: 30px 0px;
-`;
-const Text = styled.div`
-width: 70%;
-text-align: center;
 `;
 
 const Outter = styled.div`
@@ -342,10 +339,13 @@ const ReviewContent = styled.div`
 
 const Quote = styled.div`
 margin-bottom: 16px;
-padding: 0px 20px;
+padding: 12px;
 font-family: "Noto Serif KR", serif;
 font-weight: bold;
 white-space: pre-line;
+background:${Color.quote};
+margin:0px 20px 16px 20px;
+border-radius:10px;
 `;
 
 const Content = styled.div`

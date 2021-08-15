@@ -288,6 +288,9 @@ const Quote = styled.p`
   font-family: "Noto Serif KR", serif;
   font-weight: 800;
   white-space: pre-line;
+  background:${Color.quote};
+  padding:12px;
+  border-radius:10px;
 `;
 
 const Content = styled.p`

@@ -32,17 +32,35 @@ const SelectBookCard = (props) =>{
   }
 
   const reviewDetailInfo = useSelector(state=> state.review.review_detail);
-  
-  
-  if(is_reviewDetail || is_editReviewPage){
+
+  if(is_editReviewPage){
     return(
       <BookInfoWrapper onClick={()=>{
-        is_reviewDetail ?
-        history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
-        :
         window.alert("책은 수정할 수 없습니다")
       }}>
         <BookInfoBox>
+          <BookImg url={image}/>
+          <BookDescBox>
+          <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
+              <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
+          </BookDescBox>
+        </BookInfoBox>
+      </BookInfoWrapper>
+    )
+  }
+  
+  
+  if(is_reviewDetail){
+    return(
+      <BookInfoWrapper 
+      onClick={()=>{
+        history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
+      }}>
+        <BookInfoBox 
+          style={{
+            border:"none",
+            padding:"0px",
+          }}>
           <BookImg url={image}/>
           <BookDescBox>
           <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
