@@ -82,17 +82,19 @@ const ReviewCard = (props) => {
       <CartWrapper>
         <CardBox>
           <CommentUserBox>
+
             <UserLeftBox>
               <ImgWrapper>
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
+
               <Box direction={"column"}>
                 <Box direction={"row"}>
                   <UserName>{user.nickname}</UserName>
-                  {
-                    !is_my_post &&  <Follow onClick={()=>{follow()}}>{is_follow ? "팔로잉" : "팔로우"}</Follow>
-                  }
-                 
+                  {!is_my_post &&  
+                  <Follow onClick={()=>{follow()}}>
+                    {is_follow ? "팔로잉" : "팔로우"}
+                  </Follow>}
                 </Box>
                 <CreatedAt>{created_at}</CreatedAt>
               </Box>
@@ -227,12 +229,6 @@ height: 100%;
 object-fit:cover;
 `;
 
-const UserImage = styled.img`
-width:24px;
-height:24px;
-border-radius:50%;
-margin-right:7px;
-`
 
 const Box = styled.div`
 display:flex;

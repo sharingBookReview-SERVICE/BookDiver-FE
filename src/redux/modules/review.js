@@ -99,13 +99,16 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
+                if(res.data.error){
+                    history.push("*")
+                    return;
+                }
                 dispatch(addReview(res.data.review));
                 dispatch(permitActions.isLoading(false));
                 history.push("/");
             })
             .catch((err) => {
                 console.log("post작성 실패", err);
-                history.push("/login");
             });
     };
 };
