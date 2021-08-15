@@ -4,6 +4,7 @@ import instance from "../../shared/Request";
 import { history } from "../configStore";
 
 import { actionCreators as userActions } from "./user";
+import { actionCreators as permitActions } from "./permit";
 
 
   
@@ -99,6 +100,7 @@ const addReviewSV = (formData, bookId) => {
             })
             .then((res) => {
                 dispatch(addReview(res.data.review));
+                dispatch(permitActions.isLoading(false));
                 history.push("/");
             })
             .catch((err) => {

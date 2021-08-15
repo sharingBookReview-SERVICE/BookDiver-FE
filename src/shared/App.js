@@ -35,7 +35,8 @@ import MyFeed from "../pages/MyFeed";
 import CollectionList from "../pages/CollectionList"
 import Follow from "../pages/Follow"
 import MyDepth from "../pages/MyDepth";
-import ErrorPage from "../pages/ErrorPage";
+
+import ErrorPage from "../pages/ETC/ErrorPage";
 
 import TreasureModal from "../modals/TreasureModal";
 
@@ -50,7 +51,7 @@ function App(props) {
   const is_padding = useSelector(state => state.permit.is_padding)
   const is_treasure = useSelector(state => state.permit.is_treasure_modal)
   const userId = useSelector(state => state.user.user._id)
-  
+
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
   
 
@@ -117,8 +118,8 @@ function App(props) {
           <Route path="/changeprofileimg" component ={ChangeProfileImg}/>
           <Route path="/setting" exact component={Setting}/>
 
-
           <Route path="*" component={ErrorPage}/>
+
           </Switch>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}

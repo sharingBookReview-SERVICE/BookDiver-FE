@@ -1,18 +1,20 @@
 //import 부분
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configStore";
 import styled from "styled-components";
+import imageCompression from "browser-image-compression";
+
 import add_button from "../img/add_button.png";
 import left_arrow from "../img/left_arrow.png";
-import { history } from "../redux/configStore";
-import imageCompression from "browser-image-compression";
-import Color from "../shared/Color";
 
+import Color from "../shared/Color";
 import SelectBookModal from "../modals/SelectBookModal";
 import WriteCheckModal from "../modals/WriteCheckModal"
 import SelectBookCard from "../components/SelectBookCard";
 import HashTagsInput from "../elements/HashTagsInput";
 import RecommandHashTags from '../elements/RecommandHashTags';
+import Loading from "../pages/ETC/Loading"
 
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
@@ -24,9 +26,10 @@ import { actionCreators as tagActions } from "../redux/modules/tag";
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
 
-  //모달 여부
+  //Permit check
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_written = useSelector((state) => state.permit.is_written);
+  const is_loading = useSelector((state) => state.permit.is_loading)
 
   //이미지 관련
   const is_preview = useSelector((state) => state.upload.is_preview);
@@ -114,6 +117,7 @@ const ReviewWrite = (props) => {
 
   //이미지 보내기.
   const submit = async (event) => {
+    dispatch(permitActions.isLoading(true))
     event.preventDefault();
 
     await sendFormData(compressedImage);
@@ -156,6 +160,10 @@ const ReviewWrite = (props) => {
   useEffect(() => {
     dispatch(tagActions.setRecommandTag(recommandTags))
   },[recommandTags])
+
+  if(is_loading) {
+    return(<Loading/>)
+  }
 
 
   //수정하기

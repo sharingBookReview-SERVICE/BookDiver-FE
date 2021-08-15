@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import Color from "../shared/Color"
+import Color from "../../shared/Color"
 
-import { actionCreators as permitActions } from "../redux/modules/permit";
-import ErrorMessage from "../img/1000.png"
+import { actionCreators as permitActions } from "../../redux/modules/permit";
+import ErrorMessage from "../../img/1000.png"
 
 const ErrorPage = () => {
     const dispatch = useDispatch();
