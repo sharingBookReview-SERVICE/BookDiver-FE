@@ -3,17 +3,17 @@ import React from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Color from "../shared/Color";
+
 import profile from "../img/profile.svg"
+import {images} from "../shared/Image" 
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom/cjs/react-dom.development";
 
 
 const ReviewCard = (props) => {
@@ -32,14 +32,13 @@ const ReviewCard = (props) => {
     user,
   } = props;
 
-  
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const userId = useSelector((state) => state.user.user._id);
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
   const is_follow = useSelector(state => state.user.is_follow)
-  console.log("-----------팔로우 확인", is_follow)
+  const profileImage = user?.profileImage;
 
   let is_my_post = false;
 
@@ -84,7 +83,9 @@ const ReviewCard = (props) => {
         <CardBox>
           <CommentUserBox>
             <UserLeftBox>
-              <UserImage src={profile}/>
+              <ImgWrapper>
+                <ProfileImg src={images[profileImage]} />
+              </ImgWrapper>
               <Box direction={"column"}>
                 <Box direction={"row"}>
                   <UserName>{user.nickname}</UserName>
@@ -207,6 +208,23 @@ const UserLeftBox = styled.div`
   height: auto;
   display: flex;
   align-items: center;
+`;
+
+const ImgWrapper = styled.div`
+width:30px;
+height:30px;
+border-radius:70%;
+overflow:hidden;
+box-sizing:border-box;
+border: 1px solid ${Color.secondColor};
+background:${Color.black};
+margin-right:10px;
+`
+
+const ProfileImg = styled.img`
+width: 100%;
+height: 100%;
+object-fit:cover;
 `;
 
 const UserImage = styled.img`
