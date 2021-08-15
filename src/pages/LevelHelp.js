@@ -8,9 +8,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../shared/Color";
 
-import { actionCreators as collectionActions } from "../redux/modules/collection";
-import { useDispatch } from "react-redux";
-
 const useStyles = makeStyles((theme) => ({
     goback: {
         padding: "0px 20px"

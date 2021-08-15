@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { history } from "../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import instance from "./Request";
@@ -35,6 +35,8 @@ import MyFeed from "../pages/MyFeed";
 import CollectionList from "../pages/CollectionList"
 import Follow from "../pages/Follow"
 import MyDepth from "../pages/MyDepth";
+import ErrorPage from "../pages/ErrorPage";
+
 import TreasureModal from "../modals/TreasureModal";
 
 
@@ -48,6 +50,7 @@ function App(props) {
   const is_padding = useSelector(state => state.permit.is_padding)
   const is_treasure = useSelector(state => state.permit.is_treasure_modal)
   const userId = useSelector(state => state.user.user._id)
+  
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
   
 
@@ -75,6 +78,7 @@ function App(props) {
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
 
+          <Switch>
           <Route path="/" exact component={Home} />
 
 
@@ -113,6 +117,9 @@ function App(props) {
           <Route path="/changeprofileimg" component ={ChangeProfileImg}/>
           <Route path="/setting" exact component={Setting}/>
 
+
+          <Route path="*" component={ErrorPage}/>
+          </Switch>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}

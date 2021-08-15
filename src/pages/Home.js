@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { useInView } from "react-intersection-observer";
+import { history } from "../redux/configStore";
 
 import styled from "styled-components";
 import ReviewCard from "../components/ReviewCard";
@@ -22,6 +23,10 @@ const Home = (props) => {
   const [ref, inView] = useInView();
   const getMoreReview = (lastId) => {
     if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
+  }
+
+  if(!reviewList){
+    history.push("*")
   }
 
   //로딩이 되고나면, 네이게이션을 없애주기.
