@@ -159,7 +159,6 @@ const SearchBar = styled.input`
   border-radius: 12px;
   background-color: ${Color.fontBlack};
   padding: 0px 0px 0px 8%;
-  //padding: 0px 0px 0px 30px;
   :focus {
     outline: none;
   }

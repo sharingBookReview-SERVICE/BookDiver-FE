@@ -24,6 +24,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Comment from "../components/Comment";
 import SelectBookCard from "../components/SelectBookCard";
 import CommentModal from "../modals/CommentModal";
+
+import {images} from "../shared/Image"
 import Color from "../shared/Color";
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +63,8 @@ const ReviewDetail = (props) => {
 
   const userId = useSelector((state) => state.user.user._id);
   const nickname = useSelector((state) => state.user.user.nickname);
+  const profileImage = useSelector((state) => state.user.user.profileImage)
+
   const [is_empty, setIsEmpty] = useState(false)
   const bottomRef = useRef();
 
@@ -97,7 +101,7 @@ const ReviewDetail = (props) => {
 
   //뒤로가기 
   const goBack = () => {
-    history.goBack();
+    history.push("/");
   };
 
   //댓글 작성함수
@@ -148,8 +152,12 @@ const ReviewDetail = (props) => {
             <Outter>
 
             <CommentUserBox>
+
             <UserLeftBox>
-              <UserImage src={profile}/>
+              <ImgWrapper>
+                <ProfileImg src={images[profileImage]} />
+              </ImgWrapper>
+
               <Box direction={"column"}>
                 <Box direction={"row"}>
                   <UserName>{user?.nickname}</UserName>
@@ -157,6 +165,7 @@ const ReviewDetail = (props) => {
                 </Box>
                 <CreatedAt >{created_at}</CreatedAt>
               </Box>
+
             </UserLeftBox>
 
             <UserRightBox>
@@ -258,12 +267,22 @@ const UserRightBox = styled.div`
   align-items: center;
 `;
 
-const UserImage = styled.img`
-width:24px;
-height:24px;
+const ImgWrapper = styled.div`
+width:30px;
+height:30px;
 border-radius:50%;
-margin-right:7px;
+overflow:hidden;
+box-sizing:border-box;
+border: 1px solid ${Color.secondColor};
+background:${Color.black};
+margin-right:10px;
 `
+
+const ProfileImg = styled.img`
+width: 100%;
+height: 100%;
+object-fit:cover;
+`;
 
 const CommentUserBox = styled.div`
   display: flex;
@@ -277,7 +296,6 @@ const CommentUserBox = styled.div`
 const Box = styled.div`
 display:flex;
 flex-direction:${(props) => props.direction};
-width:100%;
 justify-content:flex-start;
 `
 
@@ -310,15 +328,12 @@ width: 100vw;
 height: auto;
 padding-bottom: 100px;
 `;
+
 const Head = styled.div`
 width: 100%;
 align-items: center;
 display: flex;
 margin: 30px 0px;
-`;
-const Text = styled.div`
-width: 70%;
-text-align: center;
 `;
 
 const Outter = styled.div`
@@ -342,10 +357,13 @@ const ReviewContent = styled.div`
 
 const Quote = styled.div`
 margin-bottom: 16px;
-padding: 0px 20px;
+padding: 12px;
 font-family: "Noto Serif KR", serif;
 font-weight: bold;
 white-space: pre-line;
+background:${Color.quote};
+margin:0px 20px 16px 20px;
+border-radius:10px;
 `;
 
 const Content = styled.div`

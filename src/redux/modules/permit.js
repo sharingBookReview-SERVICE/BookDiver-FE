@@ -13,6 +13,7 @@ const SHOW_TREASURE_MODAL = "permit/SHOW_TREASURE_MODAL"
 const SHOW_NEW_BADGE = "permit/SHOW_NEW_BADGE"
 const SHOW_LOGIN_MODAL = "permit/SHOW_LOGIN_MODAL"
 const SHOW_EDIT_MODAL = "permit/SHOW_EDIT_MODAL"
+const IS_LOADING = "permit/IS_LOADING"
 
 
 //actioncreator
@@ -27,6 +28,7 @@ const showTreasureModal = createAction(SHOW_TREASURE_MODAL, (is_treasure) => ({i
 const showNewBadge = createAction(SHOW_NEW_BADGE, (new_badge) => ({new_badge}))
 const showLoginModal = createAction(SHOW_LOGIN_MODAL, (show_login) => ({show_login}))
 const showEditModal = createAction(SHOW_EDIT_MODAL, (is_modal) => ({is_modal}))
+const isLoading = createAction(IS_LOADING, (is_loading) => ({is_loading})); 
 
 
 //initial
@@ -42,6 +44,7 @@ const initialState = {
     new_badge: null,
     show_login:false,
     is_edit_modal: false,
+    is_loading: false, 
 };
 
 
@@ -92,6 +95,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_edit_modal = action.payload.is_modal;
         }),
+        [IS_LOADING] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_loading = action.payload.is_loading;
+        }),
     },
     initialState
   );
@@ -109,6 +116,7 @@ const actionCreators = {
     showNewBadge,
     showLoginModal,
     showEditModal,
+    isLoading,
 };
   
 export { actionCreators };

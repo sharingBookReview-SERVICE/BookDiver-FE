@@ -10,6 +10,7 @@ const Color = {
   borderGray: "rgba(37, 33, 33, 0.2)",
   fontBlack: "#252121",
 
+  quote:"#e1d9d0",
   hashtag:"#e1d9d0",
   category: "#e0d9d1cc",
   kakao: "#f6e68c",

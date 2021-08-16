@@ -3,6 +3,9 @@ import { produce } from "immer";
 import instance from "../../shared/Request";
 import { history } from "../configStore";
 
+import { actionCreators as userActions } from "./user";
+import { actionCreators as permitActions } from "./permit";
+
 
   
 //actions
@@ -49,10 +52,22 @@ const getAllReviewSV = () => {
         instance
             .get("/feeds")
             .then((res) => {
+
+                //돌아온 res가 error인 경우 실행할 내용 
+                if(res.data.error){
+                    history.push("*")
+                    localStorage.clear();
+                    dispatch(userActions.logOut())
+                    return;
+                }
+
+                //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
+                
             })
             .catch((err) => {
-                console.log("전체 피드 가져오기 실패", err);
+                history.push("*")
+                localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
             });
     };
 };
@@ -84,12 +99,16 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
+                if(res.data.error){
+                    history.push("*")
+                    return;
+                }
                 dispatch(addReview(res.data.review));
+                dispatch(permitActions.isLoading(false));
                 history.push("/");
             })
             .catch((err) => {
                 console.log("post작성 실패", err);
-                history.push("/login");
             });
     };
 };
