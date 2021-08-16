@@ -1,12 +1,11 @@
 //import 부분
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styled from "styled-components"
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as permitActions} from "../redux/modules/permit";
 import {actionCreators as commentActions} from "../redux/modules/comment"
-import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
 import Color from "../shared/Color";
 
@@ -17,7 +16,7 @@ const Comment = (props) =>{
     const [editContent, setEditContent] = useState("");
     
     const comment_writer = props.user.id;
-    const my_id = useSelector(state=> state.user.user.id);
+    const my_id = useSelector(state=> state.user.user._id);
 
     const getCommentId = () => {
         dispatch(commentActions.getCommentId(commentId))
