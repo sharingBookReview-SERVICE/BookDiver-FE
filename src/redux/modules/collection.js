@@ -16,6 +16,7 @@ const ADD_COLLECTION = "collection/ADD_COLLECTION";
 const ADD_COLLECTION_CONTENTS = "collection/ADD_COLLECTION_CONTENTS";
 const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL";
 const DELETE_COLLECTION = "collection/DELETE_COLLECTION";
+const EDIT_COLLECTION = "collection/EDIT_COLLECTION";
 const GET_COLLECTION_ID = "collection/GET_COLLECTION_ID";
 
 
@@ -30,6 +31,7 @@ const addCollection = createAction(ADD_COLLECTION, (collection)=>({collection}))
 const addCollection_content = createAction(ADD_COLLECTION_CONTENTS, (collection)=>({collection}));
 const getCollectionDetail = createAction(GET_COLLECTION_DETAIL, (collection)=>({collection}));
 const deleteCollection = createAction(DELETE_COLLECTION, (collectionId)=>({collectionId}));
+const editCollection = createAction(EDIT_COLLECTION, (collectionId)=>({collectionId}));
 const getCollectionId = createAction(GET_COLLECTION_ID, (collectionId)=>({collectionId}));
 
 //initial
@@ -63,6 +65,12 @@ const selectBooksSV = (id)=>{
           window.alert("책 하나 로드 실패");
           console.log("책로드 하나 실패", err)
       })
+  }
+}
+
+const deleteSelectedBook = (id)=>{
+  return function(dispatch, getState){
+    
   }
 }
 
@@ -133,6 +141,20 @@ const getCollectionDetailSV = (id)=>{
   }
 }
 
+//컬렉션 수정하기
+const editCollectionDetailSV = (id)=>{
+  return function(dispatch){
+    instance.put(`/collections/${id}`)
+    .then((res)=>{
+      dispatch(getCollectionDetail(res.data.collection));
+    })
+    .catch((err)=>{
+      console.log("콜렉션상세보기 실패", err)
+    })
+  }
+}
+
+//컬렉션 삭제하기
 const deleteCollectionSV = ()=>{
   return function(dispatch, getState, {history}){
     const id = getState().collection.collection_id;
@@ -202,6 +224,7 @@ export default handleActions(
               }
              
           }
+        
          
         }),
         //컬렉션 상세 보기
