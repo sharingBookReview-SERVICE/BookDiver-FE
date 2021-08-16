@@ -2,9 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/Request";
 import jwt_decode from "jwt-decode";
-import axios from "axios";
 import { actionCreators as permitActions } from "./permit";
-import { CodeSharp } from "@material-ui/icons";
 
 //actions
 const GET_USER = "GET_USER";

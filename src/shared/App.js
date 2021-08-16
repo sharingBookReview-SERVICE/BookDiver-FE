@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
@@ -69,8 +69,6 @@ function App(props) {
       getUserInfo()
     }
   }, [userId]);
-  
-
 
 
   return (

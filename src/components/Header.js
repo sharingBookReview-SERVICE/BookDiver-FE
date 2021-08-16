@@ -22,7 +22,6 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <Wrapper>
-      <HeaderPadding></HeaderPadding>
       <HeaderBox>
         <LogoBox><Logo src={logo}/></LogoBox>
 
@@ -44,12 +43,6 @@ position:fixed;
 top:0px;
 z-index:1;
 `
-
-
-const HeaderPadding = styled.div`
-  height: 20px;
-  width: 100%;
-`;
 
 const HeaderBox = styled.div`
   height: 12vh;

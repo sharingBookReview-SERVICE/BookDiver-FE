@@ -43,7 +43,6 @@ const MyFeed = () => {
     const my_collections = my_feed.collections;
     const followingCounts = useSelector(state => state.user.following_counts)
     const followerCounts = useSelector(state => state.user.follower_counts)
-    console.log(followingCounts, followerCounts)
 
     const goToFollowing = () => {
       history.push("/following")
