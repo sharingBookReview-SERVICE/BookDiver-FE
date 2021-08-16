@@ -230,9 +230,9 @@ const changeProfileSV = (image) => {
 
 
   //내가 쓴 리뷰와 컬렉션
-const getMyFeedSV = ()=>{
+const getMyFeedSV = (id)=>{
   return function(dispatch, getState, {history}){
-    instance.get(`/users/feeds/abc`)
+    instance.get(`/users/${id}/feeds`)
     .then((res)=>{
       dispatch(getMyFeed(res.data));
     })

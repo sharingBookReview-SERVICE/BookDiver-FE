@@ -1,4 +1,5 @@
 import React,{useEffect} from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import ListIcon from '@material-ui/icons/List';
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
 const MyFeed = () => {
     const classes = useStyles()
     const dispatch = useDispatch();
+    const location = useLocation();
+    console.log(location.pathname);
+
     const nickname = useSelector(state => state.user.user.nickname);
     const profileImg = useSelector(state => state.user.user.profileImage);
     const following = useSelector(state => state.user.user.followingCount);
@@ -43,6 +47,8 @@ const MyFeed = () => {
     const my_collections = my_feed.collections;
     const followingCounts = useSelector(state => state.user.following_counts)
     const followerCounts = useSelector(state => state.user.follower_counts)
+    const userId = useSelector(state => state.user.user._id)
+    console.log(userId)
 
     const goToFollowing = () => {
       history.push("/following")
@@ -59,8 +65,10 @@ const MyFeed = () => {
 
     useEffect(()=>{
       dispatch(permitActions.showNav(true));
-      dispatch(userActions.getMyFeedSV());
-    },[])
+      if(userId){
+        dispatch(userActions.getMyFeedSV(userId));
+      }
+    },[userId])
 
     return (
         <React.Fragment>

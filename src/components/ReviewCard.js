@@ -72,6 +72,10 @@ const ReviewCard = (props) => {
     }
   }
 
+  const goToUserFeed = (userId) => {
+    dispatch(userActions.getMyFeedSV(userId));
+  }
+
   const follow = () => {
     dispatch(userActions.followSV(user.id))
     dispatch(userActions.isFollow(true))
@@ -84,7 +88,7 @@ const ReviewCard = (props) => {
           <CommentUserBox>
 
             <UserLeftBox>
-              <ImgWrapper>
+              <ImgWrapper onClick={()=>goToUserFeed(user.id)}>
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 
