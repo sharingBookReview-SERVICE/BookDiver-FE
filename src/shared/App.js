@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo} from "react";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
@@ -69,8 +69,6 @@ function App(props) {
       getUserInfo()
     }
   }, [userId]);
-  
-
 
 
   return (
@@ -104,10 +102,10 @@ function App(props) {
           <Route path="/mydepth" exact component={MyDepth}/>
           <Route path="/levelhelp" exact component ={LevelHelp}/>
 
-
+          <Route path="/myfeed" exact component={MyFeed} />
+          <Route path="/userfeed" exact component={MyFeed} />
           <Route path="/myreview" exact component={MyReview} />
           <Route path="/notification" exact component ={Notification}/>
-          <Route path="/myfeed" exact component={MyFeed} />
           <Route path="/myreviewfind" exact component={MyReviewFind} />
 
 

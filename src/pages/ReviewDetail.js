@@ -60,7 +60,7 @@ const ReviewDetail = (props) => {
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
-
+  
   const userId = useSelector((state) => state.user.user._id);
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
@@ -437,7 +437,7 @@ const CommentInputBox = styled.div`
 const CommentInput = styled.input`
   width: 100%;
   height: 100%;
-  padding: 0 0 0 16px;
+  padding: 0 45px 0 16px;
   font-size: 16px;
   background-color: ${Color.mainColor};
   border: 1px solid ${Color.fontBlack};
