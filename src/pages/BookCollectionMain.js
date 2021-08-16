@@ -57,8 +57,28 @@ const BookCollectionMain = (props) =>{
                  </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={50}
+                spaceBetween={80}
                 slidesPerView={2}
+                breakpoints={{
+                    280:{
+                        spaceBetween:115,
+                    },
+                    320:{
+                        spaceBetween:75,
+                    },
+                    360:{
+                        spaceBetween:40,
+                    },
+                    375:{
+                        spaceBetween:25,
+                    },
+                    410:{
+                        spaceBetween:-10,
+                    },
+                    540:{
+                        spaceBetween:-130,
+                    }
+                }}
                 >
                 {
                     tag_collection_list?.map((collection)=>{
@@ -78,8 +98,28 @@ const BookCollectionMain = (props) =>{
             </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
-                spaceBetween={50}
+                spaceBetween={80}
                 slidesPerView={2}
+                breakpoints={{
+                    280:{
+                        spaceBetween:115,
+                    },
+                    320:{
+                        spaceBetween:75,
+                    },
+                    360:{
+                        spaceBetween:40,
+                    },
+                    375:{
+                        spaceBetween:25,
+                    },
+                    410:{
+                        spaceBetween:-10,
+                    },
+                    540:{
+                        spaceBetween:-130,
+                    },
+                }}
                 >
                {
                     custom_collection_list?.map((collection)=>{
@@ -109,7 +149,7 @@ height: 56px;
 background: black;
 border-radius: 12px;
 position: fixed;
-bottom: 10%;
+bottom: 70px;
 left: 5%;
 z-index: 1000;
 color: ${Color.mainColor};
@@ -127,7 +167,7 @@ padding: 44px 20px;
 `;
 
 const Recommend = styled.div`
-padding-bottom: 20px;
+// padding-bottom: 20px;
 `;
 const TitleWrapper = styled.div`
 display: flex;

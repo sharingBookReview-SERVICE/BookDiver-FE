@@ -29,16 +29,20 @@ Collection.defaultProps ={
 
 
 const Outter = styled.div`
+width:auto;
+height:auto;
+box-sizing:border-box;
 `;
 const Overlay = styled.div`
 width: 180px;
 height: 180px;
 border-radius: 12px;
 background: ${Color.overlay};
-// position: absolute;
+padding:10px;
 display:flex;
 justify-content:center;
 align-items:center;
+box-sizing:border-box;
 `
 const Image = styled.div`
 width: 180px;
