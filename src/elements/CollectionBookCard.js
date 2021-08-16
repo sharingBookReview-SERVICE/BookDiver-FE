@@ -31,6 +31,9 @@ const defaultProps = {
         book_description: book_description,
     }
 
+    const deleteCard = ()=>{
+        dispatch(collectionActions.deleteSelectedBook(props.isbn))
+    }
   
 
     //collection detail에서 보는 페이지
@@ -63,7 +66,7 @@ const defaultProps = {
                         <BookWriter>{props.author} 저</BookWriter>
                     </BookDescBox>
                     </Wrapper>
-                    <ClearIcon/>
+                    <ClearIcon onClick={()=>{deleteCard()}}/>
                 </BookInfoBox>
               
                 <Recommend 
