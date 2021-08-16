@@ -437,7 +437,7 @@ const CommentInputBox = styled.div`
 const CommentInput = styled.input`
   width: 100%;
   height: 100%;
-  padding: 0 0 0 16px;
+  padding: 0 45px 0 16px;
   font-size: 16px;
   background-color: ${Color.mainColor};
   border: 1px solid ${Color.fontBlack};
