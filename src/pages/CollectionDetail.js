@@ -7,10 +7,12 @@ import styled from "styled-components";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { history } from "../redux/configStore";
 import { makeStyles } from "@material-ui/core/styles";
 import CollectionBookCard from "../elements/CollectionBookCard";
+import EditModal from "../modals/EditModal";
 import Comment from "../components/Comment";
 import { Book } from "@material-ui/icons";
 
@@ -31,6 +33,8 @@ const CollectionDetail = (props) =>{
     const collection_id = props.match.params.collectionid;
     const collection_detail = useSelector(state=> state.collection.collection_detail);
 
+    const is_modal = useSelector(state=> state.permit.is_modal);
+
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
     React.useEffect(()=>{
@@ -39,10 +43,16 @@ const CollectionDetail = (props) =>{
     },[]);
     return(
         <React.Fragment>
+          {
+            is_modal && <EditModal is_collection id={collection_id}/>
+          }
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
                 onClick = {()=>{history.goBack()}}
+                />
+                <MoreHorizIcon className={classes.goback}
+                onClick = {()=>{dispatch(permitActions.showModal(true))}}
                 />
             </Head>
                 <CollectionOutter>
@@ -92,6 +102,8 @@ width: 100%;
 align-items: center;
 display: flex;
 padding: 16px 0px;
+justify-content: space-between;
+
 `;
 
 

@@ -31,10 +31,15 @@ const EditModal = (props) =>{
         <React.Fragment>
 
             <Container>
-              <Btn><CreateOutlinedIcon className={classes.icon}/>컬렉션 수정</Btn>
+              <Btn
+               onClick={()=>{
+                history.push(`/editCollection/${props.id}`)
+              }}
+              ><CreateOutlinedIcon className={classes.icon}/>컬렉션 수정</Btn>
           
               <Btn
-                onClick={()=>{dispatch(collectionActions.deleteCollectionSV())
+                onClick={()=>{
+                  dispatch(collectionActions.deleteCollectionSV())
                   dispatch(permitActions.showModal(false))
                 }}
               
