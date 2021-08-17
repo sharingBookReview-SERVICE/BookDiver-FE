@@ -84,7 +84,7 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(true));
   }
 
-  const topRef = useRef();
+  const topRef = useRef();  //화면에 들어왔을 때, 가장 상단을 먼저 보여주기
   const bottomRef = useRef(); // 댓글을 작성했을 때, 가장 최신의 댓글을 보여주기 위한 ref
   const topComment = useRef(); // 댓글로 화면에 들어왔을 경우, 첫번째 댓글을 보여주기 위한 ref
 
@@ -154,9 +154,12 @@ const ReviewDetail = (props) => {
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
 
+
     if(is_comment) {
+      //comment를 통해서 들어왔을 때는 comment 위치로 이동.
       scrollTopComment()
     }else{
+      //그냥 들어왔을 때는 상단으로 scroll을 이동. 
       scrollToTop()
     }
 

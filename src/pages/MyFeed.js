@@ -35,20 +35,17 @@ const MyFeed = () => {
     const classes = useStyles()
     const dispatch = useDispatch();
     const location = useLocation();
-    console.log(location.pathname);
 
     const nickname = useSelector(state => state.user.user.nickname);
-    const profileImg = useSelector(state => state.user.user.profileImage);
-    const following = useSelector(state => state.user.user.followingCount);
-    const follower = useSelector(state => state.user.user.followerCount);
-    const level = useSelector(state=> state.user.user.level);
+    const profileImg = useSelector(state => state.user.my_feed.user.profileImage);
+    const level = useSelector(state=> state.user.my_feed.user.level);
     const my_feed = useSelector(state=> state.user.my_feed);
     const my_reviews = my_feed.reviews;
     const my_collections = my_feed.collections;
-    const followingCounts = useSelector(state => state.user.following_counts)
-    const followerCounts = useSelector(state => state.user.follower_counts)
+    const followingCounts = useSelector(state => state.user.my_feed.user.followingCount)
+    const followerCounts = useSelector(state => state.user.my_feed.user.followerCount)
     const userId = useSelector(state => state.user.user._id)
-    console.log(userId)
+    console.log(followerCounts)
 
     const goToFollowing = () => {
       history.push("/following")

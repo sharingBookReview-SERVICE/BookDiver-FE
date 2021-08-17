@@ -57,16 +57,16 @@ const initialState = {
 
 
 //한사람의 사용자 정보 불러오기
-const getUserSV = (id)=>{
-  console.log(id)
+const getUserSV = ()=>{
   return function(dispatch, getState, {history}){
-    instance.get(`/users/${id}`)
+    instance.get(`/users`)
     .then((res)=>{
+      console.log(res)
       //레벨10 단위가 되었는지 지속적으로 확인하기
-      dispatch(getFollowingCounts(res.data.followingCount))
-      dispatch(getFollowerCounts(res.data.followerCount))
-      dispatch(permitActions.showTreasureModal(res.data.treasure))
-      dispatch(getUser(res.data));
+      // dispatch(getFollowingCounts(res.data.followingCount))
+      // dispatch(getFollowerCounts(res.data.followerCount))
+      // dispatch(permitActions.showTreasureModal(res.data.treasure))
+      // dispatch(getUser(res.data));
     })
     .catch((err)=>{
       window.alert("사용자 정보 로딩 실패")
@@ -235,7 +235,7 @@ const getMyFeedSV = (id)=>{
     instance.get(`/users/feeds`)
     .then((res)=>{
       console.log(res)
-      // dispatch(getMyFeed(res.data));
+      dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
       console.log(err)
