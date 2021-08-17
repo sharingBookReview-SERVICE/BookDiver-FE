@@ -26,7 +26,7 @@ const ReviewCard = (props) => {
     book,
     _id,
     myLike,
-    likes,
+    likeCount,
     comments,
     image,
     user,
@@ -72,8 +72,17 @@ const ReviewCard = (props) => {
     }
   }
 
+  //댓글을 클릭했을 때, 리뷰화면으로 들어가기
+  const goDetailByComment = () => {
+    if(is_login){
+      history.push(`/reviewdetail/${book._id}/${_id}?comment=true`)
+    }else{
+      dispatch(permitActions.showLoginModal(true))
+    }
+  }
+
   const goToUserFeed = (userId) => {
-    dispatch(userActions.getMyFeedSV(userId));
+    dispatch(userActions.getOtherFeedSV(userId));
   }
 
   const follow = () => {
@@ -153,10 +162,10 @@ const ReviewCard = (props) => {
                   }}
                 />
               )}
-              <LikeText>{likes}개</LikeText>
+              <LikeText>{likeCount}개</LikeText>
             </LikeBox>
             <WriteCommentBox>
-              <CommentCount>댓글 {comments.length} 개</CommentCount>
+              <CommentCount onClick={() => {goDetailByComment()}}>댓글 {comments.length} 개</CommentCount>
             </WriteCommentBox>
           </LikeCommentBox>
 
