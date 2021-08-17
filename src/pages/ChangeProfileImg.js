@@ -1,6 +1,5 @@
 //import 부분
-import React, { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import React, {useEffect } from "react";
 import {Route} from "react-router-dom"
 import {history} from "../redux/configStore";
 
@@ -8,7 +7,6 @@ import styled from "styled-components";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import FollowUser from "../elements/FollowUser";
 import OwnImages from "../elements/OwnImages"
 
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -29,10 +27,12 @@ const ChangeProfileImg = (props) => {
     const classes = useStyles();
     const userId = useSelector(state => state.user.user._id)
     const ownImages = useSelector(state => state.user.user.own_image)
+
  
     const goBack=() => {
         history.goBack();
     }
+
 
     useEffect(() => {
         if(userId){
@@ -59,6 +59,7 @@ const ChangeProfileImg = (props) => {
                 <Route path="/follower">
                     <HeaderText>나를 팔로우 하는 다이버들</HeaderText>
                 </Route>
+
 
             </Header>
             {ownImages?.map((image, idx) => {

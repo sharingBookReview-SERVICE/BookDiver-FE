@@ -105,7 +105,7 @@ function App(props) {
           <Route path="/levelhelp" exact component ={LevelHelp}/>
 
           <Route path="/myfeed" exact component={MyFeed} />
-          <Route path="/userfeed" exact component={MyFeed} />
+          <Route path="/otherUser/:otherId" exact component={MyFeed} />
           <Route path="/myreview" exact component={MyReview} />
           <Route path="/notification" exact component ={Notification}/>
           <Route path="/myreviewfind" exact component={MyReviewFind} />

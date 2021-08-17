@@ -82,7 +82,7 @@ const ReviewCard = (props) => {
   }
 
   const goToUserFeed = (userId) => {
-    dispatch(userActions.getOtherFeedSV(userId));
+    history.push(`/otherUser/${userId}`)
   }
 
   const follow = () => {
