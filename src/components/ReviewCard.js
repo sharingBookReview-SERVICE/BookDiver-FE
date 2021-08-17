@@ -17,7 +17,9 @@ import { history } from "../redux/configStore";
 
 
 const ReviewCard = (props) => {
-  //dispatch와 변수들
+  const dispatch = useDispatch();
+
+  //imformation for reviewCard
   const {
     content,
     hashtags,
@@ -31,18 +33,20 @@ const ReviewCard = (props) => {
     image,
     user,
   } = props;
-
-  const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
-  const userId = useSelector((state) => state.user.user._id);
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
+
+  //permit check 
+  const is_login = useSelector((state) => state.user.is_login);
   const is_follow = useSelector(state => state.user.is_follow)
+
+  const userId = useSelector((state) => state.user.user._id);
+  const cardUserId = user.id
   const profileImage = user?.profileImage;
 
   let is_my_post = false;
 
-  if (user.id === userId) {
+  if (cardUserId === userId) {
     is_my_post = true;
   }
 
@@ -56,14 +60,17 @@ const ReviewCard = (props) => {
     }
   };
 
+  //피드 아이디를 리덕스에 저장하기
   const getFeedId = () => {
     dispatch(reviewActions.getFeedId(book._id, _id));
   };
 
+  //수정 모달 보여주기 
   const showEditModal = () => {
     dispatch(permitActions.showEditModal(true));
   };
 
+  //디테일 페이지로 이동
   const goToReviewDetail = () => {
     if(is_login){
       history.push(`/reviewdetail/${book._id}/${_id}`)
@@ -72,7 +79,7 @@ const ReviewCard = (props) => {
     }
   }
 
-  //댓글을 클릭했을 때, 리뷰화면으로 들어가기
+  //댓글을 클릭했을 때, 디테일 페이지로 이동
   const goDetailByComment = () => {
     if(is_login){
       history.push(`/reviewdetail/${book._id}/${_id}?comment=true`)
@@ -81,9 +88,17 @@ const ReviewCard = (props) => {
     }
   }
 
-  const goToUserFeed = (userId) => {
-    history.push(`/otherUser/${userId}`)
+  //다른 유저의 피드에 들어가기
+  const goToUserFeed = (user_id) => {
+    if (cardUserId === userId) {
+      //내 프로필을 클릭하면 내 피드로 이동
+      history.push("/myfeed");
+    }else{
+      //다른 유저피드이면 다른 유저 피드로 이동 
+      history.push(`/otherUser/${user_id}`)
+    }
   }
+
 
   const follow = () => {
     dispatch(userActions.followSV(user.id))
@@ -103,7 +118,7 @@ const ReviewCard = (props) => {
 
               <Box direction={"column"}>
                 <Box direction={"row"}>
-                  <UserName>{user.nickname}</UserName>
+                  <UserName onClick={()=>goToUserFeed(user.id)}>{user.nickname}</UserName>
                   {!is_my_post &&  
                   <Follow onClick={()=>{follow()}}>
                     {is_follow ? "팔로잉" : "팔로우"}
