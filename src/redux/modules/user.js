@@ -63,10 +63,10 @@ const getUserSV = ()=>{
     .then((res)=>{
       console.log(res)
       //레벨10 단위가 되었는지 지속적으로 확인하기
-      // dispatch(getFollowingCounts(res.data.followingCount))
-      // dispatch(getFollowerCounts(res.data.followerCount))
-      // dispatch(permitActions.showTreasureModal(res.data.treasure))
-      // dispatch(getUser(res.data));
+      dispatch(getFollowingCounts(res.data.followingCount))
+      dispatch(getFollowerCounts(res.data.followerCount))
+      dispatch(permitActions.showTreasureModal(res.data.treasure))
+      dispatch(getUser(res.data.user));
     })
     .catch((err)=>{
       window.alert("사용자 정보 로딩 실패")
@@ -98,7 +98,7 @@ const loginCheck = () => {
 const setUserSV = (userId, nickname) => {
   return function(dispatch, getState, {history}){
     instance
-    .put(`/users/nickname/${userId}` , {
+    .put(`/users` , {
       nickname: nickname
     })
     .then((res)=>{
@@ -111,16 +111,15 @@ const setUserSV = (userId, nickname) => {
       console.log(err);
       window.alert('회원정보 등록 실패')
     })
-
   }
-    
+
 }
 
 
 //회원탈퇴
 const deleteUserSV = (id) =>{
   return function(dispatch, getState, {history}){
-    instance.delete(`/users/${id}`)
+    instance.delete(`/users`)
     .then((res)=>{
       window.alert("회원탈퇴");
       dispatch(deleteUser(id));
@@ -220,9 +219,9 @@ const getTreasureSV = () => {
 
 const changeProfileSV = (image) => {
   return function(dispatch, getState, {history}){
-    const userId = getState().user.user._id
-    instance.put(`users/${userId}`,{profileImage: image})
+    instance.put(`users`,{profileImage: image})
     .then((res)=>{
+      console.lof(res)
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)})
@@ -249,7 +248,7 @@ const getOtherFeedSV = (userId) => {
     instance.get(`/users/feeds/${userId}`)
     .then((res)=>{
       console.log(res)
-      // dispatch(getMyFeed(res.data));
+      dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
       console.log(err)

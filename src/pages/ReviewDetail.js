@@ -17,8 +17,6 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import profile from "../img/profile.svg"
 import EditModal from "../modals/EditModal";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -61,10 +59,12 @@ const ReviewDetail = (props) => {
   const queryParams = new URLSearchParams(location.search);
   const is_comment = JSON.parse(queryParams.get("comment")) 
 
-  
+  //permit boolean
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal)
   const is_editting = useSelector((state) => state.comment.edit_id);
+
+
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
@@ -73,7 +73,6 @@ const ReviewDetail = (props) => {
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
 
-  console.log(userId);
 
   const [is_empty, setIsEmpty] = useState(false)
 

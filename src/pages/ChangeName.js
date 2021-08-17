@@ -19,16 +19,24 @@ const useStyles = makeStyles((theme) => ({
 
 const ChangeName = (props) =>{
   const dispatch = useDispatch();
-  const [nickname, setNickName] = useState("");
+  const classes = useStyles();
+
   const token =  localStorage.getItem('token');
   const decoded = jwt_decode(token);
+  const userId = decoded.userId;
+
+
   const profileImage = useSelector(state => state.user.user.profileImage)
+  const defaultNickName = useSelector(state => state.user.user?.nickname)
+
+  const [nickname, setNickName] = useState("");
+
+
+  //프로필 이미지 바꾸는 화면으로 이동
   const goToChangeImg = () => {
     history.push("/changeprofileimg")
   }
 
-  const userId = decoded.userId;
-  const classes = useStyles();
 
   useEffect(() => {
     if(userId){
@@ -36,6 +44,7 @@ const ChangeName = (props) =>{
     }
   },[userId])
 
+  
     return(
         <React.Fragment>
                 <Background>
@@ -59,6 +68,7 @@ const ChangeName = (props) =>{
                               프로필 사진 변경
                             </ProfileChangeGuide>
                              <Input
+                               defaultValue={defaultNickName}
                                onChange={(e)=>{
                                 setNickName(e.target.value);
                               }}
@@ -72,7 +82,6 @@ const ChangeName = (props) =>{
                           
                         </ImageBox>
                     </ProfileBox>
-                    <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                 </Background>
         </React.Fragment>
     )
