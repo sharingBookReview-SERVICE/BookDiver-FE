@@ -232,9 +232,24 @@ const changeProfileSV = (image) => {
   //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = (id)=>{
   return function(dispatch, getState, {history}){
-    instance.get(`/users/${id}/feeds`)
+    instance.get(`/users/feeds`)
     .then((res)=>{
-      dispatch(getMyFeed(res.data));
+      console.log(res)
+      // dispatch(getMyFeed(res.data));
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+}
+
+const getOtherFeedSV = (userId) => {
+
+  return function(dispatch, getState, {history}){
+    instance.get(`/users/feeds/${userId}`)
+    .then((res)=>{
+      console.log(res)
+      // dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
       console.log(err)
@@ -333,6 +348,7 @@ const actionCreators = {
   deleteFollowerSV,
   checkTreasureSV,
   isFollow,
+  getOtherFeedSV,
 };
   
 export { actionCreators };

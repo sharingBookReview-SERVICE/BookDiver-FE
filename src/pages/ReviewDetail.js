@@ -9,6 +9,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configStore";
 import { useParams } from "react-router";
+import { useLocation } from "react-router-dom"
 
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -50,9 +51,16 @@ const ReviewDetail = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+
   const params = useParams();
   const bookId = params.bookid;
   const reviewId = params.reviewid;
+
+  // 코멘트로 들어온것인지 아닌지 쿼리스트링으로 확인하기 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const is_comment = JSON.parse(queryParams.get("comment")) 
+
   
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal)
@@ -60,13 +68,15 @@ const ReviewDetail = (props) => {
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
-  
+
   const userId = useSelector((state) => state.user.user._id);
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
 
+  console.log(userId);
+
   const [is_empty, setIsEmpty] = useState(false)
-  const bottomRef = useRef();
+
 
   const token = localStorage.getItem('token');
   if(!token){
@@ -74,8 +84,20 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(true));
   }
 
-  const toBottom = () => {
+  const topRef = useRef();
+  const bottomRef = useRef(); // 댓글을 작성했을 때, 가장 최신의 댓글을 보여주기 위한 ref
+  const topComment = useRef(); // 댓글로 화면에 들어왔을 경우, 첫번째 댓글을 보여주기 위한 ref
+
+  const scrollToTop = () => {
+    topRef.current.scrollIntoView({behavior:"smooth"})
+  }
+
+  const scrollToBottom = () => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const scrollTopComment = () => {
+    topComment.current.scrollIntoView({behavior:"smooth"})
   }
 
 
@@ -118,7 +140,7 @@ const ReviewDetail = (props) => {
     };
     dispatch(commentAction.addCommentSV(comment_info));
     setCommentContent("");
-    toBottom()
+    scrollToBottom()
   };
 
   //좋아요 클릭
@@ -131,6 +153,12 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
+
+    if(is_comment) {
+      scrollTopComment()
+    }else{
+      scrollToTop()
+    }
 
     return () => {
       dispatch(permitAction.showEditModal(false));
@@ -145,7 +173,9 @@ const ReviewDetail = (props) => {
          {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
             <Head>
-                <ArrowBackIcon className={classes.goback}
+                <ArrowBackIcon 
+                ref={topRef}
+                className={classes.goback}
                 onClick = {()=>{goBack()}}
                 />
             </Head>
@@ -216,7 +246,7 @@ const ReviewDetail = (props) => {
                 </ReactionBar>
 
             </Outter>
-            <CommentWrapper>
+            <CommentWrapper ref={topComment}>
                     {
                       comments?
                     comments.map((comment, idx) => {
