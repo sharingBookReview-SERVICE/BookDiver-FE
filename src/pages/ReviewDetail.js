@@ -369,6 +369,7 @@ border-radius:10px;
 const Content = styled.div`
 margin-bottom: 16px;
 padding: 0px 20px;
+white-space: pre-line;
 `;
 
 const HashTagBox = styled.div`

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
 import Color from "../shared/Color";
+import ClearIcon from '@material-ui/icons/Clear';
 
 
 import { actionCreators as collectionActions } from "../redux/modules/collection";
@@ -30,6 +31,9 @@ const defaultProps = {
         book_description: book_description,
     }
 
+    const deleteCard = ()=>{
+        dispatch(collectionActions.deleteSelectedBook(props.isbn))
+    }
   
 
     //collection detail에서 보는 페이지
@@ -42,6 +46,7 @@ const defaultProps = {
                     <BookTitle >{book?.title}</BookTitle>
                         <BookWriter>{book?.author} 저</BookWriter>
                     </BookDescBox>
+                   
                 </BookInfoBox>
                 <Recommend 
                 value={book_descriptionSV} disabled
@@ -54,12 +59,16 @@ const defaultProps = {
         return(
             <BookInfoWrapper>
                 <BookInfoBox>
+                    <Wrapper>
                     <BookImg url={props.image}/>
                     <BookDescBox>
                     <BookTitle >{bookTitle}</BookTitle>
                         <BookWriter>{props.author} 저</BookWriter>
                     </BookDescBox>
+                    </Wrapper>
+                    <ClearIcon onClick={()=>{deleteCard()}}/>
                 </BookInfoBox>
+              
                 <Recommend 
                 placeholder="책 마다 추천이유를 적어보세요(최대30자)"
                 maxLength="30"
@@ -92,12 +101,17 @@ height: 112px;
 display: flex;
 flex-direction: row;
 justify-content: flex-start;
-align-items: center;
 gap: 12px;
 padding: 16px;
 box-sizing: border-box;
 
 `
+const Wrapper = styled.div`
+width: 100%;
+display: flex;
+align-items: center;
+box-sizing: border-box;
+`;
 
 const BookImg = styled.div`
   width: 60px;
@@ -114,6 +128,7 @@ const BookDescBox = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   max-width: 70%;
+  margin-left: 10px;
 `
 
 const BookTitle = styled.div`

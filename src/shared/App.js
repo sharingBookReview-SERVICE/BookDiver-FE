@@ -22,6 +22,7 @@ import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
 import BookCollectionMain from "../pages/BookCollectionMain";
 import CollectionDetail from "../pages/CollectionDetail";
+import EditCollection from "../pages/EditCollection";
 import MakeCollection from "../pages/MakeCollection";
 import Setting from "../pages/Setting";
 import Notification from "../pages/Notification";
@@ -91,6 +92,7 @@ function App(props) {
           <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
           <Route path="/collectionlist/:type" exact component={CollectionList}/>
           <Route path="/makeCollection" exact component ={MakeCollection}/>
+          <Route path="/editCollection/:collectionid" exact component ={EditCollection}/>
 
 
           <Route path="/login" exact component={Login} />
