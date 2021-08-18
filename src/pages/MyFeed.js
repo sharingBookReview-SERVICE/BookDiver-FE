@@ -11,6 +11,7 @@ import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
 
 import {history} from "../redux/configStore";
 import {useDispatch, useSelector} from "react-redux";
+import { useParams } from "react-router";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as permitActions } from "../redux/modules/permit";
@@ -34,21 +35,23 @@ const useStyles = makeStyles((theme) => ({
 const MyFeed = () => {
     const classes = useStyles()
     const dispatch = useDispatch();
+    const params = useParams();
     const location = useLocation();
-    console.log(location.pathname);
-
-    const nickname = useSelector(state => state.user.user.nickname);
-    const profileImg = useSelector(state => state.user.user.profileImage);
-    const following = useSelector(state => state.user.user.followingCount);
-    const follower = useSelector(state => state.user.user.followerCount);
-    const level = useSelector(state=> state.user.user.level);
-    const my_feed = useSelector(state=> state.user.my_feed);
+    const is_my_feed = location.pathname
+    
+    //user-feed-infomation
+    const nickname = useSelector(state => state.user.my_feed.user?.nickname);
+    const profileImg = useSelector(state => state.user.my_feed.user?.profileImage);
+    const level = useSelector(state=> state.user.my_feed.user?.level);
+    const my_feed = useSelector(state=> state.user?.my_feed);
     const my_reviews = my_feed.reviews;
     const my_collections = my_feed.collections;
-    const followingCounts = useSelector(state => state.user.following_counts)
-    const followerCounts = useSelector(state => state.user.follower_counts)
-    const userId = useSelector(state => state.user.user._id)
-    console.log(userId)
+    const followingCounts = useSelector(state => state.user.my_feed.user?.followingCount)
+    const followerCounts = useSelector(state => state.user.my_feed.user?.followerCount)
+    const userId = useSelector(state => state.user.user?._id)
+    const otherUserId = params?.otherId
+
+ 
 
     const goToFollowing = () => {
       history.push("/following")
@@ -62,14 +65,100 @@ const MyFeed = () => {
       history.push("/mydepth")
     }
 
+    const getOtherFollowing = (user_id) => {
+      dispatch(userActions.getOtherFollowingListSV(user_id))
+    }
+
+    const getOtherFollower = (user_id) => {
+      dispatch(userActions.getOtherFollowerListSV(user_id))
+    }
+
 
     useEffect(()=>{
       dispatch(permitActions.showNav(true));
-      if(userId){
+      if(is_my_feed === "/myfeed" && userId){
         dispatch(userActions.getMyFeedSV(userId));
+        return;
       }
-    },[userId])
+    },[userId, is_my_feed])
 
+    useEffect(() => {
+      if(otherUserId){
+        dispatch(userActions.getOtherFeedSV(otherUserId));
+        return;
+      }
+    },[])
+
+//다른 유저의 피드를 확인 할 때
+    if(otherUserId){
+      return(
+        <React.Fragment>
+        <Container>
+              <UserBox>
+
+                <SearchBox>
+                  <SearchIcon className={classes.search}/>
+                  <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
+                </SearchBox>
+
+                <Wrapper>
+                  <ProfileBox>
+                        <ImgWrapper>
+                          <ProfileImg src={images[profileImg]} />
+                        </ImgWrapper>
+
+                        <DetailBox>
+                          <UserTitle>{titles[profileImg]}</UserTitle>
+                          <UserName>{nickname}</UserName>
+                          <PostCount>작성한 에세이 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
+                        </DetailBox>
+                    </ProfileBox>
+
+                  <MyActivityBox>
+                      <MyActivity>
+                          <CollectionsBookmarkOutlinedIcon
+                              style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
+                          <Text style={{marginTop: "5px"}}>컬렉션</Text>
+                      </MyActivity>
+                      <MyActivity onClick={() => {getOtherFollower(otherUserId)}}>
+                          {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
+                          {/*<Text>저장한 에세이</Text>*/}
+                          <Text
+                              style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followerCounts}</Text>
+                          <Text style={{marginTop: "4px"}}>팔로워</Text>
+                      </MyActivity>
+                      <MyActivity onClick={() => {getOtherFollowing(otherUserId)}}>
+                          <Text
+                              style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followingCounts}</Text>
+                          <Text style={{marginTop: "4px"}} >팔로잉</Text>
+                      </MyActivity>
+                  </MyActivityBox>
+
+                  <ProfileBottomBox>
+                    <FollowBox>팔로우</FollowBox>
+                    <LevelBox  onClick={()=>{goToMyDepth()}}>수심 {level}m에서 잠수 중</LevelBox> 
+                  </ProfileBottomBox>
+                </Wrapper>
+              </UserBox>
+
+
+          <FeedMain>
+          {
+            my_reviews?.map((review)=>{
+              return(<FeedCard url={review.image} key={review.id} 
+                onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
+                />)
+            })
+          }
+          </FeedMain>
+
+      </Container>
+      </React.Fragment>
+      )
+    }
+
+  
+  //본인의 피드를 확인 할 때
     return (
         <React.Fragment>
           <Container>
@@ -135,11 +224,51 @@ const MyFeed = () => {
 
 export default MyFeed;
 
+const ProfileBottomBox = styled.div`
+width:100%;
+height:36px;
+display:grid;
+grid-template-columns: 1fr 1fr;
+gap:20px;
+`
+
+const FollowBox = styled.div`
+background:${Color.white};
+color:${Color.black};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+`
+
+const LevelBox = styled.div`
+border:1px solid ${Color.white};
+color:${Color.white};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+`
+
 const Container = styled.div`
 width:100vw;
 background:${Color.mainColor};
 height: 100vh;
 padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+  width:100%;
+  height:100vh;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width:100%;
+  height:100vh;
+}
 `
 
 const Wrapper = styled.div`
@@ -261,6 +390,7 @@ const MyActivity = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  cursor:pointer;
 `;
 
 const Text = styled.p`
@@ -285,7 +415,10 @@ padding-top: 100%;
 background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 background-position: center center;
+cursor:pointer;
 `;
+
+
 const LevelDetail = styled.div`
 width:100%;
 height:36px;
@@ -296,6 +429,7 @@ align-items:center;
 box-sizing:border-box;
 background:${Color.gray};
 color:${Color.white};
+cursor:pointer;
 `
 
 

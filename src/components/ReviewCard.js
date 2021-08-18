@@ -17,7 +17,9 @@ import { history } from "../redux/configStore";
 
 
 const ReviewCard = (props) => {
-  //dispatch와 변수들
+  const dispatch = useDispatch();
+
+  //imformation for reviewCard
   const {
     content,
     hashtags,
@@ -26,23 +28,25 @@ const ReviewCard = (props) => {
     book,
     _id,
     myLike,
-    likes,
+    likeCount,
     comments,
     image,
     user,
   } = props;
-
-  const dispatch = useDispatch();
-  const is_login = useSelector((state) => state.user.is_login);
-  const userId = useSelector((state) => state.user.user._id);
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
+
+  //permit check 
+  const is_login = useSelector((state) => state.user.is_login);
   const is_follow = useSelector(state => state.user.is_follow)
+
+  const userId = useSelector((state) => state.user.user._id);
+  const cardUserId = user.id
   const profileImage = user?.profileImage;
 
   let is_my_post = false;
 
-  if (user.id === userId) {
+  if (cardUserId === userId) {
     is_my_post = true;
   }
 
@@ -56,14 +60,17 @@ const ReviewCard = (props) => {
     }
   };
 
+  //피드 아이디를 리덕스에 저장하기
   const getFeedId = () => {
     dispatch(reviewActions.getFeedId(book._id, _id));
   };
 
+  //수정 모달 보여주기 
   const showEditModal = () => {
     dispatch(permitActions.showEditModal(true));
   };
 
+  //디테일 페이지로 이동
   const goToReviewDetail = () => {
     if(is_login){
       history.push(`/reviewdetail/${book._id}/${_id}`)
@@ -72,9 +79,32 @@ const ReviewCard = (props) => {
     }
   }
 
-  const goToUserFeed = (userId) => {
-    dispatch(userActions.getMyFeedSV(userId));
+  //댓글을 클릭했을 때, 디테일 페이지로 이동
+  const goDetailByComment = () => {
+    if(is_login){
+      history.push(`/reviewdetail/${book._id}/${_id}?comment=true`)
+    }else{
+      dispatch(permitActions.showLoginModal(true))
+    }
   }
+
+  //다른 유저의 피드에 들어가기
+  const goToUserFeed = (user_id) => {
+    //로그인 하지 않으면 사용 못함
+    if(!is_login){
+      dispatch(permitActions.showLoginModal(true))
+      return;
+    }
+
+    if (cardUserId === userId) {
+      //내 프로필을 클릭하면 내 피드로 이동
+      history.push("/myfeed");
+    }else{
+      //다른 유저피드이면 다른 유저 피드로 이동 
+      history.push(`/otherUser/${user_id}`)
+    }
+  }
+
 
   const follow = () => {
     dispatch(userActions.followSV(user.id))
@@ -94,7 +124,7 @@ const ReviewCard = (props) => {
 
               <Box direction={"column"}>
                 <Box direction={"row"}>
-                  <UserName>{user.nickname}</UserName>
+                  <UserName onClick={()=>goToUserFeed(user.id)}>{user.nickname}</UserName>
                   {!is_my_post &&  
                   <Follow onClick={()=>{follow()}}>
                     {is_follow ? "팔로잉" : "팔로우"}
@@ -108,7 +138,7 @@ const ReviewCard = (props) => {
               
               {is_my_post && (
                 <MoreHorizIcon
-                  style={{ color: "#9e9e9e" }}
+                  style={{ color: "#9e9e9e", cursor:"pointer" }}
                   onClick={() => {
                     showEditModal();
                     getFeedId();
@@ -140,23 +170,23 @@ const ReviewCard = (props) => {
             <LikeBox>
               {myLike ? (
                 <FavoriteIcon
-                  style={{ fontSize: "20px", color: Color.mainColor }}
+                  style={{ fontSize: "20px", color: Color.mainColor, cursor:"pointer" }}
                   onClick={() => {
                     clickLikeButton();
                   }}
                 />
               ) : (
                 <FavoriteBorderIcon
-                  style={{ fontSize: "20px", color: Color.mainColor }}
+                  style={{ fontSize: "20px", color: Color.mainColor, cursor:"pointer" }}
                   onClick={() => {
                     clickLikeButton();
                   }}
                 />
               )}
-              <LikeText>{likes}개</LikeText>
+              <LikeText>{likeCount}개</LikeText>
             </LikeBox>
             <WriteCommentBox>
-              <CommentCount>댓글 {comments.length} 개</CommentCount>
+              <CommentCount onClick={() => {goDetailByComment()}}>댓글 {comments.length} 개</CommentCount>
             </WriteCommentBox>
           </LikeCommentBox>
 
@@ -198,6 +228,15 @@ const CardBox = styled.div`
   border-radius: 16px;
   position: relative;
   overflow:hidden;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 90%;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 90%;
+  }
+
 `;
 
 const CommentUserBox = styled.div`
@@ -231,6 +270,7 @@ const ProfileImg = styled.img`
 width: 100%;
 height: 100%;
 object-fit:cover;
+cursor:pointer;
 `;
 
 
@@ -242,6 +282,7 @@ flex-direction:${(props) => props.direction};
 const Follow = styled.div`
 font-weight:bold;
 font-size:14px;
+cursor:pointer;
 `
 
 const UserRightBox = styled.div`
@@ -254,6 +295,17 @@ const UserRightBox = styled.div`
 const ImageBox = styled.div`
   width:90vw;
   height:90vw;
+
+  @media ${(props) => props.theme.tablet} {
+    width:400px;
+    height:400px;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width:400px;
+    height:400px;
+  }
+  
 `;
 
 const Image = styled.div`
@@ -262,6 +314,7 @@ const Image = styled.div`
   background-image:url(${(props) => props.url});
   background-size:cover;
   background-position:center center;
+  cursor:pointer;
 `;
 
 const UserName = styled.p`
@@ -309,6 +362,7 @@ const Quote = styled.p`
   background:${Color.quote};
   padding:12px;
   border-radius:10px;
+  cursor:pointer;
 `;
 
 const Content = styled.p`
@@ -318,6 +372,7 @@ const Content = styled.p`
   margin: 0px;
   color: ${Color.fontgray};
   white-space: pre-line;
+  cursor:pointer;
 `;
 
 const HashTagBox = styled.ul`
@@ -347,6 +402,7 @@ const LikeBox = styled.div`
 const LikeText = styled.p`
   font-size: 16px;
   margin: 0px 0px 0px 8px;
+  cursor:pointer;
   color: ${Color.mainColor};
 `;
 
@@ -369,6 +425,7 @@ const WriteCommentBox = styled.div`
 `;
 
 const CommentCount = styled.p`
+cursor:pointer;
   font-size: 16px;
   margin: 0px 0px 0px 8px;
   color: ${Color.mainColor};

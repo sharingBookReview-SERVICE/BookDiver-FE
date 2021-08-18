@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { history } from "../redux/configStore";
+import { BrowserRouter as Router,  NavLink } from 'react-router-dom';
 
 import styled from "styled-components";
-import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import SearchIcon from "@material-ui/icons/Search";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
 import BookOutlinedIcon from '@material-ui/icons/BookOutlined';
@@ -26,14 +25,18 @@ const useStyles = makeStyles((theme) => ({
     zIndex:"2",
   },
   icon: {
-    color: Color.secondColor,
     width:"auto",
+    cursor:"pointer",
   },
   plusButton: {
+    cursor: "pointer",
     color: Color.black,
     fontSize: "48px",
     filter: "drop-shadow(1px 1px 4px rgba(0,0,0,0.4))",
   },
+  active:{
+    color:Color.black,
+  }
 }));
 
 const Navigation = (props) => {
@@ -62,57 +65,87 @@ const Navigation = (props) => {
   };
 
   return (
-    <BottomNavigation showLabels className={classes.navBox}>
-      <BottomNavigationAction
-        label="피드"
-        value="write"
-        className={classes.button}
-        icon={<ListAltIcon className={classes.icon} />}
-        onClick={() => {
-          toMain();
-        }}
-      />
+    <NavBox>
 
-      <BottomNavigationAction
-        label="북컬렉션"
-        value="write"
-        className={classes.button}
-        icon={<BookOutlinedIcon className={classes.icon} />}
-        onClick={() => {
-          toCollection();
-        }}
-      />
+      <IconBox to="/" exact activeClassName={classes.active}>
+        <ListAltIcon className={classes.icon}/>
+        <PageName >피드</PageName>
+      </IconBox>
 
-      <BottomNavigationAction
-        value="list"
-        className={classes.button}
-        icon={<AddBoxIcon className={classes.plusButton} />}
-        onClick={() => {
-          is_login ? toPostWrite() : toLogin();
-        }}
-      />
+      <IconBox to="/bookCollectionMain" activeClassName={classes.active}>
+        <BookOutlinedIcon className={classes.icon}/>
+        <PageName >북컬렉션</PageName>
+      </IconBox>
 
-      <BottomNavigationAction
-        label="내 피드"
-        value="login"
-        className={classes.button}
-        icon={<SpeakerNotesIcon className={classes.icon} />}
-        onClick={() => {
-          is_login ? toMyReviewFeed() : toLogin();
-        }}
-      />
+      <AddBox to="/postwrite">
+        <AddBoxIcon className={classes.plusButton}/>
+      </AddBox>
 
-      <BottomNavigationAction
-        label={is_login ? "내 정보" : "로그인"}
-        value="login"
-        className={classes.button}
-        icon={<PersonIcon className={classes.icon} />}
-        onClick={() => {
-          is_login ? toSetting() : toLogin();
-        }}
-      />
-    </BottomNavigation>
+      <IconBox to="/myfeed" activeClassName={classes.active}>
+        <SpeakerNotesIcon className={classes.icon}/>
+        <PageName >내 피드</PageName>
+      </IconBox>
+
+      <IconBox to="/setting" activeClassName={classes.active}>
+        <PersonIcon className={classes.icon}/>
+        <PageName >내 정보</PageName>
+      </IconBox>
+    </NavBox>
   );
 };
 
 export default Navigation;
+
+
+const NavBox = styled.div`
+width:100%;
+display:grid;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+box-sizing:border-box;
+background:${Color.mainColor};
+color:${Color.secondColor};
+position: fixed;
+bottom:0px;
+height: 60px;
+box-shadow: 0 -4px 4px -2px rgba(0,0,0,0.2);
+
+@media ${(props) => props.theme.tablet} {
+  width: 420px;
+  height: 60px;
+  position:fixed;
+  bottom:0;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 420px;
+  height: 60px;
+  position:fixed;
+  bottom:0;
+}
+`
+
+const IconBox = styled(NavLink)`
+width:100%;
+height:100%;
+display:flex;
+padding-top:10px;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+text-decoration:none;
+color:${Color.secondColor};
+`
+
+const AddBox = styled(NavLink)`
+width:auto;
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:${Color.black};
+`
+
+const PageName = styled.div`
+font-size:10px;
+`

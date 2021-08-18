@@ -45,15 +45,23 @@ const closeModal = () => {
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 0, 0, 0.4);
   z-index: 99;
   position: fixed;
+
+  cursor:pointer;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const Container = styled.div`
 width: 85%;
 position:fixed;
-left: 7%;
 top: 32%;
 border-radius: 12px;
 display:flex;
@@ -63,6 +71,20 @@ text-align: center;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
 z-index: 100;
+
+@media ${(props) => props.theme.mobile} {
+  left: 7%;
+}
+
+@media ${(props) => props.theme.tablet} {
+  width: 390px;
+  margin-left:15px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 390px;
+  margin-left:15px;
+}
 `;
 
 const LoginText = styled.p`
@@ -93,6 +115,7 @@ background-color: #f9e57e;
 font-weight: bold;
 margin:0px;
 text-decoration:none;
+cursor:pointer;
 color:${Color.black};
 `;
 
@@ -106,6 +129,7 @@ border-radius: 12px;
 border: solid 1px #eeeeee;
 background-color: #fff;
 font-weight: bold;
+cursor:pointer;
 `;
 
 const CancelBtn = styled.div`
@@ -115,5 +139,6 @@ const CancelBtn = styled.div`
 height: 48px;
 text-align: center;
 line-height: 48px;
+cursor:pointer;
 `;
 export default LoginModal;

@@ -1,6 +1,5 @@
 //import 부분
-import React, { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import React, {useEffect } from "react";
 import {Route} from "react-router-dom"
 import {history} from "../redux/configStore";
 
@@ -8,7 +7,6 @@ import styled from "styled-components";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import FollowUser from "../elements/FollowUser";
 import OwnImages from "../elements/OwnImages"
 
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -21,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
       left:"20px",
       top: "30px",
       color: Color.black,
+      cursor:"pointer",
     },
   }));
 
@@ -29,10 +28,12 @@ const ChangeProfileImg = (props) => {
     const classes = useStyles();
     const userId = useSelector(state => state.user.user._id)
     const ownImages = useSelector(state => state.user.user.own_image)
+
  
     const goBack=() => {
         history.goBack();
     }
+
 
     useEffect(() => {
         if(userId){
@@ -60,6 +61,7 @@ const ChangeProfileImg = (props) => {
                     <HeaderText>나를 팔로우 하는 다이버들</HeaderText>
                 </Route>
 
+
             </Header>
             {ownImages?.map((image, idx) => {
                 return(
@@ -82,6 +84,14 @@ height:auto;
 display:flex;
 background: ${Color.mainColor};
 box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
 `
 
 const Container = styled.div`
@@ -93,6 +103,15 @@ align-items:center;
 justify-content:flex-start;
 padding:80px 30px 0px 30px;
 box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
+
 `
 
 const Header = styled.div`
@@ -104,8 +123,21 @@ align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-left:0px;
+
 font-family: "Noto Serif KR", serif;
+
+@media ${(props) => props.theme.mobile} {
+    width: 420px;
+    left:0px;
+}
+
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 420px;
+}
 `
 
 const HeaderText = styled.div`

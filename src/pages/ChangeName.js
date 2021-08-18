@@ -13,22 +13,31 @@ import {images} from "../shared/Image"
 
 const useStyles = makeStyles((theme) => ({
   goback: {
-      padding: "10px"
+      padding: "10px",
+      cursor:"pointer",
   },
 }));
 
 const ChangeName = (props) =>{
   const dispatch = useDispatch();
-  const [nickname, setNickName] = useState("");
+  const classes = useStyles();
+
   const token =  localStorage.getItem('token');
   const decoded = jwt_decode(token);
+  const userId = decoded.userId;
+
+
   const profileImage = useSelector(state => state.user.user.profileImage)
+  const defaultNickName = useSelector(state => state.user.user?.nickname)
+
+  const [nickname, setNickName] = useState("");
+
+
+  //프로필 이미지 바꾸는 화면으로 이동
   const goToChangeImg = () => {
     history.push("/changeprofileimg")
   }
 
-  const userId = decoded.userId;
-  const classes = useStyles();
 
   useEffect(() => {
     if(userId){
@@ -36,6 +45,7 @@ const ChangeName = (props) =>{
     }
   },[userId])
 
+  
     return(
         <React.Fragment>
                 <Background>
@@ -59,6 +69,7 @@ const ChangeName = (props) =>{
                               프로필 사진 변경
                             </ProfileChangeGuide>
                              <Input
+                               defaultValue={defaultNickName}
                                onChange={(e)=>{
                                 setNickName(e.target.value);
                               }}
@@ -72,7 +83,6 @@ const ChangeName = (props) =>{
                           
                         </ImageBox>
                     </ProfileBox>
-                    <Activity>작성한 리뷰 12개  |  작성한 댓글 9개</Activity>
                 </Background>
         </React.Fragment>
     )
@@ -89,19 +99,22 @@ background: ${Color.mainColor};
 const HeadBar = styled.div`
 width: 100%;
 height: 56px;
-padding:0px 15px;
+padding: 0px 15px;
 display: flex;
 justify-content: space-between;
 align-items: center;
 box-sizing:border-box;
 `;
+
 const HeadBtn = styled.p`
 padding: 0px 5px;
 font-weight: bold;
+cursor:pointer;
 &:hover{
   color: #1168d7;
 }
 `;
+
 const ProfileBox = styled.div`
 width: 100%;
 height: 216px;
@@ -109,8 +122,8 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-
 `;
+
 const ImageBox = styled.div`
 width: 80%;
 height: 100%;
@@ -153,13 +166,6 @@ background:${Color.mainColor};
 :focus{
   outline:none;
 }
-`;
-const Activity = styled.p`
-    color: ${Color.fontGray};
-    margin: 5px;
-    font-size: 15px;
-    text-align: center;
-  
 `;
 
 export default ChangeName;

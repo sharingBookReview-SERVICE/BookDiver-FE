@@ -32,7 +32,9 @@ const Outter = styled.div`
 width:auto;
 height:auto;
 box-sizing:border-box;
+cursor:pointer;
 `;
+
 const Overlay = styled.div`
 width: 180px;
 height: 180px;
@@ -44,6 +46,7 @@ justify-content:center;
 align-items:center;
 box-sizing:border-box;
 `
+
 const Image = styled.div`
 width: 180px;
 height: 180px;
@@ -51,6 +54,7 @@ border-radius: 12px;
 background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 `;
+
 const CollectionTitle = styled.p`
 font-family: "Noto Serif KR", serif;
 color: ${Color.white};

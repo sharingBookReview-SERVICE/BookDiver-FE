@@ -6,9 +6,10 @@ import styled from "styled-components";
 import imageCompression from "browser-image-compression";
 
 import add_button from "../img/add_button.png";
-import left_arrow from "../img/left_arrow.png";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Color from "../shared/Color";
+import { makeStyles } from "@material-ui/core/styles";
 import SelectBookModal from "../modals/SelectBookModal";
 import WriteCheckModal from "../modals/WriteCheckModal"
 import SelectBookCard from "../components/SelectBookCard";
@@ -22,9 +23,17 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
 import { actionCreators as tagActions } from "../redux/modules/tag";
 
+const useStyles = makeStyles((theme) => ({
+  arrow: {
+    cursor:"pointer",
+    margin:"0px 0px 0px 20px",
+  },
+}));
+
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   //Permit check
   const is_modal = useSelector((state) => state.permit.is_modal);
@@ -111,13 +120,13 @@ const ReviewWrite = (props) => {
       dispatch(permitActions.showCheckModal(true))
       return;
     }
-
+    
+    dispatch(permitActions.isLoading(true))
     await dispatch(reviewActions.addReviewSV(formData, books.isbn));
   };
 
   //이미지 보내기.
   const submit = async (event) => {
-    dispatch(permitActions.isLoading(true))
     event.preventDefault();
 
     await sendFormData(compressedImage);
@@ -172,8 +181,8 @@ const ReviewWrite = (props) => {
       <React.Fragment>
         <PostWriteBox>
           <PostHeader>
-            <LeftArrow
-              src={left_arrow}
+            <ArrowBackIcon
+              className={classes.arrow}
               onClick={() => {
                 history.goBack();
               }}
@@ -229,8 +238,8 @@ const ReviewWrite = (props) => {
       {is_modal && <SelectBookModal />}
       <PostWriteBox>
         <PostHeader>
-          <LeftArrow
-            src={left_arrow}
+          <ArrowBackIcon
+            className={classes.arrow}
             onClick={() => {
               history.goBack();
             }}
@@ -247,6 +256,7 @@ const ReviewWrite = (props) => {
             <SubmitButton 
             type="submit"
             style={{
+              cursor:"pointer",
               backGroundColor: Color.mainColor,
               color: Color.fontgray,
             }}>게시하기</SubmitButton>
@@ -260,7 +270,7 @@ const ReviewWrite = (props) => {
             }}
           >
             <img src={add_button} alt="add btn" />
-            <Text>리뷰할 책 선택하기</Text>
+            <Text >리뷰할 책 선택하기</Text>
           </BookChoice>
         ) : (
           <SelectBookCard />
@@ -425,7 +435,17 @@ const PostHeader = styled.div`
   background-color: ${Color.mainColor};
   position:fixed;
   top:0px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
+
 `;
+
 const LeftArrow = styled.img`
   width: 10vw;
   height: 3vh;
@@ -435,7 +455,7 @@ const LeftArrow = styled.img`
 `;
 
 const BookChoice = styled.div`
-  width: 85%;
+  width: 90%;
   height: 112px;
   display: flex;
   flex-direction: column;

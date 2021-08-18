@@ -9,6 +9,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configStore";
 import { useParams } from "react-router";
+import { useLocation } from "react-router-dom"
 
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -16,8 +17,6 @@ import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import profile from "../img/profile.svg"
 import EditModal from "../modals/EditModal";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,7 +29,8 @@ import Color from "../shared/Color";
 
 const useStyles = makeStyles((theme) => ({
   goback: {
-      padding: "0px 20px"
+      padding: "0px 20px",
+      cursor:"pointer",
   },
   icon: {
       margin: "0px 10px",
@@ -50,23 +50,33 @@ const ReviewDetail = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+
   const params = useParams();
   const bookId = params.bookid;
   const reviewId = params.reviewid;
-  
+
+  // 코멘트로 들어온것인지 아닌지 쿼리스트링으로 확인하기 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const is_comment = JSON.parse(queryParams.get("comment")) 
+
+  //permit boolean
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal)
   const is_editting = useSelector((state) => state.comment.edit_id);
+
+
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
   const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
-  
+
   const userId = useSelector((state) => state.user.user._id);
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
 
+
   const [is_empty, setIsEmpty] = useState(false)
-  const bottomRef = useRef();
+
 
   const token = localStorage.getItem('token');
   if(!token){
@@ -74,8 +84,20 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(true));
   }
 
-  const toBottom = () => {
+  const topRef = useRef();  //화면에 들어왔을 때, 가장 상단을 먼저 보여주기
+  const bottomRef = useRef(); // 댓글을 작성했을 때, 가장 최신의 댓글을 보여주기 위한 ref
+  const topComment = useRef(); // 댓글로 화면에 들어왔을 경우, 첫번째 댓글을 보여주기 위한 ref
+
+  const scrollToTop = () => {
+    topRef.current.scrollIntoView({behavior:"smooth"})
+  }
+
+  const scrollToBottom = () => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const scrollTopComment = () => {
+    topComment.current.scrollIntoView({behavior:"smooth"})
   }
 
 
@@ -118,7 +140,7 @@ const ReviewDetail = (props) => {
     };
     dispatch(commentAction.addCommentSV(comment_info));
     setCommentContent("");
-    toBottom()
+    scrollToBottom()
   };
 
   //좋아요 클릭
@@ -131,6 +153,15 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
+
+
+    if(is_comment) {
+      //comment를 통해서 들어왔을 때는 comment 위치로 이동.
+      scrollTopComment()
+    }else{
+      //그냥 들어왔을 때는 상단으로 scroll을 이동. 
+      scrollToTop()
+    }
 
     return () => {
       dispatch(permitAction.showEditModal(false));
@@ -145,7 +176,9 @@ const ReviewDetail = (props) => {
          {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
             <Head>
-                <ArrowBackIcon className={classes.goback}
+                <ArrowBackIcon 
+                ref={topRef}
+                className={classes.goback}
                 onClick = {()=>{goBack()}}
                 />
             </Head>
@@ -172,7 +205,7 @@ const ReviewDetail = (props) => {
               
               {is_my_post && 
                 <MoreHorizIcon
-                  style={{ color: "#9e9e9e" }}
+                  style={{ color: "#9e9e9e", cursor:"pointer" }}
                   onClick={() => {
                     showEditModal();
                     getFeedId();
@@ -216,7 +249,7 @@ const ReviewDetail = (props) => {
                 </ReactionBar>
 
             </Outter>
-            <CommentWrapper>
+            <CommentWrapper ref={topComment}>
                     {
                       comments?
                     comments.map((comment, idx) => {
@@ -327,6 +360,14 @@ background: ${Color.mainColor};
 width: 100vw;
 height: auto;
 padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+  width: 100%;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 100%;
+}
 `;
 
 const Head = styled.div`
@@ -433,6 +474,14 @@ const CommentInputBox = styled.div`
   background-color: ${Color.mainColor};
   position: fixed;
   bottom: 0;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const CommentInput = styled.input`

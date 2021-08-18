@@ -13,6 +13,8 @@ import Header from "../components/Header";
 import EditModal from "../modals/EditModal";
 import LoginModal from "../modals/LoginModal";
 
+import Color from "../shared/Color"
+
 const Home = (props) => {
   //dispatch와 변수들
   const dispatch = useDispatch();
@@ -75,7 +77,7 @@ const Home = (props) => {
 };
 
 const HomeBGColor = styled.div`
-  background-color: #f5f5f5;
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
   width: 100%;
   height: auto;
@@ -83,6 +85,14 @@ const HomeBGColor = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 15vh 0 0 0;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 80px 0 0 0;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    padding: 80px 0 0 0;
+  }
 `;
 
 

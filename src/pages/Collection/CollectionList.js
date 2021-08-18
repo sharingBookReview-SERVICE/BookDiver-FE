@@ -1,17 +1,17 @@
 //import 부분
 import React, { useRef, useState } from "react";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as collectionActions } from "../redux/modules/collection";
-import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as collectionActions } from "../../redux/modules/collection";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 
 import styled from "styled-components";
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
 
-import EditModal from "../modals/EditModal";
+import EditModal from "../../modals/EditModal";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
       left:"20px",
       top: "30px",
       color: Color.black,
+      cursor:"pointer",
     },
   }));
 
@@ -146,6 +147,7 @@ if(type==="custom"){
 
 //oneCollection
 const Box = styled.div`
+cursor:pointer;
 width:100%;
 height:auto;
 display:flex;
@@ -201,6 +203,15 @@ background: ${Color.mainColor};
 padding:80px 15px 0px 15px;
 padding-bottom: 50px;
 box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+  width: 100%;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 100%;
+}
+
 `
 
 const Header = styled.div`
@@ -213,6 +224,15 @@ background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
 font-family: "Noto Serif KR", serif;
+
+@media ${(props) => props.theme.tablet} {
+  width: 420px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 420px;
+}
+
 `
 
 const HeaderText = styled.div`

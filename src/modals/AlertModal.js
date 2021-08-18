@@ -40,14 +40,21 @@ React.useEffect(()=>{
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 0, 0, 0.4);
   z-index: 99;
   position: fixed;
+  cursor:pointer;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const Container = styled.div`
 position:absolute;
-left: 7%;
 top: 35%;
 width: 85%;
 border-radius: 12px;
@@ -57,6 +64,21 @@ text-align: center;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
 z-index: 100;
+
+@media ${(props) => props.theme.mobile} {
+  left: 7%;
+}
+
+@media ${(props) => props.theme.tablet} {
+  width: 390px;
+  margin-left:15px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 390px;
+  margin-left:15px;
+}
+
 `;
 
 const Text = styled.p`
@@ -75,6 +97,7 @@ font-weight: bold;
 color: ${Color.fontblack};
 font-size: 14px;
 padding: 0px 25px 20px 0px;
+cursor:pointer;
 `;
 
 export default AlertModal;

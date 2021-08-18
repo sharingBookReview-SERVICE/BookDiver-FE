@@ -108,6 +108,15 @@ padding:80px 0px 0px 0px;
 background-image:url(${Background});
 background-size: contain;
 background-repeat: no-repeat;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
+
 `
 
 const Treasure = styled.img`
@@ -131,13 +140,33 @@ left: ${(props) => props.left};
 `
 
 const Person = styled.img`
-width:auto;
-height:auto;
-max-width:40vw;
-max-height:40vh;
 position:fixed;
 top:20vh;
-left:34vw;
+
+@media ${(props) => props.theme.mobile} {
+    width:auto;
+    height:auto;
+    max-width:40vw;
+    max-height:40vh;
+    left:34vw;
+
+}
+
+@media ${(props) => props.theme.tablet} {
+    width:auto;
+    height:auto;
+    max-width:250px;
+    max-height:250px;
+
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width:auto;
+    height:auto;
+    max-width:250px;
+    max-height:250px;
+
+}
 `
 
 const Image = styled.img`
@@ -164,10 +193,18 @@ align-items:center;
 background-color: ${Color.black};
 position:fixed;
 top:0px;
-left:0px;
 padding:0px 10px 0px 30px;
 box-sizing:border-box;
 z-index:10;
+
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 420px;
+}
+
 `
 
 const HeaderText = styled.div`

@@ -57,16 +57,16 @@ const initialState = {
 
 
 //한사람의 사용자 정보 불러오기
-const getUserSV = (id)=>{
-  console.log(id)
+const getUserSV = ()=>{
   return function(dispatch, getState, {history}){
-    instance.get(`/users/${id}`)
+    instance.get(`/users`)
     .then((res)=>{
+      console.log(res)
       //레벨10 단위가 되었는지 지속적으로 확인하기
       dispatch(getFollowingCounts(res.data.followingCount))
       dispatch(getFollowerCounts(res.data.followerCount))
       dispatch(permitActions.showTreasureModal(res.data.treasure))
-      dispatch(getUser(res.data));
+      dispatch(getUser(res.data.user));
     })
     .catch((err)=>{
       window.alert("사용자 정보 로딩 실패")
@@ -98,7 +98,7 @@ const loginCheck = () => {
 const setUserSV = (userId, nickname) => {
   return function(dispatch, getState, {history}){
     instance
-    .put(`/users/nickname/${userId}` , {
+    .put(`/users` , {
       nickname: nickname
     })
     .then((res)=>{
@@ -111,16 +111,15 @@ const setUserSV = (userId, nickname) => {
       console.log(err);
       window.alert('회원정보 등록 실패')
     })
-
   }
-    
+
 }
 
 
 //회원탈퇴
 const deleteUserSV = (id) =>{
   return function(dispatch, getState, {history}){
-    instance.delete(`/users/${id}`)
+    instance.delete(`/users`)
     .then((res)=>{
       window.alert("회원탈퇴");
       dispatch(deleteUser(id));
@@ -185,6 +184,38 @@ const getFollowerListSV = () => {
   }
 }
 
+
+const getOtherFollowingListSV = (userId) => {
+  return function(dispatch, getState, {history}){
+    instance.get(`follow/followingList/${userId}`)
+    .then((res)=>{
+      console.log(res)
+      // dispatch(getFollowingList(res.data.followingList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+
+const getOtherFollowerListSV = (userId) => {
+  return function(dispatch, getState, {history}){
+    instance.get(`follow/followerList/${userId}`)
+    .then((res)=>{
+      console.log(res)
+      dispatch(getFollowerList(res.data.followerList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+
+
+
+
 const getTreasureSV = () => {
 
   return function(dispatch, getState, {history}){
@@ -220,9 +251,9 @@ const getTreasureSV = () => {
 
 const changeProfileSV = (image) => {
   return function(dispatch, getState, {history}){
-    const userId = getState().user.user._id
-    instance.put(`users/${userId}`,{profileImage: image})
+    instance.put(`users`,{profileImage: image})
     .then((res)=>{
+      console.lof(res)
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)})
@@ -232,8 +263,23 @@ const changeProfileSV = (image) => {
   //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = (id)=>{
   return function(dispatch, getState, {history}){
-    instance.get(`/users/${id}/feeds`)
+    instance.get(`/users/feeds`)
     .then((res)=>{
+      console.log(res)
+      dispatch(getMyFeed(res.data));
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+}
+
+const getOtherFeedSV = (userId) => {
+
+  return function(dispatch, getState, {history}){
+    instance.get(`/users/feeds/${userId}`)
+    .then((res)=>{
+      console.log(res)
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
@@ -333,6 +379,9 @@ const actionCreators = {
   deleteFollowerSV,
   checkTreasureSV,
   isFollow,
+  getOtherFeedSV,
+  getOtherFollowingListSV,
+  getOtherFollowerListSV,
 };
   
 export { actionCreators };
