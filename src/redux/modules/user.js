@@ -184,6 +184,38 @@ const getFollowerListSV = () => {
   }
 }
 
+
+const getOtherFollowingListSV = (userId) => {
+  return function(dispatch, getState, {history}){
+    instance.get(`follow/followingList/${userId}`)
+    .then((res)=>{
+      console.log(res)
+      // dispatch(getFollowingList(res.data.followingList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+
+const getOtherFollowerListSV = (userId) => {
+  return function(dispatch, getState, {history}){
+    instance.get(`follow/followerList/${userId}`)
+    .then((res)=>{
+      console.log(res)
+      dispatch(getFollowerList(res.data.followerList))
+    })
+    .catch((err)=>{
+      window.alert("팔로우 실패 ",err)
+    })
+  }
+}
+
+
+
+
+
 const getTreasureSV = () => {
 
   return function(dispatch, getState, {history}){
@@ -348,6 +380,8 @@ const actionCreators = {
   checkTreasureSV,
   isFollow,
   getOtherFeedSV,
+  getOtherFollowingListSV,
+  getOtherFollowerListSV,
 };
   
 export { actionCreators };

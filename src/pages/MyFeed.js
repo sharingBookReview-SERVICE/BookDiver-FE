@@ -65,6 +65,14 @@ const MyFeed = () => {
       history.push("/mydepth")
     }
 
+    const getOtherFollowing = (user_id) => {
+      dispatch(userActions.getOtherFollowingListSV(user_id))
+    }
+
+    const getOtherFollower = (user_id) => {
+      dispatch(userActions.getOtherFollowerListSV(user_id))
+    }
+
 
     useEffect(()=>{
       dispatch(permitActions.showNav(true));
@@ -112,17 +120,17 @@ const MyFeed = () => {
                               style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
                           <Text style={{marginTop: "5px"}}>컬렉션</Text>
                       </MyActivity>
-                      <MyActivity onClick={() => {goToFollower()}}>
+                      <MyActivity onClick={() => {getOtherFollower(otherUserId)}}>
                           {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
                           {/*<Text>저장한 에세이</Text>*/}
                           <Text
                               style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followerCounts}</Text>
                           <Text style={{marginTop: "4px"}}>팔로워</Text>
                       </MyActivity>
-                      <MyActivity onClick={() => {goToFollowing()}}>
+                      <MyActivity onClick={() => {getOtherFollowing(otherUserId)}}>
                           <Text
                               style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followingCounts}</Text>
-                          <Text style={{marginTop: "4px"}}>팔로잉</Text>
+                          <Text style={{marginTop: "4px"}} >팔로잉</Text>
                       </MyActivity>
                   </MyActivityBox>
 
@@ -233,6 +241,7 @@ justify-content:center;
 align-items:center;
 border-radius:10px;
 font-weight:bold;
+cursor:pointer;
 `
 
 const LevelBox = styled.div`
@@ -250,6 +259,16 @@ width:100vw;
 background:${Color.mainColor};
 height: 100vh;
 padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+  width:100%;
+  height:100vh;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width:100%;
+  height:100vh;
+}
 `
 
 const Wrapper = styled.div`
@@ -371,6 +390,7 @@ const MyActivity = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  cursor:pointer;
 `;
 
 const Text = styled.p`
@@ -395,7 +415,10 @@ padding-top: 100%;
 background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 background-position: center center;
+cursor:pointer;
 `;
+
+
 const LevelDetail = styled.div`
 width:100%;
 height:36px;
@@ -406,6 +429,7 @@ align-items:center;
 box-sizing:border-box;
 background:${Color.gray};
 color:${Color.white};
+cursor:pointer;
 `
 
 

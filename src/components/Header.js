@@ -42,6 +42,13 @@ width:100%;
 position:fixed;
 top:0px;
 z-index:1;
+@media ${(props) => props.theme.tablet} {
+  width:420px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width:420px;
+}
 `
 
 const HeaderBox = styled.div`
@@ -52,6 +59,17 @@ const HeaderBox = styled.div`
   grid-template-columns: 1fr 1fr;
   box-sizing: border-box;
   border-bottom: 1px solid #f3f3f3;
+
+  @media ${(props) => props.theme.tablet} {
+    width:420px;
+    height:72px;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width:420px;
+    height:72px;
+  }
+
 `;
 
 const LogoBox = styled.div`
@@ -69,6 +87,16 @@ width:auto;
 height:auto;
 max-width:30vw;
 max-height:30vh;
+
+@media ${(props) => props.theme.tablet} {
+  max-width:120px;
+  max-height:120px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  max-width:120px;
+  max-height:120px;
+}
 `;
 
 const SearchBarBox = styled.div`

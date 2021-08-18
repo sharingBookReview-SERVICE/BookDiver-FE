@@ -90,6 +90,12 @@ const ReviewCard = (props) => {
 
   //다른 유저의 피드에 들어가기
   const goToUserFeed = (user_id) => {
+    //로그인 하지 않으면 사용 못함
+    if(!is_login){
+      dispatch(permitActions.showLoginModal(true))
+      return;
+    }
+
     if (cardUserId === userId) {
       //내 프로필을 클릭하면 내 피드로 이동
       history.push("/myfeed");
@@ -222,6 +228,15 @@ const CardBox = styled.div`
   border-radius: 16px;
   position: relative;
   overflow:hidden;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 90%;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 90%;
+  }
+
 `;
 
 const CommentUserBox = styled.div`
@@ -278,6 +293,17 @@ const UserRightBox = styled.div`
 const ImageBox = styled.div`
   width:90vw;
   height:90vw;
+
+  @media ${(props) => props.theme.tablet} {
+    width:400px;
+    height:400px;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width:400px;
+    height:400px;
+  }
+  
 `;
 
 const Image = styled.div`

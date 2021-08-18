@@ -1,8 +1,9 @@
 import React, {useCallback, useEffect, useMemo} from "react";
 import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
-import { Route, Switch } from "react-router-dom";
 import { history } from "../redux/configStore";
+
+import { Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import instance from "./Request";
 
@@ -147,6 +148,18 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
   position: relative;
+
+
+  @media ${(props) => props.theme.tablet} {
+    width:420px;
+    height:100vh;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width:420px;
+    height:100vh;
+  }
+
 `;
 
 export default App;

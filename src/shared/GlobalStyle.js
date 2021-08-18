@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
 body{
     font-family: 'Noto Sans KR', sans-serif;
     font-weight:400;
-    background-color:${Color.mainColor}
+    background-color:${Color.white};
 }
 `;
 

@@ -103,6 +103,7 @@ display:grid;
 grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 box-sizing:border-box;
 color:${Color.secondColor};
+position: fixed;
 
 @media ${(props) => props.theme.tablet} {
   width: 420px;

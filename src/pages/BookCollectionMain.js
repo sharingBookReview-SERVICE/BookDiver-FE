@@ -77,6 +77,9 @@ const BookCollectionMain = (props) =>{
                     },
                     540:{
                         spaceBetween:-130,
+                    },
+                    541:{
+                        spaceBetween:-15,
                     }
                 }}
                 >
@@ -119,6 +122,9 @@ const BookCollectionMain = (props) =>{
                     540:{
                         spaceBetween:-130,
                     },
+                    541:{
+                        spaceBetween:-15,
+                    }
                 }}
                 >
                {
@@ -140,6 +146,7 @@ const BookCollectionMain = (props) =>{
     )
 }
 const Container = styled.div`
+width:100%;
 background: ${Color.mainColor};
 padding-bottom: 100px;
 `;
@@ -150,13 +157,23 @@ background: black;
 border-radius: 12px;
 position: fixed;
 bottom: 70px;
-left: 5%;
 z-index: 1000;
 color: ${Color.mainColor};
 text-align: center;
 line-height: 56px;
 font-size: 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+    position: fixed;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+    position: fixed;
+  }
+  
 `;
 const CollectionIntro = styled.p`
 font-family: "Noto Serif KR", serif;

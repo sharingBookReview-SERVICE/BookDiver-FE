@@ -57,6 +57,7 @@ const EditModal = (props) =>{
     else{
       return(
         <React.Fragment>
+          <Outter>
 
             <Container>
               <Btn onClick={() => {
@@ -76,12 +77,24 @@ const EditModal = (props) =>{
             dispatch(permitActions.showEditModal(false))
             }}>
             </Overlay>
+            
+            </Outter>
         </React.Fragment>
     )
     }
 
     
 }
+
+const Outter = styled.div`
+@media ${(props) => props.theme.tablet} {
+  width: 420px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 420px;
+}
+`
 
 const Overlay = styled.div`
   width: 100vw;
@@ -90,6 +103,15 @@ const Overlay = styled.div`
   z-index: 999;
   position: fixed;
   opacity:0.5;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
+
 `;
 
 const Container = styled.div`
@@ -106,6 +128,15 @@ border: solid 1px #eeeeee;
 background: ${Color.mainColor};
 z-index: 1000;
 position:fixed;
+
+@media ${(props) => props.theme.tablet} {
+  width: 420px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 420px;
+}
+
 `;
 
 const Btn = styled.div`
