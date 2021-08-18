@@ -117,4 +117,5 @@ width:84px;
 height:36px;
 font-size:16px;
 font-weight:600;
+cursor:pointer;
 `

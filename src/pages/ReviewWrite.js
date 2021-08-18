@@ -6,9 +6,10 @@ import styled from "styled-components";
 import imageCompression from "browser-image-compression";
 
 import add_button from "../img/add_button.png";
-import left_arrow from "../img/left_arrow.png";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Color from "../shared/Color";
+import { makeStyles } from "@material-ui/core/styles";
 import SelectBookModal from "../modals/SelectBookModal";
 import WriteCheckModal from "../modals/WriteCheckModal"
 import SelectBookCard from "../components/SelectBookCard";
@@ -22,9 +23,17 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
 import { actionCreators as tagActions } from "../redux/modules/tag";
 
+const useStyles = makeStyles((theme) => ({
+  arrow: {
+    cursor:"pointer",
+    margin:"0px 0px 0px 20px",
+  },
+}));
+
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   //Permit check
   const is_modal = useSelector((state) => state.permit.is_modal);
@@ -172,8 +181,8 @@ const ReviewWrite = (props) => {
       <React.Fragment>
         <PostWriteBox>
           <PostHeader>
-            <LeftArrow
-              src={left_arrow}
+            <ArrowBackIcon
+              className={classes.arrow}
               onClick={() => {
                 history.goBack();
               }}
@@ -229,8 +238,8 @@ const ReviewWrite = (props) => {
       {is_modal && <SelectBookModal />}
       <PostWriteBox>
         <PostHeader>
-          <LeftArrow
-            src={left_arrow}
+          <ArrowBackIcon
+            className={classes.arrow}
             onClick={() => {
               history.goBack();
             }}
@@ -446,7 +455,7 @@ const LeftArrow = styled.img`
 `;
 
 const BookChoice = styled.div`
-  width: 85%;
+  width: 90%;
   height: 112px;
   display: flex;
   flex-direction: column;

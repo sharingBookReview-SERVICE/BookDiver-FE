@@ -34,11 +34,28 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+
+@media ${(props) => props.theme.tablet} {
+  width:100%;
+}
+@media ${(props) => props.theme.desktop} {
+  width:100%;
+}
 `
 
 const Spinner = styled.img`
 width:50vw;
 height:50vw;
+
+@media ${(props) => props.theme.tablet} {
+  width:200px;
+  height:200px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width:200px;
+  height:200px;
+}
 `
 
 export default Loading;

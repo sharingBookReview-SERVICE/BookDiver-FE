@@ -141,6 +141,7 @@ padding: 16px;
 border-radius: 12px;
 border: solid 1px ${Color.secondColor};
 box-sizing: border-box;
+cursor:pointer;
 `
 
 const BookImg = styled.div`
@@ -158,6 +159,14 @@ const BookDescBox = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   max-width: 70%;
+  height:80%;
+  overflow-x:hidden;
+  overflow-y:scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `
 
 const BookTitle = styled.div`

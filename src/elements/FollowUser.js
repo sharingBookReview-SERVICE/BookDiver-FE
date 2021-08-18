@@ -89,4 +89,5 @@ border-radius:10px;
 width:84px;
 height:36px;
 font-size:14px;
+cursor:pointer;
 `

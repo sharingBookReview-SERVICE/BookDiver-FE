@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
       left:"20px",
       top: "30px",
       color: Color.black,
+      cursor:"pointer",
     },
   }));
 
@@ -84,6 +85,15 @@ height:auto;
 display:flex;
 background: ${Color.mainColor};
 box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
+
 `
 
 const Container = styled.div`
@@ -95,6 +105,14 @@ align-items:center;
 justify-content:flex-start;
 padding:80px 30px 0px 30px;
 box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
 `
 
 const Header = styled.div`
@@ -106,8 +124,16 @@ align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-left:0px;
 font-family: "Noto Serif KR", serif;
+
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
+
 `
 
 const HeaderText = styled.div`

@@ -13,7 +13,8 @@ import {images} from "../shared/Image"
 
 const useStyles = makeStyles((theme) => ({
   goback: {
-      padding: "10px"
+      padding: "10px",
+      cursor:"pointer",
   },
 }));
 
@@ -98,19 +99,22 @@ background: ${Color.mainColor};
 const HeadBar = styled.div`
 width: 100%;
 height: 56px;
-padding:0px 15px;
+padding: 0px 15px;
 display: flex;
 justify-content: space-between;
 align-items: center;
 box-sizing:border-box;
 `;
+
 const HeadBtn = styled.p`
 padding: 0px 5px;
 font-weight: bold;
+cursor:pointer;
 &:hover{
   color: #1168d7;
 }
 `;
+
 const ProfileBox = styled.div`
 width: 100%;
 height: 216px;
@@ -118,8 +122,8 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-
 `;
+
 const ImageBox = styled.div`
 width: 80%;
 height: 100%;
@@ -162,13 +166,6 @@ background:${Color.mainColor};
 :focus{
   outline:none;
 }
-`;
-const Activity = styled.p`
-    color: ${Color.fontGray};
-    margin: 5px;
-    font-size: 15px;
-    text-align: center;
-  
 `;
 
 export default ChangeName;
