@@ -30,13 +30,13 @@ const defaultProps = {
         book_description: book_description,
     }
 
-    const deleteCard = ()=>{
-        dispatch(collectionActions.deleteSelectedBook(props.isbn))
+    const deleteCard = (id)=>{
+        dispatch(collectionActions.deleteSelectedBook(id))
     }
   
 
     //collection detail에서 보는 페이지
-    if(props.is_collection_detail || props.is_edit_collection){
+    if(props.is_collection_detail|| props.is_edit_collection){
         return(
             <BookInfoWrapper>
                 <BookInfoBox>
@@ -48,11 +48,34 @@ const defaultProps = {
                     </BookDescBox>
                 </Wrapper>
                 {
-                    props.is_edit_collection &&   <ClearIcon/>
+                    props.is_edit_collection &&  <ClearIcon onClick={()=>{deleteCard(book.id)}}/>
                 }
                 </BookInfoBox>
                 <Recommend 
                 value={book_descriptionSV} disabled
+                >
+                </Recommend>
+            </BookInfoWrapper>
+        )
+    }
+
+    else if(props.is_edit_collection){
+        return(
+            <BookInfoWrapper>
+                <BookInfoBox>
+                <Wrapper>
+                    <BookImg url={book?.image}/>
+                    <BookDescBox>
+                    <BookTitle >{book?.title.split("(")[0]}</BookTitle>
+                        <BookWriter>{book?.author} 저</BookWriter>
+                    </BookDescBox>
+                </Wrapper>
+                {
+                    props.is_edit_collection &&  <ClearIcon onClick={()=>{deleteCard(book.id)}}/>
+                }
+                </BookInfoBox>
+                <Recommend 
+                value={book_descriptionSV} 
                 >
                 </Recommend>
             </BookInfoWrapper>
@@ -70,9 +93,8 @@ const defaultProps = {
                         <BookWriter>{props.author} 저</BookWriter>
                     </BookDescBox>
                     </Wrapper>
-                    <ClearIcon onClick={()=>{deleteCard()}}/>
+                    <ClearIcon onClick={()=>{deleteCard(props.isbn)}}/>
                 </BookInfoBox>
-              
                 <Recommend 
                 placeholder="책 마다 추천이유를 적어보세요(최대30자)"
                 maxLength="30"
@@ -81,8 +103,8 @@ const defaultProps = {
                     dispatch(collectionActions.addCollection_content(content))
                   }}
                
-                >
-                </Recommend>
+                />
+                
             </BookInfoWrapper>
         )
     }

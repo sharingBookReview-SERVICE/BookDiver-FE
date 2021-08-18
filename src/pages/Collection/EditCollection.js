@@ -48,10 +48,20 @@ const EditCollection = (props) => {
     const dispatch = useDispatch();
     const collection_id = props.match.params.collectionid;
     const collection_detail = useSelector(state=> state.collection.collection_detail);
+    const collection_detail_contents = useSelector(state=> state.collection.collection_detail_contents);
+    const name = useRef(collection_detail?.name);
+    const description = useRef(collection_detail?.description);
 
+//detail 가져오기
    useEffect(()=>{
-     dispatch(collectionActions.getCollectionDetailSV(collection_id))
+    dispatch(collectionActions.getCollectionDetailSV(collection_id));
    },[]);
+
+//원래 있던 content리덕스에 넣기
+   useEffect(()=>{
+     name.current.value = collection_detail?.name;
+     description.current.value = collection_detail?.description;
+    },[collection_detail])
   
     return(
         <Container>
@@ -67,15 +77,13 @@ const EditCollection = (props) => {
                 type="submit"
               >게시하기</SubmitButton>
             </UploadForm>
-
-           
         </Head>
         <Wrapper>
             <Label>
                 컬렉션 제목
             </Label>
             <TitleInput
-                value={collection_detail?.name}
+               ref={name}
             ></TitleInput>
             
             <ImageBox >
@@ -87,12 +95,12 @@ const EditCollection = (props) => {
                 컬렉션 설명
             </Label>
             <DescTextarea
-              value={collection_detail?.description}
+                ref={description}
             ></DescTextarea>
            
               {
-                  collection_detail.contents?.map((content)=>{
-                      return(<CollectionBookCard is_edit_collection {...content} key={content._id}/>)
+                  collection_detail_contents?.map((book)=>{
+                      return(<CollectionBookCard is_edit_collection {...book} key={book.isbn}/>)
                   })
               }
            

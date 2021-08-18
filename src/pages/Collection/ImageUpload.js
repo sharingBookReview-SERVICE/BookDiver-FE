@@ -1,27 +1,30 @@
+// import React from "react";
+// import { useState, useEffect } from 'react';
 // import { actionCreators as uploadActions } from "../../redux/modules/upload";
 // import { useDispatch } from "react-redux";
-
-// const dispatch = useDispatch();
+// import imageCompression from "browser-image-compression";
 
 //   //업로드 버튼 클릭하기
 //   const selectImage = (fileInput) => {
 //     fileInput?.current.click();
 //   };
+  
+
 
 // //이미지 가져오기
-// const getImage = (event) => {
+// const getImage = (event, showPreivew, setPreview) => {
 //     const reader = new FileReader();
 //     const file = event.target.files[0];
 //     actionImgCompress(file);
 
 //     reader.readAsDataURL(file);
 //     reader.onloadend = () => {
-//     dispatch(uploadActions.showPreview(true));
-//     dispatch(uploadActions.setPreview(reader.result));
+//         showPreivew();
+//         setPreview();
 //     };
 // };
 // //이미지 압축하기
-// const actionImgCompress = async (fileSrc) => {
+// const actionImgCompress = async (fileSrc, setCompressedImage) => {
 //     //압축할 옵션 내용
 //     const options = {
 //     maxSizeMB: 0.2,
@@ -39,7 +42,7 @@
 // };
 
 //  //FormData로 변환하기
-//  const sendFormData = async (image) => {
+//  const sendFormData = async (image,title,description,contents,) => {
 //     const formData = new FormData();
 //     //formData에 압축 이미지, 인용구,내용,해쉬태그 저장
 //     formData.append("image", image);
