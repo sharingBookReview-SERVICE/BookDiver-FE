@@ -61,6 +61,15 @@ const selectBooksSV = (id)=>{
   return function(dispatch){
       instance.get(`/books/${id}`)
       .then((res)=>{
+        
+        const book_ ={
+          book: {
+            id: ""
+          }
+        }
+        book_.book = res.data;
+        book_.book.id = res.data.isbn;
+        
           dispatch(selectBooks({
             title: res.data.title,
             image: res.data.image,
@@ -71,6 +80,7 @@ const selectBooksSV = (id)=>{
             isbn: res.data.isbn,
             book_description:""
           }))
+          dispatch(getCollectionDetailContent(book_))
       })
       .catch((err)=>{
           window.alert("책 하나 로드 실패");
@@ -280,7 +290,13 @@ export default handleActions(
       }),
       [GET_COLLECTION_DETAIL_CONTENTS]:(state, action)=>
       produce(state, (draft)=>{
-        draft.collection_detail_contents = action.payload.contents;
+        if(draft.collection_detail_contents.length === 0){
+          draft.collection_detail_contents = action.payload.contents;
+        }
+        else{
+          draft.collection_detail_contents.push(action.payload.contents);
+        }
+        
       }),
       [DELETE_COLLECTION]:(state, action)=>
       produce(state, (draft)=>{

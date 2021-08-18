@@ -10,19 +10,19 @@ import AddIcon from '@material-ui/icons/Add';
 
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { actionCreators as collectionActions } from "../../redux/modules/collection";
-import { actionCreators as uploadActions } from "../../redux/modules/upload";
+
 
 import SelectBookModal from "../../modals/SelectBookModal";
 import CollectionBookCard from "../../elements/CollectionBookCard";
 import AddBook from "./AddBook";
 
 
-import imageCompression from "browser-image-compression";
-
-
 //스타일 정의
 const useStyles = makeStyles((theme) => ({
-  
+    goback: {
+        cursor:"pointer",
+        padding: "0px 20px"
+    },
     icon: {
         position: "absolute",
         right: "20px"
@@ -49,11 +49,26 @@ const EditCollection = (props) => {
     const collection_id = props.match.params.collectionid;
     const collection_detail = useSelector(state=> state.collection.collection_detail);
     const collection_detail_contents = useSelector(state=> state.collection.collection_detail_contents);
+    const collection_contents = useSelector(state=> state.collection.collection_contents);
+    const more_select = useSelector(state=> state.collection.more_select);
+    
+    const is_modal = useSelector(state=> state.permit.is_modal);
     const name = useRef(collection_detail?.name);
     const description = useRef(collection_detail?.description);
 
+     //책 더 추가하기
+     const addMoreBtn = ()=>{
+        if(collection_contents.length<10){
+            dispatch(collectionActions.moreSelect(true))
+        }
+        else{
+            window.alert("최대 10개까지 추가할 수 있습니다!")
+        }   
+    }
 //detail 가져오기
    useEffect(()=>{
+    dispatch(permitActions.showModal(false));
+    dispatch(collectionActions.isMakeCollection(true));
     dispatch(collectionActions.getCollectionDetailSV(collection_id));
    },[]);
 
@@ -65,7 +80,9 @@ const EditCollection = (props) => {
   
     return(
         <Container>
-       
+            {
+                is_modal && <SelectBookModal />
+            }
         <Head>
             <ArrowBackIcon className={classes.goback}
             onClick = {()=>{history.goBack()}}
@@ -103,8 +120,10 @@ const EditCollection = (props) => {
                       return(<CollectionBookCard is_edit_collection {...book} key={book.isbn}/>)
                   })
               }
-           
-            <MoreAddbtn>
+             {
+                  more_select &&    <AddBook/> 
+                }
+            <MoreAddbtn onClick={()=>{addMoreBtn()}}>
                 <Notice className={classes.font}>책 더 추가하기</Notice>
                 <AddIcon className={classes.moreaddicon}/>
             </MoreAddbtn>

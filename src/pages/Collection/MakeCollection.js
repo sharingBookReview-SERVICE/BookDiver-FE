@@ -79,7 +79,6 @@ const MakeCollection = (props) =>{
     const fileInput = React.useRef();
     const [compressedImage, setCompressedImage] = useState(null);
 
-    //수정하기로 들어왔을때
     
     useEffect(()=>{
         dispatch(permitActions.showModal(false));

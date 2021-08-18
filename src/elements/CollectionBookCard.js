@@ -23,10 +23,10 @@ const defaultProps = {
     const book = props.book? props.book : defaultProps.book;
     const book_descriptionSV = props.book_description? props.book_description : "";
     //책 추천 내용 저장하기 관련
-    const [book_description, setBookDescription] = useState("");
+    const [book_description, setBookDescription] = useState(book_descriptionSV);
     const bookTitle = props.title?.split("(")[0]
     const content = {
-        isbn: props.isbn,
+        isbn: props.is_edit_collection? book?.id: props.isbn,
         book_description: book_description,
     }
 
@@ -36,7 +36,7 @@ const defaultProps = {
   
 
     //collection detail에서 보는 페이지
-    if(props.is_collection_detail|| props.is_edit_collection){
+    if(props.is_collection_detail){
         return(
             <BookInfoWrapper>
                 <BookInfoBox>
@@ -75,7 +75,11 @@ const defaultProps = {
                 }
                 </BookInfoBox>
                 <Recommend 
-                value={book_descriptionSV} 
+                value={book_description}
+                onChange={(e)=>{setBookDescription(e.target.value)}}
+                onBlur={(e) => {
+                    dispatch(collectionActions.addCollection_content(content))
+                  }}
                 >
                 </Recommend>
             </BookInfoWrapper>
