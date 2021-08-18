@@ -111,13 +111,13 @@ const ReviewWrite = (props) => {
       dispatch(permitActions.showCheckModal(true))
       return;
     }
-
+    
+    dispatch(permitActions.isLoading(true))
     await dispatch(reviewActions.addReviewSV(formData, books.isbn));
   };
 
   //이미지 보내기.
   const submit = async (event) => {
-    dispatch(permitActions.isLoading(true))
     event.preventDefault();
 
     await sendFormData(compressedImage);
@@ -247,6 +247,7 @@ const ReviewWrite = (props) => {
             <SubmitButton 
             type="submit"
             style={{
+              cursor:"pointer",
               backGroundColor: Color.mainColor,
               color: Color.fontgray,
             }}>게시하기</SubmitButton>
@@ -260,7 +261,7 @@ const ReviewWrite = (props) => {
             }}
           >
             <img src={add_button} alt="add btn" />
-            <Text>리뷰할 책 선택하기</Text>
+            <Text >리뷰할 책 선택하기</Text>
           </BookChoice>
         ) : (
           <SelectBookCard />
@@ -425,7 +426,17 @@ const PostHeader = styled.div`
   background-color: ${Color.mainColor};
   position:fixed;
   top:0px;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
+
 `;
+
 const LeftArrow = styled.img`
   width: 10vw;
   height: 3vh;

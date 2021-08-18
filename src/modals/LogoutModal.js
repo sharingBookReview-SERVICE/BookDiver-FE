@@ -46,9 +46,17 @@ const LogoutModal = (props) =>{
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 0, 0, 0.4);
   z-index: 99;
   position: fixed;
+  cursor:pointer;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const Container = styled.div`
@@ -63,7 +71,21 @@ background: ${Color.mainColor};
 z-index: 100;
 position: absolute;
 top: 35%;
-left: 7%;
+
+@media ${(props) => props.theme.mobile} {
+  left: 7%;
+}
+
+@media ${(props) => props.theme.tablet} {
+  width: 390px;
+  margin-left:15px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 390px;
+  margin-left:15px;
+}
+
 `;
 
 const Text = styled.p`
@@ -93,7 +115,7 @@ width: 50%;
 font-size: 14px;
 font-weight: bold;
 margin: 14px 0px;
-
+cursor:pointer;
 `;
 
 export default LogoutModal;

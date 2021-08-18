@@ -52,7 +52,6 @@ const EditModal = (props) =>{
     else{
       return(
         <React.Fragment>
-          <Outter>
 
             <Container>
               <Btn onClick={() => {
@@ -72,24 +71,12 @@ const EditModal = (props) =>{
             dispatch(permitActions.showEditModal(false))
             }}>
             </Overlay>
-            
-            </Outter>
+
         </React.Fragment>
     )
     }
-
-    
 }
 
-const Outter = styled.div`
-@media ${(props) => props.theme.tablet} {
-  width: 420px;
-}
-
-@media ${(props) => props.theme.desktop} {
-  width: 420px;
-}
-`
 
 const Overlay = styled.div`
   width: 100vw;
@@ -97,23 +84,20 @@ const Overlay = styled.div`
   background-color:black;
   z-index: 999;
   position: fixed;
-  opacity:0.5;
+  opacity:0.4;
+  cursor:pointer;
 
   @media ${(props) => props.theme.tablet} {
     width: 420px;
   }
-
   @media ${(props) => props.theme.desktop} {
     width: 420px;
   }
-
 `;
 
 const Container = styled.div`
 top:40%;
-left:10%;
 width: 80vw;
-border-radius: 12px;
 display:flex;
 flex-direction: column;
 justify-content: center;
@@ -123,15 +107,21 @@ border: solid 1px #eeeeee;
 background: ${Color.mainColor};
 z-index: 1000;
 position:fixed;
+border-radius: 12px;
+
+@media ${(props) => props.theme.mobile} {
+  left:5%;
+}
 
 @media ${(props) => props.theme.tablet} {
-  width: 420px;
+  width: 390px;
+  margin-left:15px;
 }
 
 @media ${(props) => props.theme.desktop} {
-  width: 420px;
+  width: 390px;
+  margin-left:15px;
 }
-
 `;
 
 const Btn = styled.div`
@@ -142,8 +132,10 @@ line-height: 56px;
 align-items: center;
 font-weight: 500;
 font-size: 14px;
+cursor:pointer;
 &:hover {
     color: red;
 }
 `;
+
 export default EditModal;
