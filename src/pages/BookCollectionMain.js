@@ -151,7 +151,7 @@ background: ${Color.mainColor};
 padding-bottom: 100px;
 `;
 const MakeBtn = styled.div`
-width: 90%;
+
 height: 56px;
 background: black;
 border-radius: 12px;
@@ -164,6 +164,12 @@ line-height: 56px;
 font-size: 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
+@media ${(props) => props.theme.mobile} {
+    width: 90%;
+    left:5.5%;
+}
+  
+
 @media ${(props) => props.theme.tablet} {
     width: 420px;
     position: fixed;
@@ -173,7 +179,7 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 420px;
     position: fixed;
   }
-  
+
 `;
 const CollectionIntro = styled.p`
 font-family: "Noto Serif KR", serif;

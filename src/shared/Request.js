@@ -13,10 +13,13 @@ const token = localStorage.getItem('token');
 instance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : null;
 
 <<<<<<< refs/remotes/upstream/develop
+<<<<<<< refs/remotes/upstream/develop
 // localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTEwY2Q0OTE4NWU0YTg5NTBiMTQzMzciLCJuaWNrbmFtZSI6IkxFTyIsImlhdCI6MTYyOTAxMDIzNywiZXhwIjoxNjI5MDk2NjM3fQ.AfExgh7v8DFe53p0q2km7yx8_Gexe37NhJSpIjdbaOc")
 =======
 localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTEwY2Q0OTE4NWU0YTg5NTBiMTQzMzciLCJuaWNrbmFtZSI6IkxFTyIsImlhdCI6MTYyOTE4MjI4OSwiZXhwIjoxNjI5MjY4Njg5fQ.EfWJ0InE8lAAc3U83vwNph8k1xUJGz9u_DY4LVTIUo8")
 >>>>>>> [추가] 리뷰 디테일 페이지 들어가기 댓글and 콘텐츠 클릭으로 분기하기
+=======
+>>>>>>> [추가] 모달 웹페이지 반응형 만들기
 
 export default instance;
 

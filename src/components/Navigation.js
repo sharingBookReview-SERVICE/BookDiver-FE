@@ -102,13 +102,15 @@ width:100%;
 display:grid;
 grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 box-sizing:border-box;
+background:${Color.mainColor};
 color:${Color.secondColor};
 position: fixed;
+bottom:0px;
+height: 60px;
 
 @media ${(props) => props.theme.tablet} {
   width: 420px;
   height: 60px;
-  background:${Color.mainColor};
   position:fixed;
   bottom:0;
   box-shadow: 0 4px 4px -4px rgba(0,0,0,0.2);
@@ -117,7 +119,6 @@ position: fixed;
 @media ${(props) => props.theme.desktop} {
   width: 420px;
   height: 60px;
-  background:${Color.mainColor};
   position:fixed;
   bottom:0;
   box-shadow: 0px -4px 4px -2px rgba(0,0,0,0.2);

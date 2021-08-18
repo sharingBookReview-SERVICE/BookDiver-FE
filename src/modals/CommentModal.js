@@ -55,12 +55,21 @@ const Overlay = styled.div`
   background-color:black;
   z-index: 99;
   position: fixed;
-  opacity:0.5;
+  opacity:0.4;
+  cursor:pointer;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
+
 `;
 
 const Container = styled.div`
 top:40%;
-left:10%;
+
 width: 80vw;
 border-radius: 12px;
 display:flex;
@@ -72,6 +81,21 @@ border: solid 1px #eeeeee;
 background: ${Color.mainColor};
 z-index: 100;
 position:fixed;
+
+
+@media ${(props) => props.theme.mobile} {
+    left:10%;
+  }
+  
+  @media ${(props) => props.theme.tablet} {
+    width: 390px;
+    margin-left:15px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 390px;
+    margin-left:15px;
+  }
 `;
 
 const Btn = styled.div`
@@ -86,4 +110,5 @@ font-size: 14px;
     color: red;
 }
 `;
+
 export default CommentModal;

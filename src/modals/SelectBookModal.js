@@ -14,11 +14,18 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import Color from "../shared/Color"
 
 const useStyles = makeStyles((theme) => ({
-  arrow: {
+  expand: {
     position: "absolute",
     top:"12px",
     right:"8px",
+    cursor:"pointer",
   },
+  search: {
+    cursor:"pointer",
+  },
+  arrow:{
+    cursor:"pointer",
+  }
 }));
 
 
@@ -67,6 +74,7 @@ const SelectBookModal = (props) =>{
             <Container>
               <ArrowBox>
                 <ArrowBackIcon 
+                className={classes.arrow}
                 onClick={()=>{
             dispatch(permitActions.showModal(false));
             }}/>
@@ -88,12 +96,12 @@ const SelectBookModal = (props) =>{
                   </CategoryUl>
                   {is_clicked ? 
                   <ExpandLessIcon 
-                  className={classes.arrow}
+                  className={classes.expand}
                   onClick={() => {
                     openCategory(is_clicked);
                     }} />
                 : <ExpandMoreIcon 
-                className={classes.arrow}
+                className={classes.expand}
                 onClick={() => {
                   openCategory(is_clicked);
                   }} />}
@@ -111,7 +119,7 @@ const SelectBookModal = (props) =>{
                   }
                 }}
                 ></Input>
-                <SearchIcon onClick={()=>{searchBook()}}/>
+                <SearchIcon className={classes.search} onClick={()=>{searchBook()}}/>
               </SearchBox>
               
               {
@@ -135,15 +143,22 @@ const SelectBookModal = (props) =>{
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color:rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 0, 0, 0.4);
   z-index: 99;
   position: fixed;
+  cursor:pointer;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const Container = styled.div`
 position:fixed;
 top:12%;
-left:5%;
 width: 90vw;
 height: 75vh;
 display:flex;
@@ -158,6 +173,22 @@ overflow: scroll;
 overflow-x: hidden;
 z-index: 100;
 box-sizing:border-box;
+
+
+@media ${(props) => props.theme.mobile} {
+  left:5%;
+}
+
+@media ${(props) => props.theme.tablet} {
+  width: 390px;
+  margin-left:15px;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 390px;
+  margin-left:15px;
+}
+
 `;
 
 const ArrowBox = styled.div`
@@ -210,6 +241,7 @@ width:100%;
 margin:0;
 padding:0;
 overflow:hidden;
+cursor:pointer;
 ${(props) => props.is_clicked ? `
 li:nth-child(1){
   border:none;
