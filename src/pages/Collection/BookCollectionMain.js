@@ -1,28 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 
 //스와이퍼
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Mousewheel } from 'swiper/core';
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
+  
+
 
 //컴포넌트
-import Collection from "../elements/Collection";
+import Collection from "../../elements/Collection";
 //css
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 
 
 //action
-import  { actionCreators as collectionActions } from "../redux/modules/collection";
-import { actionCreators as permitActions } from "../redux/modules/permit";
+import  { actionCreators as collectionActions } from "../../redux/modules/collection";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
-
-
-SwiperCore.use([Navigation, Pagination])
+SwiperCore.use([Mousewheel])
 
 
 //북컬렉션 페이지
@@ -47,6 +47,7 @@ const BookCollectionMain = (props) =>{
         history.push('/collectionlist/custom')
     }
     return(
+        <Wrapper>
         <Container>
             <CollectionIntro>테마별로, 혹은 기분으로
                 같은 무드의 도서만 모아서</CollectionIntro>
@@ -57,6 +58,7 @@ const BookCollectionMain = (props) =>{
                  </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
+                freeMode={true}
                 spaceBetween={80}
                 slidesPerView={2}
                 breakpoints={{
@@ -101,6 +103,7 @@ const BookCollectionMain = (props) =>{
             </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
+                freeMode={true}
                 spaceBetween={80}
                 slidesPerView={2}
                 breakpoints={{
@@ -143,15 +146,43 @@ const BookCollectionMain = (props) =>{
            }
            
         </Container>
+        </Wrapper>
     )
 }
-const Container = styled.div`
-width:100%;
-background: ${Color.mainColor};
-padding-bottom: 100px;
-`;
-const MakeBtn = styled.div`
 
+const Wrapper = styled.div`
+width:100vw;
+height:auto;
+background: ${Color.mainColor};
+box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
+
+`
+
+const Container = styled.div`
+width:100vw;
+height:auto;
+min-height:100vh;
+padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
+`
+
+const MakeBtn = styled.div`
+cursor:pointer;
 height: 56px;
 background: black;
 border-radius: 12px;

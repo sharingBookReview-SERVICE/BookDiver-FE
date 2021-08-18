@@ -1,22 +1,23 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as permitActions } from "../redux/modules/permit";
-import { actionCreators as collectionActions } from "../redux/modules/collection";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
+import { actionCreators as collectionActions } from "../../redux/modules/collection";
 
 import styled from "styled-components";
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 import { makeStyles } from "@material-ui/core/styles";
-import CollectionBookCard from "../elements/CollectionBookCard";
-import Comment from "../components/Comment";
+import CollectionBookCard from "../../elements/CollectionBookCard";
+import Comment from "../../components/Comment";
 import { Book } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     goback: {
-        padding: "0px 20px"
+        padding: "0px 20px",
+        cursor:"pointer",
     },
     bookCard: {
         width: "90%",
@@ -99,7 +100,18 @@ const Container = styled.div`
 width: 100vw;
 background: ${Color.mainColor};
 padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+  width: 100%;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 100%;
+}
+
 `;
+
+
 const CollectionOutter = styled.div`
 width: 90%;
 border: 1px solid black;
@@ -190,6 +202,13 @@ const CommentInputBox = styled.div`
   background-color: ${Color.mainColor};
   position: fixed;
   bottom: 0;
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 420px;
+}
 `;
 
 const CommentInput = styled.input`

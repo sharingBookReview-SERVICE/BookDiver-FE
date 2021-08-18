@@ -1,19 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 import AddIcon from '@material-ui/icons/Add';
 
-import { actionCreators as permitActions } from "../redux/modules/permit";
-import { actionCreators as collectionActions } from "../redux/modules/collection";
-import { actionCreators as uploadActions } from "../redux/modules/upload";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
+import { actionCreators as collectionActions } from "../../redux/modules/collection";
+import { actionCreators as uploadActions } from "../../redux/modules/upload";
 
-import SelectBookModal from "../modals/SelectBookModal";
-import CollectionBookCard from "../elements/CollectionBookCard";
+import SelectBookModal from "../../modals/SelectBookModal";
+import CollectionBookCard from "../../elements/CollectionBookCard";
 
 
 import imageCompression from "browser-image-compression";
@@ -21,6 +21,7 @@ import imageCompression from "browser-image-compression";
 //스타일 정의
 const useStyles = makeStyles((theme) => ({
     goback: {
+        cursor:"pointer",
         padding: "0px 20px"
     },
     icon: {
@@ -246,6 +247,14 @@ background: ${Color.mainColor};
 width: 100vw;
 height: auto;
 padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
 `;
 const Head = styled.div`
 width: 100%;
@@ -255,8 +264,17 @@ display: flex;
 position: fixed;
 background: ${Color.mainColor};
 justify-content: space-between;
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 420px;
+}
 `;
+
 const UploadForm = styled.form``;
+
 const Upload = styled.input`
   display: none;
 `;
@@ -272,6 +290,7 @@ const SubmitButton = styled.button`
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   border: none;
+  cursor:pointer;
 `;
 const Text = styled.div`
 width: 80%;
@@ -296,6 +315,9 @@ box-sizing: border-box;
 margin-bottom: 16px;
 background: ${Color.mainColor};
 padding: 0px 10px;
+:focus{
+    outline:none;
+}
 `;
 const ImageSelect = styled.div`
 width: 100%;
@@ -308,6 +330,7 @@ justify-content: center;
 align-items: center;
 margin-bottom: 16px;
 flex-direction: column;
+cursor:pointer;
 `;
 
 const ImageBox = styled.div`
@@ -337,6 +360,10 @@ background: ${Color.mainColor};
 margin-bottom: 16px;
 padding: 10px;
 font-family: 'Noto Sans KR', sans-serif;
+resize:none;
+:focus{
+    outline:none;
+}
 `;
 const AddBookBox= styled.div`
 width: 100%;
@@ -349,6 +376,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+cursor:pointer;
 `;
 const MoreAddbtn = styled.div`
 width: 100%;
@@ -359,6 +387,7 @@ border: 1px solid black;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor:pointer;
 `;
 
 
