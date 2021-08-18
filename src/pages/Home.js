@@ -83,6 +83,14 @@ const HomeBGColor = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 15vh 0 0 0;
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 80px 0 0 0;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    padding: 80px 0 0 0;
+  }
 `;
 
 

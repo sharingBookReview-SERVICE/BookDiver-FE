@@ -18,11 +18,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     goback: {
-        padding: "0px 20px"
+        padding: "0px 20px",
+        cursor:"pointer",
     },
     icon: {
         position: "absolute",
-        right: "20px"
+        right: "20px",
+        cursor:"pointer",
     }
   }));
 const Setting = (props) => {
@@ -87,6 +89,15 @@ const Container = styled.div`
 background: ${Color.mainColor};
 width: 100vw;
 height: 100vh;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
+
 `;
 const Head = styled.div`
 width: 100%;
@@ -109,6 +120,7 @@ align-items: center;
 const Menu = styled.div`
 font-weight: bold;
 margin: 0px 0px 0px 10px;
+cursor:pointer;
 `;
 const Bottom = styled.div`
 width: 100%;
@@ -116,5 +128,6 @@ padding: 60px 20px;
 `;
 const Btn = styled.div`
 padding: 20px 0px;
+cursor:pointer;
 `;
 export default Setting;

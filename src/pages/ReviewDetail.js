@@ -359,6 +359,14 @@ background: ${Color.mainColor};
 width: 100vw;
 height: auto;
 padding-bottom: 100px;
+
+@media ${(props) => props.theme.tablet} {
+  width: 100%;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 100%;
+}
 `;
 
 const Head = styled.div`
@@ -464,6 +472,14 @@ const CommentInputBox = styled.div`
   background-color: ${Color.mainColor};
   position: fixed;
   bottom: 0;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const CommentInput = styled.input`
