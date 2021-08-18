@@ -138,7 +138,7 @@ const ReviewCard = (props) => {
               
               {is_my_post && (
                 <MoreHorizIcon
-                  style={{ color: "#9e9e9e" }}
+                  style={{ color: "#9e9e9e", cursor:"pointer" }}
                   onClick={() => {
                     showEditModal();
                     getFeedId();
@@ -170,14 +170,14 @@ const ReviewCard = (props) => {
             <LikeBox>
               {myLike ? (
                 <FavoriteIcon
-                  style={{ fontSize: "20px", color: Color.mainColor }}
+                  style={{ fontSize: "20px", color: Color.mainColor, cursor:"pointer" }}
                   onClick={() => {
                     clickLikeButton();
                   }}
                 />
               ) : (
                 <FavoriteBorderIcon
-                  style={{ fontSize: "20px", color: Color.mainColor }}
+                  style={{ fontSize: "20px", color: Color.mainColor, cursor:"pointer" }}
                   onClick={() => {
                     clickLikeButton();
                   }}
@@ -270,6 +270,7 @@ const ProfileImg = styled.img`
 width: 100%;
 height: 100%;
 object-fit:cover;
+cursor:pointer;
 `;
 
 
@@ -281,6 +282,7 @@ flex-direction:${(props) => props.direction};
 const Follow = styled.div`
 font-weight:bold;
 font-size:14px;
+cursor:pointer;
 `
 
 const UserRightBox = styled.div`
@@ -312,6 +314,7 @@ const Image = styled.div`
   background-image:url(${(props) => props.url});
   background-size:cover;
   background-position:center center;
+  cursor:pointer;
 `;
 
 const UserName = styled.p`
@@ -359,6 +362,7 @@ const Quote = styled.p`
   background:${Color.quote};
   padding:12px;
   border-radius:10px;
+  cursor:pointer;
 `;
 
 const Content = styled.p`
@@ -368,6 +372,7 @@ const Content = styled.p`
   margin: 0px;
   color: ${Color.fontgray};
   white-space: pre-line;
+  cursor:pointer;
 `;
 
 const HashTagBox = styled.ul`
@@ -397,6 +402,7 @@ const LikeBox = styled.div`
 const LikeText = styled.p`
   font-size: 16px;
   margin: 0px 0px 0px 8px;
+  cursor:pointer;
   color: ${Color.mainColor};
 `;
 
@@ -419,6 +425,7 @@ const WriteCommentBox = styled.div`
 `;
 
 const CommentCount = styled.p`
+cursor:pointer;
   font-size: 16px;
   margin: 0px 0px 0px 8px;
   color: ${Color.mainColor};

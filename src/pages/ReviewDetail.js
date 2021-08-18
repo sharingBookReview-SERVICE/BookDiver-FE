@@ -29,7 +29,8 @@ import Color from "../shared/Color";
 
 const useStyles = makeStyles((theme) => ({
   goback: {
-      padding: "0px 20px"
+      padding: "0px 20px",
+      cursor:"pointer",
   },
   icon: {
       margin: "0px 10px",
@@ -204,7 +205,7 @@ const ReviewDetail = (props) => {
               
               {is_my_post && 
                 <MoreHorizIcon
-                  style={{ color: "#9e9e9e" }}
+                  style={{ color: "#9e9e9e", cursor:"pointer" }}
                   onClick={() => {
                     showEditModal();
                     getFeedId();

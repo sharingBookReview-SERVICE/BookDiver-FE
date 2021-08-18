@@ -21,9 +21,9 @@ import BookDetail from "../pages/BookDetail";
 import MyReviewFind from "../pages/MyReviewFind";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 import Spinner from "../components/Spinner";
-import BookCollectionMain from "../pages/BookCollectionMain";
-import CollectionDetail from "../pages/CollectionDetail";
-import MakeCollection from "../pages/MakeCollection";
+import BookCollectionMain from "../pages/Collection/BookCollectionMain";
+import CollectionDetail from "../pages/Collection/CollectionDetail";
+import MakeCollection from "../pages/Collection/MakeCollection";
 import Setting from "../pages/Setting";
 import Notification from "../pages/Notification";
 import LevelHelp from "../pages/LevelHelp";
@@ -33,13 +33,14 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import SignoutModal from "../modals/SignoutModal";
 import GlobalStyle from "./GlobalStyle";
 import MyFeed from "../pages/MyFeed";
-import CollectionList from "../pages/CollectionList"
+import CollectionList from "../pages/Collection/CollectionList"
 import Follow from "../pages/Follow"
 import MyDepth from "../pages/MyDepth";
 
 import ErrorPage from "../pages/ETC/ErrorPage";
 
 import TreasureModal from "../modals/TreasureModal";
+import Collection from '../elements/Collection';
 
 
 function App(props) {
