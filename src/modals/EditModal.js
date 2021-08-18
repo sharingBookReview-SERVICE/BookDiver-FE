@@ -25,6 +25,7 @@ const EditModal = (props) =>{
     const classes = useStyles();
     const bookId = useSelector(state => state.review.feed_id.bookId)
     const reviewId = useSelector(state => state.review.feed_id.reviewId)
+    const collectionId = useSelector(state=> state.collection.collection_id)
 
     if(props.is_collection){
       return(
@@ -33,7 +34,7 @@ const EditModal = (props) =>{
             <Container>
               <Btn
                onClick={()=>{
-                history.push(`/editCollection/${props.id}`)
+                history.push(`/editCollection/${collectionId}`)
               }}
               ><CreateOutlinedIcon className={classes.icon}/>컬렉션 수정</Btn>
           

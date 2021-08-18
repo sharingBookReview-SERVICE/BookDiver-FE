@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
  
     console.log(is_my_collection)
     const is_modal = useSelector(state=> state.permit.is_modal);
+    
     const showEdit = ()=>{
       dispatch(permitActions.showModal(true));
     }

@@ -8,10 +8,21 @@ import { useDispatch, useSelector } from "react-redux";
 import instance from "./Request";
 
 import Color from "./Color";
+import { actionCreators as userActions } from "../redux/modules/user";
+
+import GlobalStyle from "./GlobalStyle";
+
+import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
+
+import Navigation from "../components/Navigation";
+import Spinner from "../components/Spinner";
+
+import TreasureModal from "../modals/TreasureModal";
+import SignoutModal from "../modals/SignoutModal";
+import Collection from '../elements/Collection';
 
 import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home";
-import Navigation from "../components/Navigation";
 import Login from "../pages/Login";
 import MyProfile from "../pages/MyProfile";
 import ChangeName from "../pages/ChangeName";
@@ -19,28 +30,26 @@ import MyReview from "../pages/MyReview";
 import ReviewWrite from "../pages/ReviewWrite";
 import BookDetail from "../pages/BookDetail";
 import MyReviewFind from "../pages/MyReviewFind";
-import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
-import Spinner from "../components/Spinner";
-import BookCollectionMain from "../pages/Collection/BookCollectionMain";
-import CollectionDetail from "../pages/Collection/CollectionDetail";
-import MakeCollection from "../pages/Collection/MakeCollection";
+import Follow from "../pages/Follow"
+import MyDepth from "../pages/MyDepth";
+import ErrorPage from "../pages/ETC/ErrorPage";
 import Setting from "../pages/Setting";
 import Notification from "../pages/Notification";
 import LevelHelp from "../pages/LevelHelp";
 import ChangeProfileImg from "../pages/ChangeProfileImg"
-
-import { actionCreators as userActions } from "../redux/modules/user";
-import SignoutModal from "../modals/SignoutModal";
-import GlobalStyle from "./GlobalStyle";
 import MyFeed from "../pages/MyFeed";
-import CollectionList from "../pages/Collection/CollectionList"
-import Follow from "../pages/Follow"
-import MyDepth from "../pages/MyDepth";
 
-import ErrorPage from "../pages/ETC/ErrorPage";
+import CollectionList from "../pages/Collection/CollectionList";
+import BookCollectionMain from "../pages/Collection/BookCollectionMain";
+import CollectionDetail from "../pages/Collection/CollectionDetail";
+import MakeCollection from "../pages/Collection/MakeCollection";
+import EditCollection from "../pages/Collection/EditCollection";
 
-import TreasureModal from "../modals/TreasureModal";
-import Collection from '../elements/Collection';
+
+
+
+
+
 
 
 function App(props) {
@@ -94,6 +103,8 @@ function App(props) {
           <Route path="/collectionlist/:type" exact component={CollectionList}/>
           <Route path="/makeCollection" exact component ={MakeCollection}/>
           <Route path="/editCollection/:collectionid" exact component ={EditCollection}/>
+          
+          
 
 
           <Route path="/login" exact component={Login} />
