@@ -14,6 +14,7 @@ import { actionCreators as uploadActions } from "../../redux/modules/upload";
 
 import SelectBookModal from "../../modals/SelectBookModal";
 import CollectionBookCard from "../../elements/CollectionBookCard";
+import AddBook from "./AddBook";
 
 
 import imageCompression from "browser-image-compression";
@@ -44,23 +45,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-//책 추가하기 컴포넌트
-const AddBook = (props) =>{
-    const classes = useStyles();
-    const dispatch = useDispatch();
 
-    const showSelectBookModal = ()=>{
-        dispatch(permitActions.showModal(true));
-    }
-    return(
-        <AddBookBox onClick={()=>{
-            showSelectBookModal()
-            }}>
-        <AddIcon className={classes.addicon}/>
-        <Notice className={classes.font}>추가할 책 선택하기</Notice>
-        </AddBookBox>
-    )
-}
 
 
 //컬렉션 만들기 페이지
@@ -70,7 +55,7 @@ const MakeCollection = (props) =>{
     
     //책 선택
     const is_modal = useSelector(state=> state.permit.is_modal);
-    const collection_book_list = useSelector(state=> state.collection.selected_Books);
+    const selected_Books = useSelector(state=> state.collection.selected_Books);
     const more_select = useSelector(state=> state.collection.more_select);
 
     //이미지
@@ -79,8 +64,18 @@ const MakeCollection = (props) =>{
     const fileInput = React.useRef();
     const [compressedImage, setCompressedImage] = useState(null);
 
+    //서버에 보낼 contents
+    const contents =[];
+    for (let i = 0; i < selected_Books.length; i++) { // 배열 arr의 모든 요소의 인덱스(index)를 출력함.
+       contents.push({
+           isbn: selected_Books[i].isbn,
+           book_description: selected_Books[i].book_description
+       })
+      }
+   
     
     useEffect(()=>{
+        dispatch(collectionActions.resetSelected())
         dispatch(permitActions.showModal(false));
         dispatch(collectionActions.isMakeCollection(true));
         dispatch(permitActions.bookSelect(false));
@@ -99,7 +94,7 @@ const MakeCollection = (props) =>{
 
     //책 더 추가하기
     const addMoreBtn = ()=>{
-        if(collection_book_list.length<10){
+        if(selected_Books.length<10){
             dispatch(collectionActions.moreSelect(true))
         }
         else{
@@ -142,7 +137,6 @@ const MakeCollection = (props) =>{
         }
     };
 
-    const contents = useSelector(state=> state.collection.collection_contents);
 
      //FormData로 변환하기
     const sendFormData = async (image) => {
@@ -153,7 +147,8 @@ const MakeCollection = (props) =>{
         formData.append("description", description.current.value);
         formData.append("contents", JSON.stringify(contents));
 
-        if (collection_book_list.length === 0) {
+    
+        if (selected_Books.length === 0) {
             dispatch(permitActions.showCheckModal(true))
             return;
           } else if (!image) {
@@ -225,10 +220,10 @@ const MakeCollection = (props) =>{
                 ref={description}    
                 ></DescTextarea>
                 {
-                   collection_book_list.length===0? 
+                   selected_Books.length===0? 
                    <AddBook/> 
                    :
-                   collection_book_list.map((book)=>{
+                   selected_Books.map((book)=>{
                        return(<CollectionBookCard key={book.isbn} {...book}/>)
                    })
                 }

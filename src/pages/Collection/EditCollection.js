@@ -53,6 +53,8 @@ const EditCollection = (props) => {
     const more_select = useSelector(state=> state.collection.more_select);
     
     const is_modal = useSelector(state=> state.permit.is_modal);
+    
+    
     const name = useRef(collection_detail?.name);
     const description = useRef(collection_detail?.description);
 
@@ -65,17 +67,29 @@ const EditCollection = (props) => {
             window.alert("최대 10개까지 추가할 수 있습니다!")
         }   
     }
+
+    const editCollection = ()=>{
+        const collection = {
+            name: name.current.value,
+            description: description.current.value,
+            contents: collection_contents
+        }
+        dispatch(collectionActions.editCollectionDetailSV(collection_id, collection))
+    }
 //detail 가져오기
    useEffect(()=>{
+    dispatch(collectionActions.resetSelected())
     dispatch(permitActions.showModal(false));
     dispatch(collectionActions.isMakeCollection(true));
     dispatch(collectionActions.getCollectionDetailSV(collection_id));
+    
    },[]);
 
 //원래 있던 content리덕스에 넣기
    useEffect(()=>{
      name.current.value = collection_detail?.name;
      description.current.value = collection_detail?.description;
+
     },[collection_detail])
   
     return(
@@ -91,7 +105,7 @@ const EditCollection = (props) => {
                 <Upload/>
 
                 <SubmitButton 
-                type="submit"
+                 onClick={()=>{editCollection()}}
               >게시하기</SubmitButton>
             </UploadForm>
         </Head>

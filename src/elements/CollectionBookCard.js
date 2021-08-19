@@ -7,7 +7,7 @@ import Color from "../shared/Color";
 import ClearIcon from '@material-ui/icons/Clear';
 
 
-import { actionCreators as collectionActions } from "../redux/modules/collection";
+import collection, { actionCreators as collectionActions } from "../redux/modules/collection";
 
 const defaultProps = {
     book:{
@@ -26,7 +26,7 @@ const defaultProps = {
     const [book_description, setBookDescription] = useState(book_descriptionSV);
     const bookTitle = props.title?.split("(")[0]
     const content = {
-        isbn: props.is_edit_collection? book?.id: props.isbn,
+        isbn: props.isbn,
         book_description: book_description,
     }
 
@@ -34,6 +34,9 @@ const defaultProps = {
         dispatch(collectionActions.deleteSelectedBook(id))
     }
   
+    const saveBookDescription = (content)=>{
+        dispatch(collectionActions.addBookDescription(content))
+    }
 
     //collection detail에서 보는 페이지
     if(props.is_collection_detail){
@@ -104,7 +107,7 @@ const defaultProps = {
                 maxLength="30"
                 onChange={(e)=>{setBookDescription(e.target.value)}}
                 onBlur={(e) => {
-                    dispatch(collectionActions.addCollection_content(content))
+                    saveBookDescription(content)
                   }}
                
                 />
