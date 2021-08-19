@@ -45,9 +45,12 @@ const Navigation = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
 
+<<<<<<< refs/remotes/upstream/develop
   const toPostWrite = is_login? "/postwrite" : "/login";
   const toMyReviewFeed = is_login? "/myfeed" : "/login";
   const toSetting = is_login? "/setting" : "/login";
+=======
+>>>>>>> [수정] 네비게이션 로그인 안했을 경우 수정
   return (
     <NavBox>
 
@@ -56,21 +59,33 @@ const Navigation = (props) => {
         <PageName >피드</PageName>
       </IconBox>
 
-      <IconBox to="/bookCollectionMain" activeClassName={classes.active}>
+      <IconBox to={is_login ? "/bookCollectionMain" : "/login"} activeClassName={classes.active}>
         <BookOutlinedIcon className={classes.icon}/>
         <PageName >북컬렉션</PageName>
       </IconBox>
 
+<<<<<<< refs/remotes/upstream/develop
       <AddBox to={toPostWrite}>
         <AddBoxIcon className={classes.plusButton}/>
       </AddBox>
 
       <IconBox to={toMyReviewFeed} activeClassName={classes.active}>
+=======
+      <AddBox to={is_login ? "/postwrite" : "/login"}>
+        <AddBoxIcon className={classes.plusButton}/>
+      </AddBox>
+
+      <IconBox to={is_login ? "/myfeed" : "/login"} activeClassName={classes.active}>
+>>>>>>> [수정] 네비게이션 로그인 안했을 경우 수정
         <SpeakerNotesIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
+<<<<<<< refs/remotes/upstream/develop
       <IconBox to={toSetting} activeClassName={classes.active}>
+=======
+      <IconBox to={is_login ? "/setting" : "/login"} activeClassName={classes.active}>
+>>>>>>> [수정] 네비게이션 로그인 안했을 경우 수정
         <PersonIcon className={classes.icon}/>
         <PageName >내 정보</PageName>
       </IconBox>
@@ -92,7 +107,7 @@ position: fixed;
 bottom:0px;
 height: 60px;
 box-shadow: 0 -4px 4px -2px rgba(0,0,0,0.2);
-
+z-index: 1000;
 @media ${(props) => props.theme.tablet} {
   width: 420px;
   height: 60px;
