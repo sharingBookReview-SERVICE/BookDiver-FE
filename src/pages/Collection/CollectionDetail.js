@@ -7,12 +7,14 @@ import styled from "styled-components";
 import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import { history } from "../../redux/configStore";
 import { makeStyles } from "@material-ui/core/styles";
 import CollectionBookCard from "../../elements/CollectionBookCard";
 import Comment from "../../components/Comment";
-import { Book } from "@material-ui/icons";
+import EditModal from "../../modals/EditModal";
+
 
 const useStyles = makeStyles((theme) => ({
     goback: {
@@ -23,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
         width: "90%",
         margin: "0 auto",
         marginBottom: "20px"
+    },
+    more:{
+      position: "absolute",
+      top: "12%",
+      right: "10%",
+      color: "white"
     }
   }));
 
@@ -31,6 +39,7 @@ const CollectionDetail = (props) =>{
     const dispatch = useDispatch();
     const collection_id = props.match.params.collectionid;
     const collection_detail = useSelector(state=> state.collection.collection_detail);
+    const is_modal = useSelector(state=> state.permit.is_modal);
 
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
@@ -38,8 +47,15 @@ const CollectionDetail = (props) =>{
         dispatch(permitActions.showNav(false));
         dispatch(collectionActions.getCollectionDetailSV(collection_id))
     },[]);
+
+    const showEdit = ()=>{
+      dispatch(permitActions.showModal(true));
+    }
     return(
         <React.Fragment>
+           {
+            is_modal && <EditModal is_collection />
+          }
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -53,6 +69,12 @@ const CollectionDetail = (props) =>{
                         <Title>{name}</Title>
                         <Nickname>{user?.nickname}</Nickname>
                         </TitleBox>
+                        <MoreHorizIcon className={classes.more}
+                        onClick={()=>{
+                          showEdit()
+                          dispatch(collectionActions.getCollectionId(collection_id))
+                        }}
+                        />
                     </Image>
                   <Wrapper>
                     <Description>{description}</Description>

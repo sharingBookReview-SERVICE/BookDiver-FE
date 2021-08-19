@@ -7,7 +7,7 @@ import Color from "../shared/Color";
 import ClearIcon from '@material-ui/icons/Clear';
 
 
-import { actionCreators as collectionActions } from "../redux/modules/collection";
+import collection, { actionCreators as collectionActions } from "../redux/modules/collection";
 
 const defaultProps = {
     book:{
@@ -22,31 +22,37 @@ const defaultProps = {
 
     const book = props.book? props.book : defaultProps.book;
     const book_descriptionSV = props.book_description? props.book_description : "";
-
     //책 추천 내용 저장하기 관련
-    const [book_description, setBookDescription] = useState("");
+    const [book_description, setBookDescription] = useState(book_descriptionSV);
     const bookTitle = props.title?.split("(")[0]
     const content = {
         isbn: props.isbn,
         book_description: book_description,
     }
 
-    const deleteCard = ()=>{
-        dispatch(collectionActions.deleteSelectedBook(props.isbn))
+    const deleteCard = (id)=>{
+        dispatch(collectionActions.deleteSelectedBook(id))
     }
   
+    const saveBookDescription = (content)=>{
+        dispatch(collectionActions.addBookDescription(content))
+    }
 
     //collection detail에서 보는 페이지
     if(props.is_collection_detail){
         return(
             <BookInfoWrapper>
                 <BookInfoBox>
+                <Wrapper>
                     <BookImg url={book?.image}/>
                     <BookDescBox>
-                    <BookTitle >{book?.title}</BookTitle>
+                    <BookTitle >{book?.title.split("(")[0]}</BookTitle>
                         <BookWriter>{book?.author} 저</BookWriter>
                     </BookDescBox>
-                   
+                </Wrapper>
+                {
+                    props.is_edit_collection &&  <ClearIcon onClick={()=>{deleteCard(book.id)}}/>
+                }
                 </BookInfoBox>
                 <Recommend 
                 value={book_descriptionSV} disabled
@@ -55,6 +61,8 @@ const defaultProps = {
             </BookInfoWrapper>
         )
     }
+
+   
     else{
         return(
             <BookInfoWrapper>
@@ -66,19 +74,19 @@ const defaultProps = {
                         <BookWriter>{props.author} 저</BookWriter>
                     </BookDescBox>
                     </Wrapper>
-                    <ClearIcon onClick={()=>{deleteCard()}}/>
+                    <ClearIcon onClick={()=>{deleteCard(props.isbn)}}/>
                 </BookInfoBox>
-              
                 <Recommend 
+                value={book_description}
                 placeholder="책 마다 추천이유를 적어보세요(최대30자)"
                 maxLength="30"
                 onChange={(e)=>{setBookDescription(e.target.value)}}
                 onBlur={(e) => {
-                    dispatch(collectionActions.addCollection_content(content))
+                    saveBookDescription(content)
                   }}
                
-                >
-                </Recommend>
+                />
+                
             </BookInfoWrapper>
         )
     }
