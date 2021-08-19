@@ -62,6 +62,10 @@ const LevelHelp = (props) =>{
         }
       };
 
+    const goToMyDepth = ()=>{
+      history.push('/mydepth')
+    }
+
     const slideContent = [
         {
         img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/onboarding/M.%E1%84%85%E1%85%A6%E1%84%87%E1%85%A6%E1%86%AF%E1%84%89%E1%85%B5%E1%84%89%E1%85%B3%E1%84%90%E1%85%A6%E1%86%B7-%E1%84%8B%E1%85%A9%E1%86%AB%E1%84%87%E1%85%A9%E1%84%83%E1%85%B5%E1%86%BC-01.png" ,
@@ -100,7 +104,7 @@ const LevelHelp = (props) =>{
                 currentSlide < 3?
                 <NextBtn onClick={nextSlide}>다음  <ArrowForwardIcon/> </NextBtn>
                 :
-                <FinishBtn>내잠수상태</FinishBtn>
+                <FinishBtn onClick={()=>{goToMyDepth()}}>내잠수상태</FinishBtn>
             }
             
           
@@ -125,6 +129,7 @@ color: ${Color.white};
 `;
 const IMG = styled.img`
 height: 100vh;
+width: 420px;
 `;
 const Text = styled.div`
 width: 70%;
@@ -135,7 +140,7 @@ const Guide = styled.div`
 width: 90%;
 height:100px;
 background: ${Color.black};
-position: fixed;
+position: absolute;
 border-radius: 24px;
 margin-left: 5%;
 top: 60%;
@@ -157,7 +162,7 @@ border: 1px solid ${Color.white};
 padding: 0.5em 2em;
 color: ${Color.white};
 border-radius: 10px;
-position: fixed;
+position: absolute;
 bottom: 100px;
 left: 5%;
 height: 5%;
@@ -173,7 +178,7 @@ background: white;
 padding: 0.5em 2em;
 color: black;
 border-radius: 10px;
-position: fixed;
+position: absolute;
 bottom: 100px;
 right: 5%;
 height: 5%;
@@ -189,7 +194,7 @@ background: white;
 padding: 0.5em 2em;
 color: black;
 border-radius: 10px;
-position: fixed;
+position: absolute;
 bottom: 100px;
 right: 5%;
 height: 5%;
