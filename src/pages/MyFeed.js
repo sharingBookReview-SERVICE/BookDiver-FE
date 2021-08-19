@@ -29,6 +29,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#f5f2f0",
     marginLeft: "9%"
   },
+  follower: {
+    fontWeight: "bold", 
+    fontSize: "18px", 
+    margin: "0px -2px 2px -2px"
+  },
+  followText: {
+    marginTop: "4px"
+  }
 }));
 
 
@@ -124,22 +132,18 @@ const MyFeed = () => {
                           <Text style={{marginTop: "5px"}}>컬렉션</Text>
                       </MyActivity>
                       <MyActivity onClick={() => {getOtherFollower(otherUserId)}}>
-                          {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
-                          {/*<Text>저장한 에세이</Text>*/}
-                          <Text
-                              style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followerCounts}</Text>
-                          <Text style={{marginTop: "4px"}}>팔로워</Text>
+                          <Text className={classes.follower}>{followerCounts}</Text>
+                          <Text className={classes.followText}>팔로워</Text>
                       </MyActivity>
                       <MyActivity onClick={() => {getOtherFollowing(otherUserId)}}>
-                          <Text
-                              style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followingCounts}</Text>
-                          <Text style={{marginTop: "4px"}} >팔로잉</Text>
+                          <Text className={classes.follower}>{followingCounts}</Text>
+                          <Text className={classes.followText} >팔로잉</Text>
                       </MyActivity>
                   </MyActivityBox>
 
                   <ProfileBottomBox>
                     <FollowBox>팔로우</FollowBox>
-                    <LevelBox  onClick={()=>{goToMyDepth()}}>수심 {level}m에서 잠수 중</LevelBox> 
+                    <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
                 </Wrapper>
               </UserBox>
@@ -410,6 +414,7 @@ const FeedMain = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1px;
+  padding-bottom: 100px;
 `;
 
 const FeedCard = styled.div`

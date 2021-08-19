@@ -202,7 +202,7 @@ const getOtherFollowingListSV = (userId) => {
       // dispatch(getFollowingList(res.data.followingList))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      window.alert("팔로우리스트 가져오기 실패 ",err)
     })
   }
 }
@@ -213,10 +213,10 @@ const getOtherFollowerListSV = (userId) => {
     instance.get(`follow/followerList/${userId}`)
     .then((res)=>{
       console.log(res)
-      dispatch(getFollowerList(res.data.followerList))
+      // dispatch(getFollowerList(res.data.followerList))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      window.alert("팔로우리스트 가져오기 실패 ",err)
     })
   }
 }

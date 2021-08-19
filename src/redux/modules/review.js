@@ -237,24 +237,24 @@ export default handleActions(
                 
 
                 if (draft.all_review_list[idx].myLike) {
-                    draft.all_review_list[idx].likes =
-                        draft.all_review_list[idx].likes - 1;
+                    draft.all_review_list[idx].likeCount =
+                        draft.all_review_list[idx].likeCount - 1;
                     draft.all_review_list[idx].myLike =
                 !draft.all_review_list[idx].myLike;
                 } else {
-                    draft.all_review_list[idx].likes =
-                        draft.all_review_list[idx].likes + 1;
+                    draft.all_review_list[idx].likeCount =
+                        draft.all_review_list[idx].likeCount + 1;
                         draft.all_review_list[idx].myLike =
                         !draft.all_review_list[idx].myLike;
                 }
                 //상세
                
                 if(draft.review_detail.myLike){
-                    draft.review_detail.likes = draft.review_detail.likes-1;
+                    draft.review_detail.likeCount = draft.review_detail.likeCount-1;
                     draft.review_detail.myLike = !draft.review_detail.myLike;
                 }
                 else{
-                    draft.review_detail.likes = draft.review_detail.likes+1;
+                    draft.review_detail.likeCount = draft.review_detail.likeCount+1;
                     draft.review_detail.myLike = !draft.review_detail.myLike;
                 }
             }),
