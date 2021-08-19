@@ -68,7 +68,7 @@ const ReviewDetail = (props) => {
 
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
+  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user ,likeCount} = reviewDetail;
 
   const userId = useSelector((state) => state.user.user._id);
   const nickname = useSelector((state) => state.user.user.nickname);
@@ -236,12 +236,12 @@ const ReviewDetail = (props) => {
                     <Div onClick={() => {
                       clickLikeButton();
                     }}><FavoriteIcon className={classes.like}   
-                   />좋아요 {likes} 개</Div>
+                   />좋아요 {likeCount} 개</Div>
                     :
                     <Div onClick={() => {
                       clickLikeButton();
                     }} ><FavoriteBorderIcon className={classes.like} 
-                    />좋아요 {likes} 개</Div>
+                    />좋아요 {likeCount} 개</Div>
                   }
                   
                    <Hr></Hr>
