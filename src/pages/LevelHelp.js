@@ -30,7 +30,7 @@ const Slide = (props) => {
                 <Text>도움말</Text>
              </Head>
              <Guide>{props.quide}</Guide>
-            <IMG src={props.img} />
+            <IMG url={props.img} />
                
         </Wrapper>
         
@@ -127,7 +127,10 @@ z-index: 100;
 background: ${Color.black};
 color: ${Color.white};
 `;
-const IMG = styled.img`
+const IMG = styled.div`
+background-image:url(${(props) => props.url});
+background-size:cover;
+background-position:center;
 height: 100vh;
 width: 420px;
 `;
@@ -171,6 +174,7 @@ text-align: center;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor:pointer;
 `;
 const NextBtn = styled.button`
 all: unset;
@@ -187,6 +191,7 @@ text-align: center;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor:pointer;
 `;
 const FinishBtn = styled.button`
 all: unset;
@@ -200,6 +205,7 @@ right: 5%;
 height: 5%;
 padding: 10px 30px;
 text-align: center;
+cursor:pointer;
 `;
 const SliderContainer = styled.div`
   width: 100%;

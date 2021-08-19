@@ -39,7 +39,7 @@ const MyDepth = (props) => {
     // dispatch(permitAction.isTreasure(false))
 
     const goBack=() => {
-        history.goBack();
+        history.push("/myfeed");
     }
 
     const openTreasure = () => {
