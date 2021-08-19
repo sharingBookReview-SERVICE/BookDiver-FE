@@ -25,7 +25,7 @@ const Slide = (props) => {
         <Wrapper>
               <Head>
                 <ArrowBackIcon className={classes.goback}
-                onClick = {()=>{history.push('/myprofile')}}
+                onClick = {()=>{history.push('/mydepth')}}
                 />
                 <Text>도움말</Text>
              </Head>
