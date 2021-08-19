@@ -10,16 +10,13 @@ const IS_MAKE_COLLECTION = "collection/IS_MAKE_COLLECTION";
 const SELECT_BOOKS = "collection/SELECT_BOOKS";
 const DELETE_SELECTED_BOOK = "collection/DELETE_SELECTED_BOOK";
 const ADD_BOOK_DESCRIPTION = "collection/ADD_BOOK_DESCRIPTION";
+const GET_SELECTED_BOOKS = "collection/GET_SELECTED_BOOKS";
 const MORE_SELECT = "collection/MORE_SELECT";
 const RESET_SELECTED = "collection/RESET_SELECTED";
 const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS";
 const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS";
 const ADD_COLLECTION = "collection/ADD_COLLECTION";
-const ADD_COLLECTION_CONTENTS = "collection/ADD_COLLECTION_CONTENTS";
-const GET_COLLECTION_CONTENTS = "collection/GET_COLLECTION_CONTENTS";
-const DELETE_COLLECTION_CONTENTS = "collection/DELETE_COLLECTION_CONTENTS";
 const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL";
-const GET_COLLECTION_DETAIL_CONTENTS = "collection/GET_COLLECTION_DETAIL_CONTENTS";
 const DELETE_COLLECTION = "collection/DELETE_COLLECTION";
 const EDIT_COLLECTION = "collection/EDIT_COLLECTION";
 const GET_COLLECTION_ID = "collection/GET_COLLECTION_ID";
@@ -30,16 +27,13 @@ const isMakeCollection = createAction(IS_MAKE_COLLECTION, (is_make_collection)=>
 const selectBooks = createAction(SELECT_BOOKS, (book) => ({ book }));
 const deleteSelectedBook = createAction(DELETE_SELECTED_BOOK, (bookId)=>({bookId}));
 const addBookDescription = createAction(ADD_BOOK_DESCRIPTION, (content)=> ({content}));
+const getSelectedBooks = createAction(GET_SELECTED_BOOKS, (books)=>({books}));
 const moreSelect = createAction(MORE_SELECT, (more_select)=>({more_select}));
 const resetSelected =  createAction(RESET_SELECTED, (book)=>({book}));
 const getTagCollections = createAction(GET_TAG_COLLECTIONS, (collection_list)=> ({collection_list}));
 const getCustomCollections = createAction(GET_CUSTOM_COLLLECTIONS, (collection_list)=> ({collection_list}));
 const addCollection = createAction(ADD_COLLECTION, (collection)=>({collection}));
-const addCollection_content = createAction(ADD_COLLECTION_CONTENTS, (collection)=>({collection}));
-const getCollection_content = createAction(GET_COLLECTION_CONTENTS, (collection)=>({collection}));
-const deleteCollection_content = createAction(DELETE_COLLECTION_CONTENTS , (collectionId)=>({collectionId}));
 const getCollectionDetail = createAction(GET_COLLECTION_DETAIL, (collection)=>({collection}));
-const getCollectionDetailContent = createAction(GET_COLLECTION_DETAIL_CONTENTS, (contents)=>({contents}));
 const deleteCollection = createAction(DELETE_COLLECTION, (collectionId)=>({collectionId}));
 const editCollection = createAction(EDIT_COLLECTION, (collectionId)=>({collectionId}));
 const getCollectionId = createAction(GET_COLLECTION_ID, (collectionId)=>({collectionId}));
@@ -50,11 +44,9 @@ const initialState = {
     more_select : false,
     tag_collection_list : [],
     custom_collection_list: [],
-    collection_contents :[],
     is_make_collection : false,
     collection_detail:[],
     collection_id : "",
-    collection_detail_contents:[]
 };
 
 
@@ -143,23 +135,19 @@ const getCollectionDetailSV = (id)=>{
   return function(dispatch){
     instance.get(`/collections/${id}`)
     .then((res)=>{
-      const collection = res.data.collection;
-      const contents = collection.contents;
-      dispatch(getCollectionDetail(collection));
-      dispatch(getCollectionDetailContent(contents));
-      const collection_contents = [];
-    
-      contents.map((p)=>{
-        return (
-          collection_contents.push({
-            isbn: p.book?.id,
-            book_description: p.book_description
-          })
-        )
-      })
-
-      dispatch(getCollection_content(collection_contents));
-      
+      const contents = res.data.collection.contents;
+      const _contents =[];
+      for (let i = 0; i < contents.length; i++) { 
+        _contents.push({
+            isbn: contents[i].book.isbn,
+            image: contents[i].book.image,
+            author: contents[i].book.author,
+            title: contents[i].book.title,
+            book_description: contents[i].book_description
+        })
+        }
+        dispatch(getCollectionDetail(res.data.collection))
+        dispatch(getSelectedBooks(_contents))
     })
     .catch((err)=>{
       console.log("콜렉션상세보기 실패", err)
@@ -176,7 +164,7 @@ const editCollectionDetailSV = (id, collection)=>{
       contents : collection.contents
     })
     .then((res)=>{
-      history.push('/bookCollectionMain')
+      history.push(`/collectiondetail/${id}`)
     })
     .catch((err)=>{
       console.log("콜렉션수정 실패", err)
@@ -191,6 +179,7 @@ const deleteCollectionSV = ()=>{
     instance.delete(`collections/${id}`)
     .then((res)=>{
       dispatch(deleteCollection(id))
+      history.push('/bookCollectionMain')
     })
     .catch((err)=>{
       console.log("컬렉션 삭제 실패", err)
@@ -229,6 +218,10 @@ export default handleActions(
           draft.selected_Books[idx].book_description = action.payload.content.book_description;
         }
       }),
+      [GET_SELECTED_BOOKS]:(state, action)=>
+      produce(state, (draft)=>{
+       draft.selected_Books = action.payload.books;
+      }),
       [MORE_SELECT]: (state, action) =>
       produce(state, (draft) => {
         draft.more_select = action.payload.more_select;
@@ -249,52 +242,13 @@ export default handleActions(
       produce(state, (draft)=>{
         draft.custom_collection_list.push(action.payload.collection);
       }),
-      [ADD_COLLECTION_CONTENTS]:(state, action)=>
-      produce(state, (draft)=>{
-        //아무것도 없으면 그냥 push
-        if(draft.collection_contents.length===0){
-          draft.collection_contents.push(action.payload.collection);
-        }
-        //뭐라도 있으면 edit
-        else{
-          let idx = draft.collection_contents.findIndex((l) => l.isbn === action.payload.collection.isbn);
-            if(idx>-1){
-              draft.collection_contents[idx] = action.payload.collection;
-            }
-            else{
-              draft.collection_contents.push(action.payload.collection);
-            }
-            
-        }
-      
-        
-      }),
-      [GET_COLLECTION_CONTENTS]:(state, action) =>
-      produce(state, (draft)=>{
-        draft.collection_contents = action.payload.collection;
-      }),
-      [DELETE_COLLECTION_CONTENTS]:(state, action)=>
-      produce(state, (draft)=>{
-        draft.selected_Books = draft.selected_Books.filter((l, idx) => {
-          return l.isbn !== action.payload.collectionId;
-        });
-        
-      }),
+     
       //컬렉션 상세 보기
       [GET_COLLECTION_DETAIL]:(state, action)=>
       produce(state, (draft)=>{
         draft.collection_detail = action.payload.collection;
       }),
-      [GET_COLLECTION_DETAIL_CONTENTS]:(state, action)=>
-      produce(state, (draft)=>{
-        if(draft.collection_detail_contents.length === 0){
-          draft.collection_detail_contents = action.payload.contents;
-        }
-        else{
-          draft.collection_detail_contents.push(action.payload.contents);
-        }
-        
-      }),
+     
       [DELETE_COLLECTION]:(state, action)=>
       produce(state, (draft)=>{
         draft.custom_collection_list = draft.custom_collection_list.filter((l, idx) => {
@@ -316,13 +270,12 @@ const actionCreators = {
   selectBooksSV,
   deleteSelectedBook,
   addBookDescription,
+  getSelectedBooks,
   moreSelect,
   resetSelected,
   getTagCollectionsSV,
   getCustomCollectionsSV,
   addCollectionSV,
-  addCollection_content,
-
   getCollectionDetailSV,
   deleteCollectionSV,
   getCollectionId,

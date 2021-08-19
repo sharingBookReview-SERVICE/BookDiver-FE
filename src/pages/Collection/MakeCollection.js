@@ -64,14 +64,6 @@ const MakeCollection = (props) =>{
     const fileInput = React.useRef();
     const [compressedImage, setCompressedImage] = useState(null);
 
-    //서버에 보낼 contents
-    const contents =[];
-    for (let i = 0; i < selected_Books.length; i++) { // 배열 arr의 모든 요소의 인덱스(index)를 출력함.
-       contents.push({
-           isbn: selected_Books[i].isbn,
-           book_description: selected_Books[i].book_description
-       })
-      }
    
     
     useEffect(()=>{
@@ -145,7 +137,7 @@ const MakeCollection = (props) =>{
         formData.append("image", image);
         formData.append("name", title.current.value);
         formData.append("description", description.current.value);
-        formData.append("contents", JSON.stringify(contents));
+        formData.append("contents", JSON.stringify(selected_Books));
 
     
         if (selected_Books.length === 0) {

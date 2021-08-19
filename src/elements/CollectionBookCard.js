@@ -62,32 +62,6 @@ const defaultProps = {
         )
     }
 
-    else if(props.is_edit_collection){
-        return(
-            <BookInfoWrapper>
-                <BookInfoBox>
-                <Wrapper>
-                    <BookImg url={book?.image}/>
-                    <BookDescBox>
-                    <BookTitle >{book?.title.split("(")[0]}</BookTitle>
-                        <BookWriter>{book?.author} 저</BookWriter>
-                    </BookDescBox>
-                </Wrapper>
-                {
-                    props.is_edit_collection &&  <ClearIcon onClick={()=>{deleteCard(book.id)}}/>
-                }
-                </BookInfoBox>
-                <Recommend 
-                value={book_description}
-                onChange={(e)=>{setBookDescription(e.target.value)}}
-                onBlur={(e) => {
-                    dispatch(collectionActions.addCollection_content(content))
-                  }}
-                >
-                </Recommend>
-            </BookInfoWrapper>
-        )
-    }
    
     else{
         return(
@@ -103,6 +77,7 @@ const defaultProps = {
                     <ClearIcon onClick={()=>{deleteCard(props.isbn)}}/>
                 </BookInfoBox>
                 <Recommend 
+                value={book_description}
                 placeholder="책 마다 추천이유를 적어보세요(최대30자)"
                 maxLength="30"
                 onChange={(e)=>{setBookDescription(e.target.value)}}

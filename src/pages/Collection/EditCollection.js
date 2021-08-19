@@ -48,8 +48,7 @@ const EditCollection = (props) => {
     const dispatch = useDispatch();
     const collection_id = props.match.params.collectionid;
     const collection_detail = useSelector(state=> state.collection.collection_detail);
-    const collection_detail_contents = useSelector(state=> state.collection.collection_detail_contents);
-    const collection_contents = useSelector(state=> state.collection.collection_contents);
+    const selected_Books = useSelector(state=> state.collection.selected_Books);
     const more_select = useSelector(state=> state.collection.more_select);
     
     const is_modal = useSelector(state=> state.permit.is_modal);
@@ -60,7 +59,7 @@ const EditCollection = (props) => {
 
      //책 더 추가하기
      const addMoreBtn = ()=>{
-        if(collection_contents.length<10){
+        if(selected_Books.length<10){
             dispatch(collectionActions.moreSelect(true))
         }
         else{
@@ -72,13 +71,12 @@ const EditCollection = (props) => {
         const collection = {
             name: name.current.value,
             description: description.current.value,
-            contents: collection_contents
+            contents: selected_Books
         }
         dispatch(collectionActions.editCollectionDetailSV(collection_id, collection))
     }
 //detail 가져오기
    useEffect(()=>{
-    dispatch(collectionActions.resetSelected())
     dispatch(permitActions.showModal(false));
     dispatch(collectionActions.isMakeCollection(true));
     dispatch(collectionActions.getCollectionDetailSV(collection_id));
@@ -130,7 +128,7 @@ const EditCollection = (props) => {
             ></DescTextarea>
            
               {
-                  collection_detail_contents?.map((book)=>{
+                  selected_Books?.map((book)=>{
                       return(<CollectionBookCard is_edit_collection {...book} key={book.isbn}/>)
                   })
               }
