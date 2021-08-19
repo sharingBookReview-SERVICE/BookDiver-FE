@@ -37,6 +37,10 @@ const ChangeName = (props) =>{
   const goToChangeImg = () => {
     history.push("/changeprofileimg")
   }
+  
+  const changeNickname = () =>{
+    dispatch(userActions.setUserSV(userId, nickname))
+  }
 
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const ChangeName = (props) =>{
                     
                     <ArrowBackIcon className={classes.goback} 
                     onClick={()=>{history.goBack()}}></ArrowBackIcon>
-                    <HeadBtn>변경완료</HeadBtn>
+                    <HeadBtn onClick={()=>{changeNickname()}}>변경완료</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
     
@@ -76,7 +80,7 @@ const ChangeName = (props) =>{
                              
                              onKeyPress ={(e)=>{
                               if(e.key === "Enter"){
-                                dispatch(userActions.setUserSV(userId, nickname))
+                                changeNickname()
                               }
                             }}
                              ></Input>

@@ -102,10 +102,11 @@ const setUserSV = (userId, nickname) => {
       nickname: nickname
     })
     .then((res)=>{
-      const token = res.data;
+      const token = res.data.token;
+      console.log(res.data)
       localStorage.setItem('token', token);
-      dispatch(setUser({_id: userId, nickname: nickname, token: token}));
-      history.push('/')
+      dispatch(setUser(res.data.user));
+      history.push('/myfeed')
     })
     .catch((err)=>{
       console.log(err);
