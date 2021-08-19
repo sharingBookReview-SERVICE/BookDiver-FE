@@ -73,6 +73,9 @@ const MyFeed = () => {
       dispatch(userActions.getOtherFollowerListSV(user_id))
     }
 
+    const gotochangeProfile = ()=>{
+      history.push('/changename')
+    }
 
     useEffect(()=>{
       dispatch(permitActions.showNav(true));
@@ -103,7 +106,7 @@ const MyFeed = () => {
 
                 <Wrapper>
                   <ProfileBox>
-                        <ImgWrapper>
+                        <ImgWrapper >
                           <ProfileImg src={images[profileImg]} />
                         </ImgWrapper>
 
@@ -171,7 +174,7 @@ const MyFeed = () => {
 
                   <Wrapper>
                     <ProfileBox>
-                          <ImgWrapper>
+                          <ImgWrapper onClick={()=>{gotochangeProfile()}}>
                             <ProfileImg src={images[profileImg]} />
                           </ImgWrapper>
 

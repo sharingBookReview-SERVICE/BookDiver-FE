@@ -97,21 +97,29 @@ const loginCheck = () => {
 //회원정보 등록
 const setUserSV = (userId, nickname) => {
   return function(dispatch, getState, {history}){
-    instance
-    .put(`/users` , {
-      nickname: nickname
-    })
-    .then((res)=>{
-      const token = res.data.token;
-      console.log(res.data)
-      localStorage.setItem('token', token);
-      dispatch(setUser(res.data.user));
-      history.push('/myfeed')
-    })
-    .catch((err)=>{
-      console.log(err);
-      window.alert('회원정보 등록 실패')
-    })
+    
+      instance
+      .put(`/users`,{
+        nickname: nickname
+      })
+      .then((res)=>{
+        console.log(res.data)
+        const token = res.data.token;
+        if(token){
+          localStorage.setItem('token', token);
+          dispatch(setUser(res.data.user));
+          history.push('/myfeed')
+        }
+       
+      })
+    
+      .catch((err)=>{
+        window.alert("동일한 닉네임이 있습니다")
+      })
+   
+    
+  
+   
   }
 
 }
