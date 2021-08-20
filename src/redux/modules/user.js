@@ -69,7 +69,7 @@ const getUserSV = ()=>{
       dispatch(getUser(res.data.user));
     })
     .catch((err)=>{
-      window.alert("사용자 정보 로딩 실패")
+      history.push("*")
     })
   }
 }
@@ -89,7 +89,7 @@ const loginCheck = () => {
     if (user) {
       dispatch(setUser({_id: userId, nickname: nickname, token: token}));
     } else {
-      console.log("로그인상태아님");
+      history.push("*")
     }
   };
 };
@@ -114,7 +114,7 @@ const setUserSV = (userId, nickname) => {
       })
     
       .catch((err)=>{
-        window.alert("동일한 닉네임이 있습니다")
+        history.push("*")
       })
    
     
@@ -134,7 +134,7 @@ const deleteUserSV = (id) =>{
       dispatch(deleteUser(id));
     })
     .catch((err)=>{
-      window.alert("회원탈퇴 실패");
+      history.push("*")
     })
   }
 }
@@ -148,7 +148,7 @@ const followSV = (id) => {
       dispatch(follow(id))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -163,7 +163,7 @@ const deleteFollowerSV = (id) => {
       dispatch(getFollowerList(res.data.followerList))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -175,7 +175,7 @@ const getFollowingListSV = () => {
       dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -187,7 +187,7 @@ const getFollowerListSV = () => {
       dispatch(getFollowList(res.data.followerList))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -201,7 +201,7 @@ const getOtherFollowingListSV = (userId) => {
       dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
-      window.alert("팔로우리스트 가져오기 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -214,7 +214,7 @@ const getOtherFollowerListSV = (userId) => {
       dispatch(getFollowList(res.data.followerList))
     })
     .catch((err)=>{
-      window.alert("팔로우리스트 가져오기 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -251,7 +251,7 @@ const getTreasureSV = () => {
       getUserSV(userId)
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      history.push("*")
     })
   }
 }
@@ -263,8 +263,9 @@ const changeProfileSV = (image) => {
       console.lof(res)
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)})
-  }}
+      history.push("*")
+  })
+}}
 
 
   //내가 쓴 리뷰와 컬렉션
@@ -276,7 +277,7 @@ const getMyFeedSV = (id)=>{
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
-      console.log(err)
+      history.push("*")
     })
   }
 }
@@ -290,7 +291,7 @@ const getOtherFeedSV = (userId) => {
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
-      console.log(err)
+      history.push("*")
     })
   }
 }
@@ -303,7 +304,7 @@ const checkTreasureSV = () => {
       dispatch(permitActions.isTreasure(res.data.treasure))
     })
     .catch((err)=>{
-      window.alert("팔로우 실패 ",err)
+      history.push("*")
     })
   }
 }

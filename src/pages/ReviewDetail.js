@@ -70,7 +70,7 @@ const ReviewDetail = (props) => {
 
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const {book, comments, content, created_at,hashtags, image, likeCount, myLike, quote, user } = reviewDetail;
+  const {book, comments, content, koreaTime,hashtags, image, likeCount, myLike, quote, user } = reviewDetail;
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
@@ -220,7 +220,7 @@ const ReviewDetail = (props) => {
                   <UserName>{user?.nickname}</UserName>
                  
                 </Box>
-                <CreatedAt >{created_at}</CreatedAt>
+                <CreatedAt >{koreaTime}</CreatedAt>
               </Box>
 
             </UserLeftBox>

@@ -54,7 +54,7 @@ const initialState = {
 //middle
 //책 하나씩 불러와서 선택한 책 배열에 넣기
 const selectBooksSV = (id)=>{
-  return function(dispatch){
+  return function(dispatch,{history}){
       instance.get(`/books/${id}`)
       .then((res)=>{
         
@@ -68,7 +68,7 @@ const selectBooksSV = (id)=>{
         dispatch(selectBooks(book))
       })
       .catch((err)=>{
-          window.alert("책 하나 로드 실패");
+        history.push("*")
           console.log("책로드 하나 실패", err)
       })
   }
@@ -77,7 +77,7 @@ const selectBooksSV = (id)=>{
 
 //태그 기반 collection불러오기
 const getTagCollectionsSV = ()=>{
-  return function(dispatch){
+  return function(dispatch,{history}){
     instance.get('/collections',{
       params: {
         type: "tag"
@@ -87,14 +87,14 @@ const getTagCollectionsSV = ()=>{
       dispatch(getTagCollections(res.data.collections));
     })
     .catch((err)=>{
-      console.log(err)
+      history.push("*")
     })
   }
 }
 
 //사용자가 올린 collection불러오기
 const getCustomCollectionsSV = ()=>{
-  return function(dispatch){
+  return function(dispatch,{history}){
     instance.get('/collections',{
       params: {
         type: "custom"
@@ -105,7 +105,7 @@ const getCustomCollectionsSV = ()=>{
       dispatch(getCustomCollections(res.data.collections));
     })
     .catch((err)=>{
-      console.log(err)
+      history.push("*")
     })
   }
 }
@@ -124,6 +124,7 @@ const addCollectionSV = (formData)=>{
     history.push('/bookCollectionMain')
   })
   .catch((err) => {
+    history.push("*")
     console.log("post작성 실패", err);
    
   })
@@ -132,7 +133,7 @@ const addCollectionSV = (formData)=>{
 
 //컬렉션 하나 상세보기
 const getCollectionDetailSV = (id)=>{
-  return function(dispatch){
+  return function(dispatch,{history}){
     instance.get(`/collections/${id}`)
     .then((res)=>{
       const contents = res.data.collection.contents;
@@ -150,6 +151,7 @@ const getCollectionDetailSV = (id)=>{
         dispatch(getSelectedBooks(_contents))
     })
     .catch((err)=>{
+      history.push("*")
       console.log("콜렉션상세보기 실패", err)
     })
   }
@@ -167,6 +169,7 @@ const editCollectionDetailSV = (id, collection)=>{
       history.push(`/collectiondetail/${id}`)
     })
     .catch((err)=>{
+      history.push("*")
       console.log("콜렉션수정 실패", err)
     })
   }
@@ -182,6 +185,7 @@ const deleteCollectionSV = ()=>{
       history.push('/bookCollectionMain')
     })
     .catch((err)=>{
+      history.push("*")
       console.log("컬렉션 삭제 실패", err)
     })
   }

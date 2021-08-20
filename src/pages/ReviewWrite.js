@@ -279,7 +279,7 @@ const ReviewWrite = (props) => {
         {is_preview ? (
           <ImageBox
           onClick={() => {
-            console.log("클릭")
+         
             selectImage();
           }}>
             <Image src={preview_url} />

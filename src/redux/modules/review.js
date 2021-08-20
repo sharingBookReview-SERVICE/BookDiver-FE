@@ -48,7 +48,7 @@ const initialState = {
 //전체 피드 불러오기
 const getAllReviewSV = () => {
 
-    return function (dispatch) {
+    return function (dispatch,{history}) {
         instance
             .get("/feeds")
             .then((res) => {
@@ -63,12 +63,11 @@ const getAllReviewSV = () => {
                 }
 
                 //res가 정상인 경우 
-                console.log(res.data)
                 dispatch(getAllReview(res.data));
                 
             })
             .catch((err) => {
-                console.log(err)
+               
                 history.push("*")
                 localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
             });
@@ -77,14 +76,14 @@ const getAllReviewSV = () => {
 
 const getMoreReviewSV = (lastId) => {
 
-    return function (dispatch) {
+    return function (dispatch,{history}) {
         instance
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
-                console.log(res.data)
                 dispatch(getMoreReview(res.data));
             })
             .catch((err) => {
+                history.push("*")
                 console.log("전체 피드 가져오기 실패", err);
             });
     };
@@ -94,7 +93,7 @@ const getMoreReviewSV = (lastId) => {
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
 
-    return function (dispatch) {
+    return function (dispatch, {history}) {
         instance
             .post(`/books/${bookId}/reviews`, formData, {
                 headers: {
@@ -111,6 +110,7 @@ const addReviewSV = (formData, bookId) => {
                 history.push("/");
             })
             .catch((err) => {
+                history.push("*")
                 console.log("post작성 실패", err);
             });
     };
@@ -119,7 +119,7 @@ const addReviewSV = (formData, bookId) => {
 //포스트 삭제하기
 const deleteReviewSV = () => {
 
-    return function (dispatch, getState) {
+    return function (dispatch, getState,{history}) {
         const bookId = getState().review.feed_id.bookId;
         const reviewId = getState().review.feed_id.reviewId;
 
@@ -129,6 +129,7 @@ const deleteReviewSV = () => {
                 dispatch(deleteReview(reviewId));
             })
             .catch((err) => {
+                history.push("*")
                 console.log("포스트 삭제도중 에러 발생", err);
             });
     };
@@ -144,11 +145,10 @@ const editReviewSV = (bookId, reviewId, review) => {
                 hashtags: review.hashtags,
             })
             .then((res) => {
-                console.log(res)
-                // dispatch(editReview(reviewId, reviewObj));
                 history.goBack();
             })
             .catch((err) => {
+                history.push("*")
                 console.log("포스트 수정중 에러 발생", err);
             });
     };
@@ -157,13 +157,14 @@ const editReviewSV = (bookId, reviewId, review) => {
 //상세보기
 const getDetailReviewSV = (bookId, reviewId) => {
 
-    return function (dispatch) {
+    return function (dispatch, {history}) {
         instance
             .get(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
                 dispatch(getDetailReview(res.data.review));
             })
             .catch((err) => {
+                history.push("*")
                 console.log("상세포스트 에러 발생", err);
             });
     };
@@ -172,13 +173,14 @@ const getDetailReviewSV = (bookId, reviewId) => {
 //라이크 버튼
 const LikeSV = (bookId, reviewId) => {
 
-    return function (dispatch) {
+    return function (dispatch, {history}) {
         instance
             .put(`/books/${bookId}/reviews/${reviewId}/likes`)
             .then((res) => {
                 dispatch(like(reviewId));
             })
             .catch((err) => {
+                history.push("*")
                 console.log("좋아요 실패", err);
             });
     };
@@ -194,6 +196,7 @@ const getReviewsBookHaveSV = (bookId) => {
                 dispatch(getReviewsBookHave(res.data.reviews));
             })
             .catch((err) => {
+                history.push("*")
                 console.log("해당 책의 리뷰 가져오기 실패", err);
             });
     };

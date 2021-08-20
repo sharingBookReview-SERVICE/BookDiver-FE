@@ -24,7 +24,7 @@ const ReviewCard = (props) => {
     content,
     hashtags,
     quote,
-    created_at,
+    koreaTime,
     book,
     _id,
     myLike,
@@ -128,7 +128,7 @@ const ReviewCard = (props) => {
                   <UserName onClick={()=>goToUserFeed(user.id)}>{user.nickname}</UserName>
                  
                 </Box>
-                <CreatedAt>{created_at}</CreatedAt>
+                <CreatedAt>{koreaTime}</CreatedAt>
               </Box>
             </UserLeftBox>
 

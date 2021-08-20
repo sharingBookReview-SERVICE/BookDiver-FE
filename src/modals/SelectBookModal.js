@@ -64,7 +64,6 @@ const SelectBookModal = (props) =>{
     }
     else{
       dispatch(bookActions.getSearchBooksSV(categories[0], searchWord));
-      console.log(categories[0])
     }
   }
 

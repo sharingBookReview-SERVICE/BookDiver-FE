@@ -33,7 +33,6 @@ const TreasureBoxModal = (props) =>{
         
          <Overlay
           onClick={() => {
-            console.log("클릭")
               dispatch(permitActions.showModal(false))
           }}
          />
