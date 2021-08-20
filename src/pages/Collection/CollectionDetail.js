@@ -49,7 +49,7 @@ const CollectionDetail = (props) =>{
     },[]);
 
     let is_my_collection = false;
-    if(user.id === my_id){
+    if(user?.id === my_id){
       is_my_collection = true;
     }
     const showEdit = ()=>{

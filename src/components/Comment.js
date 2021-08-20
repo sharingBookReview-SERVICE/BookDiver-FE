@@ -15,7 +15,7 @@ const Comment = (props) =>{
     const commentId = props._id
     const [editContent, setEditContent] = useState("");
     
-    const comment_writer = props.user.id;
+    const comment_writer = props.user?.id;
     const my_id = useSelector(state=> state.user.user._id);
 
     const getCommentId = () => {
@@ -44,7 +44,7 @@ const Comment = (props) =>{
 
                 <CommentUserBox>
                     <UserLeftBox>
-                        <UserName>{props.user.nickname}</UserName>
+                        <UserName>{props.user? props.user.nickname : "탈퇴한 유저"}</UserName>
                         <CreatedAt>
                             {props.created_at}
                         </CreatedAt>
@@ -79,7 +79,7 @@ const Comment = (props) =>{
                 <CommentUserBox>
                     <UserLeftBox>
                         <UserName>
-                        {props.user.nickname}
+                        {props.user? props.user.nickname : "탈퇴한 유저"}
                         </UserName>
                         <CreatedAt>
                             {props.created_at}
