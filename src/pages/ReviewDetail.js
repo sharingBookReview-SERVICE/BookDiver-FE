@@ -68,9 +68,9 @@ const ReviewDetail = (props) => {
 
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user } = reviewDetail;
+  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user ,likeCount} = reviewDetail;
 
-  const userId = useSelector((state) => state.user.user._id);
+  const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
 
@@ -148,6 +148,16 @@ const ReviewDetail = (props) => {
     dispatch(reviewAction.LikeSV(bookId, reviewId));
   };
 
+  //프로필 사진 클릭 시 피드 보러가기
+  const gotoFeed = (user_id)=>{
+    if(is_my_post){
+      history.push('/myfeed')
+    }
+    else{
+      history.push(`/otherUser/${user_id}`)
+    }
+  }
+
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {
     dispatch(permitAction.showNav(false));
@@ -187,7 +197,7 @@ const ReviewDetail = (props) => {
             <CommentUserBox>
 
             <UserLeftBox>
-              <ImgWrapper>
+              <ImgWrapper onClick={()=>{gotoFeed(user?.id)}}>
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 
@@ -236,12 +246,12 @@ const ReviewDetail = (props) => {
                     <Div onClick={() => {
                       clickLikeButton();
                     }}><FavoriteIcon className={classes.like}   
-                   />좋아요 {likes} 개</Div>
+                   />좋아요 {likeCount} 개</Div>
                     :
                     <Div onClick={() => {
                       clickLikeButton();
                     }} ><FavoriteBorderIcon className={classes.like} 
-                    />좋아요 {likes} 개</Div>
+                    />좋아요 {likeCount} 개</Div>
                   }
                   
                    <Hr></Hr>

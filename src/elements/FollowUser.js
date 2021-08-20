@@ -5,11 +5,14 @@ import Color from "../shared/Color";
 import {images} from "../shared/Image"
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configStore";
 
 const FollowUser = (props) => {
     const dispatch = useDispatch();
     const {location, nickname, profileImage, id} = props
-    // console.log(props);
+    const my_id = useSelector(state=> state.user.user.id);
+
+    //언팔로우
     const unfollow = () => {
         if(location === "/follower"){
             dispatch(userActions.deleteFollowerSV(id))
@@ -18,11 +21,23 @@ const FollowUser = (props) => {
         }
       }
 
+      //다른 유저의 피드에 들어가기
+  const goToUserFeed = (user_id) => {
+
+    if (my_id === user_id) {
+      //내 프로필을 클릭하면 내 피드로 이동
+      history.push("/myfeed");
+    }else{
+      //다른 유저피드이면 다른 유저 피드로 이동 
+      history.push(`/otherUser/${user_id}`)
+    }
+  }
+
     return(
         <React.Fragment>
             <Box>
 
-                <ImgWrapper>
+                <ImgWrapper onClick={()=>{goToUserFeed(id)}}>
                     <ProfileImg src={images[profileImage]} />
                 </ImgWrapper>
 
