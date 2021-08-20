@@ -51,6 +51,14 @@ display:flex;
 justify-content:center;
 align-items:center;
 background:${Color.black};
+
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `
 
 const ContentsWrapper = styled.div`
@@ -67,6 +75,16 @@ width:auto;
 height:auto;
 max-width:70vw;
 max-height:70vh;
+
+@media ${(props) => props.theme.tablet} {
+    max-width:70%;
+    max-height:70%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    max-width:70%;
+    max-height:70%;
+  }
 `
 
 const ErrorGuide = styled.div`
@@ -98,4 +116,12 @@ align-items:center;
 font-size:16px;
 font-weight:bold;
 color:white;
+cursor:pointer;
+@media ${(props) => props.theme.tablet} {
+    width:50%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width:50%;
+  }
 `

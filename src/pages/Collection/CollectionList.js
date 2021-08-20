@@ -41,22 +41,24 @@ const useStyles = makeStyles((theme) => ({
     return(
      
         <Box>
-     
-            <Image url={props.image} 
-            onClick={()=>{
-              is_login?
-              history.push(`/collectiondetail/${props.id}`)
-              : history.push('/login')
-            }}/>
-            <DescriptionBox onClick={()=>{  
-              is_login?
-              history.push(`/collectiondetail/${props.id}`)
-              : history.push('/login')}}>
-                <Title>{props.name}</Title>
-                <LikeComment>
-                    좋아요 {props.liked_users.length}개 | 댓글 {props.comments.length}개
-                </LikeComment>
-            </DescriptionBox>
+            <DescWrapper>
+              <Image url={props.image} 
+              onClick={()=>{
+                is_login?
+                history.push(`/collectiondetail/${props.id}`)
+                : history.push('/login')
+              }}/>
+
+              <DescriptionBox onClick={()=>{  
+                is_login?
+                history.push(`/collectiondetail/${props.id}`)
+                : history.push('/login')}}>
+                  <Title>{props.name}</Title>
+                  <LikeComment>
+                      좋아요 {props.liked_users.length}개 | 댓글 {props.comments.length}개
+                  </LikeComment>
+              </DescriptionBox>
+            </DescWrapper>
             {
               is_my_collection && 
               <MoreHorizIcon 
@@ -66,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
               }}
               />
             }
+
             
         </Box>
     )
@@ -167,9 +170,15 @@ margin-right:15px;
 box-sizing:border-box;
 `
 
+const DescWrapper = styled.div`
+width:90%:
+height:auto;
+display:flex;
+`
+
 const DescriptionBox = styled.div`
 height:auto;
-width: 70%;
+width: auto;
 display:flex;
 flex-direction:column;
 justify-content:flex-start;
@@ -215,7 +224,7 @@ box-sizing:border-box;
 
 const Header = styled.div`
 width: 100%;
-height: 80px;
+height: 56px;
 display:flex;
 justify-content:center;
 align-items:center;

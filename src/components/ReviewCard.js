@@ -345,6 +345,7 @@ const BookTitle = styled.p`
   letter-spacing: -0.9px;
   color: ${Color.black};
   margin: 0px 0px 8px 0px;
+  font-weight:bold;
 `;
 
 const Quote = styled.p`
@@ -388,8 +389,8 @@ const HashTag = styled.li`
   border-radius: 10px;
   color: ${Color.black};
   font-size: 14px;
-  margin: 0px 5px 8px 0px;
-  padding: 8px;
+  margin: 0px 8px 8px 0px;
+  padding: 5px 7px;
 `;
 
 const LikeBox = styled.div`

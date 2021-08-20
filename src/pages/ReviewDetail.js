@@ -246,8 +246,8 @@ const ReviewDetail = (props) => {
                   <Quote> {quote}</Quote>
                   <Content>{content}</Content>
                   <HashTagBox>
-                  {hashtags?.map((tag) => {
-                      return `#${tag} `;
+                  {hashtags?.map((tag, idx) => {
+                     return <HashTag key={idx}>{`#${tag} `}</HashTag>
                     })}
                   </HashTagBox>
                   <ImageBox>
@@ -442,10 +442,23 @@ font-size:14px;
 `;
 
 const HashTagBox = styled.div`
-padding: 0px 20px;
-margin-bottom: 16px;
-font-size:14px;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+list-style: none;
+padding: 15px 20px 10px 20px;
+flex-wrap: wrap;
+margin:0px;
 `;
+
+const HashTag = styled.div`
+border: 1px solid ${Color.black};
+border-radius: 10px;
+color: ${Color.black};
+font-size: 14px;
+margin: 0px 8px 8px 0px;
+padding: 5px 7px;
+`
 
 const ImageBox = styled.div`
   width: 100%;
