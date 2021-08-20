@@ -40,7 +40,7 @@ const CollectionDetail = (props) =>{
     const collection_id = props.match.params.collectionid;
     const collection_detail = useSelector(state=> state.collection.collection_detail);
     const is_modal = useSelector(state=> state.permit.is_modal);
-
+    const my_id = useSelector(state=> state.user.user.id);
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
     React.useEffect(()=>{
@@ -48,6 +48,10 @@ const CollectionDetail = (props) =>{
         dispatch(collectionActions.getCollectionDetailSV(collection_id))
     },[]);
 
+    let is_my_collection = false;
+    if(user.id === my_id){
+      is_my_collection = true;
+    }
     const showEdit = ()=>{
       dispatch(permitActions.showModal(true));
     }
@@ -69,12 +73,16 @@ const CollectionDetail = (props) =>{
                         <Title>{name}</Title>
                         <Nickname>{user?.nickname}</Nickname>
                         </TitleBox>
-                        <MoreHorizIcon className={classes.more}
-                        onClick={()=>{
-                          showEdit()
-                          dispatch(collectionActions.getCollectionId(collection_id))
-                        }}
-                        />
+                        {
+                          is_my_collection &&
+                          <MoreHorizIcon className={classes.more}
+                          onClick={()=>{
+                            showEdit()
+                            dispatch(collectionActions.getCollectionId(collection_id))
+                          }}
+                          />
+                        }
+                       
                     </Image>
                   <Wrapper>
                     <Description>{description}</Description>
