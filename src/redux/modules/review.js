@@ -55,6 +55,7 @@ const getAllReviewSV = () => {
 
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
+                    console.log(res.data)
                     history.push("*")
                     localStorage.clear();
                     dispatch(userActions.logOut())
@@ -62,10 +63,12 @@ const getAllReviewSV = () => {
                 }
 
                 //res가 정상인 경우 
+                console.log(res.data)
                 dispatch(getAllReview(res.data));
                 
             })
             .catch((err) => {
+                console.log(err)
                 history.push("*")
                 localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
             });

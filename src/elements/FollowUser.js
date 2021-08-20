@@ -33,6 +33,26 @@ const FollowUser = (props) => {
     }
   }
 
+  if(location.includes('/follower/') || location.includes('/following/')){
+    return(
+        <React.Fragment>
+            <Box>
+
+                <ImgWrapper onClick={()=>{goToUserFeed(id)}}>
+                    <ProfileImg src={images[profileImage]} />
+                </ImgWrapper>
+
+                <Container>
+                    <Title>
+                        {nickname}
+                    </Title>
+ 
+                </Container>
+            </Box>
+        </React.Fragment>
+    )
+
+  }
     return(
         <React.Fragment>
             <Box>

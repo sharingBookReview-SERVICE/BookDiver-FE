@@ -204,7 +204,7 @@ const ReviewDetail = (props) => {
               <Box direction={"column"}>
                 <Box direction={"row"}>
                   <UserName>{user?.nickname}</UserName>
-                  {!is_my_post && <Follow onClick={()=>{follow()}}>팔로우</Follow>}
+                 
                 </Box>
                 <CreatedAt >{created_at}</CreatedAt>
               </Box>

@@ -11,8 +11,10 @@ const GET_USER_REVIEW = "GET_USER_REVIEW";
 const SET_USER = "user/SET_USER";
 const LOG_OUT = "user/LOG_OUT";
 const IS_ME = "user/IS_ME";
-const FOLLOW = "user/FOLLOW"
-const GET_FOLLOWING_LIST = "user/GET_FOLLOWING_LIST"
+const FOLLOW = "user/FOLLOW";
+const GET_FOLLOW_LIST = "user/GET_FOLLOW_LIST";
+
+
 const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
 const GET_TREASURE = "user/GET_TREASURE"
 const GET_MY_FEED ="user/GET_MY_FEED";
@@ -27,8 +29,8 @@ const deleteUser = createAction(DELETE_USER, (userId)=>({userId}));
 const setUser = createAction(SET_USER, (user) => ({user}));
 const logOut = createAction(LOG_OUT, ()=> ({}));
 const isMe = createAction(IS_ME, (is_me)=>({is_me}));
-const follow = createAction(FOLLOW, (user) => ({user}))
-const getFollowingList = createAction(GET_FOLLOWING_LIST, (list) => ({list}))
+const follow = createAction(FOLLOW, (user) => ({user}));
+const getFollowList = createAction(GET_FOLLOW_LIST, (list) => ({list}));
 const getFollowerList = createAction(GET_FOLLOWER_LIST, (list) => ({list}))
 const getTreasure = createAction(GET_TREASURE, (treasure) => ({treasure}))
 const getMyFeed = createAction(GET_MY_FEED, (my_feed)=>({my_feed}));
@@ -50,8 +52,6 @@ const initialState = {
     follow_list : [],
     get_treasure : false,
     my_feed:[],
-    following_counts: 0,
-    follower_counts: 0,
     is_follow: false,
 };
 
@@ -145,8 +145,7 @@ const followSV = (id) => {
   return function(dispatch, getState, {history}){
     instance.put(`follow/${id}`)
     .then((res)=>{
-      dispatch(getFollowingCounts(res.data.followingList.length))
-      dispatch(getFollowingList(res.data.followingList))
+      dispatch(follow(id))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -173,7 +172,7 @@ const getFollowingListSV = () => {
   return function(dispatch, getState, {history}){
     instance.get(`follow/followingList`)
     .then((res)=>{
-      dispatch(getFollowingList(res.data.followingList))
+      dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -185,7 +184,7 @@ const getFollowerListSV = () => {
   return function(dispatch, getState, {history}){
     instance.get(`follow/followerList`)
     .then((res)=>{
-      dispatch(getFollowerList(res.data.followerList))
+      dispatch(getFollowList(res.data.followerList))
     })
     .catch((err)=>{
       window.alert("팔로우 실패 ",err)
@@ -199,7 +198,7 @@ const getOtherFollowingListSV = (userId) => {
     instance.get(`follow/followingList/${userId}`)
     .then((res)=>{
       console.log(res)
-      // dispatch(getFollowingList(res.data.followingList))
+      dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
       window.alert("팔로우리스트 가져오기 실패 ",err)
@@ -212,8 +211,7 @@ const getOtherFollowerListSV = (userId) => {
   return function(dispatch, getState, {history}){
     instance.get(`follow/followerList/${userId}`)
     .then((res)=>{
-      console.log(res)
-      // dispatch(getFollowerList(res.data.followerList))
+      dispatch(getFollowList(res.data.followerList))
     })
     .catch((err)=>{
       window.alert("팔로우리스트 가져오기 실패 ",err)
@@ -342,9 +340,22 @@ export default handleActions(
             draft.is_me = true;
           }
         }),
-        [GET_FOLLOWING_LIST] : (state, action)=>
+        [FOLLOW] : (state, action)=>
         produce(state, (draft)=>{
-          draft.follow_list = action.payload.list
+          //팔로우여부 바꾸기
+          if(draft.my_feed.user.is_follow){
+            draft.my_feed.user.is_follow = false;
+            draft.my_feed.user.followerCount = draft.my_feed.user.followerCount-1;
+          }
+          else{
+            draft.my_feed.user.is_follow = true;
+            draft.my_feed.user.followerCount = draft.my_feed.user.followerCount+1;
+          }
+
+        }),
+        [GET_FOLLOW_LIST] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.follow_list = action.payload.list;
         }),
         [GET_FOLLOWER_LIST] : (state, action)=>
         produce(state, (draft)=>{
