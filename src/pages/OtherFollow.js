@@ -1,3 +1,4 @@
+
 //import 부분
 import React, { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router";
@@ -23,28 +24,28 @@ const useStyles = makeStyles((theme) => ({
       cursor:"pointer",
     },
   }));
-
-const Follow = (props) => {
+const OtherFollow = (props) =>{
     const dispatch = useDispatch();
     const classes = useStyles();
     const params = useParams();
-    const location = props.location.pathname
-    const followList = useSelector(state => state.user.follow_list);
- 
+    const location = props.location.pathname;
+    const id = params.otherId;
+    const nickname = useSelector(state=> state.user.my_feed.user?.nickname);
+    const follow_list = useSelector(state=> state.user.follow_list);
+    
     const goBack=() => {
         history.goBack();
     }
 
     useEffect(() => {
-        if(location === "/follower"){
-            dispatch(userActions.getFollowerListSV())
-        }else{
-            dispatch(userActions.getFollowingListSV())
-        }
+       if(location.includes("follower")){
+          dispatch(userActions.getOtherFollowerListSV(id))
+       }
+       else{
+           dispatch(userActions.getOtherFollowingListSV(id))
+       }
     },[])
-
-//작성하기
-  return (
+    return(  
     <React.Fragment>
         <Wrapper>
             <Container>
@@ -57,14 +58,14 @@ const Follow = (props) => {
                 className={classes.arrow}/>
 
                 <Route path="/following">
-                    <HeaderText>내가 팔로잉 하는 다이버들</HeaderText>
+                    <HeaderText>{nickname}이 팔로잉 하는 다이버들</HeaderText>
                 </Route> 
                 <Route path="/follower">
-                    <HeaderText>나를 팔로우 하는 다이버들</HeaderText>
+                    <HeaderText>{nickname}을 팔로우 하는 다이버들</HeaderText>
                 </Route>
 
             </Header>
-            {followList.map((user) => {
+            {follow_list.map((user) => {
                 return(
                     <FollowUser {...user} location={location} key={user.id}/>
                 )
@@ -77,7 +78,7 @@ const Follow = (props) => {
   );
 };
 
-export default Follow;
+export default OtherFollow;
 
 const Wrapper = styled.div`
 width:100vw;

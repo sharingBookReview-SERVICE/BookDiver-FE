@@ -58,7 +58,7 @@ const MyFeed = () => {
     const followerCounts = useSelector(state => state.user.my_feed.user?.followerCount)
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
-
+    const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
  
 
     const goToFollowing = () => {
@@ -73,12 +73,12 @@ const MyFeed = () => {
       history.push("/mydepth")
     }
 
-    const getOtherFollowing = (user_id) => {
-      dispatch(userActions.getOtherFollowingListSV(user_id))
+    const goToOtherFollowing = (user_id) => {
+      history.push(`/following/${user_id}`)
     }
 
-    const getOtherFollower = (user_id) => {
-      dispatch(userActions.getOtherFollowerListSV(user_id))
+    const goToOtherFollower = (user_id) => {
+      history.push(`/follower/${user_id}`)
     }
 
     const gotochangeProfile = ()=>{
@@ -131,18 +131,18 @@ const MyFeed = () => {
                               style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
                           <Text style={{marginTop: "5px"}}>컬렉션</Text>
                       </MyActivity>
-                      <MyActivity onClick={() => {getOtherFollower(otherUserId)}}>
+                      <MyActivity onClick={() => {goToOtherFollower(otherUserId)}}>
                           <Text className={classes.follower}>{followerCounts}</Text>
                           <Text className={classes.followText}>팔로워</Text>
                       </MyActivity>
-                      <MyActivity onClick={() => {getOtherFollowing(otherUserId)}}>
+                      <MyActivity onClick={() => {goToOtherFollowing(otherUserId)}}>
                           <Text className={classes.follower}>{followingCounts}</Text>
                           <Text className={classes.followText} >팔로잉</Text>
                       </MyActivity>
                   </MyActivityBox>
 
                   <ProfileBottomBox>
-                    <FollowBox>팔로우</FollowBox>
+                    <FollowBox onClick={()=>{dispatch(userActions.followSV(otherUserId))}}>{is_follow? "팔로잉" : "팔로우"}</FollowBox>
                     <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
                 </Wrapper>
@@ -198,13 +198,11 @@ const MyFeed = () => {
                         <MyActivity onClick={() => {goToFollower()}}>
                             {/*<BookmarkOutlinedIcon style={{color: "#1168d7"}}/>*/}
                             {/*<Text>저장한 에세이</Text>*/}
-                            <Text
-                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followerCounts}</Text>
+                            <Text className={classes.follower}>{followerCounts}</Text>
                             <Text style={{marginTop: "4px"}}>팔로워</Text>
                         </MyActivity>
                         <MyActivity onClick={() => {goToFollowing()}}>
-                            <Text
-                                style={{fontWeight: "bold", fontSize: "18px", margin: "0px -2px 2px -2px"}}>{followingCounts}</Text>
+                            <Text className={classes.follower}>{followingCounts}</Text>
                             <Text style={{marginTop: "4px"}}>팔로잉</Text>
                         </MyActivity>
                     </MyActivityBox>

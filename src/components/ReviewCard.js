@@ -32,13 +32,14 @@ const ReviewCard = (props) => {
     comments,
     image,
     user,
+    is_follow
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
 
   //permit check 
   const is_login = useSelector((state) => state.user.is_login);
-  const is_follow = useSelector(state => state.user.is_follow)
+  
 
   const userId = useSelector((state) => state.user.user._id);
   const cardUserId = user.id
@@ -125,10 +126,7 @@ const ReviewCard = (props) => {
               <Box direction={"column"}>
                 <Box direction={"row"}>
                   <UserName onClick={()=>goToUserFeed(user.id)}>{user.nickname}</UserName>
-                  {!is_my_post &&  
-                  <Follow onClick={()=>{follow()}}>
-                    {is_follow ? "팔로잉" : "팔로우"}
-                  </Follow>}
+                 
                 </Box>
                 <CreatedAt>{created_at}</CreatedAt>
               </Box>

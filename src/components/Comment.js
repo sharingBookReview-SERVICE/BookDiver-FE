@@ -44,7 +44,7 @@ const Comment = (props) =>{
 
                 <CommentUserBox>
                     <UserLeftBox>
-                        <UserName>{props.user? props.user.nickname : "탈퇴한 유저"}</UserName>
+                        <UserName>{props.user?.nickname? props.user.nickname : "탈퇴한 유저"}</UserName>
                         <CreatedAt>
                             {props.created_at}
                         </CreatedAt>
@@ -79,7 +79,7 @@ const Comment = (props) =>{
                 <CommentUserBox>
                     <UserLeftBox>
                         <UserName>
-                        {props.user? props.user.nickname : "탈퇴한 유저"}
+                        {props.user?.nickname? props.user.nickname : "탈퇴한 유저"}
                         </UserName>
                         <CreatedAt>
                             {props.created_at}

@@ -32,7 +32,8 @@ import MyReview from "../pages/MyReview";
 import ReviewWrite from "../pages/ReviewWrite";
 import BookDetail from "../pages/BookDetail";
 import MyReviewFind from "../pages/MyReviewFind";
-import Follow from "../pages/Follow"
+import Follow from "../pages/Follow";
+import OtherFollow from "../pages/OtherFollow";
 import MyDepth from "../pages/MyDepth";
 import ErrorPage from "../pages/ETC/ErrorPage";
 import Setting from "../pages/Setting";
@@ -131,6 +132,8 @@ function App(props) {
           <Route path="/myprofile" exact component={MyProfile} />
           <Route path="/following" exact component={Follow}/>
           <Route path="/follower" exact component={Follow}/>
+          <Route path="/following/:otherId" exact component={OtherFollow}/>
+          <Route path="/follower/:otherId" exact component={OtherFollow}/>
           <Route path="/changeprofileimg" component ={ChangeProfileImg}/>
           <Route path="/setting" exact component={Setting}/>
 
