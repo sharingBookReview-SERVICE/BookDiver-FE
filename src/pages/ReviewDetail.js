@@ -387,6 +387,11 @@ width: 100vw;
 height: auto;
 margin-bottom: 70px;
 position: absolute;
+
+@media ${(props) => props.theme.mobile} {
+  padding-bottom: 150px;
+}
+
 @media ${(props) => props.theme.tablet} {
   width: 100%;
 }

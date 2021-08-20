@@ -84,8 +84,12 @@ const HomeBGColor = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 15vh 0 0 0;
-  position: absolute;
+
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 120px 0 0 0;
+  }
+
   @media ${(props) => props.theme.tablet} {
     padding: 80px 0 0 0;
   }

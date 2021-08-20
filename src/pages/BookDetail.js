@@ -68,7 +68,6 @@ const Main = styled.div`
   height: 100vh;
   padding-top:90px;
   background-color: ${Color.mainColor};
-  //border: 1px solid black;
   margin : auto;
   box-sizing: border-box;
   overflow-y: scroll;
@@ -78,6 +77,11 @@ const Main = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  @media ${(props) => props.theme.mobile} {
+    padding-top:90px;
+    padding-bottom:100px;
+  }
+
   @media ${(props) => props.theme.tablet} {
     width: 100%;
 }
