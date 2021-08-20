@@ -12,7 +12,7 @@ const token = localStorage.getItem('token');
 // instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 instance.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : null;
 
-
+localStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTEwY2Q0OTE4NWU0YTg5NTBiMTQzMzciLCJuaWNrbmFtZSI6IkxFTyIsImlhdCI6MTYyOTM2NjczOCwiZXhwIjoxNjI5NDUzMTM4fQ.0Vgun--D8GsLvzRmcJDAXKLPnFUgsuTQ93AKviN4kuk")
 
 export default instance;
 

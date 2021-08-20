@@ -1,6 +1,7 @@
 //import 부분
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import io from "socket.io-client"
 
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import {actionCreators as reviewAction } from "../redux/modules/review";
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const socket = io.connect("http://13.209.10.67")
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
@@ -73,6 +75,7 @@ const ReviewDetail = (props) => {
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
+
 
 
   const [is_empty, setIsEmpty] = useState(false)
@@ -139,6 +142,13 @@ const ReviewDetail = (props) => {
       userInfo: nickname,
     };
     dispatch(commentAction.addCommentSV(comment_info));
+
+    const noti_info = {
+      review : reviewId,
+      writer : userId,
+      target : user?.id,
+    }
+    socket.emit("comment", noti_info)
     setCommentContent("");
     scrollToBottom()
   };
@@ -164,7 +174,10 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
-
+    
+    socket.on("comment", () => {
+      console.log("-------소켓이 연결되었는가요?",socket.connected)
+    })
 
     if(is_comment) {
       //comment를 통해서 들어왔을 때는 comment 위치로 이동.
