@@ -45,25 +45,9 @@ const Navigation = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
 
-  const toLogin = () => {
-    history.push("/login");
-  };
-  const toMain = () => {
-    history.push("/");
-  };
-  const toCollection = () => {
-    history.push("/bookCollectionMain");
-  };
-  const toPostWrite = () => {
-    history.push(`/postwrite`);
-  };
-  const toMyReviewFeed = () => {
-    history.push("/myfeed");
-  };
-  const toSetting = () => {
-    history.push("/setting");
-  };
-
+  const toPostWrite = is_login? "/postwrite" : "/login";
+  const toMyReviewFeed = is_login? "/myfeed" : "/login";
+  const toSetting = is_login? "/setting" : "/login";
   return (
     <NavBox>
 
@@ -77,16 +61,16 @@ const Navigation = (props) => {
         <PageName >북컬렉션</PageName>
       </IconBox>
 
-      <AddBox to="/postwrite">
+      <AddBox to={toPostWrite}>
         <AddBoxIcon className={classes.plusButton}/>
       </AddBox>
 
-      <IconBox to="/myfeed" activeClassName={classes.active}>
+      <IconBox to={toMyReviewFeed} activeClassName={classes.active}>
         <SpeakerNotesIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
-      <IconBox to="/setting" activeClassName={classes.active}>
+      <IconBox to={toSetting} activeClassName={classes.active}>
         <PersonIcon className={classes.icon}/>
         <PageName >내 정보</PageName>
       </IconBox>
