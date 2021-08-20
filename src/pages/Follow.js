@@ -103,7 +103,7 @@ min-height:100vh;
 flex-direction:column;
 align-items:center;
 justify-content:flex-start;
-padding:80px 30px 0px 30px;
+padding:80px 30px 0px 0px;
 box-sizing:border-box;
 
 @media ${(props) => props.theme.tablet} {
