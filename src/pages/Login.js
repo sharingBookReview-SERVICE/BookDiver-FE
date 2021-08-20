@@ -51,6 +51,12 @@ align-items: center;
 background-color: ${Color.mainColor};
 padding-bottom:70px;
 box-sizing:border-box;
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
 `;
 
 const LoginBox = styled.div`

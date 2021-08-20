@@ -169,7 +169,7 @@ box-sizing:border-box;
 const Container = styled.div`
 width:100vw;
 height:auto;
-min-height:100vh;
+min-height:80vh;
 padding-bottom: 100px;
 
 @media ${(props) => props.theme.tablet} {

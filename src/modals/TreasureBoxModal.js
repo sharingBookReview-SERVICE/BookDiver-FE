@@ -72,7 +72,6 @@ background: ${Color.mainColor};
 z-index: 100;
 position: fixed;
 top: 38%;
-left: 7%;
 
 @media ${(props) => props.theme.mobile} {
   left:5%;

@@ -1,6 +1,7 @@
 //import 부분
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import io from "socket.io-client"
 
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import {actionCreators as reviewAction } from "../redux/modules/review";
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const socket = io.connect("http://13.209.10.67")
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
@@ -68,11 +70,12 @@ const ReviewDetail = (props) => {
 
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const {book, comments, content, created_at,hashtags, image, likes, myLike, quote, user ,likeCount} = reviewDetail;
+  const {book, comments, content, created_at,hashtags, image, likeCount, myLike, quote, user } = reviewDetail;
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = useSelector((state) => state.user.user.profileImage)
+
 
 
   const [is_empty, setIsEmpty] = useState(false)
@@ -139,12 +142,20 @@ const ReviewDetail = (props) => {
       userInfo: nickname,
     };
     dispatch(commentAction.addCommentSV(comment_info));
+
+    const noti_info = {
+      review : reviewId,
+      writer : userId,
+      target : user?.id,
+    }
+    socket.emit("comment", noti_info)
     setCommentContent("");
     scrollToBottom()
   };
 
   //좋아요 클릭
   const clickLikeButton = () => {
+    //리뷰 디테일에 들어왔다는 것은 로그인을 했다는 의미이니 로그인 체크 x
     dispatch(reviewAction.LikeSV(bookId, reviewId));
   };
 
@@ -163,7 +174,10 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
-
+    
+    socket.on("comment", () => {
+      console.log("-------소켓이 연결되었는가요?",socket.connected)
+    })
 
     if(is_comment) {
       //comment를 통해서 들어왔을 때는 comment 위치로 이동.
@@ -232,8 +246,8 @@ const ReviewDetail = (props) => {
                   <Quote> {quote}</Quote>
                   <Content>{content}</Content>
                   <HashTagBox>
-                  {hashtags?.map((tag) => {
-                      return `#${tag} `;
+                  {hashtags?.map((tag, idx) => {
+                     return <HashTag key={idx}>{`#${tag} `}</HashTag>
                     })}
                   </HashTagBox>
                   <ImageBox>
@@ -243,7 +257,9 @@ const ReviewDetail = (props) => {
                 <ReactionBar>
                   {
                     myLike ?
-                    <Div onClick={() => {
+                    <Div 
+                    style={{cursor:"pointer"}}
+                    onClick={() => {
                       clickLikeButton();
                     }}><FavoriteIcon className={classes.like}   
                    />좋아요 {likeCount} 개</Div>
@@ -409,6 +425,7 @@ const ReviewContent = styled.div`
 const Quote = styled.div`
 margin-bottom: 16px;
 padding: 12px;
+font-size:14px;
 font-family: "Noto Serif KR", serif;
 font-weight: bold;
 white-space: pre-line;
@@ -421,12 +438,28 @@ const Content = styled.div`
 margin-bottom: 16px;
 padding: 0px 20px;
 white-space: pre-line;
+font-size:14px;
 `;
 
 const HashTagBox = styled.div`
-padding: 0px 20px;
-margin-bottom: 16px;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+list-style: none;
+padding: 15px 20px 10px 20px;
+flex-wrap: wrap;
+margin:0px;
 `;
+
+const HashTag = styled.div`
+border: 1px solid ${Color.black};
+border-radius: 10px;
+color: ${Color.black};
+font-size: 14px;
+margin: 0px 8px 8px 0px;
+padding: 5px 7px;
+`
+
 const ImageBox = styled.div`
   width: 100%;
   height: auto;
@@ -458,6 +491,7 @@ width: 100%;
 height: 100%;
 align-items: center;
 justify-content: center;
+
 `;
 const Hr = styled.div`
 width: 1px;

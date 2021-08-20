@@ -88,7 +88,7 @@ const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color:black;
-  z-index: 999;
+  z-index: 9999;
   position: fixed;
   opacity:0.4;
   cursor:pointer;
@@ -111,7 +111,7 @@ align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
-z-index: 1000;
+z-index: 10000;
 position:fixed;
 border-radius: 12px;
 

@@ -60,6 +60,7 @@ const CollectionDetail = (props) =>{
            {
             is_modal && <EditModal is_collection />
           }
+          <ComponentWrapper>
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -114,6 +115,7 @@ const CollectionDetail = (props) =>{
                     </CommentWriteButton>
             </CommentInputBox>
             </Container>
+            </ComponentWrapper>
         </React.Fragment>
     )
 }
@@ -126,21 +128,51 @@ padding: 16px 0px;
 `;
 
 
-const Container = styled.div`
-width: 100vw;
+// const Container = styled.div`
+// width: 100vw;
+// background: ${Color.mainColor};
+// padding-bottom: 100px;
+
+// @media ${(props) => props.theme.tablet} {
+//   width: 100%;
+// }
+
+// @media ${(props) => props.theme.desktop} {
+//   width: 100%;
+// }
+
+// `;
+
+const ComponentWrapper = styled.div`
+width:100vw;
+height:auto;
 background: ${Color.mainColor};
-padding-bottom: 100px;
+box-sizing:border-box;
 
 @media ${(props) => props.theme.tablet} {
-  width: 100%;
+    width: 100%;
 }
-
+  
 @media ${(props) => props.theme.desktop} {
-  width: 100%;
+    width: 100%;
 }
 
-`;
+`
 
+const Container = styled.div`
+width:100vw;
+height:auto;
+min-height:100vh;
+box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
+`
 
 const CollectionOutter = styled.div`
 width: 90%;
@@ -180,6 +212,7 @@ font-family: "Noto Serif KR", serif;
 color: ${Color.white};
 font-size: 21px;
 `;
+
 const Nickname = styled.p`
 color: ${Color.white};
 `;
@@ -188,6 +221,7 @@ const Wrapper = styled.div`
 width: 90%;
 margin: 0 auto;
 `;
+
 const Description = styled.div`
 margin: 0 auto;
 padding: 20px 0px;

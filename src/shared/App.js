@@ -48,7 +48,7 @@ import CollectionDetail from "../pages/Collection/CollectionDetail";
 import MakeCollection from "../pages/Collection/MakeCollection";
 import EditCollection from "../pages/Collection/EditCollection";
 
-
+import Layout from "../elements/Layout";
 
 
 
@@ -88,6 +88,7 @@ function App(props) {
   return (
     <React.Fragment>
       <GlobalStyle />
+      <Layout>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
         {/* <TransitionGroup className="transition-group">
@@ -146,11 +147,13 @@ function App(props) {
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}
       </Container>
+      </Layout>
     </React.Fragment>
   );
 }
 
 const Container = styled.div`
+
   width: 100vw;
   height: 100vh;
   background: ${Color.mainColor};

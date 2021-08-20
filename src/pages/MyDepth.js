@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
     arrow: {
       color: Color.white,
+      cursor:"pointer",
     },
   }));
 
@@ -38,7 +39,7 @@ const MyDepth = (props) => {
     // dispatch(permitAction.isTreasure(false))
 
     const goBack=() => {
-        history.goBack();
+        history.push("/myfeed");
     }
 
     const openTreasure = () => {
@@ -76,19 +77,19 @@ const MyDepth = (props) => {
 
             </Header>
 
-            {badgeCounts > 0 && <Badge src={images[userBadges[0]]} top={"10vh"} left={"10vw"} />}
-            {badgeCounts > 1 && <Badge src={images[userBadges[1]]} top={"60vh"} left={"60vw"}/>}
-            {badgeCounts > 2 && <Badge src={images[userBadges[2]]} top={"120vh"} left={"20vw"}/>}
-            {badgeCounts > 3 && <Badge src={images[userBadges[3]]} top={"180vh"} left={"30vw"}/>}
-            {badgeCounts > 4 && <Badge src={images[userBadges[4]]} top={"240vh"} left={"10vw"}/>}
-            {badgeCounts > 5 && <Badge src={images[userBadges[5]]} top={"300vh"} left={"60vw"}/>}
+            {badgeCounts > 0 && <Badge src={images[userBadges[0]]} top={"5rem"} left={"3rem"} />}
+            {badgeCounts > 1 && <Badge src={images[userBadges[1]]} top={"28rem"} left={"15rem"}/>}
+            {badgeCounts > 2 && <Badge src={images[userBadges[2]]} top={"55rem"} left={"5rem"}/>}
+            {badgeCounts > 3 && <Badge src={images[userBadges[3]]} top={"80rem"} left={"14rem"}/>}
+            {badgeCounts > 4 && <Badge src={images[userBadges[4]]} top={"110rem"} left={"4rem"}/>}
+            {badgeCounts > 5 && <Badge src={images[userBadges[5]]} top={"130rem"} left={"16rem"}/>}
             <Person src={person}/>
 
 
         </Wrapper>
         {new_badge && <NewBadge src={images[new_badge]} className={"scale-up-down-center"}/>}
         {new_badge && <GetNewBadge className={"scale-up-down-center"}>{titles[new_badge]}를 획득하셨습니다.</GetNewBadge>}
-        {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}        
+        {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}             
     </React.Fragment>
   );
 };
@@ -126,7 +127,22 @@ max-width:40vw;
 max-height:40vh;
 position:fixed;
 bottom:3vh;
-left:30vw;
+
+@media ${(props) => props.theme.mobile} {
+    left:30vw;
+}
+
+@media ${(props) => props.theme.tablet} {
+    margin-left:110px;
+    max-width:12rem;
+    max-height:12rem;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    margin-left:110px;
+    max-width:12rem;
+    max-height:12rem;
+}
 `
 
 const Badge = styled.img`
@@ -182,6 +198,7 @@ font-size:16px;
 background:transparent;
 color:${Color.white};
 font-weight:bold;
+cursor:pointer;
 `
 
 const Header = styled.div`
@@ -219,7 +236,24 @@ max-width:50vw;
 max-height:50vh;
 position:fixed;
 bottom:25vh;
-left:36vw;
+
+
+@media ${(props) => props.theme.mobile} {
+    left:36vw;
+}
+
+@media ${(props) => props.theme.tablet} {
+    margin-left:90px;
+    bottom:20vh;
+    width: 25rem;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    margin-left:90px;
+    bottom:20vh;
+    width: 25rem;
+}
+
 `
 
 const GetNewBadge = styled.div`
@@ -233,5 +267,20 @@ justify-content:center;
 align-items:center;
 position:fixed;
 bottom:5vh;
-left:15vw;
+font-size:1.4rem;
+
+@media ${(props) => props.theme.mobile} {
+    left:15vw;
+}
+
+@media ${(props) => props.theme.tablet} {
+    margin-left:20px;
+    width: 38rem;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    margin-left:20px;
+    width: 38rem;
+}
+
 `

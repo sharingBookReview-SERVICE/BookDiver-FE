@@ -45,9 +45,37 @@ const Navigation = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
 
-  const toPostWrite = is_login? "/postwrite" : "/login";
-  const toMyReviewFeed = is_login? "/myfeed" : "/login";
-  const toSetting = is_login? "/setting" : "/login";
+  if(!is_login){
+    return(
+      <NavBox>
+
+      <IconBox to="/" exact activeClassName={classes.active}>
+        <ListAltIcon className={classes.icon}/>
+        <PageName >피드</PageName>
+      </IconBox>
+
+      <IconBox to="/login" >
+        <BookOutlinedIcon className={classes.icon}/>
+        <PageName >북컬렉션</PageName>
+      </IconBox>
+
+      <AddBox to="/login">
+        <AddBoxIcon className={classes.plusButton}/>
+      </AddBox>
+
+      <IconBox to="/login" >
+        <SpeakerNotesIcon className={classes.icon}/>
+        <PageName >내 피드</PageName>
+      </IconBox>
+
+      <IconBox to="/login" activeClassName={classes.active}>
+        <PersonIcon className={classes.icon}/>
+        <PageName >로그인</PageName>
+      </IconBox>
+    </NavBox>
+    )
+  }
+
   return (
     <NavBox>
 
@@ -61,16 +89,16 @@ const Navigation = (props) => {
         <PageName >북컬렉션</PageName>
       </IconBox>
 
-      <AddBox to={toPostWrite}>
+      <AddBox to="/postwrite">
         <AddBoxIcon className={classes.plusButton}/>
       </AddBox>
 
-      <IconBox to={toMyReviewFeed} activeClassName={classes.active}>
+      <IconBox to="/myfeed" activeClassName={classes.active}>
         <SpeakerNotesIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
-      <IconBox to={toSetting} activeClassName={classes.active}>
+      <IconBox to="/setting" activeClassName={classes.active}>
         <PersonIcon className={classes.icon}/>
         <PageName >내 정보</PageName>
       </IconBox>
@@ -92,7 +120,7 @@ position: fixed;
 bottom:0px;
 height: 60px;
 box-shadow: 0 -4px 4px -2px rgba(0,0,0,0.2);
-
+z-index: 1000;
 @media ${(props) => props.theme.tablet} {
   width: 420px;
   height: 60px;

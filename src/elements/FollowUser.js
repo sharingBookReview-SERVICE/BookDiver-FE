@@ -95,11 +95,11 @@ object-fit:cover;
 `;
 
 const Box = styled.div`
-width:100%;
+width:90%;
 height:auto;
 display:flex;
 justify-content:space-between;
-margin-bottom:10px;
+margin: 0px 0px 10px 30px;
 box-sizing:border-box;
 `
 

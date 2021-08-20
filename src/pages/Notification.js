@@ -39,6 +39,7 @@ const NotiCard = (props)=>{
 const Notification = (props) =>{
     const classes = useStyles();
     return(
+        <Wrapper>
         <Container>
             <Head>
             <ArrowBackIcon className={classes.goback} 
@@ -54,21 +55,62 @@ const Notification = (props) =>{
             <NotiCard/>
 
         </Container>
+        </Wrapper>
         )
 }
 
-const Container = styled.div`
+const Wrapper = styled.div`
+width:100vw;
+height:auto;
+display:flex;
 background: ${Color.mainColor};
-width: 100vw;
-padding-bottom: 100px;
-`;
+box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    width: 100%;
+}
+
+`
+
+const Container = styled.div`
+width:100vw;
+height:auto;
+min-height:100vh;
+box-sizing:border-box;
+padding-top:70px;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
+`
+
 
 const Head = styled.div`
 width: 100%;
-height: 10%;
+height: 56px;
 align-items: center;
 display: flex;
-margin: 16px 0px;
+margin-bottom:16px;
+top:0px;
+position:fixed;
+background:${Color.mainColor};
+
+@media ${(props) => props.theme.tablet} {
+    width: 420px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 420px;
+  }
+
 `;
 const Text = styled.div`
 width: 70%;

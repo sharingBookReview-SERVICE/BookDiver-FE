@@ -6,7 +6,6 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import LogoutModal from "../modals/LogoutModal";
 import SignoutModal from "../modals/SignoutModal";
 
-
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
@@ -14,6 +13,7 @@ import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutli
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
+
 
 
 const useStyles = makeStyles((theme) => ({
