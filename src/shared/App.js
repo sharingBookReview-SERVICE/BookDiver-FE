@@ -49,7 +49,7 @@ import MakeCollection from "../pages/Collection/MakeCollection";
 import EditCollection from "../pages/Collection/EditCollection";
 
 import Layout from "../elements/Layout";
-
+import VoiceOfCustomer from "../pages/Setting/VoiceOfCustomer";
 
 
 
@@ -138,6 +138,7 @@ function App(props) {
           <Route path="/follower/:otherId" exact component={OtherFollow}/>
           <Route path="/changeprofileimg" component ={ChangeProfileImg}/>
           <Route path="/setting" exact component={Setting}/>
+          <Route path="/voiceOfCustomer" exact component={VoiceOfCustomer}/>
 
           <Route path="*" component={ErrorPage}/>
 

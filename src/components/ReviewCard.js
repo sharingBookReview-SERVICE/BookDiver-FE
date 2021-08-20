@@ -319,6 +319,7 @@ const UserName = styled.p`
   font-size: 14px;
   font-weight: normal;
   margin: 0px 8px 0px 0px;
+  cursor:pointer;
 `;
 
 const CreatedAt = styled.p`
@@ -337,6 +338,7 @@ const ContentBox = styled.div`
   justify-content: flex-start;
   aligh-items: flex-start;
   padding: 0px 24px;
+  cursor:pointer;
 `;
 
 const BookTitle = styled.p`

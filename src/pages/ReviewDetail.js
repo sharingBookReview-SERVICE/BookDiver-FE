@@ -74,7 +74,7 @@ const ReviewDetail = (props) => {
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
-  const profileImage = useSelector((state) => state.user.user.profileImage)
+  const profileImage = user?.profileImage
 
 
 

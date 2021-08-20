@@ -11,6 +11,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import CallIcon from '@material-ui/icons/Call';
+
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -63,7 +65,12 @@ const Setting = (props) => {
                 <PolicyOutlinedIcon/>
                 <Menu>서비스 이용약관</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
-            </Wrapper>    
+            </Wrapper>   
+            <Wrapper>
+                <CallIcon/>
+                <Menu>고객의 소리</Menu>
+                <ArrowForwardIosOutlinedIcon onClick={() => {history.push("/voiceOfCustomer")}} className={classes.icon}/>
+            </Wrapper> 
             <Wrapper
              onClick={()=>{
                  history.push('/changename')
