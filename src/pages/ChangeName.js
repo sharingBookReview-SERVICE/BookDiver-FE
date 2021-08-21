@@ -94,7 +94,7 @@ const ChangeName = (props) =>{
 
 const Background = styled.div`
 width: 100%;
-height: 100%;
+height: 100vh;
 justify-content: top;
 align-items: top;
 background: ${Color.mainColor};
