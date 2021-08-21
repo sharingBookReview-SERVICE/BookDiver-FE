@@ -98,7 +98,7 @@ const HomeBGColor = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  position:absolute;
 
   @media ${(props) => props.theme.mobile} {
     padding: 120px 0 0 0;

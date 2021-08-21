@@ -120,7 +120,7 @@ position: fixed;
 bottom:0px;
 height: 60px;
 box-shadow: 0 -4px 4px -2px rgba(0,0,0,0.2);
-z-index: 1000;
+z-index: 50;
 @media ${(props) => props.theme.tablet} {
   width: 420px;
   height: 60px;
