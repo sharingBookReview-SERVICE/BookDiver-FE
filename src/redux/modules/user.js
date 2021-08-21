@@ -4,6 +4,7 @@ import instance from "../../shared/Request";
 import jwt_decode from "jwt-decode";
 import { actionCreators as permitActions } from "./permit";
 
+
 //actions
 const GET_USER = "GET_USER";
 const DELETE_USER = "DELETE_USER";
@@ -114,7 +115,8 @@ const setUserSV = (userId, nickname) => {
       })
     
       .catch((err)=>{
-        window.alert("다른 분이 사용중인 닉네임이에요!")
+        dispatch(permitActions.showModal(true))
+        // window.alert("다른 분이 사용중인 닉네임이에요!")
       })
    
     
