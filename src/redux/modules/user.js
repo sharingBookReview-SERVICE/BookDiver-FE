@@ -114,7 +114,7 @@ const setUserSV = (userId, nickname) => {
       })
     
       .catch((err)=>{
-        // history.push("*")
+        window.alert("다른 분이 사용중인 닉네임이에요!")
       })
    
     
