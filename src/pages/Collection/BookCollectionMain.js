@@ -66,22 +66,22 @@ const BookCollectionMain = (props) =>{
                         spaceBetween:115,
                     },
                     320:{
-                        spaceBetween:75,
+                        spaceBetween:70,
                     },
                     360:{
-                        spaceBetween:40,
+                        spaceBetween:35,
                     },
                     375:{
-                        spaceBetween:25,
+                        spaceBetween:20,
                     },
                     410:{
-                        spaceBetween:-10,
+                        spaceBetween:-15,
                     },
                     540:{
-                        spaceBetween:-130,
+                        spaceBetween:-145,
                     },
                     541:{
-                        spaceBetween:-15,
+                        spaceBetween:-25,
                     }
                 }}
                 >
@@ -111,22 +111,22 @@ const BookCollectionMain = (props) =>{
                         spaceBetween:115,
                     },
                     320:{
-                        spaceBetween:75,
+                        spaceBetween:70,
                     },
                     360:{
-                        spaceBetween:40,
+                        spaceBetween:35,
                     },
                     375:{
-                        spaceBetween:25,
+                        spaceBetween:20,
                     },
                     410:{
-                        spaceBetween:-10,
+                        spaceBetween:-15,
                     },
                     540:{
-                        spaceBetween:-130,
+                        spaceBetween:-145,
                     },
                     541:{
-                        spaceBetween:-15,
+                        spaceBetween:-25,
                     }
                 }}
                 >
@@ -184,12 +184,13 @@ padding-bottom: 100px;
 const MakeBtn = styled.div`
 cursor:pointer;
 height: 56px;
-background: black;
+background: ${Color.black};
 border-radius: 12px;
 position: fixed;
 bottom: 70px;
 z-index: 1000;
 color: ${Color.mainColor};
+font-weight:500;
 text-align: center;
 line-height: 56px;
 font-size: 20px;

@@ -75,7 +75,6 @@ const Home = (props) => {
         })}
 
       <div ref={ref}></div>
-      {is_loading && <Spinner src={spinner}/>}
       </HomeBGColor>
       {is_edit_modal && <EditModal />}
       {show_login_modal && <LoginModal/>}
