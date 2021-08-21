@@ -48,7 +48,7 @@ const initialState = {
 //전체 피드 불러오기
 const getAllReviewSV = () => {
 
-    return function (dispatch,{history}) {
+    return function (dispatch) {
         instance
             .get("/feeds")
             .then((res) => {
@@ -76,7 +76,7 @@ const getAllReviewSV = () => {
 
 const getMoreReviewSV = (lastId) => {
 
-    return function (dispatch,{history}) {
+    return function (dispatch) {
         instance
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
@@ -93,7 +93,7 @@ const getMoreReviewSV = (lastId) => {
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
 
-    return function (dispatch, {history}) {
+    return function (dispatch) {
         instance
             .post(`/books/${bookId}/reviews`, formData, {
                 headers: {
@@ -119,7 +119,7 @@ const addReviewSV = (formData, bookId) => {
 //포스트 삭제하기
 const deleteReviewSV = () => {
 
-    return function (dispatch, getState,{history}) {
+    return function (dispatch, getState) {
         const bookId = getState().review.feed_id.bookId;
         const reviewId = getState().review.feed_id.reviewId;
 
@@ -137,7 +137,7 @@ const deleteReviewSV = () => {
 
 //포스트 수정하기
 const editReviewSV = (bookId, reviewId, review) => {
-    return function (dispatch, getState, { history }) {
+    return function (dispatch, getState) {
         instance
             .put(`/books/${bookId}/reviews/${reviewId}`, {
                 quote: review.quote,
@@ -157,7 +157,7 @@ const editReviewSV = (bookId, reviewId, review) => {
 //상세보기
 const getDetailReviewSV = (bookId, reviewId) => {
 
-    return function (dispatch, {history}) {
+    return function (dispatch) {
         instance
             .get(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
@@ -173,7 +173,7 @@ const getDetailReviewSV = (bookId, reviewId) => {
 //라이크 버튼
 const LikeSV = (bookId, reviewId) => {
 
-    return function (dispatch, {history}) {
+    return function (dispatch) {
         instance
             .put(`/books/${bookId}/reviews/${reviewId}/likes`)
             .then((res) => {
@@ -189,7 +189,7 @@ const LikeSV = (bookId, reviewId) => {
 
 //해당 책의 리뷰 가져오기
 const getReviewsBookHaveSV = (bookId) => {
-    return function (dispatch, getState, { history }) {
+    return function (dispatch, getState) {
         instance
             .get(`/books/${bookId}/reviews`)
             .then((res) => {
