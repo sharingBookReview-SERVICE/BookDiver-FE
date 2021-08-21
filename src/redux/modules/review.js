@@ -64,6 +64,7 @@ const getAllReviewSV = () => {
 
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
+                dispatch(permitActions.isLoading(false))
                 
             })
             .catch((err) => {
@@ -81,6 +82,7 @@ const getMoreReviewSV = (lastId) => {
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
                 dispatch(getMoreReview(res.data));
+                dispatch(permitActions.isLoading(false))
             })
             .catch((err) => {
                 // history.push("*")

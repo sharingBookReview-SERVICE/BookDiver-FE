@@ -12,6 +12,7 @@ import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import CallIcon from '@material-ui/icons/Call';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +37,10 @@ const Setting = (props) => {
     const logoutModal = useSelector(state=> state.permit.is_modal);
     const signoutModal = useSelector(state=> state.permit.is_modal2);
 
+    const goToNoti = () => {
+        history.push("/")
+    }
+
     return(
      
         <Container>
@@ -50,6 +55,7 @@ const Setting = (props) => {
                 onClick = {()=>{history.goBack()}}
                 />
                 <Text>설정</Text>
+                <NotificationsNoneIcon/>
             </Head>
             <Wrapper>
                 <PolicyOutlinedIcon/>
@@ -108,11 +114,18 @@ height: 100vh;
 `;
 const Head = styled.div`
 width: 100%;
-height: 10%;
+height: 56px;
 align-items: center;
 display: flex;
-margin: 16px 0px;
+background:${Color.black};
+color:${Color.white};
+
+@media ${(props) => props.theme.mobile} {
+    padding: 20px 0 0 0;
+}
+
 `;
+
 const Text = styled.div`
 width: 70%;
 text-align: center;

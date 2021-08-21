@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     more:{
       position: "absolute",
       top: "4%",
-      right: "10%",
+      right: "5%",
       color: "white"
     }
   }));
@@ -46,6 +46,8 @@ const CollectionDetail = (props) =>{
     const my_id = useSelector(state=> state.user.user.id);
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
+    console.log("----------콜렉션 디테일")
+
     React.useEffect(()=>{
       dispatch(permitActions.showNav(true));
         dispatch(collectionActions.getCollectionDetailSV(collection_id))
@@ -59,6 +61,7 @@ const CollectionDetail = (props) =>{
       dispatch(permitActions.showModal(true));
      
     }
+
     return(
       
          
@@ -74,8 +77,9 @@ const CollectionDetail = (props) =>{
                 />
             </Head>
                 <CollectionOutter>
-                     <Overlay/>
+                    
                     <Image url={image? image: defaultImg}>
+                    <Overlay/>
                         <TitleBox>
                         <Title>{name}</Title>
                         <Nickname>{user?.nickname}</Nickname>
@@ -89,7 +93,7 @@ const CollectionDetail = (props) =>{
                           }}
                           />
                         }
-                       
+
                     </Image>
                   <Wrapper>
                     <Description>{description}</Description>
@@ -106,6 +110,7 @@ const CollectionDetail = (props) =>{
                          <Div>댓글 {comments?.length} 개</Div>
                      </ReactionBar> */}
                     </Wrapper>
+
                 </CollectionOutter>
                 {/* <CommentList>
                   {
@@ -196,26 +201,28 @@ padding-top: 100%;
 background-image: url(${(props) => props.url});
 background-size: cover;
 border-radius: 12px 12px 0px 0px;
+position:relative;
 `;
 
 
 const Overlay = styled.div`
-width: 90%;
-padding-top: 90%;
+width: 100%;
+padding-top: 100%;
 border-radius: 12px 12px 0px 0px;
-background: black;
+background-image: linear-gradient( 181.3deg,  rgba(0,0,0,0.75) 23.8%, rgba(0,0,0,0.72) 42.2%, rgba(0,0,0,0.63) 56.9%, rgba(0,0,0,0.42) 75.1%, rgba(0,0,0,0) 96.2% );
 opacity: 30%;
 position: absolute;
+top:0px;
 `
 
 const TitleBox = styled.div`
 position: absolute;
 width: 80%;
-top: 7%;
+top: 35%;
 left: 10%;
 height: auto;
-
 `;
+
 const Title = styled.p`
 font-family: "Noto Serif KR", serif;
 color: ${Color.white};
@@ -260,6 +267,9 @@ background: black;
 
 `;
 const CommentList = styled.div`
+width:100%;
+height:auto;
+padding:5px;
 `;
 
 const CommentInputBox = styled.div`
@@ -267,20 +277,22 @@ const CommentInputBox = styled.div`
   width: 100%;
   padding: 12px 16px;
   box-sizing: border-box;
-  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-top: 1px solid #c3b4a2;
   background-color: ${Color.mainColor};
-  position: fixed;
-  bottom: 0;
+  position:fixed;
+  
+
   @media ${(props) => props.theme.tablet} {
     width: 420px;
+    position: fixed;
 }
   
 @media ${(props) => props.theme.desktop} {
     width: 420px;
+    position: fixed;
 }
 `;
 

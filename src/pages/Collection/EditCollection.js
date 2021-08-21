@@ -52,10 +52,10 @@ const EditCollection = (props) => {
     const more_select = useSelector(state=> state.collection.more_select);
     
     const is_modal = useSelector(state=> state.permit.is_modal);
+    console.log("반영")
     
-    
-    const name = useRef(collection_detail?.name);
-    const description = useRef(collection_detail?.description);
+    const _name = useRef(collection_detail?.name);
+    const _description = useRef(collection_detail?.description);
 
      //책 더 추가하기
      const addMoreBtn = ()=>{
@@ -69,12 +69,14 @@ const EditCollection = (props) => {
 
     const editCollection = ()=>{
         const collection = {
-            name: name.current.value,
-            description: description.current.value,
+            name: _name.current.value,
+            description: _description.current.value,
             contents: selected_Books
         }
+        console.log(collection)
         dispatch(collectionActions.editCollectionDetailSV(collection_id, collection))
     }
+
 //detail 가져오기
    useEffect(()=>{
     dispatch(permitActions.showModal(false));
@@ -85,8 +87,8 @@ const EditCollection = (props) => {
 
 //원래 있던 content리덕스에 넣기
    useEffect(()=>{
-     name.current.value = collection_detail?.name;
-     description.current.value = collection_detail?.description;
+     _name.current.value = collection_detail?.name;
+     _description.current.value = collection_detail?.description;
 
     },[collection_detail])
   
@@ -99,17 +101,17 @@ const EditCollection = (props) => {
             <ArrowBackIcon className={classes.goback}
             onClick = {()=>{history.goBack()}}
             />
-                <SubmitButton 
-                 onClick={()=>{editCollection()}}
-              >게시하기</SubmitButton>
-         
+            <SubmitButton 
+            onClick={() => {editCollection()}}
+            >게시하기
+            </SubmitButton>
         </Head>
         <Wrapper>
             <Label>
                 컬렉션 제목
             </Label>
             <TitleInput
-               ref={name}
+               ref={_name}
             ></TitleInput>
             
             <ImageBox >
@@ -121,7 +123,7 @@ const EditCollection = (props) => {
                 컬렉션 설명
             </Label>
             <DescTextarea
-                ref={description}
+                ref={_description}
             ></DescTextarea>
            
               {

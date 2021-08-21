@@ -78,16 +78,18 @@ const Main = styled.div`
     display: none; /* Chrome, Safari, Opera*/
   }
   @media ${(props) => props.theme.mobile} {
-    padding-top:90px;
+    padding-top:120px;
     padding-bottom:100px;
   }
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
+    padding-bottom:100px;
 }
   
 @media ${(props) => props.theme.desktop} {
     width: 100%;
+    padding-bottom:100px;
 }
 
 
