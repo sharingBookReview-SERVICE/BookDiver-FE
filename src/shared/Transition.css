@@ -6,6 +6,12 @@ body {
     75% { opacity: .5; transform: translateZ(-500px); }
     100% { opacity: 1; transform: translateZ(0) translateX(0); }
   }
+  .page {
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+  }
   .transition-group {
     position: relative;
   }
@@ -44,26 +50,51 @@ body {
     transition: all 700ms;
     background: purple;
   }
-
+  .fade-appear,
   .fade-enter {
-    max-height: 0;
-    opacity: 0;
+      opacity: 0;
+      z-index: 1;
   }
-  
-  .fade-enter-active {
-    max-height: 30px;
-    opacity: 1;
-    transition: all 500ms;
+  .fade-appear-active,
+  .fade-enter.fade-enter-active {
+      opacity: 1;
+      transition: opacity 300ms linear 150ms;
   }
   
   .fade-exit {
-    max-height: 30px;
+      opacity: 1;
+  }
+  
+  .fade-exit.fade-exit-active {
+      opacity: 0;
+      transition: opacity 150ms linear;
+  }
+  
+
+  .slide-appear,
+  .slide-enter {
+    z-index:1;
+    opacity: 0.9;
+    /* transform: scale(1.1); */ 
+    transform: translate3d(100%, 0,0);
+
+  }
+  .slide-appear-active,
+  .slide-enter.slide-enter-active {
     opacity: 1;
-  }
-  
-  .fade-exit-active {
-    max-height: 0;
-    opacity: 0;
+    transform: translate3d(0, 0,0);
     transition: all 500ms;
+
   }
   
+  .slide-exit {
+    opacity: 1;
+    transform: translate3d(0, 0,0);
+
+  }
+  
+  .slide-exit.slide-exit-active {
+    opacity: 0.9;
+    transition: all 700ms;
+
+  }

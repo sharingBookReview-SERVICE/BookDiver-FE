@@ -91,12 +91,8 @@ function App(props) {
       <Layout>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
-        <TransitionGroup 
-        childFactory={child => React.cloneElement( 
-          child, 
-          {classNames: "pageSlider", timeout:500})}
-        >
-        <CSSTransition key={location.pathname} classNames="pageSlider" timeout={500}>
+        <TransitionGroup >
+        <CSSTransition exact key={location.pathname==="/bookCollectionMain"?"location.pathname":null} classNames="slide" timeout={500}>
 
           <Switch location={location}>
           <Route path="/" exact component={Home} />
@@ -157,7 +153,7 @@ function App(props) {
 }
 
 const Container = styled.div`
-
+position: absolute;
   width: 100vw;
   height: 100vh;
   background: ${Color.mainColor};
