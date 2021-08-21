@@ -92,7 +92,9 @@ function App(props) {
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
         <TransitionGroup >
-        <CSSTransition exact key={location.pathname==="/bookCollectionMain"?"location.pathname":null} classNames="slide" timeout={500}>
+        {/* {location.pathname==="/postwrite"?location.pathname:null} */}
+        <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
+        classNames="slide" timeout={300}>
 
           <Switch location={location}>
           <Route path="/" exact component={Home} />

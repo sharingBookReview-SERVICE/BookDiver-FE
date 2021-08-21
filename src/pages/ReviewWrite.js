@@ -424,6 +424,7 @@ const PostWriteBox = styled.div`
   padding: 70px 0 30px 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
+  position: absolute;
 `;
 
 const PostHeader = styled.div`

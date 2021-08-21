@@ -60,12 +60,12 @@ const CollectionDetail = (props) =>{
     }
     return(
       
-         <div >
-            {
+         
+          
+          <ComponentWrapper >
+             {
             is_modal && <EditModal is_collection />
           }
-          <ComponentWrapper >
-           
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -121,7 +121,7 @@ const CollectionDetail = (props) =>{
             </CommentInputBox>
             </Container>
             </ComponentWrapper>
-            </div>
+          
           
     )
 }
@@ -154,7 +154,7 @@ width:100vw;
 height:auto;
 background: ${Color.mainColor};
 box-sizing:border-box;
-
+position: absolute;
 @media ${(props) => props.theme.tablet} {
     width: 100%;
 }
