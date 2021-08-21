@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configStore";
 
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, withRouter } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transition.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,13 +90,13 @@ function App(props) {
       <GlobalStyle />
       <Layout>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
-        <ConnectedRouter history={history}>
-        <TransitionGroup >
+        
+        {/* <TransitionGroup >
         {/* {location.pathname==="/postwrite"?location.pathname:null} */}
-        <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
-        classNames="slide" timeout={300}>
-
-          <Switch location={location}>
+        {/* <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
+        classNames="slide" timeout={300}>  */}
+        <ConnectedRouter history={history}>
+          <Switch>
           <Route path="/" exact component={Home} />
 
 
@@ -143,9 +143,10 @@ function App(props) {
           <Route path="*" component={ErrorPage}/>
 
           </Switch>
-          </CSSTransition>
-        </TransitionGroup>
           </ConnectedRouter>
+          {/* </CSSTransition>
+        </TransitionGroup> */}
+         
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}
       </Container>

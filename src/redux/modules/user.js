@@ -69,7 +69,7 @@ const getUserSV = ()=>{
       dispatch(getUser(res.data.user));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -89,7 +89,7 @@ const loginCheck = () => {
     if (user) {
       dispatch(setUser({_id: userId, nickname: nickname, token: token}));
     } else {
-      history.push("*")
+      // history.push("*")
     }
   };
 };
@@ -114,7 +114,7 @@ const setUserSV = (userId, nickname) => {
       })
     
       .catch((err)=>{
-        history.push("*")
+        // history.push("*")
       })
    
     
@@ -134,7 +134,7 @@ const deleteUserSV = (id) =>{
       dispatch(deleteUser(id));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -148,7 +148,7 @@ const followSV = (id) => {
       dispatch(follow(id))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -163,7 +163,7 @@ const deleteFollowerSV = (id) => {
       dispatch(getFollowerList(res.data.followerList))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -175,7 +175,7 @@ const getFollowingListSV = () => {
       dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -187,7 +187,7 @@ const getFollowerListSV = () => {
       dispatch(getFollowList(res.data.followerList))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -201,7 +201,7 @@ const getOtherFollowingListSV = (userId) => {
       dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -214,7 +214,7 @@ const getOtherFollowerListSV = (userId) => {
       dispatch(getFollowList(res.data.followerList))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -251,7 +251,7 @@ const getTreasureSV = () => {
       getUserSV(userId)
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -263,7 +263,7 @@ const changeProfileSV = (image) => {
       console.lof(res)
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
   })
 }}
 
@@ -277,7 +277,7 @@ const getMyFeedSV = (id)=>{
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -291,7 +291,7 @@ const getOtherFeedSV = (userId) => {
       dispatch(getMyFeed(res.data));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -304,7 +304,7 @@ const checkTreasureSV = () => {
       dispatch(permitActions.isTreasure(res.data.treasure))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }

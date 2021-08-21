@@ -69,7 +69,7 @@ const selectBooksSV = (id)=>{
         dispatch(selectBooks(_book))
       })
       .catch((err)=>{
-        history.push("*")
+        // history.push("*")
           console.log("책로드 하나 실패", err)
       })
   }
@@ -88,7 +88,7 @@ const getTagCollectionsSV = ()=>{
       dispatch(getTagCollections(res.data.collections));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -106,7 +106,7 @@ const getCustomCollectionsSV = ()=>{
       dispatch(getCustomCollections(res.data.collections));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
@@ -124,7 +124,7 @@ const addCollectionSV = (formData)=>{
     history.push('/bookCollectionMain')
   })
   .catch((err) => {
-    history.push("*")
+    // history.push("*")
     console.log("post작성 실패", err);
    
   })
@@ -167,10 +167,11 @@ const editCollectionDetailSV = (id, collection)=>{
       contents : collection.contents
     })
     .then((res)=>{
-      history.push(`/collectiondetail/${id}`)
+      dispatch(getCollectionDetail(res.data))
+      history.push("/")
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
       console.log("콜렉션수정 실패", err)
     })
   }
@@ -186,7 +187,7 @@ const deleteCollectionSV = ()=>{
       history.push('/bookCollectionMain')
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
       console.log("컬렉션 삭제 실패", err)
     })
   }

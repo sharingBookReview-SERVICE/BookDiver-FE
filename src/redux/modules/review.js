@@ -68,7 +68,7 @@ const getAllReviewSV = () => {
             })
             .catch((err) => {
                
-                history.push("*")
+                // history.push("*")
                 localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
             });
     };
@@ -83,7 +83,7 @@ const getMoreReviewSV = (lastId) => {
                 dispatch(getMoreReview(res.data));
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("전체 피드 가져오기 실패", err);
             });
     };
@@ -102,7 +102,7 @@ const addReviewSV = (formData, bookId) => {
             })
             .then((res) => {
                 if(res.data.error){
-                    history.push("*")
+                    // history.push("*")
                     return;
                 }
                 dispatch(addReview(res.data.review));
@@ -110,7 +110,7 @@ const addReviewSV = (formData, bookId) => {
                 history.push("/");
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("post작성 실패", err);
             });
     };
@@ -129,7 +129,7 @@ const deleteReviewSV = () => {
                 dispatch(deleteReview(reviewId));
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("포스트 삭제도중 에러 발생", err);
             });
     };
@@ -148,7 +148,7 @@ const editReviewSV = (bookId, reviewId, review) => {
                 history.goBack();
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("포스트 수정중 에러 발생", err);
             });
     };
@@ -164,7 +164,7 @@ const getDetailReviewSV = (bookId, reviewId) => {
                 dispatch(getDetailReview(res.data.review));
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("상세포스트 에러 발생", err);
             });
     };
@@ -180,7 +180,7 @@ const LikeSV = (bookId, reviewId) => {
                 dispatch(like(reviewId));
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("좋아요 실패", err);
             });
     };
@@ -196,7 +196,7 @@ const getReviewsBookHaveSV = (bookId) => {
                 dispatch(getReviewsBookHave(res.data.reviews));
             })
             .catch((err) => {
-                history.push("*")
+                // history.push("*")
                 console.log("해당 책의 리뷰 가져오기 실패", err);
             });
     };
