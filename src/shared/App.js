@@ -91,12 +91,11 @@ function App(props) {
       <Layout>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         
-        {/* <TransitionGroup >
-        {/* {location.pathname==="/postwrite"?location.pathname:null} */}
-        {/* <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
-        classNames="slide" timeout={300}>  */}
+        <TransitionGroup  >
+        <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
+        classNames="slide" timeout={300}>
         <ConnectedRouter history={history}>
-          <Switch>
+          <Switch location={location}>
           <Route path="/" exact component={Home} />
 
 
@@ -144,8 +143,8 @@ function App(props) {
 
           </Switch>
           </ConnectedRouter>
-          {/* </CSSTransition>
-        </TransitionGroup> */}
+          </CSSTransition>
+        </TransitionGroup>
          
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}
@@ -172,7 +171,7 @@ position: absolute;
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  // padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
+  padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
   position: relative;
 
 
