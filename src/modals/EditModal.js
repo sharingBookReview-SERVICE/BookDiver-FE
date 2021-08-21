@@ -85,25 +85,29 @@ const EditModal = (props) =>{
 
 
 const Overlay = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color:black;
-  z-index: 9999;
-  position: fixed;
-  opacity:0.4;
-  cursor:pointer;
+width: 100vw;
+height: 100vh;
+background-color:black;
+z-index: 99;
+position: fixed;
+opacity:0.4;
+cursor:pointer;
 
-  @media ${(props) => props.theme.tablet} {
-    width: 420px;
-  }
-  @media ${(props) => props.theme.desktop} {
-    width: 420px;
-  }
+@media ${(props) => props.theme.tablet} {
+  width: 420px;
+}
+@media ${(props) => props.theme.desktop} {
+  width: 420px;
+}
+
 `;
 
+
 const Container = styled.div`
-top:13%;
+top:40%;
+
 width: 80vw;
+border-radius: 12px;
 display:flex;
 flex-direction: column;
 justify-content: center;
@@ -111,25 +115,23 @@ align-items: center;
 text-align: center;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
-z-index: 10000;
+z-index: 100;
 position:fixed;
-border-radius: 12px;
+
 
 @media ${(props) => props.theme.mobile} {
-  left:9%;
-}
-
-@media ${(props) => props.theme.tablet} {
-  width: 300px;
-  margin-left:15px;
-  left:10%;
-}
-
-@media ${(props) => props.theme.desktop} {
-  width: 300px;
-  margin-left:15px;
-  left:10%;
-}
+    left:10%;
+  }
+  
+  @media ${(props) => props.theme.tablet} {
+    width: 390px;
+    margin-left:15px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 390px;
+    margin-left:15px;
+  }
 `;
 
 const Btn = styled.div`

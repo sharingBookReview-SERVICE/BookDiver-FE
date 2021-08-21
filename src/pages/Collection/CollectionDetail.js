@@ -59,10 +59,8 @@ const CollectionDetail = (props) =>{
       dispatch(permitActions.showModal(true));
     }
     return(
-        
-         <Transition in={true} timeout={200} appear>
-        {(status)=>(
-         <div className={`pageSlider pageSlider-${status}`}>
+      
+         <div >
             {
             is_modal && <EditModal is_collection />
           }
@@ -124,8 +122,7 @@ const CollectionDetail = (props) =>{
             </Container>
             </ComponentWrapper>
             </div>
-            )}
-        </Transition>
+          
     )
 }
 

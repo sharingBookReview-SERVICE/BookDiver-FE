@@ -91,9 +91,13 @@ function App(props) {
       <Layout>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         <ConnectedRouter history={history}>
-        {/* <TransitionGroup className="transition-group">
-        <CSSTransition key={location.pathname} classNames="fade" timeout={500}> */}
-        
+        <TransitionGroup 
+        childFactory={child => React.cloneElement( 
+          child, 
+          {classNames: "pageSlider", timeout:500})}
+        >
+        <CSSTransition key={location.pathname} classNames="pageSlider" timeout={500}>
+
           <Switch location={location}>
           <Route path="/" exact component={Home} />
 
@@ -141,8 +145,8 @@ function App(props) {
           <Route path="*" component={ErrorPage}/>
 
           </Switch>
-          {/* </CSSTransition>
-    </TransitionGroup> */}
+          </CSSTransition>
+        </TransitionGroup>
           </ConnectedRouter>
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}
