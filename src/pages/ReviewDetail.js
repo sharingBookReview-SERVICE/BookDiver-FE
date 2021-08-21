@@ -143,8 +143,8 @@ const ReviewDetail = (props) => {
     dispatch(commentAction.addCommentSV(comment_info));
 
     const noti_info = {
-      review : reviewId,
-      writer : userId,
+      reviewId,
+      userId,
       target : user?.id,
     }
     socket.emit("comment", noti_info)
@@ -173,10 +173,6 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
-    
-    socket.on("comment", () => {
-      console.log("-------소켓이 연결되었는가요?",socket.connected)
-    })
 
     if(is_comment) {
       //comment를 통해서 들어왔을 때는 comment 위치로 이동.
@@ -190,6 +186,12 @@ const ReviewDetail = (props) => {
       dispatch(permitAction.showEditModal(false));
     }
   }, []);
+
+  useEffect(() => {
+    socket.on("comment", (payload) => {
+      console.log("------누가 댓글을 달았는가",payload)
+    })
+  })
 
 
   
@@ -393,10 +395,12 @@ position: absolute;
 
 @media ${(props) => props.theme.tablet} {
   width: 100%;
+  padding-bottom: 35px;
 }
 
 @media ${(props) => props.theme.desktop} {
   width: 100%;
+  padding-bottom: 35px;
 }
 `;
 
