@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { actionCreators as permitActions } from "../redux/modules/permit";
@@ -16,6 +16,7 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
+
 
 
 
@@ -40,6 +41,10 @@ const Setting = (props) => {
     const goToNoti = () => {
         history.push("/")
     }
+
+    useEffect(() => {
+        dispatch(permitActions.isPadding(false));  //패딩 값을 없애기 
+    })
 
     return(
      
