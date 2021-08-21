@@ -151,7 +151,7 @@ const getCollectionDetailSV = (id)=>{
         dispatch(getSelectedBooks(_contents))
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
       console.log("콜렉션상세보기 실패", err)
     })
   }

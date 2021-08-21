@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { actionCreators as collectionActions } from "../../redux/modules/collection";
 
+import { Transition } from 'react-transition-group';
+import "../../shared/Transition.css";
+
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -28,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     more:{
       position: "absolute",
-      top: "12%",
+      top: "4%",
       right: "10%",
       color: "white"
     }
@@ -56,11 +59,12 @@ const CollectionDetail = (props) =>{
       dispatch(permitActions.showModal(true));
     }
     return(
-        <React.Fragment>
-           {
-            is_modal && <EditModal is_collection />
-          }
-          <ComponentWrapper>
+         <Transition in={true} timeout={200} appear>
+        {(status)=>(
+          //  {
+          //   is_modal && <EditModal is_collection />
+          // }
+          <ComponentWrapper className={`pageSlider pageSlider-${status}`}>
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -116,7 +120,8 @@ const CollectionDetail = (props) =>{
             </CommentInputBox>
             </Container>
             </ComponentWrapper>
-        </React.Fragment>
+            )}
+        </Transition>
     )
 }
 
@@ -203,9 +208,10 @@ position: absolute;
 const TitleBox = styled.div`
 position: absolute;
 width: 80%;
-top: 27%;
+top: 7%;
 left: 10%;
 height: auto;
+
 `;
 const Title = styled.p`
 font-family: "Noto Serif KR", serif;

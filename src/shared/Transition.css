@@ -6,24 +6,24 @@ body {
     position: relative;
   }
   
-  .fade-enter {
+  .pageSlider-entering {
     opacity: 0;
-    transform: translateX(100%) rotateZ(45deg);
+    transform: scale(1.1);
   }
   
-  .fade-enter-active {
+  .pageSlider-entered {
     opacity: 1;
-    transform: translateX(-50%) rotateZ(0);
-    transition: all 1s ease-in;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
   }
   
-  .fade-exit {
+  .pageSlider-exiting {
     opacity: 1;
-    transform: translateX(-50%) rotateZ(0);
+    transform: scale(1);
   }
   
-  .fade-exit-active {
+  .pageSlider-exited {
     opacity: 0;
-    transform: translateX(-100%) rotateZ(-45deg);
-    transition: all 1s ease-in;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
   }

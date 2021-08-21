@@ -3,6 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client"
 
+import { Transition } from 'react-transition-group';
+import "../shared/Transition.css";
+
 import { actionCreators as commentAction } from "../redux/modules/comment";
 import {actionCreators as reviewAction } from "../redux/modules/review";
 import { actionCreators as permitAction } from "../redux/modules/permit";
@@ -195,8 +198,9 @@ const ReviewDetail = (props) => {
 
   
   return (
-    <React.Fragment>
-      <Container> 
+    <Transition in={true} timeout={200} appear>
+      {(status)=>(
+      <Container className={`pageSlider pageSlider-${status}`}> 
          {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
             <Head>
@@ -306,10 +310,12 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-
+        <BottomDiv ref={bottomRef}></BottomDiv>
       </Container>
-      <BottomDiv ref={bottomRef}></BottomDiv>
-      </React.Fragment>
+      )}
+      {/* <BottomDiv ref={bottomRef}></BottomDiv> */}
+      
+      </Transition>
   );
 };
 
