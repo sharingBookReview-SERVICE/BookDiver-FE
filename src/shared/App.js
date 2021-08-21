@@ -169,7 +169,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
+  // padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
   position: relative;
 
 

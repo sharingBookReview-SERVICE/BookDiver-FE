@@ -185,6 +185,7 @@ border: 1px solid black;
 border-radius: 12px;
 margin: 0 auto;
 margin: 16px;
+margin-bottom: 100px;
 `;
 
 const Image = styled.div`
