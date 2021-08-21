@@ -42,7 +42,7 @@ const addCommentSV = (commentInfo) => {
     const bookId = commentInfo.bookId;
     const reviewId = commentInfo.reviewId;
 
-    return function(dispatch){
+    return function(dispatch,{history}){
       instance.post(`/books/${bookId}/reviews/${reviewId}/comments`,{
           username:"",
           content: comment,
@@ -58,6 +58,7 @@ const addCommentSV = (commentInfo) => {
           dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
         })
         .catch((err) =>{
+          history.push("*")
             console.log("댓글 추가 실패",err);
         })
     }
@@ -84,6 +85,7 @@ const editCommentSv = (content) => {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
     })
     .catch((err)=>{
+      history.push("*")
       console.log("댓글 수정 실패",err)
 
     })
@@ -111,6 +113,7 @@ const deleteCommentSV = (comment_info) => {
       dispatch(permitActions.showModal(false)) // 모달 닫아주기
     })
     .catch((err)=> {
+      history.push("*")
       console.log("댓글 삭제 실패",err)
 
     })

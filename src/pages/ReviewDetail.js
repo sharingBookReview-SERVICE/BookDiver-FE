@@ -70,7 +70,7 @@ const ReviewDetail = (props) => {
 
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const {book, comments, content, created_at,hashtags, image, likeCount, myLike, quote, user } = reviewDetail;
+  const {book, comments, content, koreaTime,hashtags, image, likeCount, myLike, quote, user } = reviewDetail;
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
@@ -195,7 +195,7 @@ const ReviewDetail = (props) => {
 
   
   return (
-    <React.Fragment>
+   <React.Fragment>
       <Container> 
          {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
@@ -220,7 +220,7 @@ const ReviewDetail = (props) => {
                   <UserName>{user?.nickname}</UserName>
                  
                 </Box>
-                <CreatedAt >{created_at}</CreatedAt>
+                <CreatedAt >{koreaTime}</CreatedAt>
               </Box>
 
             </UserLeftBox>
@@ -306,9 +306,9 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-
+      
       </Container>
-      <BottomDiv ref={bottomRef}></BottomDiv>
+        <BottomDiv ref={bottomRef}></BottomDiv>
       </React.Fragment>
   );
 };
@@ -385,7 +385,7 @@ const Container = styled.div`
 background: ${Color.mainColor};
 width: 100vw;
 height: auto;
-padding-bottom: 100px;
+margin-bottom: 70px;
 
 @media ${(props) => props.theme.tablet} {
   width: 100%;

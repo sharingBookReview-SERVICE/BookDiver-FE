@@ -37,7 +37,8 @@ const getSearchBooksSV = (target, query)=>{
             dispatch(getSearchBooks(res.data.searchList));
         })
         .catch((err)=>{
-            window.alert("검색 책 로드 실패");
+            // history.push("*")
+            window.alert("찾으시는 책이 없습니다.")
             console.log("검색 책 로드 실패", err);
         })
     }
@@ -46,13 +47,13 @@ const getSearchBooksSV = (target, query)=>{
 //책 하나만 불러오기
 const getOneBookSV = (id)=>{
     console.log("책 하나만 불러오기")
-    return function(dispatch){
+    return function(dispatch,{history}){
         instance.get(`/books/${id}`)
         .then((res)=>{
             dispatch(getOneBook(res.data));
         })
         .catch((err)=>{
-            window.alert("책 하나 로드 실패");
+            history.push("*")
             console.log("책로드 하나 실패", err)
         })
     }
@@ -61,13 +62,13 @@ const getOneBookSV = (id)=>{
 
 //베스트 셀러 불러오기
 const getBestSellerSV = ()=>{
-    return function(dispatch){
+    return function(dispatch,{history}){
         instance.get('/book/bestseller')
         .then((res)=>{
             dispatch(getBestSeller(res.data));
         })
         .catch((err)=>{
-            window.alert("베스트셀러 로드 실패!")
+            history.push("*")
             console.log("베스트셀러 로드 실패", err)
         })
     }

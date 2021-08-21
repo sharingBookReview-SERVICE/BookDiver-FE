@@ -102,7 +102,7 @@ const Overlay = styled.div`
 `;
 
 const Container = styled.div`
-top:40%;
+top:13%;
 width: 80vw;
 display:flex;
 flex-direction: column;
@@ -116,17 +116,19 @@ position:fixed;
 border-radius: 12px;
 
 @media ${(props) => props.theme.mobile} {
-  left:5%;
+  left:9%;
 }
 
 @media ${(props) => props.theme.tablet} {
-  width: 390px;
+  width: 300px;
   margin-left:15px;
+  left:10%;
 }
 
 @media ${(props) => props.theme.desktop} {
-  width: 390px;
+  width: 300px;
   margin-left:15px;
+  left:10%;
 }
 `;
 
