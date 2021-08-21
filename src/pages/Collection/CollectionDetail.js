@@ -59,12 +59,15 @@ const CollectionDetail = (props) =>{
       dispatch(permitActions.showModal(true));
     }
     return(
+        
          <Transition in={true} timeout={200} appear>
         {(status)=>(
-          //  {
-          //   is_modal && <EditModal is_collection />
-          // }
-          <ComponentWrapper className={`pageSlider pageSlider-${status}`}>
+         <div className={`pageSlider pageSlider-${status}`}>
+            {
+            is_modal && <EditModal is_collection />
+          }
+          <ComponentWrapper >
+           
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -120,6 +123,7 @@ const CollectionDetail = (props) =>{
             </CommentInputBox>
             </Container>
             </ComponentWrapper>
+            </div>
             )}
         </Transition>
     )

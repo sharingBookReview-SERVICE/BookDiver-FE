@@ -37,7 +37,8 @@ const getSearchBooksSV = (target, query)=>{
             dispatch(getSearchBooks(res.data.searchList));
         })
         .catch((err)=>{
-            history.push("*")
+            // history.push("*")
+            window.alert("찾으시는 책이 없습니다.")
             console.log("검색 책 로드 실패", err);
         })
     }

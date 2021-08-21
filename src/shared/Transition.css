@@ -33,3 +33,26 @@ body {
     transform: translate3d(-100%, 0,0); */
     transition: all 700ms;
   }
+
+  .fade-enter {
+    max-height: 0;
+    opacity: 0;
+  }
+  
+  .fade-enter-active {
+    max-height: 30px;
+    opacity: 1;
+    transition: all 500ms;
+  }
+  
+  .fade-exit {
+    max-height: 30px;
+    opacity: 1;
+  }
+  
+  .fade-exit-active {
+    max-height: 0;
+    opacity: 0;
+    transition: all 500ms;
+  }
+  

@@ -195,7 +195,7 @@ const ReviewDetail = (props) => {
 
   
   return (
-   
+   <React.Fragment>
       <Container> 
          {is_edit_modal && <EditModal/>}
          {is_modal && <CommentModal />}
@@ -306,9 +306,10 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-        <BottomDiv ref={bottomRef}></BottomDiv>
-      </Container>
       
+      </Container>
+        <BottomDiv ref={bottomRef}></BottomDiv>
+      </React.Fragment>
   );
 };
 
@@ -384,6 +385,7 @@ const Container = styled.div`
 background: ${Color.mainColor};
 width: 100vw;
 height: auto;
+margin-bottom: 70px;
 
 @media ${(props) => props.theme.tablet} {
   width: 100%;

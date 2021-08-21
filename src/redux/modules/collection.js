@@ -58,14 +58,15 @@ const selectBooksSV = (id)=>{
       instance.get(`/books/${id}`)
       .then((res)=>{
         
-        const book = {
+        const _book = {
           isbn: res.data.isbn,
+          book: res.data.isbn,
           image: res.data.image,
           title: res.data.title,
           author: res.data.author,
           book_description: ""
         }
-        dispatch(selectBooks(book))
+        dispatch(selectBooks(_book))
       })
       .catch((err)=>{
         history.push("*")
@@ -119,7 +120,6 @@ const addCollectionSV = (formData)=>{
       },
   })
   .then((res)=>{
-    console.log("컬렉션 만들어짐")
     dispatch(addCollection(res.data))
     history.push('/bookCollectionMain')
   })
@@ -141,6 +141,7 @@ const getCollectionDetailSV = (id)=>{
       for (let i = 0; i < contents.length; i++) { 
         _contents.push({
             isbn: contents[i].book.isbn,
+            book: contents[i].book.isbn,
             image: contents[i].book.image,
             author: contents[i].book.author,
             title: contents[i].book.title,
