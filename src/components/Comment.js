@@ -82,7 +82,7 @@ const Comment = (props) =>{
                         {props.user?.nickname? props.user.nickname : "탈퇴한 유저"}
                         </UserName>
                         <CreatedAt>
-                            {props.created_at}
+                            {props.koreaTime}
                         </CreatedAt>
                     </UserLeftBox>
 
