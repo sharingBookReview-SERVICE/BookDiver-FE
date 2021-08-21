@@ -47,7 +47,7 @@ const CollectionDetail = (props) =>{
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
     React.useEffect(()=>{
-        dispatch(permitActions.showNav(false));
+      dispatch(permitActions.showNav(true));
         dispatch(collectionActions.getCollectionDetailSV(collection_id))
     },[]);
 
@@ -57,17 +57,16 @@ const CollectionDetail = (props) =>{
     }
     const showEdit = ()=>{
       dispatch(permitActions.showModal(true));
+     
     }
     return(
-        
-         <Transition in={true} timeout={200} appear>
-        {(status)=>(
-         <div className={`pageSlider pageSlider-${status}`}>
-            {
+      
+         
+          
+          <ComponentWrapper >
+             {
             is_modal && <EditModal is_collection />
           }
-          <ComponentWrapper >
-           
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}
@@ -101,31 +100,30 @@ const CollectionDetail = (props) =>{
                      })
                    }
                     </Wrapper>
-                    <ReactionBar>
+                    {/* <ReactionBar>
                         <Div><FavoriteBorderIcon className={classes.like} />좋아요 {liked_users?.length} 개</Div>
                          <Hr></Hr>
                          <Div>댓글 {comments?.length} 개</Div>
-                     </ReactionBar>
+                     </ReactionBar> */}
                     </Wrapper>
                 </CollectionOutter>
-                <CommentList>
+                {/* <CommentList>
                   {
                     comments?.map((comment, idx)=>{
                       return(<Comment {...comment} key={idx}/>)
                     })
                   }
-                </CommentList>
-                <CommentInputBox>
+                </CommentList> */}
+                {/* <CommentInputBox>
                     <CommentInput/>
                     <CommentWriteButton>
                     게시
                     </CommentWriteButton>
-            </CommentInputBox>
+            </CommentInputBox> */}
             </Container>
             </ComponentWrapper>
-            </div>
-            )}
-        </Transition>
+          
+          
     )
 }
 
@@ -157,7 +155,7 @@ width:100vw;
 height:auto;
 background: ${Color.mainColor};
 box-sizing:border-box;
-
+position: absolute;
 @media ${(props) => props.theme.tablet} {
     width: 100%;
 }

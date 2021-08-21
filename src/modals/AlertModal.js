@@ -2,15 +2,13 @@
 import React from "react";
 import styled from "styled-components";
 import Color from "../shared/Color";
+import { useDispatch } from "react-redux";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 
 const AlertModal = (props) =>{
   //dispatch와 변수들
-
-//useEffect
-React.useEffect(()=>{
-},[]);
-
+  const dispatch = useDispatch();
 
 
 //뷰
@@ -22,13 +20,17 @@ React.useEffect(()=>{
          다른 분이 사용하고 있는 닉네임이에요.<br/>
         다른 닉네임을 입력해주세요.
          </Text>
-         <Btn>확인했어요</Btn>
+         <Btn onClick={()=>{
+            dispatch(permitActions.showModal(false));
+            }}>확인했어요</Btn>
     
           
          </Container>
-         <Overlay>
-
-         </Overlay>
+         <Overlay 
+            onClick={()=>{
+            dispatch(permitActions.showModal(false));
+            }}>
+            </Overlay>
         </React.Fragment>
     )
 }

@@ -99,13 +99,10 @@ const EditCollection = (props) => {
             <ArrowBackIcon className={classes.goback}
             onClick = {()=>{history.goBack()}}
             />
-             <UploadForm >
-                <Upload/>
-
                 <SubmitButton 
                  onClick={()=>{editCollection()}}
               >게시하기</SubmitButton>
-            </UploadForm>
+         
         </Head>
         <Wrapper>
             <Label>

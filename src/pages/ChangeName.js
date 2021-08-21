@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import Color from "../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
+import AlertModal from "../modals/AlertModal";
 
 import {images} from "../shared/Image"
 
@@ -32,6 +33,8 @@ const ChangeName = (props) =>{
 
   const [nickname, setNickName] = useState("");
 
+  const is_modal = useSelector(state=> state.permit.is_modal);
+
 
   //프로필 이미지 바꾸는 화면으로 이동
   const goToChangeImg = () => {
@@ -52,6 +55,9 @@ const ChangeName = (props) =>{
   
     return(
         <React.Fragment>
+          {
+            is_modal && <AlertModal/>
+          }
                 <Background>
                   <HeadBar>
                     
@@ -94,7 +100,7 @@ const ChangeName = (props) =>{
 
 const Background = styled.div`
 width: 100%;
-height: 100%;
+height: 100vh;
 justify-content: top;
 align-items: top;
 background: ${Color.mainColor};

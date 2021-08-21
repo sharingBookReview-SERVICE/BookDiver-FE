@@ -53,7 +53,7 @@ const getOneBookSV = (id)=>{
             dispatch(getOneBook(res.data));
         })
         .catch((err)=>{
-            history.push("*")
+            // history.push("*")
             console.log("책로드 하나 실패", err)
         })
     }
@@ -68,7 +68,7 @@ const getBestSellerSV = ()=>{
             dispatch(getBestSeller(res.data));
         })
         .catch((err)=>{
-            history.push("*")
+            // history.push("*")
             console.log("베스트셀러 로드 실패", err)
         })
     }

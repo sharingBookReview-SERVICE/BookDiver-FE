@@ -54,7 +54,7 @@ const initialState = {
 //middle
 //책 하나씩 불러와서 선택한 책 배열에 넣기
 const selectBooksSV = (id)=>{
-  return function(dispatch,{history}){
+  return function(dispatch){
       instance.get(`/books/${id}`)
       .then((res)=>{
         
@@ -69,7 +69,7 @@ const selectBooksSV = (id)=>{
         dispatch(selectBooks(_book))
       })
       .catch((err)=>{
-        history.push("*")
+        // history.push("*")
           console.log("책로드 하나 실패", err)
       })
   }
@@ -78,7 +78,7 @@ const selectBooksSV = (id)=>{
 
 //태그 기반 collection불러오기
 const getTagCollectionsSV = ()=>{
-  return function(dispatch,{history}){
+  return function(dispatch){
     instance.get('/collections',{
       params: {
         type: "tag"
@@ -88,14 +88,14 @@ const getTagCollectionsSV = ()=>{
       dispatch(getTagCollections(res.data.collections));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
 
 //사용자가 올린 collection불러오기
 const getCustomCollectionsSV = ()=>{
-  return function(dispatch,{history}){
+  return function(dispatch){
     instance.get('/collections',{
       params: {
         type: "custom"
@@ -106,14 +106,14 @@ const getCustomCollectionsSV = ()=>{
       dispatch(getCustomCollections(res.data.collections));
     })
     .catch((err)=>{
-      history.push("*")
+      // history.push("*")
     })
   }
 }
 
 //collection추가하기
 const addCollectionSV = (formData)=>{
-  return function(dispatch,{hitory}){
+  return function(dispatch){
     instance.post('/collections', formData, {
       headers: {
           "Content-Type": "multipart/form-data",
@@ -124,7 +124,7 @@ const addCollectionSV = (formData)=>{
     history.push('/bookCollectionMain')
   })
   .catch((err) => {
-    history.push("*")
+    // history.push("*")
     console.log("post작성 실패", err);
    
   })
@@ -133,7 +133,7 @@ const addCollectionSV = (formData)=>{
 
 //컬렉션 하나 상세보기
 const getCollectionDetailSV = (id)=>{
-  return function(dispatch,{history}){
+  return function(dispatch){
     instance.get(`/collections/${id}`)
     .then((res)=>{
       const contents = res.data.collection.contents;
@@ -160,14 +160,15 @@ const getCollectionDetailSV = (id)=>{
 
 //컬렉션 수정하기
 const editCollectionDetailSV = (id, collection)=>{
-  return function(dispatch,{history}){
+  return function(dispatch){
     instance.put(`/collections/${id}`,{
       name: collection.name,
       description: collection.description,
       contents : collection.contents
     })
     .then((res)=>{
-      history.push(`/collectiondetail/${id}`)
+      dispatch(getCollectionDetail(res.data))
+      history.push(`/bookCollectionMain`)
     })
     .catch((err)=>{
       history.push("*")
@@ -178,7 +179,7 @@ const editCollectionDetailSV = (id, collection)=>{
 
 //컬렉션 삭제하기
 const deleteCollectionSV = ()=>{
-  return function(dispatch, getState, {history}){
+  return function(dispatch, getState){
     const id = getState().collection.collection_id;
     instance.delete(`collections/${id}`)
     .then((res)=>{

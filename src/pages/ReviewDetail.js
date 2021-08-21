@@ -386,7 +386,7 @@ background: ${Color.mainColor};
 width: 100vw;
 height: auto;
 margin-bottom: 70px;
-
+position: absolute;
 @media ${(props) => props.theme.tablet} {
   width: 100%;
 }

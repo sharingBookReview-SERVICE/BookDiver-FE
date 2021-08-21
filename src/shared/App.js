@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configStore";
 
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, withRouter } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transition.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,10 +90,11 @@ function App(props) {
       <GlobalStyle />
       <Layout>
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
-        <ConnectedRouter history={history}>
-        {/* <TransitionGroup className="transition-group">
-        <CSSTransition key={location.pathname} classNames="fade" timeout={500}> */}
         
+        <TransitionGroup  >
+        <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
+        classNames="slide" timeout={300}>
+        <ConnectedRouter history={history}>
           <Switch location={location}>
           <Route path="/" exact component={Home} />
 
@@ -141,9 +142,10 @@ function App(props) {
           <Route path="*" component={ErrorPage}/>
 
           </Switch>
-          {/* </CSSTransition>
-    </TransitionGroup> */}
           </ConnectedRouter>
+          </CSSTransition>
+        </TransitionGroup>
+         
         {is_nav ? <Navigation /> : ""}
         {is_treasure && <TreasureModal/>}
       </Container>
@@ -153,7 +155,7 @@ function App(props) {
 }
 
 const Container = styled.div`
-
+position: absolute;
   width: 100vw;
   height: 100vh;
   background: ${Color.mainColor};
@@ -169,7 +171,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  // padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
+  padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
   position: relative;
 
 
