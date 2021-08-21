@@ -132,9 +132,8 @@ const CommentBox = styled.div`
 `;
 
 const CommentSizeBox = styled.div`
-
   width: 100%;
-  min-height: 130px;
+  min-height: 100px;
   height: auto;
   margin: auto;
 
