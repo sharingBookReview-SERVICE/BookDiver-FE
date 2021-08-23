@@ -74,7 +74,7 @@ const Home = (props) => {
     }
     timer = setTimeout(function() {
       dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
-    }, 2000);
+    }, 500);
   
   }
 
