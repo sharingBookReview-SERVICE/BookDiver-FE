@@ -86,7 +86,7 @@ const Home = (props) => {
   //뷰
   return (
     <Container  onScroll={scroll} ref={container}>
-      <HomeBGColor>
+      {/* <HomeBGColor> */}
         <Header />
  
         {reviewList?.map((review) => {
@@ -100,7 +100,7 @@ const Home = (props) => {
       <NotSupport is_support_modal={is_support_modal}/>
       <EditModal is_edit_modal={is_edit_modal}/>
       <LoginModal show_login_modal={show_login_modal}/>
-    </React.Fragment>
+    </Container>
   );
 };
 const Container = styled.div`
@@ -115,13 +115,11 @@ position: absolute;
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
-  position: relative;
+  padding :120px 0px;
 
 
   @media ${(props) => props.theme.tablet} {
