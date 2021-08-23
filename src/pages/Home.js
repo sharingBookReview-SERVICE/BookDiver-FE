@@ -78,10 +78,10 @@ const Home = (props) => {
         })}
 
       <div ref={ref}></div>
-      </HomeBGColor>
-      {is_support_modal && <NotSupport/>}
-      {is_edit_modal && <EditModal />}
-      {show_login_modal && <LoginModal/>}
+      </HomeBGColor>  
+      <NotSupport is_support_modal={is_support_modal}/>
+      <EditModal is_edit_modal={is_edit_modal}/>
+      <LoginModal show_login_modal={show_login_modal}/>
     </React.Fragment>
   );
 };

@@ -200,9 +200,9 @@ const ReviewDetail = (props) => {
   
   return (
    <React.Fragment>
-      <Container> 
-         {is_edit_modal && <EditModal/>}
-         {is_modal && <CommentModal />}
+      <Container>
+         <EditModal is_edit_modal={is_edit_modal}/>
+         <CommentModal is_modal={is_modal}/>
             <Head>
                 <ArrowBackIcon 
                 ref={topRef}
@@ -247,8 +247,8 @@ const ReviewDetail = (props) => {
 
                 <SelectBookCard {...book} is_reviewDetail />
                 <ReviewContent>
-                  <Quote> {quote}</Quote>
-                  <Content>{content}</Content>
+                  {quote ? <Quote> {quote}</Quote> : ""}
+                  {content ? <Content>{content}</Content> : ""}
                   <HashTagBox>
                   {hashtags?.map((tag, idx) => {
                      return <HashTag key={idx}>{`#${tag} `}</HashTag>
@@ -398,12 +398,12 @@ position: absolute;
 
 @media ${(props) => props.theme.tablet} {
   width: 100%;
-  padding-bottom: 80px;
+  padding-bottom: 130px;
 }
 
 @media ${(props) => props.theme.desktop} {
   width: 100%;
-  padding-bottom: 80px;
+  padding-bottom: 130px;
 }
 `;
 

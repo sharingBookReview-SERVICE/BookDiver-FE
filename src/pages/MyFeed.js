@@ -111,7 +111,7 @@ const MyFeed = () => {
       return(
         <React.Fragment>
         <Container>
-        {is_support_modal && <NotSupport/>}
+          <NotSupport is_support_modal={is_support_modal}/>
               <UserBox>
 
                 <SearchBox onClick={openNotSupportModal}>
@@ -178,7 +178,7 @@ const MyFeed = () => {
     return (
         <React.Fragment>
           <Container>
-          {is_support_modal && <NotSupport/>}
+          <NotSupport is_support_modal={is_support_modal}/>
                 <UserBox>
 
                   <SearchBox onClick={openNotSupportModal}>

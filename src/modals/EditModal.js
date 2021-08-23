@@ -1,16 +1,20 @@
 //import 부분
 import React from "react";
+import {history} from "../redux/configStore"
+import { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
+import { CommonContainer, CommonOverlay } from "../shared/styles/modal/CommonModal";
+
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as collectionActions } from "../redux/modules/collection";
-import { useDispatch, useSelector } from "react-redux";
-import {history} from "../redux/configStore"
+
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -31,7 +35,7 @@ const EditModal = (props) =>{
       return(
         <React.Fragment>
 
-            <Container>
+            <Container is_show={props.is_edit_modal || props.is_modal}>
               <Btn
                onClick={()=>{
                 history.push(`/editCollection/${collectionId}`)
@@ -48,6 +52,7 @@ const EditModal = (props) =>{
             </Container>
 
             <Overlay 
+            is_show={props.is_edit_modal || props.is_modal}
             onClick={()=>{
             dispatch(permitActions.showModal(false))
             }}>
@@ -59,7 +64,7 @@ const EditModal = (props) =>{
       return(
         <React.Fragment>
 
-            <Container>
+            <Container is_show={props.is_edit_modal}>
               <Btn onClick={() => {
                 history.push(`/postwrite/${bookId}/${reviewId}`)
               }}><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
@@ -72,7 +77,8 @@ const EditModal = (props) =>{
               }><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}} />게시물 삭제</Btn>
             </Container>
 
-            <Overlay 
+            <Overlay
+            is_show={props.is_edit_modal} 
             onClick={()=>{
             dispatch(permitActions.showEditModal(false))
             }}>
@@ -84,55 +90,14 @@ const EditModal = (props) =>{
 }
 
 
-const Overlay = styled.div`
-width: 100vw;
-height: 100vh;
-background-color:black;
-z-index: 99;
-position: fixed;
-opacity:0.4;
-cursor:pointer;
-
-@media ${(props) => props.theme.tablet} {
-  width: 420px;
-}
-@media ${(props) => props.theme.desktop} {
-  width: 420px;
-}
-
+const Overlay = styled(CommonOverlay)`
 `;
 
 
-const Container = styled.div`
-top:40%;
+const Container = styled(CommonContainer)`
 
-width: 80vw;
-border-radius: 12px;
-display:flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center;
-border: solid 1px #eeeeee; 
-background: ${Color.mainColor};
-z-index: 100;
-position:fixed;
-
-
-@media ${(props) => props.theme.mobile} {
-    left:10%;
-  }
-  
-  @media ${(props) => props.theme.tablet} {
-    width: 390px;
-    margin-left:15px;
-  }
-  
-  @media ${(props) => props.theme.desktop} {
-    width: 390px;
-    margin-left:15px;
-  }
 `;
+
 
 const Btn = styled.div`
 width: 288px;

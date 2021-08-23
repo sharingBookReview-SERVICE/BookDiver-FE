@@ -67,9 +67,7 @@ const CollectionDetail = (props) =>{
          
           
           <ComponentWrapper >
-             {
-            is_modal && <EditModal is_collection />
-          }
+          <EditModal is_collection is_modal={is_modal} />
             <Container>
             <Head>
                 <ArrowBackIcon className={classes.goback}

@@ -154,8 +154,8 @@ const ReviewCard = (props) => {
             <BookTitle>
               {bookTitle} | {bookAuthor}
             </BookTitle>
-            <Quote >{quote}</Quote>
-            <Content>{content}</Content>
+            {quote ? <Quote >{quote}</Quote> : ""}
+            {content ? <Content>{content}</Content> : ""}
 
             <HashTagBox>
               {hashtags.map((tag, idx) => (

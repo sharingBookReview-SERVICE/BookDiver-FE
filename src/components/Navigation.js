@@ -67,7 +67,9 @@ const Navigation = (props) => {
       </IconBox>
 
       <AddBox to="/login">
-        <AddBoxIcon className={classes.plusButton}/>
+      <PlusBox>
+          <AddIcon className={classes.plus}/>
+        </PlusBox>
       </AddBox>
 
       <IconBox to="/login" >
@@ -155,6 +157,10 @@ align-items:center;
 justify-content:flex-start;
 text-decoration:none;
 color:${Color.secondColor};
+transition: 0.2s ease-in-out;
+:hover {
+  color:${Color.black};
+}
 `
 
 const AddBox = styled(NavLink)`
@@ -176,6 +182,10 @@ const PlusBox = styled.div`
   justify-content:center;
   align-items:center;
   box-shadow:0px 5px 10px rgba(0, 0, 0, 0.4);
+  transition: 0.2s ease-in-out;
+  :hover{
+    transform:scale(1.1)
+  }
 `
 
 const PageName = styled.div`
