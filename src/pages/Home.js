@@ -40,6 +40,7 @@ const Home = (props) => {
     history.push("*")
   }
 
+
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
     dispatch(permitAction.showNav(true));
@@ -65,28 +66,33 @@ const Home = (props) => {
 
 
   //scroll 이벤트 관련
-  const [scrollLocation, setScrollLocation] = useState(0);
-  const lastScroll = useSelector(state=> state.review.current_scroll);
-  const scroll = (e)=>{
-    setScrollLocation(e.target.scrollTop)
-    dispatch(reviewActions.saveCurrentScroll(scrollLocation))
-  }
+  // const lastScroll = useSelector(state=> state.review.current_scroll);
+  // var timer;
+  // const scroll = (e)=>{
+  //   if (timer) {
+  //     clearTimeout(timer);
+  //   }
+  //   timer = setTimeout(function() {
+  //     dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
+  //   }, 200);
   
-  const contain = useRef(null);
-  useEffect(()=>{
-    contain.current.scrollTo(0, lastScroll);
-  },[])
+  // }
 
+  // const contain = useRef(null);
+  // useEffect(()=>{
+  //   contain.current.scrollTo(0, lastScroll);
+
+  // },[])
+  // onScroll={scroll} ref={contain}
+  //뷰
   return (
-    <Container onScroll={scroll} ref={contain}>
+    <Container >
       <HomeBGColor>
         <Header />
  
         {reviewList?.map((review) => {
               return (
-                <React.Fragment key={review.id}>
-                    <ReviewCard {...review} /> 
-                </React.Fragment>
+                    <ReviewCard {...review} key={review.id}/> 
               );
         })}
 
