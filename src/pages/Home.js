@@ -66,27 +66,26 @@ const Home = (props) => {
 
 
   //scroll 이벤트 관련
-  // const lastScroll = useSelector(state=> state.review.current_scroll);
-  // var timer;
-  // const scroll = (e)=>{
-  //   if (timer) {
-  //     clearTimeout(timer);
-  //   }
-  //   timer = setTimeout(function() {
-  //     dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
-  //   }, 200);
+  const lastScroll = useSelector(state=> state.review.current_scroll);
+  var timer;
+  const scroll = (e)=>{
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+      dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
+    }, 2000);
   
-  // }
+  }
 
-  // const contain = useRef(null);
-  // useEffect(()=>{
-  //   contain.current.scrollTo(0, lastScroll);
+  const container = useRef(null);
+  useEffect(()=>{
+    container.current.scrollTo(0, lastScroll);
 
-  // },[])
-  // onScroll={scroll} ref={contain}
+  },[])
   //뷰
   return (
-    <Container >
+    <Container  onScroll={scroll} ref={container}>
       <HomeBGColor>
         <Header />
  
