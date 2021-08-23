@@ -40,6 +40,7 @@ const Home = (props) => {
     history.push("*")
   }
 
+
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
     dispatch(permitAction.showNav(true));
@@ -64,28 +65,78 @@ const Home = (props) => {
   }, [inView]);
 
 
+  //scroll 이벤트 관련
+  const lastScroll = useSelector(state=> state.review.current_scroll);
+  var timer;
+  const scroll = (e)=>{
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+      dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
+    }, 500);
+  
+  }
+  const scrollToTop = () => {
+    container.current.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
+  const container = useRef(null);
+  useEffect(()=>{
+    container.current.scrollTo(0, lastScroll);
+
+  },[])
+  //뷰
   return (
-    <React.Fragment>
-      <HomeBGColor>
+    <Container  onScroll={scroll} ref={container}>
         <Header />
- 
+        <GoToTopBtn onClick={()=>{scrollToTop()}}/>
         {reviewList?.map((review) => {
               return (
-                <React.Fragment key={review.id}>
-                    <ReviewCard {...review} /> 
-                </React.Fragment>
+                    <ReviewCard {...review} key={review.id}/> 
               );
         })}
 
       <div ref={ref}></div>
-      </HomeBGColor>  
       <NotSupport is_support_modal={is_support_modal}/>
       <EditModal is_edit_modal={is_edit_modal}/>
       <LoginModal show_login_modal={show_login_modal}/>
-    </React.Fragment>
+    </Container>
   );
 };
+const Container = styled.div`
+position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: ${Color.mainColor};
+  overflow-y: ${(props) => props.is_modal_opened};
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding :120px 0px;
 
+
+  @media ${(props) => props.theme.tablet} {
+    width:420px;
+    height:100vh;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width:420px;
+    height:100vh;
+  }
+
+`;
 const Spinner = styled.img`
 width:150px;
 height:150px;
@@ -94,28 +145,16 @@ top:40%;
 margin-left:130px;
 `
 
-const HomeBGColor = styled.div`
-  background-color: ${Color.mainColor};
-  box-sizing: border-box;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position:absolute;
+const GoToTopBtn = styled.button`
 
-  @media ${(props) => props.theme.mobile} {
-    padding: 120px 0 0 0;
-  }
+width: 70px;
+height: 70px;
+border-radius: 70px;
+background-color: black;
+position: fixed;
+z-index: 100;
+bottom: 100px;
+right: 10px;
 
-  @media ${(props) => props.theme.tablet} {
-    padding: 80px 0 0 0;
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    padding: 80px 0 0 0;
-  }
 `;
-
-
 export default Home;

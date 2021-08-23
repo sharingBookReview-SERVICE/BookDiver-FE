@@ -18,6 +18,7 @@ const EDIT_REVIEW = "review/EDIT_REVIEW";
 const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
 const GET_FEED_ID = "review/GET_FEED_ID";
 const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
+const CURRENT_SCROLL = "review/CURRENT_SCROLL";
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({review_list}));
@@ -29,7 +30,7 @@ const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId,re
 const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
 const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}));
 const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({reviews}));
-
+const saveCurrentScroll = createAction(CURRENT_SCROLL, (location)=>({location}));
 //initial
 const initialState = {
     all_review_list: [],
@@ -42,6 +43,7 @@ const initialState = {
         feed_edit_id: "",
     },
     reviews_which_book_have: [],
+    current_scroll : 0
 };
 
 //middle
@@ -204,6 +206,7 @@ const getReviewsBookHaveSV = (bookId) => {
     };
 };
 
+
 //reducer
 export default handleActions(
     {
@@ -278,6 +281,10 @@ export default handleActions(
             produce(state, (draft) => {
                 draft.reviews_which_book_have = action.payload.reviews;
             }),
+        [CURRENT_SCROLL]:(state, action) =>
+        produce(state, (draft)=>{
+            draft.current_scroll = action.payload.location;
+        })
     },
     initialState
 );
@@ -292,6 +299,7 @@ const actionCreators = {
     getFeedId,
     getReviewsBookHaveSV,
     getMoreReviewSV,
+    saveCurrentScroll
 };
 
 export { actionCreators };

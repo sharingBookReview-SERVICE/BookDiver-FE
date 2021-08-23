@@ -45,6 +45,14 @@ const ChangeName = (props) =>{
     dispatch(userActions.setUserSV(userId, nickname))
   }
 
+  const goBack = () =>{
+    if(!defaultNickName) {
+      window.alert("닉네임을 설정해주세요")
+    }
+    else{
+      history.goBack();
+    }
+  }
 
   useEffect(() => {
     if(userId){
@@ -62,7 +70,7 @@ const ChangeName = (props) =>{
                   <HeadBar>
                     
                     <ArrowBackIcon className={classes.goback} 
-                    onClick={()=>{history.goBack()}}></ArrowBackIcon>
+                    onClick={()=>{goBack()}}></ArrowBackIcon>
                     <HeadBtn onClick={()=>{changeNickname()}}>변경완료</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
