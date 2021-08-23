@@ -103,7 +103,7 @@ function App(props) {
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         
         <TransitionGroup  >
-        <CSSTransition key={location.pathname.includes("detail") || location.pathname==="/changename"? location.pathname : null}  
+        <CSSTransition key={location.pathname.includes("bookdetail") ||location.pathname.includes("collectiondetail") || location.pathname==="/changename"? location.pathname : null}  
         classNames="slide" timeout={300}>
         <ConnectedRouter history={history}>
           <Switch location={location}>
