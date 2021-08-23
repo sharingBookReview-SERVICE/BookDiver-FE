@@ -8,6 +8,9 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
 import BookOutlinedIcon from '@material-ui/icons/BookOutlined';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import AddIcon from '@material-ui/icons/Add';
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import Color from "../shared/Color";
@@ -36,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
   active:{
     color:Color.black,
+  },
+  plus:{
+    color:Color.mainColor,
+    fontSize:"32px",
   }
 }));
 
@@ -50,7 +57,7 @@ const Navigation = (props) => {
       <NavBox>
 
       <IconBox to="/" exact activeClassName={classes.active}>
-        <ListAltIcon className={classes.icon}/>
+        <QuestionAnswerIcon className={classes.icon}/>
         <PageName >피드</PageName>
       </IconBox>
 
@@ -80,7 +87,7 @@ const Navigation = (props) => {
     <NavBox>
 
       <IconBox to="/" exact activeClassName={classes.active}>
-        <ListAltIcon className={classes.icon}/>
+        <QuestionAnswerIcon className={classes.icon}/>
         <PageName >피드</PageName>
       </IconBox>
 
@@ -90,7 +97,9 @@ const Navigation = (props) => {
       </IconBox>
 
       <AddBox to="/postwrite">
-        <AddBoxIcon className={classes.plusButton}/>
+        <PlusBox>
+          <AddIcon className={classes.plus}/>
+        </PlusBox>
       </AddBox>
 
       <IconBox to="/myfeed" activeClassName={classes.active}>
@@ -156,6 +165,17 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 color:${Color.black};
+`
+
+const PlusBox = styled.div`
+  width:42px;
+  height:42px;
+  background:${Color.black};
+  border-radius:13px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0px 5px 10px rgba(0, 0, 0, 0.4);
 `
 
 const PageName = styled.div`
