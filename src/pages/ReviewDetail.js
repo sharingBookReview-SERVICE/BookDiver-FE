@@ -190,6 +190,7 @@ const ReviewDetail = (props) => {
 
   useEffect(() => {
     socket.on("comment", (payload) => {
+      console.log(socket.id)
       console.log("------누가 댓글을 달았는가",payload)
       console.log("-------소켓이 연결되었는가요?",socket.connected)
     })
