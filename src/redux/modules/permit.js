@@ -14,6 +14,7 @@ const SHOW_NEW_BADGE = "permit/SHOW_NEW_BADGE"
 const SHOW_LOGIN_MODAL = "permit/SHOW_LOGIN_MODAL"
 const SHOW_EDIT_MODAL = "permit/SHOW_EDIT_MODAL"
 const IS_LOADING = "permit/IS_LOADING"
+const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT"
 
 
 //actioncreator
@@ -29,6 +30,7 @@ const showNewBadge = createAction(SHOW_NEW_BADGE, (new_badge) => ({new_badge}))
 const showLoginModal = createAction(SHOW_LOGIN_MODAL, (show_login) => ({show_login}))
 const showEditModal = createAction(SHOW_EDIT_MODAL, (is_modal) => ({is_modal}))
 const isLoading = createAction(IS_LOADING, (is_loading) => ({is_loading})); 
+const showNotSupport = createAction(SHOW_NOT_SUPPORT, (is_support) => ({is_support}))
 
 
 //initial
@@ -45,6 +47,7 @@ const initialState = {
     show_login:false,
     is_edit_modal: false,
     is_loading: false, 
+    is_support_modal: false,
 };
 
 
@@ -99,6 +102,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_loading = action.payload.is_loading;
         }),
+        [SHOW_NOT_SUPPORT] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_support_modal = action.payload.is_support;
+        }),
     },
     initialState
   );
@@ -117,6 +124,7 @@ const actionCreators = {
     showLoginModal,
     showEditModal,
     isLoading,
+    showNotSupport,
 };
   
 export { actionCreators };

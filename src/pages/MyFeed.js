@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import ListIcon from '@material-ui/icons/List';
-
+import NotSupport from "../modals/NotSupport"
 
 import Color from "../shared/Color";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
@@ -59,7 +59,13 @@ const MyFeed = () => {
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
+
+    //check_modal
+    const is_support_modal = useSelector((state) => state.permit.is_support_modal)
  
+    const openNotSupportModal = () => {
+      dispatch(permitActions.showNotSupport(true))
+    }
 
     const goToFollowing = () => {
       history.push("/following")
@@ -105,9 +111,10 @@ const MyFeed = () => {
       return(
         <React.Fragment>
         <Container>
+        {is_support_modal && <NotSupport/>}
               <UserBox>
 
-                <SearchBox>
+                <SearchBox onClick={openNotSupportModal}>
                   <SearchIcon className={classes.search}/>
                   <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
                 </SearchBox>
@@ -128,7 +135,9 @@ const MyFeed = () => {
                   <MyActivityBox>
                       <MyActivity>
                           <CollectionsBookmarkOutlinedIcon
-                              style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
+                              style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}
+                              onClick={openNotSupportModal}
+                          />
                           <Text style={{marginTop: "5px"}}>컬렉션</Text>
                       </MyActivity>
                       <MyActivity onClick={() => {goToOtherFollower(otherUserId)}}>
@@ -169,9 +178,10 @@ const MyFeed = () => {
     return (
         <React.Fragment>
           <Container>
+          {is_support_modal && <NotSupport/>}
                 <UserBox>
 
-                  <SearchBox>
+                  <SearchBox onClick={openNotSupportModal}>
                     <SearchIcon className={classes.search}/>
                     <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
                   </SearchBox>
@@ -192,7 +202,9 @@ const MyFeed = () => {
                     <MyActivityBox>
                         <MyActivity>
                             <CollectionsBookmarkOutlinedIcon
-                                style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}/>
+                                style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}
+                                onClick={openNotSupportModal}
+                            />
                             <Text style={{marginTop: "5px"}}>컬렉션</Text>
                         </MyActivity>
                         <MyActivity onClick={() => {goToFollower()}}>
