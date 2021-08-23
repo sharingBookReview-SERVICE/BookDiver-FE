@@ -77,6 +77,12 @@ const Home = (props) => {
     }, 500);
   
   }
+  const scrollToTop = () => {
+    container.current.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 
   const container = useRef(null);
   useEffect(()=>{
@@ -86,9 +92,8 @@ const Home = (props) => {
   //뷰
   return (
     <Container  onScroll={scroll} ref={container}>
-      {/* <HomeBGColor> */}
         <Header />
- 
+        <GoToTopBtn onClick={()=>{scrollToTop()}}/>
         {reviewList?.map((review) => {
               return (
                     <ReviewCard {...review} key={review.id}/> 
@@ -141,28 +146,16 @@ top:40%;
 margin-left:130px;
 `
 
-const HomeBGColor = styled.div`
-  background-color: ${Color.mainColor};
-  box-sizing: border-box;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position:absolute;
+const GoToTopBtn = styled.button`
 
-  @media ${(props) => props.theme.mobile} {
-    padding: 120px 0 0 0;
-  }
+width: 70px;
+height: 70px;
+border-radius: 70px;
+background-color: black;
+position: fixed;
+z-index: 100;
+bottom: 100px;
+right: 10px;
 
-  @media ${(props) => props.theme.tablet} {
-    padding: 80px 0 0 0;
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    padding: 80px 0 0 0;
-  }
 `;
-
-
 export default Home;
