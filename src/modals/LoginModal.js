@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { KAKAO_AUTH_URL} from "../shared/OAuth";
 
+import { CommonContainer, CommonOverlay } from "../shared/styles/modal/CommonModal";
 
 const LoginModal = (props) =>{
   const dispatch = useDispatch()
@@ -42,50 +43,13 @@ const closeModal = () => {
 
 
 //styled components
-const Overlay = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color:rgba(0, 0, 0, 0.4);
-  z-index: 99;
-  position: fixed;
-
-  cursor:pointer;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 420px;
-  }
-  @media ${(props) => props.theme.desktop} {
-    width: 420px;
-  }
+const Overlay = styled(CommonOverlay)`
 `;
 
-const Container = styled.div`
-width: 85%;
-position:fixed;
-top: 32%;
-border-radius: 12px;
-display:flex;
-justify-content: center;
-align-items: center;
-text-align: center;
-border: solid 1px #eeeeee; 
-background: ${Color.mainColor};
-z-index: 100;
 
-@media ${(props) => props.theme.mobile} {
-  left: 7%;
-}
-
-@media ${(props) => props.theme.tablet} {
-  width: 390px;
-  margin-left:15px;
-}
-
-@media ${(props) => props.theme.desktop} {
-  width: 390px;
-  margin-left:15px;
-}
+const Container = styled(CommonContainer)`
 `;
+
 
 const LoginText = styled.p`
 font-size: 14px;

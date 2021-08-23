@@ -13,6 +13,9 @@ import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import Color from "../shared/Color"
 
+
+import { CommonContainer, CommonOverlay } from "../shared/styles/modal/CommonModal";
+
 const useStyles = makeStyles((theme) => ({
   expand: {
     position: "absolute",
@@ -139,40 +142,18 @@ const SelectBookModal = (props) =>{
     )
 }
 
-const Overlay = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color:rgba(0, 0, 0, 0.4);
-  z-index: 99;
-  position: fixed;
-  cursor:pointer;
-
-  @media ${(props) => props.theme.tablet} {
-    width: 420px;
-  }
-  @media ${(props) => props.theme.desktop} {
-    width: 420px;
-  }
+const Overlay = styled(CommonOverlay)`
 `;
 
-const Container = styled.div`
-position:fixed;
+const Container = styled(CommonContainer)`
 top:12%;
 width: 90vw;
 height: 75vh;
-display:flex;
-border-radius: 12px;
 justify-content: flex-start;
-align-items: center;
-flex-direction:column;
-text-align: center;
-border: solid 1px #eeeeee; 
-background: ${Color.mainColor};
 overflow: scroll;
 overflow-x: hidden;
 z-index: 100;
 box-sizing:border-box;
-
 
 @media ${(props) => props.theme.mobile} {
   left:5%;
