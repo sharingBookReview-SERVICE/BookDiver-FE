@@ -8,6 +8,7 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import { CommonContainer, CommonOverlay, CommonText } from "../shared/styles/modal/CommonModal";
 
 const WriteCheckModal = (props) =>{
+  const {is_support_modal} = props
   //dispatch와 변수들
   const dispatch = useDispatch();
  
@@ -16,7 +17,7 @@ const WriteCheckModal = (props) =>{
     return(
         <React.Fragment>
        
-         <Container>
+         <Container is_show={is_support_modal}>
             <Text>
             아직 지원되지 않는 서비스입니다 <br/>
             곧 출시될 버전에서 만나요
@@ -31,6 +32,7 @@ const WriteCheckModal = (props) =>{
          </Container>
         
          <Overlay
+         is_show={is_support_modal}
           onClick={() => {
               dispatch(permitActions.showNotSupport(false))
           }}
@@ -43,10 +45,10 @@ const WriteCheckModal = (props) =>{
 
 //styled components
 const Overlay = styled(CommonOverlay)`
+
 `;
 
 const Container = styled(CommonContainer)`
-top:40%;
 display:block;
 `;
 

@@ -159,7 +159,7 @@ function App(props) {
         </TransitionGroup>
          
         {is_nav ? <Navigation /> : ""}
-        {is_treasure && <TreasureModal/>}
+        <TreasureModal is_treasure={is_treasure}/>
       </Container>
       </Layout>
     </React.Fragment>

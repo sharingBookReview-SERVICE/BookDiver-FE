@@ -3,7 +3,6 @@ import Color from "../../Color"
 
 export const CommonContainer = styled.div`
 position:fixed;
-top: 35%;
 width: 85%;
 display:flex;
 flex-direction: column;
@@ -14,6 +13,18 @@ border-radius: 12px;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
 z-index: 100;
+transition: opacity 0.5s ease-in-out;
+
+
+${(props) => props.is_show ? 
+  `opacity:1;
+  top: 38%;`
+  :
+  `opacity:0;
+  top:-40%;`
+  }
+
+
 
 @media ${(props) => props.theme.mobile} {
   left: 7%;
@@ -37,8 +48,15 @@ height: 100vh;
 background-color:black;
 z-index: 99;
 position: fixed;
-opacity:0.4;
 cursor:pointer;
+transition: opacity 0.5s ease-in-out;
+
+${(props) => props.is_show ? 
+  `opacity:0.4;`
+  :
+  `opacity:0;
+  display:none;`
+  }
 
 @media ${(props) => props.theme.tablet} {
   width: 420px;

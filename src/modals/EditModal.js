@@ -35,7 +35,7 @@ const EditModal = (props) =>{
       return(
         <React.Fragment>
 
-            <Container>
+            <Container is_show={props.is_edit_modal || props.is_modal}>
               <Btn
                onClick={()=>{
                 history.push(`/editCollection/${collectionId}`)
@@ -52,6 +52,7 @@ const EditModal = (props) =>{
             </Container>
 
             <Overlay 
+            is_show={props.is_edit_modal || props.is_modal}
             onClick={()=>{
             dispatch(permitActions.showModal(false))
             }}>
@@ -63,7 +64,7 @@ const EditModal = (props) =>{
       return(
         <React.Fragment>
 
-            <Container>
+            <Container is_show={props.is_edit_modal}>
               <Btn onClick={() => {
                 history.push(`/postwrite/${bookId}/${reviewId}`)
               }}><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
@@ -76,7 +77,8 @@ const EditModal = (props) =>{
               }><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}} />게시물 삭제</Btn>
             </Container>
 
-            <Overlay 
+            <Overlay
+            is_show={props.is_edit_modal} 
             onClick={()=>{
             dispatch(permitActions.showEditModal(false))
             }}>
@@ -93,7 +95,7 @@ const Overlay = styled(CommonOverlay)`
 
 
 const Container = styled(CommonContainer)`
-top:40%;
+
 `;
 
 

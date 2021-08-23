@@ -28,7 +28,7 @@ const CommentModal = (props) =>{
     return(
         <React.Fragment>
 
-         <Container>
+         <Container is_show={props.is_modal}>
             <Btn 
             onClick={()=> {
                 deleteComment()
@@ -41,7 +41,8 @@ const CommentModal = (props) =>{
             댓글 수정</Btn>
          </Container>
 
-         <Overlay 
+         <Overlay
+            is_show={props.is_modal} 
             onClick={()=>{
             dispatch(permitActions.showModal(false));
             }}>

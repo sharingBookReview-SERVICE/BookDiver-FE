@@ -55,9 +55,9 @@ const Setting = (props) => {
     return(
      <React.Fragment>
         <Container>
-            {logoutModal  && <LogoutModal/>}
-            {signoutModal  && <SignoutModal/>}
-            {is_support_modal && <NotSupport/>}     
+            <LogoutModal logoutModal={logoutModal}/>
+            <SignoutModal signoutModal={signoutModal}/>
+            <NotSupport is_support_modal={is_support_modal}/>
 
             <Head>
                 <ArrowBackIcon className={classes.goback}

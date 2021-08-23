@@ -19,7 +19,7 @@ const TreasureBoxModal = (props) =>{
     return(
         <React.Fragment>
        
-         <Container>
+         <Container is_show={props.is_open_treasure}>
             <Text>
             {userLevel}m 보물상자를 여시겠어요? 
             </Text>
@@ -34,6 +34,7 @@ const TreasureBoxModal = (props) =>{
          </Container>
         
          <Overlay
+          is_show={props.is_open_treasure}
           onClick={() => {
               dispatch(permitActions.showModal(false))
           }}
@@ -50,7 +51,6 @@ const Overlay = styled(CommonOverlay)`
 
 const Container = styled(CommonContainer)`
 display:block;
-top:40%;
 `;
 
 const Text = styled(CommonText)`

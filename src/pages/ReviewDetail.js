@@ -200,9 +200,9 @@ const ReviewDetail = (props) => {
   
   return (
    <React.Fragment>
-      <Container> 
-         {is_edit_modal && <EditModal/>}
-         {is_modal && <CommentModal />}
+      <Container>
+         <EditModal is_edit_modal={is_edit_modal}/>
+         <CommentModal is_modal={is_modal}/>
             <Head>
                 <ArrowBackIcon 
                 ref={topRef}

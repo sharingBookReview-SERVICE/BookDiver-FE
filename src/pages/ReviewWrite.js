@@ -234,8 +234,8 @@ const ReviewWrite = (props) => {
 //작성하기
   return (
     <React.Fragment>
-      {is_written && <WriteCheckModal/>}
-      {is_modal && <SelectBookModal />}
+      <WriteCheckModal is_written={is_written}/>
+      <SelectBookModal is_modal={is_modal} />
       <PostWriteBox>
         <PostHeader>
           <ArrowBackIcon

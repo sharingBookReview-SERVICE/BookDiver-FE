@@ -16,7 +16,7 @@ const WriteCheckModal = (props) =>{
     return(
         <React.Fragment>
        
-         <Container>
+         <Container is_show={props.is_written}>
             <Text>
             게시물을 올리려면 <br/>
             도서선택과 내용은 필수로 작성해주세요.
@@ -31,6 +31,7 @@ const WriteCheckModal = (props) =>{
          </Container>
         
          <Overlay
+          is_show={props.is_written}
           onClick={() => {
               dispatch(permitActions.showCheckModal(false))
           }}
@@ -47,7 +48,6 @@ const Overlay = styled(CommonOverlay)`
 
 const Container = styled(CommonContainer)`
 display:block;
-top:40%;
 `;
 
 const Text = styled(CommonText)`

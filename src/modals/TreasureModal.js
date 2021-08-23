@@ -15,7 +15,7 @@ const LogoutModal = (props) =>{
     return(
         <React.Fragment>
        
-         <Container>
+         <Container is_show={props.is_treasure}>
          <Text>
          보물을 얻으셨습니다
          </Text>
@@ -31,6 +31,7 @@ const LogoutModal = (props) =>{
          </Container>
         
          <Overlay
+          is_show={props.is_treasure}
           onClick={()=>{dispatch(permitActions.showTreasureModal(false))}} 
          />
         </React.Fragment>
@@ -45,7 +46,6 @@ const Overlay = styled(CommonOverlay)`
 
 const Container = styled(CommonContainer)`
 display:block;
-top:40%;
 `;
 
 const Text = styled(CommonText)`

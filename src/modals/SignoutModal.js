@@ -18,7 +18,7 @@ const SignoutModal = (props) =>{
     return(
         <React.Fragment>
         
-         <Container>
+         <Container is_show={props.signoutModal}>
          <Text>
          회원탈퇴를 하시겠어요?<br/>
             회원탈퇴 시 작성되었던 모든 리뷰 및 댓글, 관련된 회원정보는 삭제됩니다.
@@ -39,6 +39,7 @@ const SignoutModal = (props) =>{
          </Container>
         
          <Overlay
+          is_show={props.signoutModal}
           onClick={()=>{dispatch(permitActions.showModal2(false))}}
          />
         </React.Fragment>

@@ -18,7 +18,7 @@ const LogoutModal = (props) =>{
     return(
         <React.Fragment>
        
-         <Container>
+         <Container is_show={props.logoutModal}>
          <Text>
          로그아웃 하시겠어요?
          </Text>
@@ -36,6 +36,7 @@ const LogoutModal = (props) =>{
          </Container>
         
          <Overlay
+          is_show={props.logoutModal}
           onClick={()=>{dispatch(permitActions.showModal(false))}} 
          />
         </React.Fragment>

@@ -73,7 +73,7 @@ const SelectBookModal = (props) =>{
 //뷰
     return(
         <React.Fragment>
-            <Container>
+            <Container is_show={props.is_modal}>
               <ArrowBox>
                 <ArrowBackIcon 
                 className={classes.arrow}
@@ -134,7 +134,8 @@ const SelectBookModal = (props) =>{
             </Container>
 
           {/* 팝업 닫기 */}
-          <Overlay 
+          <Overlay
+           is_show={props.is_modal} 
            onClick={()=>{
             dispatch(permitActions.showModal(false));
             }}></Overlay>
@@ -146,7 +147,7 @@ const Overlay = styled(CommonOverlay)`
 `;
 
 const Container = styled(CommonContainer)`
-top:12%;
+
 width: 90vw;
 height: 75vh;
 justify-content: flex-start;
@@ -154,6 +155,15 @@ overflow: scroll;
 overflow-x: hidden;
 z-index: 100;
 box-sizing:border-box;
+
+${(props) => props.is_show ? 
+  `opacity:1;
+  top:12%;`
+  :
+  `opacity:0;
+  top:-100%;`
+  }
+
 
 @media ${(props) => props.theme.mobile} {
   left:5%;

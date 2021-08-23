@@ -22,7 +22,7 @@ const closeModal = () => {
     return(
         <React.Fragment>
           
-         <Container>
+         <Container is_show={props.show_login_modal}>
          
            <Btns>
             <LoginText>해당 서비스를 위해서는 로그인이 필요합니다.</LoginText>
@@ -33,7 +33,9 @@ const closeModal = () => {
           
          </Container>
        
-         <Overlay onClick={() => {closeModal()}}>
+         <Overlay 
+         is_show={props.show_login_modal}
+         onClick={() => {closeModal()}}>
 
          </Overlay>
         </React.Fragment>

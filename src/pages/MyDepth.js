@@ -62,7 +62,7 @@ const MyDepth = (props) => {
 //작성하기
   return (
     <React.Fragment>
-        {is_open_treasure && <TreasureBoxModal />}
+        <TreasureBoxModal is_open_treasure={is_open_treasure}/>
         <Wrapper>
             <Image src={Background}/>
             <Header>
