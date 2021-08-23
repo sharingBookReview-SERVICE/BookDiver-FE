@@ -64,8 +64,21 @@ const Home = (props) => {
   }, [inView]);
 
 
+  //scroll 이벤트 관련
+  const [scrollLocation, setScrollLocation] = useState(0);
+  const lastScroll = useSelector(state=> state.review.current_scroll);
+  const scroll = (e)=>{
+    setScrollLocation(e.target.scrollTop)
+    dispatch(reviewActions.saveCurrentScroll(scrollLocation))
+  }
+  
+  const contain = useRef(null);
+  useEffect(()=>{
+    contain.current.scrollTo(0, lastScroll);
+  },[])
+
   return (
-    <React.Fragment>
+    <Container onScroll={scroll} ref={contain}>
       <HomeBGColor>
         <Header />
  
@@ -85,7 +98,38 @@ const Home = (props) => {
     </React.Fragment>
   );
 };
+const Container = styled.div`
+position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: ${Color.mainColor};
+  overflow-y: ${(props) => props.is_modal_opened};
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding: ${(props) => props.is_padding ? "0px 0px 60px 0px" : "0"};
+  position: relative;
 
+
+  @media ${(props) => props.theme.tablet} {
+    width:420px;
+    height:100vh;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    width:420px;
+    height:100vh;
+  }
+
+`;
 const Spinner = styled.img`
 width:150px;
 height:150px;
