@@ -90,7 +90,7 @@ const Comment = (props) =>{
                         {
                             (comment_writer === my_id) &&
                             <MoreHorizIcon 
-                            style={{color: "#9e9e9e"}} 
+                            style={{color: "#9e9e9e", cursor:"pointer"}} 
                             onClick = {() => {
                                 showCommentModal()
                             }}/>
