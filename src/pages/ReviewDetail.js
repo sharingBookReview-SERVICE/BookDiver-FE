@@ -130,6 +130,7 @@ const ReviewDetail = (props) => {
 
   //댓글 작성함수
   const writeComment = () => {
+
     if(commentContent ===  ""){
       setIsEmpty(true)
       return;
@@ -179,7 +180,7 @@ const ReviewDetail = (props) => {
       scrollTopComment()
     }else{
       //그냥 들어왔을 때는 상단으로 scroll을 이동. 
-      scrollToTop()
+      // scrollToTop()
     }
 
     return () => {
@@ -189,7 +190,9 @@ const ReviewDetail = (props) => {
 
   useEffect(() => {
     socket.on("comment", (payload) => {
+      console.log(socket.id)
       console.log("------누가 댓글을 달았는가",payload)
+      console.log("-------소켓이 연결되었는가요?",socket.connected)
     })
   })
 
@@ -307,9 +310,9 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-      
+      <BottomDiv ref={bottomRef}></BottomDiv>
       </Container>
-        <BottomDiv ref={bottomRef}></BottomDiv>
+
       </React.Fragment>
   );
 };
@@ -395,12 +398,12 @@ position: absolute;
 
 @media ${(props) => props.theme.tablet} {
   width: 100%;
-  padding-bottom: 35px;
+  padding-bottom: 80px;
 }
 
 @media ${(props) => props.theme.desktop} {
   width: 100%;
-  padding-bottom: 35px;
+  padding-bottom: 80px;
 }
 `;
 

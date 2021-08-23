@@ -90,7 +90,7 @@ const Comment = (props) =>{
                         {
                             (comment_writer === my_id) &&
                             <MoreHorizIcon 
-                            style={{color: "#9e9e9e"}} 
+                            style={{color: "#9e9e9e", cursor:"pointer"}} 
                             onClick = {() => {
                                 showCommentModal()
                             }}/>
@@ -185,6 +185,7 @@ width: 35%;
 const EditComplete = styled.div`
 font-weight:bold;
 color: ${Color.fontblack};
+cursor:pointer;
 `;
 
 const EditBox = styled.div`

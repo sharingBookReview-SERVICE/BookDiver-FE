@@ -86,8 +86,8 @@ function App(props) {
       console.log("-------유저아이디", userId)
       socket.emit("login", userId)
       socket.on("login", (payload) => {
+        console.log(socket.id)
         console.log(payload)
-        console.log("-------소켓이 연결되었는가요?",socket.connected)
       })
     }
   }, [userId]);
