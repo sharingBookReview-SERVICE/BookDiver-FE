@@ -101,14 +101,21 @@ min-height:100vh;
 flex-direction:column;
 align-items:center;
 justify-content:flex-start;
-padding:80px 30px 0px 30px;
+
 box-sizing:border-box;
 
+@media ${(props) => props.theme.mobile} {
+    padding:80px 30px 0px 30px;
+    width: 100%;
+}
+
 @media ${(props) => props.theme.tablet} {
+    padding-top:80px;
     width: 100%;
 }
   
 @media ${(props) => props.theme.desktop} {
+    padding-top:80px;
     width: 100%;
 }
 

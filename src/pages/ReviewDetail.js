@@ -14,7 +14,6 @@ import { useLocation } from "react-router-dom"
 
 import styled from "styled-components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -74,7 +73,7 @@ const ReviewDetail = (props) => {
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
-  const profileImage = useSelector((state) => state.user.user.profileImage)
+  const profileImage = user?.profileImage
 
 
 
@@ -131,6 +130,7 @@ const ReviewDetail = (props) => {
 
   //댓글 작성함수
   const writeComment = () => {
+
     if(commentContent ===  ""){
       setIsEmpty(true)
       return;
@@ -144,8 +144,8 @@ const ReviewDetail = (props) => {
     dispatch(commentAction.addCommentSV(comment_info));
 
     const noti_info = {
-      review : reviewId,
-      writer : userId,
+      reviewId,
+      userId,
       target : user?.id,
     }
     socket.emit("comment", noti_info)
@@ -174,23 +174,27 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
-    
-    socket.on("comment", () => {
-      console.log("-------소켓이 연결되었는가요?",socket.connected)
-    })
 
     if(is_comment) {
       //comment를 통해서 들어왔을 때는 comment 위치로 이동.
       scrollTopComment()
     }else{
       //그냥 들어왔을 때는 상단으로 scroll을 이동. 
-      scrollToTop()
+      // scrollToTop()
     }
 
     return () => {
       dispatch(permitAction.showEditModal(false));
     }
   }, []);
+
+  useEffect(() => {
+    socket.on("comment", (payload) => {
+      console.log(socket.id)
+      console.log("------누가 댓글을 달았는가",payload)
+      console.log("-------소켓이 연결되었는가요?",socket.connected)
+    })
+  })
 
 
   
@@ -306,9 +310,9 @@ const ReviewDetail = (props) => {
           ) : (
               ""
           )}
-      
+      <BottomDiv ref={bottomRef}></BottomDiv>
       </Container>
-        <BottomDiv ref={bottomRef}></BottomDiv>
+
       </React.Fragment>
   );
 };
@@ -387,12 +391,19 @@ width: 100vw;
 height: auto;
 margin-bottom: 70px;
 position: absolute;
+
+@media ${(props) => props.theme.mobile} {
+  padding-bottom: 150px;
+}
+
 @media ${(props) => props.theme.tablet} {
   width: 100%;
+  padding-bottom: 80px;
 }
 
 @media ${(props) => props.theme.desktop} {
   width: 100%;
+  padding-bottom: 80px;
 }
 `;
 

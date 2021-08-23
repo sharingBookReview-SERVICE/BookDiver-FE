@@ -14,7 +14,7 @@ const Color = {
   hashtag:"#e1d9d0",
   category: "#e0d9d1cc",
   kakao: "#f6e68c",
-  overlay:"rgba(0, 0, 0, 0.3)",
+  overlay:"rgba(0, 0, 0, 0.4)",
 };
 
 export default Color;

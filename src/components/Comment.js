@@ -82,7 +82,7 @@ const Comment = (props) =>{
                         {props.user?.nickname? props.user.nickname : "탈퇴한 유저"}
                         </UserName>
                         <CreatedAt>
-                            {props.created_at}
+                            {props.koreaTime}
                         </CreatedAt>
                     </UserLeftBox>
 
@@ -90,7 +90,7 @@ const Comment = (props) =>{
                         {
                             (comment_writer === my_id) &&
                             <MoreHorizIcon 
-                            style={{color: "#9e9e9e"}} 
+                            style={{color: "#9e9e9e", cursor:"pointer"}} 
                             onClick = {() => {
                                 showCommentModal()
                             }}/>
@@ -132,9 +132,8 @@ const CommentBox = styled.div`
 `;
 
 const CommentSizeBox = styled.div`
-
   width: 100%;
-  min-height: 130px;
+  min-height: 100px;
   height: auto;
   margin: auto;
 
@@ -186,6 +185,7 @@ width: 35%;
 const EditComplete = styled.div`
 font-weight:bold;
 color: ${Color.fontblack};
+cursor:pointer;
 `;
 
 const EditBox = styled.div`

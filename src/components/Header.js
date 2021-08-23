@@ -6,6 +6,9 @@ import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../img/로고.png"
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as permitAction } from "../redux/modules/permit";
+
 const useStyles = makeStyles((theme) => ({
   searchIcon: {
     width: "20px",
@@ -17,15 +20,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
+  const dispatch = useDispatch()
   const classes = useStyles();
-  //깃 플로우 테스트
+
+
+  const openNotSupportModal = () => {
+    dispatch(permitAction.showNotSupport(true))
+  }
+
+
   return (
     <React.Fragment>
       <Wrapper>
       <HeaderBox>
         <LogoBox><Logo src={logo}/></LogoBox>
 
-        <SearchBarBox>
+        <SearchBarBox onClick={openNotSupportModal}>
           <SearchIcon className={classes.searchIcon} />
           <SearchBar placeholder="궁금한 책 검색하기" />
         </SearchBarBox>

@@ -49,11 +49,12 @@ import MakeCollection from "../pages/Collection/MakeCollection";
 import EditCollection from "../pages/Collection/EditCollection";
 
 import Layout from "../elements/Layout";
+import VoiceOfCustomer from "../pages/Setting/VoiceOfCustomer";
+
+import io from "socket.io-client"
 
 
-
-
-
+const socket = io.connect("http://13.209.10.67")
 
 function App(props) {
   const dispatch = useDispatch();
@@ -73,22 +74,32 @@ function App(props) {
     if (user) {
       dispatch(userActions.loginCheck());
       dispatch(userActions.isMe());
-      console.log("로그인 확인을 합니다. ")
     }
+
   }, [user]);
+
 
 
   useEffect(() => {
     if (userId) {
       getUserInfo()
+      console.log("-------유저아이디", userId)
+      socket.emit("login", userId)
+      socket.on("login", (payload) => {
+        console.log(socket.id)
+        console.log(payload)
+      })
     }
   }, [userId]);
+
+
+
 
   const location = useLocation();
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Layout>
+      <Layout >
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         
         <TransitionGroup  >
@@ -138,6 +149,7 @@ function App(props) {
           <Route path="/follower/:otherId" exact component={OtherFollow}/>
           <Route path="/changeprofileimg" component ={ChangeProfileImg}/>
           <Route path="/setting" exact component={Setting}/>
+          <Route path="/voiceOfCustomer" exact component={VoiceOfCustomer}/>
 
           <Route path="*" component={ErrorPage}/>
 

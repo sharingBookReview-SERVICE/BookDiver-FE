@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configStore";
 import { actionCreators as permitActions } from "../redux/modules/permit";
@@ -11,8 +11,13 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import CallIcon from '@material-ui/icons/Call';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import NotSupport from "../modals/NotSupport"
+
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
+
 
 
 
@@ -33,37 +38,54 @@ const Setting = (props) => {
 
     const logoutModal = useSelector(state=> state.permit.is_modal);
     const signoutModal = useSelector(state=> state.permit.is_modal2);
+    const is_support_modal = useSelector((state) => state.permit.is_support_modal)
+
+    const goToNoti = () => {
+        history.push("/")
+    }
+
+    const openNotSupportModal = () => {
+        dispatch(permitActions.showNotSupport(true))
+      }
+
+    useEffect(() => {
+        dispatch(permitActions.isPadding(false));  //패딩 값을 없애기 
+    })
 
     return(
-     
+     <React.Fragment>
         <Container>
-            {
-                logoutModal  && <LogoutModal/>
-            }
-             {
-                signoutModal  && <SignoutModal/>
-            }
+            {logoutModal  && <LogoutModal/>}
+            {signoutModal  && <SignoutModal/>}
+            {is_support_modal && <NotSupport/>}     
+
             <Head>
                 <ArrowBackIcon className={classes.goback}
                 onClick = {()=>{history.goBack()}}
                 />
                 <Text>설정</Text>
+                <NotificationsNoneIcon onClick={openNotSupportModal}/>
             </Head>
-            <Wrapper>
+            <Wrapper onClick={openNotSupportModal}>
                 <PolicyOutlinedIcon/>
                 <Menu>공지사항</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
-            <Wrapper>
+            <Wrapper onClick={openNotSupportModal}>
                 <PolicyOutlinedIcon/>
                 <Menu>개인정보 처리방침</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
-            <Wrapper>
+            <Wrapper onClick={openNotSupportModal}>
                 <PolicyOutlinedIcon/>
                 <Menu>서비스 이용약관</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
-            </Wrapper>    
+            </Wrapper>   
+            <Wrapper>
+                <CallIcon/>
+                <Menu>고객의 소리</Menu>
+                <ArrowForwardIosOutlinedIcon onClick={() => {history.push("/voiceOfCustomer")}} className={classes.icon}/>
+            </Wrapper> 
             <Wrapper
              onClick={()=>{
                  history.push('/changename')
@@ -82,6 +104,8 @@ const Setting = (props) => {
                 >회원탈퇴</Btn>
             </Bottom>
         </Container>
+
+        </React.Fragment>
     )
 }
 
@@ -101,11 +125,18 @@ height: 100vh;
 `;
 const Head = styled.div`
 width: 100%;
-height: 10%;
+height: 56px;
 align-items: center;
 display: flex;
-margin: 16px 0px;
+background:${Color.black};
+color:${Color.white};
+
+@media ${(props) => props.theme.mobile} {
+    padding: 20px 0 0 0;
+}
+
 `;
+
 const Text = styled.div`
 width: 70%;
 text-align: center;

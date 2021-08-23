@@ -64,6 +64,20 @@ box-sizing:border-box;
 border:1px solid ${Color.black};
 border-radius:10px;
 padding-left:20px;
+
+@media ${(props) => props.theme.mobile} {
+    width: 100%;
+}
+
+@media ${(props) => props.theme.tablet} {
+    margin:0px 20px 10px 20px;
+    width: 90%;
+}
+  
+@media ${(props) => props.theme.desktop} {
+    margin:0px 20px 10px 20px;
+    width: 90%;
+}
 `
 
 const ImgWrapper = styled.div`

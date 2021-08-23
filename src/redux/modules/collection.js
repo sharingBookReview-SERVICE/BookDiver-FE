@@ -137,7 +137,7 @@ const getCollectionDetailSV = (id)=>{
     instance.get(`/collections/${id}`)
     .then((res)=>{
       const contents = res.data.collection.contents;
-      const _contents =[];
+      const _contents = [];
       for (let i = 0; i < contents.length; i++) { 
         _contents.push({
             isbn: contents[i].book.isbn,

@@ -106,6 +106,7 @@ line-height: 56px;
 align-items: center;
 font-weight: 500;
 font-size: 14px;
+cursor:pointer;
 &:hover {
     color: red;
 }
