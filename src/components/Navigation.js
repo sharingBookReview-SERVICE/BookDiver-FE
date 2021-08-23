@@ -67,7 +67,9 @@ const Navigation = (props) => {
       </IconBox>
 
       <AddBox to="/login">
-        <AddBoxIcon className={classes.plusButton}/>
+      <PlusBox>
+          <AddIcon className={classes.plus}/>
+        </PlusBox>
       </AddBox>
 
       <IconBox to="/login" >
