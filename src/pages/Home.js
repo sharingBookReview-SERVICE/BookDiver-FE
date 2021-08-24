@@ -38,20 +38,23 @@ const Home = (props) => {
 
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
+    console.log("useeffect1")
     dispatch(permitAction.showNav(true));
-    dispatch(reviewActions.getAllReviewSV());
-
+    if(reviewList.length <10){
+      dispatch(reviewActions.getAllReviewSV());
+    }
     return() => {
     dispatch(permitAction.showEditModal(false));
     }
   }, []);
 
   useEffect(() => {
+    console.log("useeffect2")
     setId(reviewList)
   }, [reviewList]);
 
   useEffect(() => {
-
+    console.log("useeffect3")
     if(inView){
       const lastReviewId = Id[Id.length - 1]?._id
       dispatch(permitAction.isLoading(true))
@@ -61,8 +64,8 @@ const Home = (props) => {
 
 
   //scroll 이벤트 관련
-  const lastScroll = useSelector(state=> state.review.current_scroll);
-  var timer;
+  
+  let timer;
   const scroll = (e)=>{
     if (timer) {
       clearTimeout(timer);
@@ -78,10 +81,11 @@ const Home = (props) => {
       behavior: 'smooth',
     });
   }
-
+  const lastScroll = useSelector(state=> state.review.current_scroll);
   const container = useRef(null);
 
   useEffect(()=>{
+    console.log("useeffect4")
       container.current.scrollTo(0, lastScroll);
   },[])
   //뷰
