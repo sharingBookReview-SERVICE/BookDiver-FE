@@ -195,6 +195,11 @@ text-align: center;
 line-height: 56px;
 font-size: 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+transition: 0.3s ease-in-out;
+
+:hover{
+    transform:translateY(-5px);
+}
 
 @media ${(props) => props.theme.mobile} {
     width: 90%;

@@ -54,6 +54,7 @@ const getAllReviewSV = () => {
         instance
             .get("/feeds")
             .then((res) => {
+                console.log(res)
 
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
@@ -70,6 +71,7 @@ const getAllReviewSV = () => {
                 
             })
             .catch((err) => {
+                console.log(err)
                
                 // history.push("*")
                 localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제

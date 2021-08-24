@@ -92,7 +92,7 @@ const Home = (props) => {
   return (
     <Container  onScroll={scroll} ref={container}>
         <Header />
-        <GoToTopBtn onClick={()=>{scrollToTop()}}/>
+        {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
         {reviewList?.map((review) => {
               return (
                     <ReviewCard {...review} key={review.id}/> 

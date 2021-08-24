@@ -48,19 +48,7 @@ const image_15 = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1
 const image_16 = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B5%E1%86%AF+%E1%84%87%E1%85%A2%E1%86%BA%E1%84%8C%E1%85%B5_+%E1%84%90%E1%85%A6%E1%84%83%E1%85%AE%E1%84%85%E1%85%B5(X)/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB+%E1%84%92%E1%85%B4%E1%86%AB%E1%84%89%E1%85%AE%E1%84%8B%E1%85%A7%E1%86%B7%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-120px.svg"
 
 
-const level10 = [image_2, image_3, image_4]
-const level20 = [image_5, image_6, image_7]
-const level30 = [image_8, image_9, image_10]
-const level40 = [image_11, image_12, image_13]
-const level50 = [image_14, image_15, image_16]
-
-
 const images = {
-    level10,
-    level20,
-    level30,
-    level40,
-    level50,
     image_1,
     image_2, 
     image_3, 
