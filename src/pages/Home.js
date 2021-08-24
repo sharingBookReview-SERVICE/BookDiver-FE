@@ -90,6 +90,7 @@ const Home = (props) => {
   },[])
   //뷰
   return (
+    <>
     <Container  onScroll={scroll} ref={container}>
         <Header />
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
@@ -100,10 +101,11 @@ const Home = (props) => {
         })}
 
       <div ref={ref}></div>
-      <NotSupport is_support_modal={is_support_modal}/>
-      <EditModal is_edit_modal={is_edit_modal}/>
-      <LoginModal show_login_modal={show_login_modal}/>
     </Container>
+    <NotSupport is_support_modal={is_support_modal}/>
+    <EditModal is_edit_modal={is_edit_modal}/>
+    <LoginModal show_login_modal={show_login_modal}/>
+    </>
   );
 };
 const Container = styled.div`
