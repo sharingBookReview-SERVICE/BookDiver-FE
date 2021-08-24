@@ -62,6 +62,7 @@ const TagUl = styled.ul`
   flex-wrap: wrap;
   padding: 0;
   margin: 8px 0 0 0;
+  cursor:pointer;
 `;
 
 const Tag = styled.li`

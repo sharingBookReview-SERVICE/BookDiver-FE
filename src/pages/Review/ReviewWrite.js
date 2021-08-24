@@ -346,7 +346,7 @@ const ReviewWrite = (props) => {
         {recommandTags ? 
         <RecommandHashTagBox>
           <TextWrapper>
-            <Text>추천 해시태그</Text>
+            <Text>이 책에 대해 다른 사람들이 사용한 해시태그</Text>
           </TextWrapper>
 
           <RecommandHashTags />
