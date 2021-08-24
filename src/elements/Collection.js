@@ -4,8 +4,10 @@ import Color from "../shared/Color";
 import { history } from "../redux/configStore";
 import { useSelector } from "react-redux";
 
+//이미지 슬라이드에 있는 한개의 컬렉션
 const Collection = (props) =>{
     const is_login = useSelector(state=> state.user.is_login);
+    
     return (
         <Outter
         onClick={()=>{

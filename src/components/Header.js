@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
-import logo from "../img/로고.png"
+import {logo} from "../img";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";

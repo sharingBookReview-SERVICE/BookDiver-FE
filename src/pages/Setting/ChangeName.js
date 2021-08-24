@@ -1,16 +1,18 @@
 //import 부분
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import {history} from "../redux/configStore";
+import {history} from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../../redux/modules/user";
 import jwt_decode from "jwt-decode";
-import Color from "../shared/Color";
+
+import styled from "styled-components";
+import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import AlertModal from "../modals/AlertModal";
 
-import {images} from "../shared/Image"
+
+import {AlertModal} from "../../modals";
+import {images} from "../../shared/Image"
 
 const useStyles = makeStyles((theme) => ({
   goback: {

@@ -1,20 +1,21 @@
 //import 부분
 import React, { useEffect } from "react";
-import {history} from "../redux/configStore";
+import {history} from "../../redux/configStore";
 
 import styled from "styled-components";
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import Background from "../img/background.png"
-import {images} from "../shared/Image"
-import person from "../img/person.png"
-import TreasureBoxModal from "../modals/TreasureBoxModal"
-import treasure from "../img/보물상자.png"
-import {titles} from "../shared/Titles"
 
-import { actionCreators as userActions } from "../redux/modules/user";
-import { actionCreators as permitAction } from "../redux/modules/permit";
+import {images} from "../../shared/Image";
+import {titles} from "../../shared/Titles"
+
+import {TreasureBoxModal} from "../../modals";
+import {Background, treasure, person} from "../../img";
+
+
+import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as permitAction } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 

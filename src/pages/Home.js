@@ -7,13 +7,8 @@ import { useInView } from "react-intersection-observer";
 import { history } from "../redux/configStore";
 
 import styled from "styled-components";
-import ReviewCard from "../components/ReviewCard";
-import AddIcon from "@material-ui/icons/Add";
-import Header from "../components/Header";
-import EditModal from "../modals/EditModal";
-import LoginModal from "../modals/LoginModal";
-import NotSupport from "../modals/NotSupport"
-
+import {ReviewCard, Header} from "../components";
+import {EditModal,LoginModal,NotSupport} from "../modals";
 
 import Color from "../shared/Color"
 
@@ -85,9 +80,9 @@ const Home = (props) => {
   }
 
   const container = useRef(null);
-  useEffect(()=>{
-    container.current.scrollTo(0, lastScroll);
 
+  useEffect(()=>{
+      container.current.scrollTo(0, lastScroll);
   },[])
   //뷰
   return (

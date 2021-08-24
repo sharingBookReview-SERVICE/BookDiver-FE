@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { makeStyles } from "@material-ui/core/styles";
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 
 const useStyles = makeStyles((theme) => ({
     goback: {

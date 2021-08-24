@@ -2,8 +2,8 @@ import React from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-import Color from "../shared/Color";
-import { history } from "../redux/configStore";
+import Color from "../../shared/Color";
+import { history } from "../../redux/configStore";
 
 
 const useStyles = makeStyles((theme) => ({

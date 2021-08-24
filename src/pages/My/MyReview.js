@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components"
 import SearchIcon from '@material-ui/icons/Search';
-import ReviewCard from "../components/ReviewCard"
+import {ReviewCard} from "../../components";
 
 const Home = (props) =>{
   //dispatch와 변수들

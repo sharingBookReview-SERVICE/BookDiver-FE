@@ -1,13 +1,12 @@
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Color from "../shared/Color";
 import ClearIcon from '@material-ui/icons/Clear';
 
 
-import collection, { actionCreators as collectionActions } from "../redux/modules/collection";
+import { actionCreators as collectionActions } from "../redux/modules/collection";
 
 const defaultProps = {
     book:{

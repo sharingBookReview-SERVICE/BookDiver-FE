@@ -1,57 +1,34 @@
 import React, {useCallback, useEffect, useMemo} from "react";
-import styled from "styled-components";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configStore";
-
 import { Route, Switch, useLocation, withRouter } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import "./Transition.css";
 import { useDispatch, useSelector } from "react-redux";
-import instance from "./Request";
+import io from "socket.io-client"
 
+
+import styled from "styled-components";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Color from "./Color";
-import { actionCreators as userActions } from "../redux/modules/user";
-
 import GlobalStyle from "./GlobalStyle";
+import "./Transition.css";
 
+import instance from "./Request";
+import { actionCreators as userActions } from "../redux/modules/user";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
-import Navigation from "../components/Navigation";
-import Spinner from "../components/Spinner";
+//컴포넌트
+import {Layout} from "../elements";
+import {Navigation, Spinner} from "../components";
+import {TreasureModal, SignoutModal} from "../modals";
 
-import TreasureModal from "../modals/TreasureModal";
-import SignoutModal from "../modals/SignoutModal";
-import Collection from '../elements/Collection';
-
-import ReviewDetail from "../pages/ReviewDetail";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import MyProfile from "../pages/MyProfile";
-import ChangeName from "../pages/ChangeName";
-import MyReview from "../pages/MyReview";
-import ReviewWrite from "../pages/ReviewWrite";
-import BookDetail from "../pages/BookDetail";
-import MyReviewFind from "../pages/MyReviewFind";
-import Follow from "../pages/Follow";
-import OtherFollow from "../pages/OtherFollow";
-import MyDepth from "../pages/MyDepth";
-import ErrorPage from "../pages/ETC/ErrorPage";
-import Setting from "../pages/Setting";
-import Notification from "../pages/Notification";
-import LevelHelp from "../pages/LevelHelp";
-import ChangeProfileImg from "../pages/ChangeProfileImg"
-import MyFeed from "../pages/MyFeed";
+import {ReviewDetail, ReviewWrite, BookDetail} from "../pages/Review";
+import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification} from "../pages/My";
+import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/Setting";
+import {ErrorPage, LevelHelp} from "../pages/ETC";
+import {CollectionList, BookCollectionMain, CollectionDetail,  MakeCollection, EditCollection} from "../pages/Collection";
 
-import CollectionList from "../pages/Collection/CollectionList";
-import BookCollectionMain from "../pages/Collection/BookCollectionMain";
-import CollectionDetail from "../pages/Collection/CollectionDetail";
-import MakeCollection from "../pages/Collection/MakeCollection";
-import EditCollection from "../pages/Collection/EditCollection";
-
-import Layout from "../elements/Layout";
-import VoiceOfCustomer from "../pages/Setting/VoiceOfCustomer";
-
-import io from "socket.io-client"
 
 
 const socket = io.connect("http://13.209.10.67")

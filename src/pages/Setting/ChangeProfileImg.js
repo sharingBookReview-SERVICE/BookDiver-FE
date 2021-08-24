@@ -1,17 +1,15 @@
-
 //import 부분
-import React, { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import React, {useEffect } from "react";
 import {Route} from "react-router-dom"
-import {history} from "../redux/configStore";
+import {history} from "../../redux/configStore";
 
 import styled from "styled-components";
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import FollowUser from "../elements/FollowUser";
+import {OwnImages} from "../../elements"
 
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -24,28 +22,27 @@ const useStyles = makeStyles((theme) => ({
       cursor:"pointer",
     },
   }));
-const OtherFollow = (props) =>{
+
+const ChangeProfileImg = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const params = useParams();
-    const location = props.location.pathname;
-    const id = params.otherId;
-    const nickname = useSelector(state=> state.user.my_feed.user?.nickname);
-    const follow_list = useSelector(state=> state.user.follow_list);
-    
+    const userId = useSelector(state => state.user.user._id)
+    const ownImages = useSelector(state => state.user.user.own_image)
+
+ 
     const goBack=() => {
         history.goBack();
     }
 
+
     useEffect(() => {
-       if(location.includes("follower")){
-          dispatch(userActions.getOtherFollowerListSV(id))
-       }
-       else{
-           dispatch(userActions.getOtherFollowingListSV(id))
-       }
+        if(userId){
+            dispatch(userActions.getUserSV(userId))   
+        }
     },[])
-    return(  
+
+//작성하기
+  return (
     <React.Fragment>
         <Wrapper>
             <Container>
@@ -58,16 +55,17 @@ const OtherFollow = (props) =>{
                 className={classes.arrow}/>
 
                 <Route path="/following">
-                    <HeaderText>{nickname}이 팔로잉 하는 다이버들</HeaderText>
+                    <HeaderText>내가 팔로잉 하는 다이버들</HeaderText>
                 </Route> 
                 <Route path="/follower">
-                    <HeaderText>{nickname}을 팔로우 하는 다이버들</HeaderText>
+                    <HeaderText>나를 팔로우 하는 다이버들</HeaderText>
                 </Route>
 
+
             </Header>
-            {follow_list.map((user) => {
+            {ownImages?.map((image, idx) => {
                 return(
-                    <FollowUser {...user} location={location} key={user.id}/>
+                    <OwnImages image={image} key={idx} level={idx} />
                 )
             })}
             </Container>
@@ -78,7 +76,7 @@ const OtherFollow = (props) =>{
   );
 };
 
-export default OtherFollow;
+export default ChangeProfileImg;
 
 const Wrapper = styled.div`
 width:100vw;
@@ -94,7 +92,6 @@ box-sizing:border-box;
 @media ${(props) => props.theme.desktop} {
     width: 100%;
 }
-
 `
 
 const Container = styled.div`
@@ -108,18 +105,20 @@ justify-content:flex-start;
 box-sizing:border-box;
 
 @media ${(props) => props.theme.mobile} {
-  padding:80px 30px 0px 30px;
+    padding:80px 30px 0px 30px;
+    width: 100%;
 }
 
 @media ${(props) => props.theme.tablet} {
-  padding:80px 0px 0px 0px;
+    padding-top:80px;
     width: 100%;
-  }
+}
   
-  @media ${(props) => props.theme.desktop} {
-    padding:80px 0px 0px 0px;
+@media ${(props) => props.theme.desktop} {
+    padding-top:80px;
     width: 100%;
-  }
+}
+
 `
 
 const Header = styled.div`
@@ -131,16 +130,21 @@ align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
+
 font-family: "Noto Serif KR", serif;
+
+@media ${(props) => props.theme.mobile} {
+    width: 420px;
+    left:0px;
+}
 
 @media ${(props) => props.theme.tablet} {
     width: 420px;
-  }
+}
   
-  @media ${(props) => props.theme.desktop} {
+@media ${(props) => props.theme.desktop} {
     width: 420px;
-  }
-
+}
 `
 
 const HeaderText = styled.div`
