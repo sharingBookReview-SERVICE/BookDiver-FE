@@ -18,6 +18,7 @@ const SelectBookCard = (props) =>{
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
+  console.log(is_selected)
 
   const selectBook = ()=>{
     if(is_make_collection){
@@ -89,11 +90,12 @@ const SelectBookCard = (props) =>{
   }
 
     return(
-      <BookInfoWrapper>
+      <BookInfoWrapper is_selected={is_selected}>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}
         {
           is_selected ?
             <BookInfoBox
+            is_selected={is_selected}
               onClick={()=>{
               dispatch(permitActions.showModal(true));
               dispatch(permitActions.bookSelect(false));
@@ -134,6 +136,10 @@ const BookInfoWrapper = styled.div`
   padding: 0px 20px 0px 20px; 
   margin-bottom:15px;
   `: ""};
+  ${(props) => props.is_selected ? `
+  padding:0px;
+
+  ` : ""};
 `
 
 const BookInfoBox = styled.div`
@@ -144,11 +150,19 @@ flex-direction: row;
 justify-content: flex-start;
 align-items: center;
 gap: 12px;
-padding: 16px;
-border-radius: 12px;
-border: solid 1px ${Color.secondColor};
+
 box-sizing: border-box;
 cursor:pointer;
+
+${(props) => props.is_selected ? `
+border-top: solid 1px ${Color.CardHashTag};
+padding: 16px 16px 16px 35px;
+`
+: 
+`border-radius: 12px;
+border: solid 1px ${Color.CardHashTag};
+padding: 16px;
+`}
 `
 
 const BookImg = styled.div`
