@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Color from "../../shared/Color"
 
 import { actionCreators as permitActions } from "../../redux/modules/permit";
-import ErrorMessage from "../../img/1000.png"
+import {ErrorMessage} from "../../img"
 
 const ErrorPage = () => {
     const dispatch = useDispatch();

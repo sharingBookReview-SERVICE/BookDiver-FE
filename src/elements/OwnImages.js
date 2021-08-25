@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Color from "../shared/Color";
 
-import example from "../img/alfons-morales-YLSwjSy7stw-unsplash.jpg"
 import {images} from "../shared/Image"
 import {titles} from "../shared/Titles"
 import { actionCreators as userActions } from "../redux/modules/user";

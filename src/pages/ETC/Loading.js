@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import spinner from "../../img/spinner.gif"
+import {spinner} from "../../img"
 import styled from "styled-components"
 
 import Color from "../../shared/Color"

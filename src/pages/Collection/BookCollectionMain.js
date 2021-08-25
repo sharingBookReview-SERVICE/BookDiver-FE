@@ -12,7 +12,7 @@ import "swiper/components/pagination/pagination.scss";
 
 
 //컴포넌트
-import Collection from "../../elements/Collection";
+import {Collection} from "../../elements";
 //css
 import Color from "../../shared/Color";
 

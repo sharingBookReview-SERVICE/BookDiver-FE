@@ -1,24 +1,23 @@
 import React,{useEffect} from "react";
 import { useLocation } from "react-router-dom";
+
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
-import ListIcon from '@material-ui/icons/List';
-import NotSupport from "../modals/NotSupport"
-
-import Color from "../shared/Color";
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
-import BookmarkOutlinedIcon from "@material-ui/icons/BookmarkOutlined";
+import Color from "../../shared/Color";
+import { makeStyles } from "@material-ui/core/styles";
 
-import {history} from "../redux/configStore";
+import {history} from "../../redux/configStore";
 import {useDispatch, useSelector} from "react-redux";
 import { useParams } from "react-router";
 
-import { actionCreators as userActions } from "../redux/modules/user";
-import { actionCreators as permitActions } from "../redux/modules/permit";
-import {images} from "../shared/Image"
-import {titles} from "../shared/Titles";
+import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 
-import { makeStyles } from "@material-ui/core/styles";
+import {images} from "../../shared/Image"
+import {titles} from "../../shared/Titles";
+
+import {NotSupport} from "../../modals";
 
 
 const useStyles = makeStyles((theme) => ({

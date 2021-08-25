@@ -1,11 +1,7 @@
 //import 부분
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-import KaKaoLogin from 'react-kakao-login';
 import { KAKAO_AUTH_URL} from "../shared/OAuth";
-import { useHistory } from "react-router-dom";
 import Color from "../shared/Color";
 
 
@@ -13,7 +9,6 @@ import Color from "../shared/Color";
 const Login = (props) =>{
 
     
-    const dispatch = useDispatch();
 
    
     return(

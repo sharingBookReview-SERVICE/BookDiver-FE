@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import ClearIcon from "@material-ui/icons/Clear";
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import { useSelector,useDispatch } from "react-redux";
-import ReviewDetail from "../pages/ReviewDetail";
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 import { actionCreators as tagActions } from "../redux/modules/tag";

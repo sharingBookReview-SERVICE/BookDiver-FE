@@ -1,5 +1,5 @@
 //import 부분
-import React, { useRef, useState } from "react";
+import React from "react";
 import { history } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as collectionActions } from "../../redux/modules/collection";
@@ -11,7 +11,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
 
-import EditModal from "../../modals/EditModal";
+import {EditModal} from "../../modals";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {

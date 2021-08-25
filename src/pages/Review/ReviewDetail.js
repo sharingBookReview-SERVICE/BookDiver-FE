@@ -3,12 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import io from "socket.io-client"
 
-import { actionCreators as commentAction } from "../redux/modules/comment";
-import {actionCreators as reviewAction } from "../redux/modules/review";
-import { actionCreators as permitAction } from "../redux/modules/permit";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as commentAction } from "../../redux/modules/comment";
+import {actionCreators as reviewAction } from "../../redux/modules/review";
+import { actionCreators as permitAction } from "../../redux/modules/permit";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 import { useParams } from "react-router";
 import { useLocation } from "react-router-dom"
 
@@ -17,15 +17,13 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import EditModal from "../modals/EditModal";
-
 import { makeStyles } from "@material-ui/core/styles";
-import Comment from "../components/Comment";
-import SelectBookCard from "../components/SelectBookCard";
-import CommentModal from "../modals/CommentModal";
 
-import {images} from "../shared/Image"
-import Color from "../shared/Color";
+import {EditModal ,CommentModal} from "../../modals";
+import {Comment, SelectBookCard} from "../../components";
+
+import {images} from "../../shared/Image";
+import Color from "../../shared/Color";
 
 const useStyles = makeStyles((theme) => ({
   goback: {

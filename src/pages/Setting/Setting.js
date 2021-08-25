@@ -1,22 +1,19 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { history } from "../redux/configStore";
-import { actionCreators as permitActions } from "../redux/modules/permit";
+import { useDispatch, useSelector } from "react-redux";
+import { history } from "../../redux/configStore";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 
-import LogoutModal from "../modals/LogoutModal";
-import SignoutModal from "../modals/SignoutModal";
+import {LogoutModal, SignoutModal, NotSupport} from "../../modals";
 
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import CallIcon from '@material-ui/icons/Call';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import NotSupport from "../modals/NotSupport"
-
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
 
 
 

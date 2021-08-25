@@ -1,22 +1,20 @@
 import React from "react";
+import { history } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { actionCreators as collectionActions } from "../../redux/modules/collection";
 
-import { Transition } from 'react-transition-group';
 import "../../shared/Transition.css";
 
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
-import { history } from "../../redux/configStore";
 import { makeStyles } from "@material-ui/core/styles";
-import CollectionBookCard from "../../elements/CollectionBookCard";
-import Comment from "../../components/Comment";
-import EditModal from "../../modals/EditModal";
+
+//컴포넌트
+import {CollectionBookCard} from "../../elements";
+import {EditModal} from "../../modals";
 
 
 const useStyles = makeStyles((theme) => ({

@@ -6,8 +6,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Color from "../shared/Color";
 
-import profile from "../img/profile.svg"
-import {images} from "../shared/Image" 
+import {images} from "../shared/Image";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";

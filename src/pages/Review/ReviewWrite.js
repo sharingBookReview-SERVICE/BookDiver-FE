@@ -1,27 +1,25 @@
 //import 부분
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configStore";
+import { history } from "../../redux/configStore";
 import styled from "styled-components";
 import imageCompression from "browser-image-compression";
 
-import add_button from "../img/add_button.png";
+import {add_button} from "../../img";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
-import SelectBookModal from "../modals/SelectBookModal";
-import WriteCheckModal from "../modals/WriteCheckModal"
-import SelectBookCard from "../components/SelectBookCard";
-import HashTagsInput from "../elements/HashTagsInput";
-import RecommandHashTags from '../elements/RecommandHashTags';
-import Loading from "../pages/ETC/Loading"
+import Color from "../../shared/Color";
 
-import { actionCreators as reviewActions } from "../redux/modules/review";
-import { actionCreators as permitActions } from "../redux/modules/permit";
-import { actionCreators as bookActions } from "../redux/modules/book";
-import { actionCreators as uploadAcions } from "../redux/modules/upload";
-import { actionCreators as tagActions } from "../redux/modules/tag";
+import {SelectBookModal, WriteCheckModal} from "../../modals";
+import {SelectBookCard} from "../../components";
+import {HashTagsInput, RecommandHashTags} from "../../elements";
+import {Loading} from "../ETC"
+
+import { actionCreators as reviewActions } from "../../redux/modules/review";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
+import { actionCreators as bookActions } from "../../redux/modules/book";
+import { actionCreators as uploadAcions } from "../../redux/modules/upload";
+import { actionCreators as tagActions } from "../../redux/modules/tag";
 
 const useStyles = makeStyles((theme) => ({
   arrow: {

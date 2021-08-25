@@ -4,16 +4,18 @@ import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
-import AddIcon from '@material-ui/icons/Add';
+
 
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { actionCreators as collectionActions } from "../../redux/modules/collection";
 import { actionCreators as uploadActions } from "../../redux/modules/upload";
 
-import SelectBookModal from "../../modals/SelectBookModal";
-import CollectionBookCard from "../../elements/CollectionBookCard";
+
+import {SelectBookModal} from "../../modals";
+import {CollectionBookCard} from "../../elements";
 import AddBook from "./AddBook";
 
 

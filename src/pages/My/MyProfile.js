@@ -1,19 +1,18 @@
 //import 부분
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { history } from "../redux/configStore";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../../redux/configStore";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 
 import styled from "styled-components";
-import Color from "../shared/Color"
+import Color from "../../shared/Color"
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { makeStyles } from "@material-ui/core/styles";
-import {images} from "../shared/Image"
-import {titles} from "../shared/Titles"
+import {images} from "../../shared/Image"
+import {titles} from "../../shared/Titles"
 
-import ProfileSwiper from "../elements/ProfileSwiper";
 
 const useStyles = makeStyles((theme) => ({
     setting: {
@@ -80,9 +79,9 @@ const MyProfile = (props) =>{
 
                   </ProfileWrapper>
                   <CollectionWrapper>
-                  {CollectionList.map((title, idx) => {
+                  {/* {CollectionList.map((title, idx) => {
                       return(<ProfileSwiper title={title} key={idx}/>)
-                  })}
+                  })} */}
                   </CollectionWrapper>
 
                 </Background>

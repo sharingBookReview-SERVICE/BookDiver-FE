@@ -2,17 +2,14 @@
 import React from "react";
 import styled from "styled-components";
 
-//import 이미지
-import book_img from "../img/book_img.jpeg"
-import Header from "../components/Header"
-import SelectBookCard from "../components/SelectBookCard";
-import ReviewCard from "../components/ReviewCard";
-import { actionCreators as bookActions } from "../redux/modules/book";
-import { actionCreators as reviewActions } from "../redux/modules/review";
-import { actionCreators as permitActions } from "../redux/modules/permit";
+
+import {Header, SelectBookCard, ReviewCard} from "../../components"
+import { actionCreators as bookActions } from "../../redux/modules/book";
+import { actionCreators as reviewActions } from "../../redux/modules/review";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
-import Color from "../shared/Color";
+import Color from "../../shared/Color";
 
 //feature 사용중 push하기 
 const BookDetail = (props) => {
