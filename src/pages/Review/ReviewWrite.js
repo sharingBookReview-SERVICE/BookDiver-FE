@@ -285,7 +285,7 @@ const ReviewWrite = (props) => {
             <Image src={preview_url} />
           </ImageBox>
         ) : (
-          <BookChoice
+          <ImageChoice
             style={{ height: "312px" }}
             onClick={() => {
               selectImage();
@@ -302,7 +302,7 @@ const ReviewWrite = (props) => {
             >
               <Text1>인상깊었던 페이지 사진을 올려보세요</Text1>
             </Text>
-          </BookChoice>
+          </ImageChoice>
         )}
 
         <QuoteBox>
@@ -366,7 +366,6 @@ align-items:center;
 justify-content:space-between;
 width:100%;
 height:auto;
-margin-bottom:7px;
 padding:0px 8px;
 box-sizing:border-box;
 `
@@ -376,14 +375,12 @@ const Text = styled.div`
   letter-spacing: -0.7px;
   text-align: center;
   font-weight: bold;
-  font-family: 'Noto Serif KR', serif;
   display:flex;
   justify-content:flex-start;
   color: ${Color.fontblack};
 `;
 
 const Text1 = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
   color: ${Color.fontGray};
 `;
 
@@ -393,7 +390,6 @@ const SubmitButton = styled.button`
   width: auto;
   height: 30px;
   font-size: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   // float: right;
   // display: inline-block;
@@ -409,6 +405,7 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #d7d3d3;
 `;
 
 const Image = styled.img`
@@ -416,6 +413,7 @@ const Image = styled.img`
   height: auto;
   max-width: 100%;
   max-height: 100%;
+
 `;
 
 const PostWriteBox = styled.div`
@@ -456,16 +454,33 @@ const LeftArrow = styled.img`
 `;
 
 const BookChoice = styled.div`
-  width: 90%;
+  width: 100%;
   height: 112px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.3vh;
-  margin: auto auto 16px auto;
-  border-radius: 12px;
-  border: 1px solid #252121;
+  border-top: 1px solid #d7d3d3;
+  font-weight: bolder;
+  color: ${Color.fontgray};
+  background-color: ${Color.mainColor};
+  font-size: 0.9em;
+  box-sizing: border-box;
+  cursor: pointer;
+`;
+
+
+const ImageChoice = styled.div`
+  width: 100%;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3vh;
+  border-top: 1px solid #d7d3d3;
+  border-bottom: 1px solid #d7d3d3;
   font-weight: bolder;
   color: ${Color.fontgray};
   background-color: ${Color.mainColor};
@@ -480,7 +495,7 @@ const QuoteBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 36px auto auto auto;
+  margin: 18px auto auto auto;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   position:relative;
@@ -488,7 +503,7 @@ const QuoteBox = styled.div`
 
 const QuotesTextarea = styled.textarea`
   width: 95%;
-  height: 250px;
+  height: 108px;
   margin: auto;
   font-family: 'Noto Sans KR', sans-serif;
   line-height: 1.43;
@@ -518,7 +533,7 @@ const ReviewBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 36px auto auto auto;
+  margin: 18px auto auto auto;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   position:relative;
@@ -552,6 +567,6 @@ const CountBox = styled.div`
   font-size:13px;
   color:${Color.fontGray};
   position:absolute;
-  bottom:5px;
+  bottom:20px;
   right:15px;
 `

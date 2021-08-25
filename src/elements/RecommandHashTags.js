@@ -35,7 +35,7 @@ const RecommandHashTags = (props) => {
             addTag(tag);
             removeTag(index);
           }}>
-            <TagText>{tag}</TagText>
+            <TagText>#{tag}</TagText>
           </Tag>
         ))}
       </TagUl>

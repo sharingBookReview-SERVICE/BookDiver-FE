@@ -38,10 +38,10 @@ const Header = (props) => {
 
         <SearchBarBox >
           <SearchIcon
-          onClick={openNotSupportModal} 
+          onClick={()=>{gotoSearch()}} 
           className={classes.icon} />
           <NotificationsNoneIcon
-          onClick={openNotSupportModal} 
+         
           className={classes.icon}/>
         </SearchBarBox>
       </HeaderBox>
