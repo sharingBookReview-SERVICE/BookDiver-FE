@@ -17,6 +17,8 @@ const IS_LOADING = "permit/IS_LOADING"
 const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT";
 const MESSAGE = "permit/MESSAGE";
 const NEW_TREASURE_MODAL ="permit/NEW_TREASURE_MODAL"
+const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT"
+const IS_LOADED = "permit/IS_LOADED"
 
 
 //actioncreator

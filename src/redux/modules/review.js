@@ -74,6 +74,8 @@ const getAllReviewSV = () => {
                 }
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
+                dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
             })
             .catch(error => console.error(error.toJSON()));
     };

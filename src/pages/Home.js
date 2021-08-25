@@ -14,6 +14,7 @@ import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
 import {EditModal,LoginModal,NotSupport,CheckTreasureModal} from "../modals";
 
+import spinner from "../img/Spin-1s-200px.gif"
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
 
@@ -31,6 +32,7 @@ const Home = (props) => {
   const is_loading = useSelector((state) => state.permit.is_loading)
   const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
   const userId = useSelector((state) => state.user.user._id); //내 아이디
+  const is_loaded = useSelector((state) => state.permit.is_loaded)
 
   
   const [Id, setId] = useState([])
@@ -56,7 +58,7 @@ const onIntersect = async([entry], observer) => {
     console.log(showedReviewId)
 
     observer.unobserve(entry.target)
-    // dispatch(reviewActions.checkIsRead(showedReviewId))
+    dispatch(reviewActions.checkIsRead(showedReviewId))
 }
 
 useEffect(() => {
@@ -111,14 +113,18 @@ useEffect(() => {
   }, [reviewList]);
 
   const getMoreReview = (lastId) => {
-    if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
+    // if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
   }
 
   //infinite scroll
   useEffect(() => {
     if(inView){
+      console.log("화면에 들어옵니까?")
       const lastReviewId = Id[Id.length - 1]?._id
       getMoreReview(lastReviewId)
+      dispatch(permitAction.isLoading(true))
+      // dispatch(reviewActions.test())
+      // getMoreReview(lastReviewId)
     }
   }, [inView]);
 
@@ -147,9 +153,6 @@ useEffect(() => {
   useEffect(()=>{
       container?.current?.scrollTo(0, lastScroll);
   },[])
-
-
-
 
   //뷰
 
@@ -186,6 +189,8 @@ useEffect(() => {
 
       <div ref={ref}></div>
     </Container>}
+      {is_loaded && <div ref={ref} ></div>}
+    </Container>
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
     <LoginModal show_login_modal={show_login_modal}/>
@@ -254,7 +259,12 @@ const Container = styled.div`
 position: absolute;
   width: 100vw;
   height: 100vh;
+  ${(props) => props.loading ? `
+  background: ${Color.mainColor};
+  `: `
   background: ${Color.bgColor};
+  `};
+
   overflow-y: ${(props) => props.is_modal_opened};
   overflow-x: hidden;
   -ms-overflow-style: none; /* IE and Edge */
