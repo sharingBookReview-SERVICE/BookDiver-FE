@@ -219,7 +219,7 @@ const ReviewDetail = (props) => {
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 
-              <Box direction={"column"}>
+              <Box direction={"row"}>
                 <Box direction={"row"}>
                   <UserName>{user?.nickname}</UserName>
                  
@@ -283,7 +283,7 @@ const ReviewDetail = (props) => {
 
               <CountBox>
               <SmsOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
-              <CountText > {comments.length} 개</CountText>
+              <CountText > {comments?.length} 개</CountText>
               </CountBox>
 
               <CountBox>
@@ -375,6 +375,7 @@ const Box = styled.div`
 display:flex;
 flex-direction:${(props) => props.direction};
 justify-content:flex-start;
+align-items:center;
 `
 
 const UserLeftBox = styled.div`
@@ -500,31 +501,6 @@ const Image = styled.img`
   max-width: 100%;
   max-height: 100%;
 `;
-const ReactionBar = styled.div`
-border: 1px solid #242121;
-width: 90%;
-height: 56px;
-border-radius: 24px;
-margin: 0 auto;
-margin-top: 16px;
-margin-bottom: 16px;
-display: flex;
-align-items: center;
-`;
-const Div = styled.div`
-display: flex;
-width: 100%;
-height: 100%;
-align-items: center;
-justify-content: center;
-
-`;
-const Hr = styled.div`
-width: 1px;
-height: 100%;
-background: black;
-
-`;
 
 const CommentWrapper = styled.div`
 width:100%;
@@ -604,6 +580,7 @@ const LikeCommentBox = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 48px;
+  border-bottom:1px solid ${Color.CardHashTag};
 `;
 
 export default ReviewDetail;

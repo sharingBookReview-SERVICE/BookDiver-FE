@@ -52,7 +52,8 @@ const SelectBookCard = (props) =>{
   
   if(is_reviewDetail){
     return(
-      <BookInfoWrapper 
+      <BookInfoWrapper
+      is_reviewDetail={is_reviewDetail} 
       onClick={()=>{
         history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
       }}>
@@ -75,7 +76,7 @@ const SelectBookCard = (props) =>{
     // book detail 에서 보는 화면 
   if(is_book_detail){
     return(
-      <BookInfoWrapper>
+      <BookInfoWrapper >
         <BookInfoBox>
           <BookImg url={book.image}/>
           <BookDescBox>
@@ -127,6 +128,12 @@ const BookInfoWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 0px 20px 16px 20px; 
+  ${(props) => props.is_reviewDetail ? `
+  border-top:1px solid ${Color.CardHashTag};
+  border-bottom:1px solid ${Color.CardHashTag};
+  padding: 0px 20px 0px 20px; 
+  margin-bottom:15px;
+  `: ""};
 `
 
 const BookInfoBox = styled.div`

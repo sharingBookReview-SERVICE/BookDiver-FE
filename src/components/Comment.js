@@ -142,7 +142,7 @@ const CommentSizeBox = styled.div`
 const CommentUserBox = styled.div`
   display: flex;
   align-items: center;
-  margin: 7px auto auto 24px;
+//   margin: 7px auto auto 24px;
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
@@ -159,8 +159,7 @@ const UserRightBox = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  align-items: center;
-  margin-right: 30px;
+  align-items: flex-start;
 `;
 
 const UserName = styled.p`
@@ -174,7 +173,7 @@ color: ${Color.fontgray}
 `;
 
 const Content = styled.p`
-  margin: 0px auto auto 24px;
+  margin: 0px auto auto 0px;
 `;
 const LikeBox = styled.div`
 width: 35%;
