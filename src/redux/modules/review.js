@@ -99,6 +99,20 @@ const getMoreReviewSV = (lastId) => {
     };
 };
 
+//읽은 리뷰 체크하기
+const checkIsRead = (reviewId) => {
+    return function (dispatch) {
+        instance
+            .patch(`/feeds/${reviewId}`)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                // history.push("*")
+                console.log("전체 피드 가져오기 실패", err);
+            });
+    };
+}
 
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {

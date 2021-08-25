@@ -131,7 +131,7 @@ const ReviewCard = (props) => {
 
   return (
     <React.Fragment>
-      <CartWrapper ref={setRef}>
+      <CartWrapper ref={setRef} data-idx={props.setIdx}>
         <CardBox>
           <CommentUserBox>
 

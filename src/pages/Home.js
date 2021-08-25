@@ -35,18 +35,8 @@ const Home = (props) => {
   
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
-  const multiRef = useRef();
-  const [inViewRef, testInView] = useInView();
 
-  const setRefs = useCallback(
-    (node) => {
-      // Ref's from useRef needs to have the node assigned to `current`
-      multiRef.current = node;
-      // Callback refs, like the one from `useInView`, is a function that takes the node as an argument
-      inViewRef(node);
-    },
-    [inViewRef],
-  );
+  //-----------옵저버 테스트 
 
   const ReviewCount = reviewList.length;
   const [elRefs,setElRefs] = useState([]);
@@ -56,6 +46,31 @@ const Home = (props) => {
       Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
     ))
   },[ReviewCount])
+
+
+const target = useRef(null);
+const onIntersect = async([entry], observer) => {
+    if (!entry.isIntersecting) {
+      return
+    }
+    const showedReviewIdx = [entry][0].target.dataset.idx
+    const showedReviewId = Id[showedReviewIdx]?._id
+
+    observer.unobserve(entry.target)
+    dispatch(reviewActions.checkIsRead(showedReviewId))
+}
+
+useEffect(() => {
+  let observer
+    if(elRefs[9]){
+    console.log(elRefs[6].current)
+    observer = new IntersectionObserver(onIntersect, {threshold: 1});
+    reviewList.forEach((_, idx) => {
+      observer.observe(elRefs[idx].current)
+    });
+  }
+  return () => observer?.disconnect();
+},[elRefs])
 
 
  //리뷰 더 불러오기 
@@ -106,7 +121,6 @@ const Home = (props) => {
   //infinite scroll
   useEffect(() => {
     if(inView){
-      console.log("화면에 들어왔다.")
       const lastReviewId = Id[Id.length - 1]?._id
       getMoreReview(lastReviewId)
     }
@@ -131,35 +145,14 @@ const Home = (props) => {
       behavior: 'smooth',
     });
   }
-<<<<<<< refs/remotes/upstream/develop
   const lastScroll = useSelector(state=> state.review.current_scroll);
-=======
-  
-  console.log()
-
->>>>>>> [추가] 게시물 별 유저 읽음 확인
   const container = useRef(null);
 
   useEffect(()=>{
       container?.current?.scrollTo(0, lastScroll);
   },[])
 
-//-----------옵저버 테스트 
 
-const target = useRef(null);
-const onIntersect = async([entry], observer) => {
-  console.log("화면에 들어왔다.")
-}
-
-useEffect(() => {
-    if(elRefs[9]){
-    console.log(elRefs[6].current)
-    const observer = new IntersectionObserver(onIntersect, {threshold: 0.5});
-    reviewList.forEach((_, idx) => {
-      observer.observe(elRefs[idx].current)
-    });
-  }
-},[elRefs])
 
 
   //뷰
@@ -188,6 +181,7 @@ useEffect(() => {
         {reviewList?.map((review, idx) => {
               return (
                     <ReviewCard
+                    setIdx={idx}
                     setRef={elRefs[idx]}
                     {...review}
                     key={review.id}/> 
