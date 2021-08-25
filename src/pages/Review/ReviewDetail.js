@@ -17,6 +17,8 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import { makeStyles } from "@material-ui/core/styles";
 
 import {EditModal ,CommentModal} from "../../modals";
@@ -217,7 +219,7 @@ const ReviewDetail = (props) => {
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 
-              <Box direction={"column"}>
+              <Box direction={"row"}>
                 <Box direction={"row"}>
                   <UserName>{user?.nickname}</UserName>
                  
@@ -247,34 +249,49 @@ const ReviewDetail = (props) => {
                 <ReviewContent>
                   {quote ? <Quote> {quote}</Quote> : ""}
                   {content ? <Content>{content}</Content> : ""}
-                  <HashTagBox>
-                  {hashtags?.map((tag, idx) => {
-                     return <HashTag key={idx}>{`#${tag} `}</HashTag>
-                    })}
-                  </HashTagBox>
+
                   <ImageBox>
                     <Image src={image}/>
                   </ImageBox>
                 </ReviewContent>
-                <ReactionBar>
-                  {
-                    myLike ?
-                    <Div 
-                    style={{cursor:"pointer"}}
-                    onClick={() => {
-                      clickLikeButton();
-                    }}><FavoriteIcon className={classes.like}   
-                   />좋아요 {likeCount} 개</Div>
-                    :
-                    <Div onClick={() => {
-                      clickLikeButton();
-                    }} ><FavoriteBorderIcon className={classes.like} 
-                    />좋아요 {likeCount} 개</Div>
-                  }
-                  
-                   <Hr></Hr>
-                   <Div>댓글 {comments?.length} 개</Div>
-                </ReactionBar>
+
+                <HashTagBox>
+                  {hashtags?.map((tag, idx) => {
+                     return <HashTag key={idx}>{`#${tag} `}</HashTag>
+                    })}
+                  </HashTagBox>
+
+                  <LikeCommentBox>
+            <CountBox>
+              {myLike ? (
+                <FavoriteIcon
+                  style={{ fontSize: "20px", color: "#67332e", cursor:"pointer" }}
+                  onClick={() => {
+                    clickLikeButton();
+                  }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
+                  onClick={() => {
+                    clickLikeButton();
+                  }}
+                />
+              )}
+              <CountText>{likeCount}개</CountText>
+            </CountBox>
+
+              <CountBox>
+              <SmsOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+              <CountText > {comments?.length} 개</CountText>
+              </CountBox>
+
+              <CountBox>
+              <BookmarkBorderOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+              <CountText> 스크랩</CountText>
+              </CountBox>
+
+          </LikeCommentBox>
 
             </Outter>
             <CommentWrapper ref={topComment}>
@@ -358,6 +375,7 @@ const Box = styled.div`
 display:flex;
 flex-direction:${(props) => props.direction};
 justify-content:flex-start;
+align-items:center;
 `
 
 const UserLeftBox = styled.div`
@@ -413,9 +431,9 @@ margin: 30px 0px;
 `;
 
 const Outter = styled.div`
-width: 90%;
+width: 100%;
 height: auto;
-border: 1px solid ${Color.black};
+// border: 1px solid ${Color.black};
 margin: 0 auto;
 border-radius: 16px;
 `;
@@ -433,14 +451,13 @@ const ReviewContent = styled.div`
 
 const Quote = styled.div`
 margin-bottom: 16px;
-padding: 12px;
 font-size:14px;
 font-family: "Noto Serif KR", serif;
 font-weight: bold;
 white-space: pre-line;
-background:${Color.quote};
 margin:0px 20px 16px 20px;
 border-radius:10px;
+color: ${Color.fontGray};
 `;
 
 const Content = styled.div`
@@ -458,12 +475,13 @@ list-style: none;
 padding: 15px 20px 10px 20px;
 flex-wrap: wrap;
 margin:0px;
+border-bottom:1px solid ${Color.CardHashTag};
 `;
 
 const HashTag = styled.div`
-border: 1px solid ${Color.black};
+border: 1px solid ${Color.CardHashTag};
 border-radius: 10px;
-color: ${Color.black};
+color: ${Color.hashTagFont};
 font-size: 14px;
 margin: 0px 8px 8px 0px;
 padding: 5px 7px;
@@ -482,31 +500,6 @@ const Image = styled.img`
   height: auto;
   max-width: 100%;
   max-height: 100%;
-`;
-const ReactionBar = styled.div`
-border: 1px solid #242121;
-width: 90%;
-height: 56px;
-border-radius: 24px;
-margin: 0 auto;
-margin-top: 16px;
-margin-bottom: 16px;
-display: flex;
-align-items: center;
-`;
-const Div = styled.div`
-display: flex;
-width: 100%;
-height: 100%;
-align-items: center;
-justify-content: center;
-
-`;
-const Hr = styled.div`
-width: 1px;
-height: 100%;
-background: black;
-
 `;
 
 const CommentWrapper = styled.div`
@@ -565,4 +558,29 @@ const CommentWriteButton = styled.div`
   height: 20px;
 }
 `;
+
+const CountBox = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const CountText = styled.p`
+  font-size: 14px;
+  margin: 0px 0px 0px 8px;
+  cursor:pointer;
+  color: ${Color.fontBlack};
+`;
+
+
+const LikeCommentBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: ${Color.mainColor};
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  border-bottom:1px solid ${Color.CardHashTag};
+`;
+
 export default ReviewDetail;

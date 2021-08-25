@@ -124,7 +124,7 @@ position: absolute;
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding: 65px 0px;
+  padding: 60px 0px;
 
 
   @media ${(props) => props.theme.tablet} {
