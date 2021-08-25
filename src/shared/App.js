@@ -23,7 +23,7 @@ import {TreasureModal, SignoutModal} from "../modals";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import {ReviewDetail, ReviewWrite, BookDetail} from "../pages/Review";
+import {ReviewDetail, ReviewWrite, BookDetail, Search} from "../pages/Review";
 import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification} from "../pages/My";
 import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/Setting";
 import {ErrorPage, LevelHelp} from "../pages/ETC";
@@ -91,7 +91,7 @@ function App(props) {
           <Route path="/postwrite" exact component={ReviewWrite} />
           <Route path="/postwrite/:bookid/:reviewid" exact component={ReviewWrite}/>
           <Route path="/bookdetail/:bookid" exact component={BookDetail} />
-
+          <Route path="/search" exact component={Search} />
 
           <Route path="/bookCollectionMain" exact component={BookCollectionMain} />
           <Route path="/collectiondetail/:collectionid" exact component={CollectionDetail}/>
