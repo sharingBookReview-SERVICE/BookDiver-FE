@@ -111,8 +111,7 @@ useEffect(() => {
   }, [reviewList]);
 
   const getMoreReview = (lastId) => {
-    console.log("리뷰를 더 불러오는 함수를 실행합니다.", is_render)
-    if(is_render) return dispatch(reviewActions.getMoreReviewSV(lastId))
+    if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
   }
 
   //infinite scroll
