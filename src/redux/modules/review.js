@@ -100,6 +100,22 @@ const getMoreReviewSV = (lastId) => {
     };
 };
 
+const getMoreReviewSV = (lastId) => {
+
+    return function (dispatch) {
+        instance
+            .get(`/feeds?lastItemId=${lastId}`)
+            .then((res) => {
+                dispatch(getMoreReview(res.data));
+                dispatch(permitActions.isLoading(false))
+            })
+            .catch((err) => {
+                // history.push("*")
+                console.log("전체 피드 가져오기 실패", err);
+            });
+    };
+};
+
 //읽은 리뷰 체크하기
 const checkIsRead = (reviewId) => {
     return function (dispatch) {

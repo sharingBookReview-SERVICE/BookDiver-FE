@@ -47,8 +47,6 @@ const Home = (props) => {
     ))
   },[ReviewCount])
 
-
-const target = useRef(null);
 const onIntersect = async([entry], observer) => {
     if (!entry.isIntersecting) {
       return
@@ -58,7 +56,7 @@ const onIntersect = async([entry], observer) => {
     console.log(showedReviewId)
 
     observer.unobserve(entry.target)
-    dispatch(reviewActions.checkIsRead(showedReviewId))
+    // dispatch(reviewActions.checkIsRead(showedReviewId))
 }
 
 useEffect(() => {
@@ -112,9 +110,9 @@ useEffect(() => {
     setId(reviewList)
   }, [reviewList]);
 
-  const getMoreReview = () => {
+  const getMoreReview = (lastId) => {
     console.log("리뷰를 더 불러오는 함수를 실행합니다.", is_render)
-    if(is_render) return dispatch(reviewActions.getMoreReviewSV())
+    if(is_render) return dispatch(reviewActions.getMoreReviewSV(lastId))
   }
 
   //infinite scroll
