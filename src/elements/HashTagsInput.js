@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import CancelIcon from '@material-ui/icons/Cancel';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import { useSelector,useDispatch } from "react-redux";
 import Color from "../shared/Color";
@@ -50,9 +50,9 @@ const HashTagsInput = (props) => {
         {tags?.map((tag, index) => (
           <Tag key={index}>
             <TagText>{tag}</TagText>
-            <CancelIcon 
+            <ClearIcon 
             className={classes.close}
-            onClick={() => removeTags(index)}></CancelIcon>
+            onClick={() => removeTags(index)}></ClearIcon>
           </Tag>
         ))}
       </TagUl>
@@ -92,9 +92,9 @@ const Tag = styled.li`
   display: flex;
   align-items: center;
   padding: 5px;
-  background-color: ${Color.hashtag};
+  background-color: ${Color.mainColor};
   border-radius: 7px;
-  border: 1px solid ${Color.black};
+  border: 1px solid ${Color.bgColor};
   width: auto;
   height: 20px;
   margin-right: 5px;

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         right: "20px"
     },
     font: {
-        fontFamily: "'Noto Serif KR', serif",
+       
         fontWeight:"bold",
         fontSize:"1.1rem"
 
@@ -184,6 +184,7 @@ const MakeCollection = (props) =>{
                 {/* <Text>게시하기</Text> */}
             </Head>
             <Wrapper>
+                <InputWrapper>
                 <Label>
                     컬렉션 제목
                 </Label>
@@ -192,7 +193,7 @@ const MakeCollection = (props) =>{
                     maxLength="20"     
                     ref={title}           
                 ></TitleInput>
-                
+                </InputWrapper>
                     {
                         is_preview?
                         <ImageBox onClick={() => {selectImage();}}>
@@ -205,7 +206,7 @@ const MakeCollection = (props) =>{
                             <Notice >컬렉션에 어울리는 사진을 올려보세요</Notice>
                         </ImageSelect>
                     }
-                
+                <InputWrapper>
                 <Label>
                     컬렉션 설명
                 </Label>
@@ -213,6 +214,7 @@ const MakeCollection = (props) =>{
                 placeholder="컬렉션에 대한 설명을 작성해주세요."
                 ref={description}    
                 ></DescTextarea>
+                </InputWrapper>
                 {
                    selected_Books.length===0? 
                    <AddBook/> 
@@ -273,7 +275,6 @@ const SubmitButton = styled.button`
   width: auto;
   height: 30px;
   font-size: 15px;
-  font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   // float: right;
   // display: inline-block;
@@ -288,12 +289,14 @@ width: 80%;
 text-align: right;
 `;
 const Wrapper = styled.div`
-width: 85%;
 margin: 0 auto;
 padding-top: 100px;
 `;
+const InputWrapper = styled.div`
+width:85%;
+margin: 0 auto;
+`;
 const Label = styled.div`
-font-family: 'Noto Serif KR', serif;
 font-weight: bold;
 margin-bottom: 8px;
 `;
@@ -301,7 +304,7 @@ const TitleInput = styled.input`
 width: 100%;
 height: 68px;
 border-radius: 12px;
-border: 1px solid black;
+border: 1px solid ${Color.bgColor};
 box-sizing: border-box;
 margin-bottom: 16px;
 background: ${Color.mainColor};
@@ -312,8 +315,8 @@ padding: 0px 10px;
 `;
 const ImageSelect = styled.div`
 width: 100%;
-border: 1px solid black;
-border-radius: 12px;
+border-top: 1px solid ${Color.bgColor};
+border-bottom: 1px solid ${Color.bgColor};
 box-sizing: border-box;
 height: 352px;
 display: flex;
@@ -343,14 +346,14 @@ const Notice = styled.div`
 `;
 const DescTextarea = styled.textarea`
 width: 100%;
-border: 1px solid black;
+border: 1px solid ${Color.bgColor};
 height: 108px;
 box-sizing: border-box;
 border-radius: 12px;
+font-family: 'Noto Sans KR', sans-serif;
 background: ${Color.mainColor};
 margin-bottom: 16px;
 padding: 10px;
-font-family: 'Noto Sans KR', sans-serif;
 resize:none;
 :focus{
     outline:none;
@@ -373,12 +376,11 @@ const MoreAddbtn = styled.div`
 width: 100%;
 height: 48px;
 box-sizing: border-box;
-border-radius: 12px;
-border: 1px solid black;
 display: flex;
 justify-content: center;
 align-items: center;
 cursor:pointer;
+color: ${Color.hashTagFont};
 `;
 
 

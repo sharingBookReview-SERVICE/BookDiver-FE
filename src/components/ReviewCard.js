@@ -220,7 +220,8 @@ const CartWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom:10px;
+  border-bottom: 1px solid ${Color.bgColor};
+  margin-bottom: 3px;
 `;
 
 const CardBox = styled.div`

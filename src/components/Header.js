@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "../img/Header-Main-Logo@3x.png";
 
 import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configStore";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 
@@ -24,9 +25,8 @@ const Header = (props) => {
   const dispatch = useDispatch()
   const classes = useStyles();
 
-
-  const openNotSupportModal = () => {
-    dispatch(permitAction.showNotSupport(true))
+  const gotoSearch = () => {
+    history.push("/search")
   }
 
 
@@ -38,10 +38,10 @@ const Header = (props) => {
 
         <SearchBarBox >
           <SearchIcon
-          onClick={openNotSupportModal} 
+          onClick={()=>{gotoSearch()}} 
           className={classes.icon} />
           <NotificationsNoneIcon
-          onClick={openNotSupportModal} 
+         
           className={classes.icon}/>
         </SearchBarBox>
       </HeaderBox>

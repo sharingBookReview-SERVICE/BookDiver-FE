@@ -40,7 +40,7 @@ const BookDetail = (props) => {
                   </BookContents>
 
                 <BookReview>
-                    리뷰({review_count}개)
+                    게시물({review_count}개)
                 </BookReview>
                 {
                   reviews_which_book_have &&
@@ -75,7 +75,7 @@ const Main = styled.div`
     display: none; /* Chrome, Safari, Opera*/
   }
   @media ${(props) => props.theme.mobile} {
-    padding-top:120px;
+    
     padding-bottom:100px;
   }
 
@@ -115,7 +115,7 @@ const BookContents = styled.div`
 const BookReview = styled.div`
   font-size: 21px;
   font-family: 'Noto Serif KR', serif;
-  font-weight: 800;
+  font-weight: 600;
   margin : 35px 0 0 24px;
   
 `;

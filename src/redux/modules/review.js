@@ -19,6 +19,8 @@ const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
 const GET_FEED_ID = "review/GET_FEED_ID";
 const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
 const CURRENT_SCROLL = "review/CURRENT_SCROLL";
+const SEARCH = "review/Search";
+const GET_ALLTAGS = "review/GET_ALLTAGS";
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({review_list}));
@@ -31,6 +33,8 @@ const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
 const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}));
 const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({reviews}));
 const saveCurrentScroll = createAction(CURRENT_SCROLL, (location)=>({location}));
+const searchReview = createAction(SEARCH, (review)=>({review}));
+const getAllTags = createAction(GET_ALLTAGS, (tags)=>({tags}));
 //initial
 const initialState = {
     all_review_list: [],
@@ -43,7 +47,9 @@ const initialState = {
         feed_edit_id: "",
     },
     reviews_which_book_have: [],
-    current_scroll : 0
+    current_scroll : 0,
+    serached_review : [],
+    all_tags: []
 };
 
 //middle
@@ -207,6 +213,38 @@ const getReviewsBookHaveSV = (bookId) => {
     };
 };
 
+const searchReviewSV = (keyword) =>{
+    return function(dispatch, getState) {
+        instance
+        .get(`/search`, {
+            params : {
+                tag: keyword
+            }
+        }
+  
+        )
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log("검색 실패", err)
+        })
+    }
+}
+
+const getAllTagsSV = () =>{
+    return function(dispatch, getState) {
+        instance
+        .get(`/search/allTags`)
+        .then((res)=>{
+            console.log(res.data.allTags)
+            dispatch(getAllTags(res.data.allTags))
+        })
+        .catch((err)=>{
+            console.log("검색 실패", err)
+        })
+    }
+}
 
 //reducer
 export default handleActions(
@@ -285,7 +323,15 @@ export default handleActions(
         [CURRENT_SCROLL]:(state, action) =>
         produce(state, (draft)=>{
             draft.current_scroll = action.payload.location;
-        })
+        }),
+        [SEARCH]:(state, action) =>
+        produce(state, (draft)=>{
+            draft.serached_review = action.payload.review;
+        }),
+        [GET_ALLTAGS]:(state, action) =>
+        produce(state, (draft)=>{
+            draft.all_tags = action.payload.tags;
+        }),
     },
     initialState
 );
@@ -300,7 +346,9 @@ const actionCreators = {
     getFeedId,
     getReviewsBookHaveSV,
     getMoreReviewSV,
-    saveCurrentScroll
+    saveCurrentScroll,
+    searchReviewSV,
+    getAllTagsSV
 };
 
 export { actionCreators };
