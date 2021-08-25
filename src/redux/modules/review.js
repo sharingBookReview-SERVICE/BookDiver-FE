@@ -426,6 +426,10 @@ const actionCreators = {
     searchReviewSV,
     getAllTagsSV,
     bookMarkSV
+    getAllTagsSV,
+    saveCurrentScroll,
+    checkIsRead,
+    test,
 };
 
 export { actionCreators };
