@@ -1,35 +1,58 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback ,useMemo} from "react";
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import SearchIcon from "@material-ui/icons/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../../redux/modules/review";
+import { Hint } from 'react-autocomplete-hint';
 
+
+const Word = (props) =>{
+  return(
+    <div>{props}</div>
+  )
+}
 const Search = (props)=>{
   const dispatch = useDispatch();
-  const search = useRef();
+  const [text, setText] = useState('')
+  const alltags = useSelector(state=> state.review.all_tags);
 
-  const searchCollection = () =>{
-    dispatch(reviewActions.searchReviewSV(search.current.value))
-  }
+  
   useEffect(()=>{
-    
+    dispatch(reviewActions.getAllTagsSV());
   },[])
+
+  const searchCollection = ()=>{
+    dispatch(reviewActions.searchReviewSV(text))
+  }
     return(
         <Container>
             <SearchBarBox >
-                <SearchBar 
-                ref = {search}
+            <Hint options={alltags} allowTabFill>
+                <input 
+                style={{
+                  width: "290px",
+                  height: "48px",
+                  color: `${Color.gray}`,
+                  border: "none",
+                  borderRadius: "12px",
+                  backgroundColor: `${Color.mainColor}`,
+                  padding: "0px 0px 0px 10px"
+                }}
                 placeholder="책이름, 저자명 등으로 검색해보세요" 
                 onKeyPress ={(e)=>{
                   if(e.key === "Enter"){
                     searchCollection()
                   }
                 }}
+                onChange = {(e)=>{
+                  setText(e.target.value)
+                }}
                 />
+            </Hint>
                 <SearchIcon />
             </SearchBarBox>
-
+           
         </Container>
     )
 }
