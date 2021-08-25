@@ -77,4 +77,4 @@ justify-content:flex-end;
 cursor:pointer;
 `;
 
-export default WriteCheckModal;
+export default React.memo(WriteCheckModal);

@@ -78,4 +78,4 @@ justify-content:flex-end;
 cursor:pointer;
 `;
 
-export default TreasureBoxModal;
+export default React.memo(TreasureBoxModal);

@@ -1,5 +1,5 @@
 //import 부분
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback, createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
@@ -32,17 +32,46 @@ const Home = (props) => {
   const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
   const userId = useSelector((state) => state.user.user._id); //내 아이디
 
-  const [isRecentCategory, setIsRecentCategory] = useState(false)
-
+  
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
+  const multiRef = useRef();
+  const [inViewRef, testInView] = useInView();
 
+  const setRefs = useCallback(
+    (node) => {
+      // Ref's from useRef needs to have the node assigned to `current`
+      multiRef.current = node;
+      // Callback refs, like the one from `useInView`, is a function that takes the node as an argument
+      inViewRef(node);
+    },
+    [inViewRef],
+  );
+
+  const ReviewCount = reviewList.length;
+  const [elRefs,setElRefs] = useState([]);
+
+  useEffect(() => {
+    setElRefs(elRefs => (
+      Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
+    ))
+  },[ReviewCount])
+
+
+ //리뷰 더 불러오기 
   const getMoreReview = (lastId) => {
     if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
   }
 
-  if(!reviewList){
-    history.push("*")
+  let is_rendered = false
+  console.log(reviewList.length, is_rendered)
+
+  //useEffect 실행 이후에도 불러온 리뷰가 없다면, 에러 안내 화면으로 보내기
+  if(is_rendered){
+    if(reviewList.length === 0){
+      localStorage.clear();
+      history.push("*")
+    }
   }
 
   // useEffect(() => {
@@ -68,12 +97,16 @@ const Home = (props) => {
     }
   }, []);
 
+
+  //인피니티 스크롤 구현을 위한, 리뷰 아이디 갯수 세기
   useEffect(() => {
     setId(reviewList)
   }, [reviewList]);
 
+  //infinite scroll
   useEffect(() => {
     if(inView){
+      console.log("화면에 들어왔다.")
       const lastReviewId = Id[Id.length - 1]?._id
       getMoreReview(lastReviewId)
     }
@@ -88,7 +121,7 @@ const Home = (props) => {
       clearTimeout(timer);
     }
     timer = setTimeout(function() {
-      dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
+      // dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
     }, 500);
   
   }
@@ -98,12 +131,37 @@ const Home = (props) => {
       behavior: 'smooth',
     });
   }
+<<<<<<< refs/remotes/upstream/develop
   const lastScroll = useSelector(state=> state.review.current_scroll);
+=======
+  
+  console.log()
+
+>>>>>>> [추가] 게시물 별 유저 읽음 확인
   const container = useRef(null);
 
   useEffect(()=>{
       container?.current?.scrollTo(0, lastScroll);
   },[])
+
+//-----------옵저버 테스트 
+
+const target = useRef(null);
+const onIntersect = async([entry], observer) => {
+  console.log("화면에 들어왔다.")
+}
+
+useEffect(() => {
+    if(elRefs[9]){
+    console.log(elRefs[6].current)
+    const observer = new IntersectionObserver(onIntersect, {threshold: 0.5});
+    reviewList.forEach((_, idx) => {
+      observer.observe(elRefs[idx].current)
+    });
+  }
+},[elRefs])
+
+
   //뷰
 
 
@@ -127,9 +185,12 @@ const Home = (props) => {
         </FeedCategoryWrapper>
 
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
-        {reviewList?.map((review) => {
+        {reviewList?.map((review, idx) => {
               return (
-                    <ReviewCard {...review} key={review.id}/> 
+                    <ReviewCard
+                    setRef={elRefs[idx]}
+                    {...review}
+                    key={review.id}/> 
               );
         })}
 
