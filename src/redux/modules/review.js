@@ -87,8 +87,9 @@ const getMoreReviewSV = (lastId) => {
 
     return function (dispatch) {
         instance
-            .get(`/feeds?lastItemId=${lastId}`)
+            .get("/feeds")
             .then((res) => {
+                console.log(res)
                 dispatch(getMoreReview(res.data));
                 dispatch(permitActions.isLoading(false))
             })

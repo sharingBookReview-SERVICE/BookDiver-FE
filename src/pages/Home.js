@@ -55,6 +55,7 @@ const onIntersect = async([entry], observer) => {
     }
     const showedReviewIdx = [entry][0].target.dataset.idx
     const showedReviewId = Id[showedReviewIdx]?._id
+    console.log(showedReviewId)
 
     observer.unobserve(entry.target)
     dispatch(reviewActions.checkIsRead(showedReviewId))
@@ -62,8 +63,7 @@ const onIntersect = async([entry], observer) => {
 
 useEffect(() => {
   let observer
-    if(elRefs[9]){
-    console.log(elRefs[6].current)
+    if(elRefs[0]){
     observer = new IntersectionObserver(onIntersect, {threshold: 1});
     reviewList.forEach((_, idx) => {
       observer.observe(elRefs[idx].current)
@@ -73,16 +73,10 @@ useEffect(() => {
 },[elRefs])
 
 
- //리뷰 더 불러오기 
-  const getMoreReview = (lastId) => {
-    if(lastId) return dispatch(reviewActions.getMoreReviewSV(lastId));
-  }
-
-  let is_rendered = false
-  console.log(reviewList.length, is_rendered)
+  let is_render = false;
 
   //useEffect 실행 이후에도 불러온 리뷰가 없다면, 에러 안내 화면으로 보내기
-  if(is_rendered){
+  if(is_render){
     if(reviewList.length === 0){
       localStorage.clear();
       history.push("*")
@@ -117,6 +111,11 @@ useEffect(() => {
   useEffect(() => {
     setId(reviewList)
   }, [reviewList]);
+
+  const getMoreReview = () => {
+    console.log("리뷰를 더 불러오는 함수를 실행합니다.", is_render)
+    if(is_render) return dispatch(reviewActions.getMoreReviewSV())
+  }
 
   //infinite scroll
   useEffect(() => {
