@@ -1,6 +1,7 @@
 const Color = {
   mainColor: "#f5f2f0",
-  secondColor: "#c1b4a4",
+  secondColor: "#b0abab",
+  bgColor:"#d7d3d3",
 
   black: "#242121",
   white: "#f5f2f0",
@@ -9,6 +10,10 @@ const Color = {
   fontGray: "#615d5d",
   borderGray: "rgba(37, 33, 33, 0.2)",
   fontBlack: "#252121",
+  bookTitle:"#222125",
+
+  CardHashTag:"#d7d3d3",
+  hashTagFont:"#9a9090",
 
   quote:"#e1d9d0",
   hashtag:"#e1d9d0",

@@ -112,7 +112,7 @@ const Container = styled.div`
 position: absolute;
   width: 100vw;
   height: 100vh;
-  background: ${Color.mainColor};
+  background: ${Color.bgColor};
   overflow-y: ${(props) => props.is_modal_opened};
   overflow-x: hidden;
   -ms-overflow-style: none; /* IE and Edge */
@@ -124,7 +124,7 @@ position: absolute;
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  padding :120px 0px;
+  padding: 65px 0px;
 
 
   @media ${(props) => props.theme.tablet} {
@@ -132,12 +132,38 @@ position: absolute;
     height:100vh;
   }
 
+
+  
   @media ${(props) => props.theme.desktop} {
     width:420px;
     height:100vh;
   }
 
 `;
+
+const HomeBGColor = styled.div`
+  background-color: ${Color.mainColor};
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position:absolute;
+
+  @media ${(props) => props.theme.mobile} {
+    padding: 120px 0 0 0;
+  }
+
+  @media ${(props) => props.theme.tablet} {
+    padding: 80px 0 0 0;
+  }
+
+  @media ${(props) => props.theme.desktop} {
+    padding: 80px 0 0 0;
+  }
+`;
+
 const Spinner = styled.img`
 width:150px;
 height:150px;

@@ -61,7 +61,6 @@ const Setting = (props) => {
                 onClick = {()=>{history.goBack()}}
                 />
                 <Text>설정</Text>
-                <NotificationsNoneIcon onClick={openNotSupportModal}/>
             </Head>
             <Wrapper onClick={openNotSupportModal}>
                 <PolicyOutlinedIcon/>
@@ -125,8 +124,8 @@ width: 100%;
 height: 56px;
 align-items: center;
 display: flex;
-background:${Color.black};
-color:${Color.white};
+background:${Color.mainColor};
+color:${Color.fontBlack};
 
 @media ${(props) => props.theme.mobile} {
     padding: 20px 0 0 0;
