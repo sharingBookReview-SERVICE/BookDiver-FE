@@ -203,6 +203,7 @@ const ReviewWrite = (props) => {
           <QuoteBox>
             <Text>인용구 작성하기</Text>
             <QuotesTextarea
+              maxLength="300"
               ref={quote}
               placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
             ></QuotesTextarea>
@@ -211,8 +212,9 @@ const ReviewWrite = (props) => {
           <ReviewBox>
             <Text>리뷰작성</Text>
             <QuotesTextarea
+              maxLength="300"
               ref={content}
-              placeholder="자유로운 리뷰를 작성해보세요.(최대 100자)"
+              placeholder="자유로운 리뷰를 작성해보세요.(최대 300자)"
             ></QuotesTextarea>
           </ReviewBox>
 
@@ -326,12 +328,12 @@ const ReviewWrite = (props) => {
 
           <QuotesTextarea
             ref={content}
-            maxLength="100"
+            maxLength="300"
             onChange={e => setReviewCount(e.target.value.length)}
-            placeholder="자유로운 리뷰를 작성해보세요. (최대 100자)"
+            placeholder="자유로운 리뷰를 작성해보세요. (최대 300자)"
           ></QuotesTextarea>
 
-          <CountBox>{reviewCount}/100</CountBox>
+          <CountBox>{reviewCount}/300</CountBox>
         </ReviewBox>
 
         <HashTag>
