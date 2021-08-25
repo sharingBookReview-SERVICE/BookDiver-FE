@@ -123,7 +123,7 @@ const ReviewDetail = (props) => {
 
   //뒤로가기 
   const goBack = () => {
-    history.push("/");
+    history.goBack();
   };
 
   //댓글 작성함수
