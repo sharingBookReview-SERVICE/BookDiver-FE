@@ -15,11 +15,13 @@ const Collection = (props) =>{
             history.push(`/collectiondetail/${props.id}`)
             : history.push('/login')
           }}>
-        <Image url = {props.image}>
-            <Overlay>
-            <CollectionTitle>{props.is_tag? `#${props.name}`: `${props.name}`}</CollectionTitle>
-            </Overlay>
-        </Image>
+        <ImgCover>
+            <Image url = {props.image}>
+                <Overlay>
+                <CollectionTitle>{props.is_tag? `#${props.name}`: `${props.name}`}</CollectionTitle>
+                </Overlay>
+            </Image>
+        </ImgCover>
     </Outter>
     )
 }
@@ -47,6 +49,14 @@ display:flex;
 justify-content:center;
 align-items:center;
 box-sizing:border-box;
+overflow:hidden;
+`
+
+const ImgCover = styled.div`
+width: 180px;
+height: 180px;
+border-radius: 12px;
+overflow:hidden;
 `
 
 const Image = styled.div`
@@ -55,6 +65,10 @@ height: 180px;
 border-radius: 12px;
 background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
+transition:0.5s ease-in-out;
+:hover{
+    transform:scale(1.1);
+}
 `;
 
 const CollectionTitle = styled.p`

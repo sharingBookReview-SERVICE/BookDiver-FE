@@ -4,18 +4,19 @@ import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
-import {logo} from "../img";
+import logo from "../img/Header-Main-Logo@3x.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 
 const useStyles = makeStyles((theme) => ({
-  searchIcon: {
-    width: "20px",
-    height: "20px",
-    position: "absolute",
-    left: "20px",
-    color: Color.mainColor,
+  icon: {
+    width: "25px",
+    height: "25px",
+    color: Color.fontBlack,
+    marginLeft:"15px",
+    cursor:"pointer",
   },
 }));
 
@@ -35,9 +36,13 @@ const Header = (props) => {
       <HeaderBox>
         <LogoBox><Logo src={logo}/></LogoBox>
 
-        <SearchBarBox onClick={openNotSupportModal}>
-          <SearchIcon className={classes.searchIcon} />
-          <SearchBar placeholder="궁금한 책 검색하기" />
+        <SearchBarBox >
+          <SearchIcon
+          onClick={openNotSupportModal} 
+          className={classes.icon} />
+          <NotificationsNoneIcon
+          onClick={openNotSupportModal} 
+          className={classes.icon}/>
         </SearchBarBox>
       </HeaderBox>
       </Wrapper>
@@ -46,7 +51,7 @@ const Header = (props) => {
 };
 
 const Wrapper = styled.div`
-background-color: ${Color.black};
+background-color: ${Color.mainColor};
 height:auto;
 width:100%;
 position:fixed;
@@ -55,29 +60,27 @@ z-index:1;
 @media ${(props) => props.theme.tablet} {
   width:420px;
 }
-
 @media ${(props) => props.theme.desktop} {
   width:420px;
 }
 `
 
 const HeaderBox = styled.div`
-  height: 12vh;
+  height: 56px;
   width: 100%;
   display: grid;
   flex-direction: row;
   grid-template-columns: 1fr 1fr;
   box-sizing: border-box;
-  border-bottom: 1px solid #f3f3f3;
 
   @media ${(props) => props.theme.tablet} {
     width:420px;
-    height:72px;
+    height:56px;
   }
 
   @media ${(props) => props.theme.desktop} {
     width:420px;
-    height:72px;
+    height:56px;
   }
 
 `;
@@ -95,45 +98,29 @@ const LogoBox = styled.div`
 const Logo = styled.img`
 width:auto;
 height:auto;
-max-width:30vw;
-max-height:30vh;
+max-width:90px;
+max-height:90px;
 
 @media ${(props) => props.theme.tablet} {
-  max-width:120px;
-  max-height:120px;
+  max-width:90px;
+  max-height:90px;
 }
 
 @media ${(props) => props.theme.desktop} {
-  max-width:120px;
-  max-height:120px;
+  max-width:90px;
+  max-height:90px;
 }
 `;
 
 const SearchBarBox = styled.div`
   width: 100%;
   height: 100%;
-  padding: 12px 12px 12px 12px;
+  padding: 12px 20px 12px 12px;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
-`;
-
-const SearchBar = styled.input`
-  width: 100%;
-  height: 48px;
-  color: ${Color.mainColor};
-  border: 1px solid ${Color.mainColor};
-  border-radius: 12px;
-  background-color: ${Color.black};
-  :focus {
-    outline: none;
-  }
-  ::placeholder {
-    color: ${Color.mainColor};
-  }
-  padding: 0px 0px 0px 36px;
 `;
 
 export default Header;

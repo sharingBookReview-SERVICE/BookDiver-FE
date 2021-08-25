@@ -69,7 +69,7 @@ const OtherFollow = (props) =>{
             </Header>
             {follow_list.map((user) => {
                 return(
-                    <FollowUser {...user} location={location} key={user.id}/>
+                    <FollowUser {...user} location={location} key={user?.id}/>
                 )
             })}
             </Container>

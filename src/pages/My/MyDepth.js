@@ -88,8 +88,8 @@ const MyDepth = (props) => {
 
 
         </Wrapper>
-        {new_badge && <NewBadge src={images[new_badge]} className={"scale-up-down-center"}/>}
-        {new_badge && <GetNewBadge className={"scale-up-down-center"}>{titles[new_badge]}를 획득하셨습니다.</GetNewBadge>}
+        {new_badge && <NewBadge src={images[new_badge]} className="scale-up-down-center"/>}
+        {new_badge && <GetNewBadge className="scale-up-down-center">{titles[new_badge]}를 획득하셨습니다.</GetNewBadge>}
         {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}             
     </React.Fragment>
   );

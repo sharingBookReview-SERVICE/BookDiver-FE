@@ -8,8 +8,9 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
 import BookOutlinedIcon from '@material-ui/icons/BookOutlined';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';
 import AddIcon from '@material-ui/icons/Add';
+import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -41,8 +42,12 @@ const useStyles = makeStyles((theme) => ({
     color:Color.black,
   },
   plus:{
-    color:Color.mainColor,
-    fontSize:"32px",
+    color:Color.secondColor,
+    fontSize:"28px",
+    "&:hover":{
+      color:Color.mainColor,
+    },
+    transition:"0.5s ease-in-out",
   }
 }));
 
@@ -57,7 +62,7 @@ const Navigation = (props) => {
       <NavBox>
 
       <IconBox to="/" exact activeClassName={classes.active}>
-        <QuestionAnswerIcon className={classes.icon}/>
+        <QuestionAnswerOutlinedIcon className={classes.icon}/>
         <PageName >피드</PageName>
       </IconBox>
 
@@ -73,7 +78,7 @@ const Navigation = (props) => {
       </AddBox>
 
       <IconBox to="/login" >
-        <SpeakerNotesIcon className={classes.icon}/>
+        <SpeakerNotesOutlinedIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
@@ -89,7 +94,7 @@ const Navigation = (props) => {
     <NavBox>
 
       <IconBox to="/" exact activeClassName={classes.active}>
-        <QuestionAnswerIcon className={classes.icon}/>
+        <QuestionAnswerOutlinedIcon className={classes.icon}/>
         <PageName >피드</PageName>
       </IconBox>
 
@@ -100,12 +105,12 @@ const Navigation = (props) => {
 
       <AddBox to="/postwrite">
         <PlusBox>
-          <AddIcon className={classes.plus}/>
+          <AddIcon className="plus" className={classes.plus}/>
         </PlusBox>
       </AddBox>
 
       <IconBox to="/myfeed" activeClassName={classes.active}>
-        <SpeakerNotesIcon className={classes.icon}/>
+        <SpeakerNotesOutlinedIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
@@ -176,15 +181,14 @@ color:${Color.black};
 const PlusBox = styled.div`
   width:42px;
   height:42px;
-  background:${Color.black};
+  border:1px solid ${Color.secondColor};
   border-radius:13px;
   display:flex;
   justify-content:center;
   align-items:center;
-  box-shadow:0px 5px 10px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease-in-out;
   :hover{
-    transform:scale(1.1)
+    background:${Color.secondColor};
   }
 `
 

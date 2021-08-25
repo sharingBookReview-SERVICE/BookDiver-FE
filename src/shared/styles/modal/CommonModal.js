@@ -14,8 +14,6 @@ border: solid 1px #eeeeee;
 background: ${Color.mainColor};
 z-index: 100;
 transition: opacity 0.5s ease-in-out;
-
-
 ${(props) => props.is_show ? 
   `opacity:1;
   top: 38%;`
@@ -23,23 +21,17 @@ ${(props) => props.is_show ?
   `opacity:0;
   top:-40%;`
   }
-
-
-
 @media ${(props) => props.theme.mobile} {
   left: 7%;
 }
-
 @media ${(props) => props.theme.tablet} {
   width: 390px;
   margin-left:15px;
 }
-
 @media ${(props) => props.theme.desktop} {
   width: 390px;
   margin-left:15px;
 }
-
 ` 
 
 export const CommonOverlay = styled.div`
@@ -50,14 +42,12 @@ z-index: 99;
 position: fixed;
 cursor:pointer;
 transition: opacity 0.5s ease-in-out;
-
 ${(props) => props.is_show ? 
   `opacity:0.4;`
   :
   `opacity:0;
   display:none;`
   }
-
 @media ${(props) => props.theme.tablet} {
   width: 420px;
 }

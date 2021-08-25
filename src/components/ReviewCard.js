@@ -4,6 +4,8 @@ import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import Color from "../shared/Color";
 
 import {images} from "../shared/Image";
@@ -156,36 +158,7 @@ const ReviewCard = (props) => {
             {quote ? <Quote >{quote}</Quote> : ""}
             {content ? <Content>{content}</Content> : ""}
 
-            <HashTagBox>
-              {hashtags.map((tag, idx) => (
-                <HashTag key={idx}>{`#${tag} `}</HashTag>
-              ))}
-            </HashTagBox>
           </ContentBox>
-
-          <LikeCommentBox>
-            <LikeBox>
-              {myLike ? (
-                <FavoriteIcon
-                  style={{ fontSize: "20px", color: Color.mainColor, cursor:"pointer" }}
-                  onClick={() => {
-                    clickLikeButton();
-                  }}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  style={{ fontSize: "20px", color: Color.mainColor, cursor:"pointer" }}
-                  onClick={() => {
-                    clickLikeButton();
-                  }}
-                />
-              )}
-              <LikeText>{likeCount}개</LikeText>
-            </LikeBox>
-            <WriteCommentBox>
-              <CommentCount onClick={() => {goDetailByComment()}}>댓글 {comments.length} 개</CommentCount>
-            </WriteCommentBox>
-          </LikeCommentBox>
 
           {image ?
           <ImageBox>
@@ -196,6 +169,45 @@ const ReviewCard = (props) => {
               }}
             />
           </ImageBox> : ""}
+
+          <HashTagBox>
+              {hashtags.map((tag, idx) => (
+                <HashTag key={idx}>{`#${tag} `}</HashTag>
+              ))}
+            </HashTagBox>
+
+          <LikeCommentBox>
+            <CountBox>
+              {myLike ? (
+                <FavoriteIcon
+                  style={{ fontSize: "20px", color: "#67332e", cursor:"pointer" }}
+                  onClick={() => {
+                    clickLikeButton();
+                  }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
+                  onClick={() => {
+                    clickLikeButton();
+                  }}
+                />
+              )}
+              <CountText>{likeCount}개</CountText>
+            </CountBox>
+
+              <CountBox>
+              <SmsOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+              <CountText onClick={() => {goDetailByComment()}}> {comments.length} 개</CountText>
+              </CountBox>
+
+              <CountBox>
+              <BookmarkBorderOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+              <CountText> 스크랩</CountText>
+              </CountBox>
+
+          </LikeCommentBox>
+
         </CardBox>
       </CartWrapper>
     </React.Fragment>
@@ -208,30 +220,27 @@ const CartWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom:10px;
 `;
 
 const CardBox = styled.div`
-  width: 90vw;
+  width: 100vw;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   box-sizing: border-box;
-  margin: 16px 16px 0px 16px;
   background-color: ${Color.mainColor};
-  border: 1px solid ${Color.black};
-  padding-bottom: 40px;
-  border-radius: 16px;
   position: relative;
   overflow:hidden;
 
   @media ${(props) => props.theme.tablet} {
-    width: 90%;
+    width: 100%;
   }
 
   @media ${(props) => props.theme.desktop} {
-    width: 90%;
+    width: 100%;
   }
 
 `;
@@ -276,12 +285,6 @@ display:flex;
 flex-direction:${(props) => props.direction};
 `
 
-const Follow = styled.div`
-font-weight:bold;
-font-size:14px;
-cursor:pointer;
-`
-
 const UserRightBox = styled.div`
   width: auto;
   height: auto;
@@ -290,17 +293,17 @@ const UserRightBox = styled.div`
 `;
 
 const ImageBox = styled.div`
-  width:90vw;
-  height:90vw;
+  width:100vw;
+  height:100vw;
 
   @media ${(props) => props.theme.tablet} {
-    width:400px;
-    height:400px;
+    width:420px;
+    height:420px;
   }
 
   @media ${(props) => props.theme.desktop} {
-    width:400px;
-    height:400px;
+    width:420px;
+    height:420px;
   }
   
 `;
@@ -351,16 +354,14 @@ const BookTitle = styled.p`
 
 const Quote = styled.p`
   font-size: 14px;
-  font-weight: bold;
-  line-height: 1.43;
+  font-weight: normal;
   letter-spacing: -0.28px;
   margin: 8px 0px;
-  color: ${Color.black};
+  color: ${Color.fontGray};
   font-family: "Noto Serif KR", serif;
   font-weight: 800;
   white-space: pre-line;
-  background:${Color.quote};
-  padding:12px;
+  line-height: 1.71;
   border-radius:10px;
   cursor:pointer;
 `;
@@ -373,6 +374,7 @@ const Content = styled.p`
   color: ${Color.fontgray};
   white-space: pre-line;
   cursor:pointer;
+  margin-bottom:15px;
 `;
 
 const HashTagBox = styled.ul`
@@ -380,55 +382,44 @@ const HashTagBox = styled.ul`
   justify-content: flex-start;
   align-items: center;
   list-style: none;
-  padding: 15px 0px 10px 0px;
+  padding: 10px 20px 10px 20px;
+  width:100%;
   flex-wrap: wrap;
   margin:0px;
+  border-bottom:1px solid ${Color.CardHashTag};
 `;
 
 const HashTag = styled.li`
-  border: 1px solid ${Color.black};
+  border: 1px solid ${Color.CardHashTag};
   border-radius: 10px;
-  color: ${Color.black};
+  color: ${Color.hashTagFont};
   font-size: 14px;
-  margin: 0px 8px 8px 0px;
+  margin: 0px 8px 0px 0px;
   padding: 5px 7px;
 `;
 
-const LikeBox = styled.div`
+const CountBox = styled.div`
   display: flex;
   align-items: flex-end;
 `;
 
-const LikeText = styled.p`
-  font-size: 16px;
+const CountText = styled.p`
+  font-size: 14px;
   margin: 0px 0px 0px 8px;
   cursor:pointer;
-  color: ${Color.mainColor};
+  color: ${Color.fontBlack};
 `;
+
 
 const LikeCommentBox = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  background-color: ${Color.black};
+  background-color: ${Color.mainColor};
   box-sizing: border-box;
-  position: absolute;
-  width: 55%;
-  height: 36px;
-  right: 0;
-  bottom: 18px;
-  border-radius: 20px 0px 0px 20px;
+  width: 100%;
+  height: 48px;
 `;
 
-const WriteCommentBox = styled.div`
-  display: flex;
-`;
-
-const CommentCount = styled.p`
-cursor:pointer;
-  font-size: 16px;
-  margin: 0px 0px 0px 8px;
-  color: ${Color.mainColor};
-`;
 
 export default ReviewCard;
