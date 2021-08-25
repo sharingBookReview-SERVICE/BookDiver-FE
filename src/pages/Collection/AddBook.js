@@ -5,15 +5,15 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
+import Color from "../../shared/Color";
 
 
 //스타일 정의
 const useStyles = makeStyles((theme) => ({
  
     font: {
-        fontFamily: "'Noto Serif KR', serif",
         fontWeight:"bold",
-        fontSize:"1.1rem"
+        fontSize:"1rem"
 
     },
     addicon: {
@@ -41,9 +41,9 @@ const AddBook = (props) =>{
 
 const AddBookBox= styled.div`
 width: 100%;
-border-radius: 12px;
 height: 112px;
-border: 1px solid black;
+border-top: 1px solid ${Color.bgColor};
+border-bottom: 1px solid ${Color.bgColor};
 box-sizing: border-box;
 margin-bottom: 16px;
 display: flex;
