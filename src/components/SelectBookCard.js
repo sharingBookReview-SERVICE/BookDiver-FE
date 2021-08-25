@@ -18,6 +18,7 @@ const SelectBookCard = (props) =>{
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
+  console.log(is_selected)
 
   const selectBook = ()=>{
     if(is_make_collection){
@@ -168,6 +169,12 @@ gap: 12px;
 box-sizing: border-box;
 cursor:pointer;
 
+`
+: 
+`border-radius: 12px;
+border: solid 1px ${Color.CardHashTag};
+padding: 16px;
+`}
 `
 
 const BookImg = styled.div`
