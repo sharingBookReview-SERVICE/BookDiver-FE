@@ -19,6 +19,7 @@ import { history } from "../redux/configStore";
 import ReactGA from "react-ga";
 
 
+
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
 
@@ -47,6 +48,8 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user._id);
   const cardUserId = user.id
   const profileImage = user?.profileImage;
+  const userLevel = user
+  console.log(userLevel)
 
   let is_my_post = false;
 
@@ -124,6 +127,11 @@ const ReviewCard = (props) => {
             <UserLeftBox>
               <ImgWrapper onClick={()=>goToUserFeed(user.id)}>
                 <ProfileImg src={images[profileImage]} />
+                <LevelBadge>
+                  <LevelText>
+                    10<span>m</span>
+                  </LevelText>
+                </LevelBadge>
               </ImgWrapper>
 
               <Box direction={"column"}>
@@ -271,14 +279,36 @@ const UserLeftBox = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-width:30px;
-height:30px;
+width:40px;
+height:40px;
 border-radius:70%;
-overflow:hidden;
 box-sizing:border-box;
-border: 1px solid ${Color.secondColor};
 background:${Color.black};
 margin-right:10px;
+position:relative;
+`
+
+const LevelBadge = styled.div`
+width:23px;
+height:23px;
+border-radius:50%;
+position:absolute;
+bottom:-3px;
+right:-3px;
+background:#a66554;
+`
+
+const LevelText = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:3px;
+color:${Color.white};
+font-weight:600;
+font-size:8px;
+span{
+  font-size:1px;
+}
 `
 
 const ProfileImg = styled.img`
