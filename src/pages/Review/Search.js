@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import SearchIcon from "@material-ui/icons/Search";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as reviewActions } from "../../redux/modules/review";
 
 const Search = (props)=>{
+  const dispatch = useDispatch();
+  const search = useRef();
+
+  const searchCollection = () =>{
+    dispatch(reviewActions.searchReviewSV(search.current.value))
+  }
+  useEffect(()=>{
+    
+  },[])
     return(
         <Container>
             <SearchBarBox >
-             
-                <SearchBar placeholder="책이름, 저자명 등으로 검색해보세요" />
+                <SearchBar 
+                ref = {search}
+                placeholder="책이름, 저자명 등으로 검색해보세요" 
+                onKeyPress ={(e)=>{
+                  if(e.key === "Enter"){
+                    searchCollection()
+                  }
+                }}
+                />
                 <SearchIcon />
             </SearchBarBox>
 
