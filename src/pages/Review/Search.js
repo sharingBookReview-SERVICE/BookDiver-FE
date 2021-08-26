@@ -22,7 +22,7 @@ const Search = (props)=>{
   const text = useRef();
   
   useEffect(()=>{
-    // dispatch(reviewActions.getAllTagsSV());
+    dispatch(reviewActions.getAllTagsSV());
     return(
       dispatch(searchActions.resetSelectedBook())
     )
