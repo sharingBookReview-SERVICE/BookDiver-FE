@@ -48,8 +48,6 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user._id);
   const cardUserId = user.id
   const profileImage = user?.profileImage;
-  const userLevel = user
-  console.log(userLevel)
 
   let is_my_post = false;
 
@@ -127,11 +125,6 @@ const ReviewCard = (props) => {
             <UserLeftBox>
               <ImgWrapper onClick={()=>goToUserFeed(user.id)}>
                 <ProfileImg src={images[profileImage]} />
-                <LevelBadge>
-                  <LevelText>
-                    10<span>m</span>
-                  </LevelText>
-                </LevelBadge>
               </ImgWrapper>
 
               <Box direction={"column"}>
@@ -283,32 +276,8 @@ width:40px;
 height:40px;
 border-radius:70%;
 box-sizing:border-box;
-background:${Color.black};
 margin-right:10px;
 position:relative;
-`
-
-const LevelBadge = styled.div`
-width:23px;
-height:23px;
-border-radius:50%;
-position:absolute;
-bottom:-3px;
-right:-3px;
-background:#a66554;
-`
-
-const LevelText = styled.div`
-display:flex;
-justify-content:center;
-align-items:center;
-margin-top:3px;
-color:${Color.white};
-font-weight:600;
-font-size:8px;
-span{
-  font-size:1px;
-}
 `
 
 const ProfileImg = styled.img`
@@ -393,12 +362,11 @@ const BookTitle = styled.p`
 
 const Quote = styled.p`
   font-size: 14px;
-  font-weight: normal;
   letter-spacing: -0.28px;
   margin: 8px 0px;
-  color: ${Color.fontGray};
+  color: ${Color.quote};
   font-family: "Noto Serif KR", serif;
-  font-weight: 800;
+  font-weight: normal;
   white-space: pre-line;
   line-height: 1.71;
   border-radius:10px;

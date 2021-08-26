@@ -15,6 +15,7 @@ import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutline
 import { makeStyles } from "@material-ui/core/styles";
 
 import Color from "../shared/Color";
+import {images} from "../shared/Image"
 
 import { useSelector } from "react-redux";
 
@@ -56,6 +57,8 @@ const Navigation = (props) => {
   const classes = useStyles();
 
   const is_login = useSelector((state) => state.user.is_login);
+  const profile = useSelector((state) => state.user.user.profileImage)
+  console.log(profile)
 
   if(!is_login){
     return(
@@ -115,14 +118,21 @@ const Navigation = (props) => {
       </IconBox>
 
       <IconBox to="/setting" activeClassName={classes.active}>
-        <PersonIcon className={classes.icon}/>
-        <PageName >내 정보</PageName>
+        <ProfileImg src={images[profile]}></ProfileImg>
+        <PageName >잠수상태</PageName>
       </IconBox>
     </NavBox>
   );
 };
 
 export default Navigation;
+
+const ProfileImg = styled.img`
+width:23px;
+height:23px;
+border-radius:50%;
+margin-bottom:2px;
+`
 
 
 const NavBox = styled.div`

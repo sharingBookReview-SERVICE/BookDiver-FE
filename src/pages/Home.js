@@ -24,6 +24,8 @@ const Home = (props) => {
   const is_support_modal = useSelector((state) => state.permit.is_support_modal)
   const is_loading = useSelector((state) => state.permit.is_loading)
 
+  const [isRecentCategory, setIsRecentCategory] = useState(false)
+
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
 
@@ -93,6 +95,19 @@ const Home = (props) => {
     <>
     <Container  onScroll={scroll} ref={container}>
         <Header />
+        <FeedCategoryWrapper>
+          <SocialFeed 
+          onClick={() => setIsRecentCategory(false)} 
+          isRecentCategory={isRecentCategory}>
+            소셜피드
+          </SocialFeed>
+          <RecentFeed 
+          onClick={() => setIsRecentCategory(true)}
+          isRecentCategory={isRecentCategory}>
+            최신피드
+          </RecentFeed>
+          <CategoryBar isRecentCategory={isRecentCategory}/>
+        </FeedCategoryWrapper>
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
         {reviewList?.map((review) => {
               return (
@@ -108,6 +123,57 @@ const Home = (props) => {
     </>
   );
 };
+
+const FeedCategoryWrapper = styled.div`
+width:100%;
+height:60px;
+display:grid;
+flex-direction: row;
+grid-template-columns: 1fr 1fr;
+padding:0px 20px;
+box-sizing:border-box;
+background:${Color.mainColor};
+position:relative;
+`
+
+const CategoryBar = styled.hr`
+position:absolute;
+width:40%;
+border:1px solid black;
+border-radius:1px;
+bottom:0px;
+left:7.5%;
+transition:0.5s ease-in-out;
+${(props) => props.isRecentCategory ? 
+`
+left:52.5%`
+:
+""};
+`
+
+const SocialFeed = styled.div`
+width:100%;
+height:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.5s ease-in-out;
+cursor:pointer;
+${(props) => props.isRecentCategory ? `color:${Color.quote}`:""};
+`
+
+const RecentFeed = styled.div`
+width:100%;
+height:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.5s ease-in-out;
+cursor:pointer;
+${(props) => props.isRecentCategory ? "" : `color:${Color.quote}`};
+`
+
+
 const Container = styled.div`
 position: absolute;
   width: 100vw;

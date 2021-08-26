@@ -29,6 +29,11 @@ const Header = (props) => {
     history.push("/search")
   }
 
+  const openNotSupportModal = () => {
+    dispatch(permitAction.showNotSupport(true))
+  }
+
+
 
   return (
     <React.Fragment>
@@ -41,7 +46,7 @@ const Header = (props) => {
           onClick={()=>{gotoSearch()}} 
           className={classes.icon} />
           <NotificationsNoneIcon
-         
+          onClick={openNotSupportModal}
           className={classes.icon}/>
         </SearchBarBox>
       </HeaderBox>

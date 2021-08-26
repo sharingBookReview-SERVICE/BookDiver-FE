@@ -457,7 +457,7 @@ font-weight: bold;
 white-space: pre-line;
 margin:0px 20px 16px 20px;
 border-radius:10px;
-color: ${Color.fontGray};
+color: ${Color.quote};
 `;
 
 const Content = styled.div`
