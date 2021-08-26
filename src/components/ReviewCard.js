@@ -16,6 +16,8 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
 
+import ReactGA from "react-ga";
+
 
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
@@ -150,6 +152,11 @@ const ReviewCard = (props) => {
           <ContentBox
             onClick={() => {
               goToReviewDetail();
+              
+            ReactGA.trackUser({
+              action: "go to review detail",
+              label: "reviewdetail",
+            });
             }}
           >
             <BookTitle>
