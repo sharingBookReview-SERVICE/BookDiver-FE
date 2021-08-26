@@ -8,7 +8,7 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 
 import { CommonContainer, CommonOverlay, CommonText } from "../shared/styles/modal/CommonModal";
 
-const LogoutModal = (props) =>{
+const TreasureModal = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
  
@@ -68,4 +68,4 @@ margin: 14px 0px;
 cursor:pointer;
 `;
 
-export default LogoutModal;
+export default React.memo(TreasureModal);
