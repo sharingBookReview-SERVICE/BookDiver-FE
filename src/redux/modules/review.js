@@ -116,6 +116,7 @@ const addReviewSV = (formData, bookId) => {
                     // history.push("*")
                     return;
                 }
+                console.log(res.data.review)
                 dispatch(addReview(res.data.review));
                 dispatch(permitActions.isLoading(false));
                 history.push("/");

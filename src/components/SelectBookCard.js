@@ -18,7 +18,6 @@ const SelectBookCard = (props) =>{
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
-  console.log(is_book_detail)
 
   const selectBook = ()=>{
     if(is_make_collection){

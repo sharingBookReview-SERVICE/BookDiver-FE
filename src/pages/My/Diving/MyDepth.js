@@ -1,21 +1,21 @@
 //import 부분
 import React, { useEffect, useState } from "react";
-import {history} from "../../redux/configStore";
+import {history} from "../../../redux/configStore";
 
 import styled from "styled-components";
-import Color from "../../shared/Color";
+import Color from "../../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 
-import {images} from "../../shared/Image";
-import {titles} from "../../shared/Titles"
+import {images} from "../../../shared/Image";
+import {titles} from "../../../shared/Titles"
 
-import {TreasureBoxModal} from "../../modals";
-import {Background, treasure, person} from "../../img";
+import {TreasureBoxModal} from "../../../modals";
+import {Background, treasure, person} from "../../../img";
 
 
-import { actionCreators as userActions } from "../../redux/modules/user";
-import { actionCreators as permitAction } from "../../redux/modules/permit";
+import { actionCreators as userActions } from "../../../redux/modules/user";
+import { actionCreators as permitAction } from "../../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -234,14 +234,6 @@ max-height:100%;
 opacity:0;
 `
 
-const Help = styled.div`
-font-size:16px;
-background:transparent;
-color:${Color.fontGray};
-font-weight:bold;
-cursor:pointer;
-`
-
 const Header = styled.div`
 width: 100%;
 height: 56px;
@@ -251,7 +243,7 @@ align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-padding:0px 10px 0px 30px;
+padding:0px 10px 0px 10px;
 box-sizing:border-box;
 z-index:10;
 

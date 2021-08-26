@@ -166,8 +166,6 @@ height:72px;
 border-radius:70%;
 overflow:hidden;
 box-sizing:border-box;
-background:${Color.black};
-border: 1px solid ${Color.secondColor};
 `
 
 const ProfileChangeGuide = styled.div`
@@ -182,6 +180,9 @@ const Input = styled.input`
 width: 60%;
 height: 36px;
 border-radius: 8px;
+border:1px solid ${Color.line};
+padding-left:15px;
+box-sizing:border-box;
 background:${Color.mainColor};
 :focus{
   outline:none;
