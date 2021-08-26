@@ -83,6 +83,10 @@ const MyFeed = () => {
       history.push("/mydepth")
     }
 
+    const goToSetting = () => {
+      history.push("/setting")
+    }
+
     const goToOtherFollowing = (user_id) => {
       history.push(`/following/${user_id}`)
     }
@@ -118,18 +122,17 @@ const MyFeed = () => {
           <NotSupport is_support_modal={is_support_modal}/>
               <UserBox>
 
-                <SearchBox onClick={openNotSupportModal}>
-                  <SearchIcon className={classes.search}/>
-                  <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
-                </SearchBox>
+                  <Header>
+                    <SearchIcon className={classes.icon}/>
+                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
+                    <NotificationsNoneIcon className={classes.icon}/>
+                  </Header>
 
                 <Wrapper>
                   <ProfileBox>
-                        <Header>
-                          <SearchIcon className={classes.icon}/>
-                          <SettingsOutlinedIcon className={classes.icon}/>
-                          <NotificationsNoneIcon className={classes.icon}/>
-                        </Header>
+                          <ImgWrapper >
+                            <ProfileImg src={images[profileImg]} />
+                          </ImgWrapper>
 
                         <DetailBox>
                           <UserName>{nickname}</UserName>
@@ -186,7 +189,7 @@ const MyFeed = () => {
                 <UserBox>
                   <Header>
                     <SearchIcon className={classes.icon}/>
-                    <SettingsOutlinedIcon className={classes.icon}/>
+                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
                     <NotificationsNoneIcon className={classes.icon}/>
                   </Header>
 

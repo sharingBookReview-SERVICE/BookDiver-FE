@@ -117,7 +117,7 @@ const Navigation = (props) => {
         <PageName >내 피드</PageName>
       </IconBox>
 
-      <IconBox to="/setting" activeClassName={classes.active}>
+      <IconBox to="/mydepth" activeClassName={classes.active}>
         <ProfileImg src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>
       </IconBox>
