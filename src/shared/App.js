@@ -31,8 +31,6 @@ import {CollectionList, BookCollectionMain, CollectionDetail,  MakeCollection, E
 
 //ga
 import ReactGA from 'react-ga';
-const TRACKING_ID = "UA-205940044-1"; // YOUR_OWN_TRACKING_ID
-ReactGA.initialize(TRACKING_ID);
 
 ReactGA.event({
   category: 'User',
@@ -42,12 +40,7 @@ ReactGA.exception({
   description: 'An error ocurred',
   fatal: true
 });
-ReactGA.initialize(process.env.REACT_APP_TRACKING_ID, { debug: true });
-// const history = createBrowserHistory();
-history.listen((location) => {
-  ReactGA.set({ page: location.pathname }); // Update the user's current page
-  ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});
+
 const socket = io.connect("http://13.209.10.67")
 
 function App(props) {
@@ -62,7 +55,16 @@ function App(props) {
   const userId = useSelector(state => state.user.user._id)
 
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
-  
+ 
+  useEffect(()=>{
+    ReactGA.initialize("UA-205940044-1");
+    history.listen((location) => {
+      ReactGA.set({ page: location.pathname }); // Update the user's current page
+      ReactGA.pageview(location.pathname); // Record a pageview for the given page
+    });
+    // ReactGA.pageview(window.location.pathname + window.location.search);
+  },[])
+
   
   useEffect(() => {
     if (user) {
@@ -86,7 +88,7 @@ function App(props) {
     }
   }, [userId]);
 
-
+ 
 
 
   const location = useLocation();
