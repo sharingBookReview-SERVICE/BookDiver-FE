@@ -46,8 +46,8 @@ const BookDetail = (props) => {
                   reviews_which_book_have &&
                   reviews_which_book_have.map((review)=>{
                     return(
-                        <ReviewGrid>
-                      <ReviewCard key={review.id} {...review} is_book_detail book={book}/>
+                        <ReviewGrid key={review.id}>
+                      <ReviewCard  {...review} is_book_detail book={book}/>
                         </ReviewGrid>
                     )
                   })
