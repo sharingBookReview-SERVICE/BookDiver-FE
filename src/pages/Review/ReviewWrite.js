@@ -395,7 +395,7 @@ const SubmitButton = styled.button`
   transition:0.5s ease-in-out;
   :hover{
     border-radius:10px;
-    background-color: #e0e0e0;
+    background-color: ${Color.line};
   }
 `;
 
