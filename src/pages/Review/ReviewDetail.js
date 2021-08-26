@@ -351,8 +351,6 @@ height:30px;
 border-radius:50%;
 overflow:hidden;
 box-sizing:border-box;
-border: 1px solid ${Color.secondColor};
-background:${Color.black};
 margin-right:10px;
 `
 
@@ -427,7 +425,7 @@ const Head = styled.div`
 width: 100%;
 align-items: center;
 display: flex;
-margin: 30px 0px;
+height:56px;
 `;
 
 const Outter = styled.div`
@@ -536,7 +534,7 @@ const CommentInput = styled.input`
   padding: 0 45px 0 16px;
   font-size: 16px;
   background-color: ${Color.mainColor};
-  border: 1px solid ${Color.fontBlack};
+  border: 1px solid ${Color.line};
   border-radius: 12px;
   :focus {
     outline: none;
@@ -554,6 +552,7 @@ const CommentWriteButton = styled.div`
   color: ${Color.fontGray};
   position: absolute;
   right: 30px;
+  top:23px;
   font-weight: 700;
   height: 20px;
 }
