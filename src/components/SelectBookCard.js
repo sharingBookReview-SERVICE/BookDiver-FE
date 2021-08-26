@@ -18,7 +18,7 @@ const SelectBookCard = (props) =>{
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
-  console.log(is_selected)
+  console.log(is_book_detail)
 
   const selectBook = ()=>{
     if(is_make_collection){
@@ -54,7 +54,13 @@ const SelectBookCard = (props) =>{
   if(is_reviewDetail){
     return(
       <BookInfoWrapper
-      is_reviewDetail={is_reviewDetail} 
+      style={{
+        borderTop:`1px solid ${Color.CardHashTag}`,
+        borderBottom:`1px solid ${Color.CardHashTag}`,
+        padding: "0px 20px 0px 20px",
+        marginBottom:"15px",
+
+      }}
       onClick={()=>{
         history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
       }}>
@@ -77,8 +83,17 @@ const SelectBookCard = (props) =>{
     // book detail 에서 보는 화면 
   if(is_book_detail){
     return(
-      <BookInfoWrapper >
-        <BookInfoBox>
+      <BookInfoWrapper
+      style={{
+        borderTop:`1px solid ${Color.CardHashTag}`,
+        borderBottom:`1px solid ${Color.CardHashTag}`,
+        padding: "0px 20px 0px 35px",
+        marginBottom:"15px",
+      }}
+      >
+        <BookInfoBox 
+        style={{borderRadius:"0px"}}
+        >
           <BookImg url={book.image}/>
           <BookDescBox>
           <BookTitle >{book.title}</BookTitle>
@@ -95,7 +110,9 @@ const SelectBookCard = (props) =>{
         {
           is_selected ?
             <BookInfoBox
-            is_selected={is_selected}
+            style={{
+              padding:"0px"
+            }}
               onClick={()=>{
               dispatch(permitActions.showModal(true));
               dispatch(permitActions.bookSelect(false));
@@ -108,7 +125,12 @@ const SelectBookCard = (props) =>{
             </BookInfoBox>
             :
             // 검색할때 나오는 책 카드
-            <BookInfoBox 
+            <BookInfoBox
+            style={{
+              borderRadius: "12px",
+              border: `solid 1px ${Color.CardHashTag}`,
+              padding: "16px"
+            }} 
               onClick={()=>{
                 selectBook();
                 dispatch(permitActions.showModal(false));
@@ -130,16 +152,6 @@ const BookInfoWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 0px 20px 16px 20px; 
-  ${(props) => props.is_reviewDetail ? `
-  border-top:1px solid ${Color.CardHashTag};
-  border-bottom:1px solid ${Color.CardHashTag};
-  padding: 0px 20px 0px 20px; 
-  margin-bottom:15px;
-  `: ""};
-  ${(props) => props.is_selected ? `
-  padding:0px;
-
-  ` : ""};
 `
 
 const BookInfoBox = styled.div`
@@ -154,15 +166,15 @@ gap: 12px;
 box-sizing: border-box;
 cursor:pointer;
 
+//책이 선택되었을때
 ${(props) => props.is_selected ? `
 border-top: solid 1px ${Color.CardHashTag};
 padding: 16px 16px 16px 35px;
 `
 : 
-`border-radius: 12px;
-border: solid 1px ${Color.CardHashTag};
-padding: 16px;
+`
 `}
+
 `
 
 const BookImg = styled.div`

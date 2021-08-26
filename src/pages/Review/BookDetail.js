@@ -29,15 +29,17 @@ const BookDetail = (props) => {
         <React.Fragment>
                   <Main>
                   <Header/>
-                      <BookInfo>
-                  <SelectBookCard is_book_detail/>
-                      </BookInfo>
-                  <BookIntro>
-                      책소개
-                  </BookIntro>
-                  <BookContents>
-                    {book.description}
-                  </BookContents>
+                  <Container>
+                    <BookInfo>
+                      <SelectBookCard is_book_detail/>
+                    </BookInfo>
+                    <BookIntro>
+                        책소개
+                    </BookIntro>
+                    <BookContents>
+                      {book.description}
+                    </BookContents>
+                  </Container>
 
                 <BookReview>
                     게시물({review_count}개)
@@ -63,8 +65,8 @@ const BookDetail = (props) => {
 const Main = styled.div`
   width: 100vw;
   height: 100vh;
-  padding-top:90px;
-  background-color: ${Color.mainColor};
+  padding-top:56px;
+  background-color: ${Color.bgColor};
   margin : auto;
   box-sizing: border-box;
   overflow-y: scroll;
@@ -74,34 +76,39 @@ const Main = styled.div`
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+
   @media ${(props) => props.theme.mobile} {
-    
-    padding-bottom:100px;
+    padding-bottom:0px;
   }
 
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    padding-bottom:100px;
+    padding-bottom:0px;
 }
   
 @media ${(props) => props.theme.desktop} {
     width: 100%;
-    padding-bottom:100px;
+    padding-bottom:0px;
 }
 
 
 `;
 
+const Container = styled.div`
+padding:0px 0px 15px 0px;
+width:100%;
+height:auto;
+background-color: ${Color.mainColor};
+`
+
 const BookInfo = styled.div`
-  margin: 17px -4px 24px -4px;
 `;
 
 const BookIntro = styled.div`
-font-size: 21px;
+  font-size: 21px;
   font-family: 'Noto Serif KR', serif;
   font-weight: 800;
-  margin: -22px 0 0 24px;
-  
+  padding:0px 30px;
 `
 
 const BookContents = styled.div`
@@ -109,18 +116,17 @@ const BookContents = styled.div`
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
   margin: 20px auto;
-
 `;
 
 const BookReview = styled.div`
   font-size: 21px;
   font-family: 'Noto Serif KR', serif;
   font-weight: 600;
-  margin : 35px 0 0 24px;
-  
+  padding:10px 20px 10px 20px;
+  background:${Color.mainColor};
+  margin:10px 0px 1px 0px;
 `;
 
 const ReviewGrid = styled.div`
-  margin-top: 12px;
 `;
 export default BookDetail;
