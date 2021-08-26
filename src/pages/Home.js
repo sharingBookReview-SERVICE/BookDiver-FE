@@ -141,7 +141,7 @@ position:relative;
 const CategoryBar = styled.hr`
 position:absolute;
 width:40%;
-border:1px solid black;
+border:1px solid ${Color.secondColor};
 border-radius:1px;
 bottom:0px;
 left:7.5%;

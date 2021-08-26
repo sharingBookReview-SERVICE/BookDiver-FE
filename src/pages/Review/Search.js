@@ -41,7 +41,7 @@ const Search = (props)=>{
     timer = setTimeout(function() {
       dispatch(searchActions.getSearchBooksSV(text.current.value))
       setAutoComplete(true)
-    }, 1000);
+    }, 200);
   
   }
     return(

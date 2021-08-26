@@ -132,6 +132,7 @@ width:23px;
 height:23px;
 border-radius:50%;
 margin-bottom:2px;
+cursor:pointer;
 `
 
 

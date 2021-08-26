@@ -11,7 +11,7 @@ import { history } from "../redux/configStore";
 import Color from "../shared/Color"
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail, is_make_collection} = props;
+  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail, is_make_collection,is_write_page} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
@@ -105,13 +105,14 @@ const SelectBookCard = (props) =>{
   }
 
     return(
-      <BookInfoWrapper is_selected={is_selected}>
+      <BookInfoWrapper is_write_page={is_write_page}>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}
         {
           is_selected ?
             <BookInfoBox
             style={{
-              padding:"0px"
+              borderTop: `solid 1px ${Color.CardHashTag}`,
+              padding: "16px 16px 16px 35px",
             }}
               onClick={()=>{
               dispatch(permitActions.showModal(true));
@@ -152,6 +153,8 @@ const BookInfoWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 0px 20px 16px 20px; 
+
+  ${(props) => props.is_write_page ? `padding:0px`: ""};
 `
 
 const BookInfoBox = styled.div`
@@ -162,18 +165,8 @@ flex-direction: row;
 justify-content: flex-start;
 align-items: center;
 gap: 12px;
-
 box-sizing: border-box;
 cursor:pointer;
-
-//책이 선택되었을때
-${(props) => props.is_selected ? `
-border-top: solid 1px ${Color.CardHashTag};
-padding: 16px 16px 16px 35px;
-`
-: 
-`
-`}
 
 `
 

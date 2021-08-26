@@ -269,7 +269,7 @@ const ReviewWrite = (props) => {
             <Text >리뷰할 책 선택하기</Text>
           </BookChoice>
         ) : (
-          <SelectBookCard />
+          <SelectBookCard is_write_page/>
         )}
 
         {is_preview ? (
