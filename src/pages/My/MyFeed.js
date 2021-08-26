@@ -565,6 +565,22 @@ const BookFeedMain = styled.div`
   padding:0px 20px;
 `;
 
+const FollowBox = styled.div`
+color:${Color.black};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+${(props) => props.is_follow ? 
+`
+background:${Color.line}`: 
+`
+border:1px solid ${Color.line};
+`};
+`
 
 const BookImg = styled.div`
   width: 80px;
