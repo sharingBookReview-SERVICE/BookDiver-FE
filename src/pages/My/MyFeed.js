@@ -102,6 +102,10 @@ const MyFeed = () => {
       history.push("/setting")
     }
 
+    const goToSetting = () => {
+      history.push("/setting")
+    }
+
     const goToOtherFollowing = (user_id) => {
       history.push(`/following/${user_id}`)
     }
