@@ -1,5 +1,5 @@
 //import 부분
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {history} from "../../redux/configStore";
 
 import styled from "styled-components";
@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {
-      color: Color.white,
+      color: Color.black,
       cursor:"pointer",
     },
   }));
@@ -34,7 +34,7 @@ const MyDepth = (props) => {
     const new_badge = useSelector(state => state.permit.new_badge)
     const badgeCounts = useSelector(state => state.user.user.own_image?.length)
     const userBadges = useSelector(state => state.user.user.own_image)
-
+    const [currentCategory, setCurrentCategory] = useState("")
 
     //이 값은 treasure를 확인하는 값을 가져왔을 때, 입력시켜준다. 
     // dispatch(permitAction.isTreasure(false))
@@ -49,12 +49,8 @@ const MyDepth = (props) => {
 
     useEffect(() => {
         dispatch(userActions.checkTreasureSV())
-        dispatch(permitAction.showNav(false));  //네비게이션 없애기 
-        dispatch(permitAction.isPadding(false));  //패딩 값을 없애기 
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기 
         return() => {
-            dispatch(permitAction.showNav(true)); //나가면서 네비게이션 보이게 하기 
-            dispatch(permitAction.isPadding(true)); //나가면서 패딩 돌려놓기 
             dispatch(permitAction.showModal(false)); // 나가면서 모달 닫아 놓기 
             dispatch(permitAction.showNewBadge(null)) // 새로운 뱃지의 값을 null로 만들어놓기
         }
@@ -65,6 +61,12 @@ const MyDepth = (props) => {
     <React.Fragment>
         <TreasureBoxModal is_open_treasure={is_open_treasure}/>
         <Wrapper>
+            <CategoryWrapper>
+                <Depth>나의 잠수상태</Depth>
+                <Ranking>다이버 랭킹</Ranking>
+                <Tutorial>잠수하는 법</Tutorial>
+                <CategoryBar/>
+            </CategoryWrapper>
             <Image src={Background}/>
             <Header>
 
@@ -73,12 +75,14 @@ const MyDepth = (props) => {
                     goBack()
                 }} 
                 className={classes.arrow}/>
-                <HeaderText>나의 수심 깊이</HeaderText>
-                <Help onClick={()=>{history.push('/levelhelp')}}>도움말</Help>
+                <HeaderText>잠수상태</HeaderText>
+                <div></div>
 
             </Header>
 
-            {badgeCounts > 0 && <Badge src={images[userBadges[0]]} top={"5rem"} left={"3rem"} />}
+
+
+            {/* {badgeCounts > 0 && <Badge src={images[userBadges[0]]} top={"5rem"} left={"3rem"} />} */}
             {badgeCounts > 1 && <Badge src={images[userBadges[1]]} top={"28rem"} left={"15rem"}/>}
             {badgeCounts > 2 && <Badge src={images[userBadges[2]]} top={"55rem"} left={"5rem"}/>}
             {badgeCounts > 3 && <Badge src={images[userBadges[3]]} top={"80rem"} left={"14rem"}/>}
@@ -97,6 +101,42 @@ const MyDepth = (props) => {
 
 export default MyDepth;
 
+const CategoryWrapper = styled.div`
+width:100%;
+height:48px;
+background:${Color.mainColor};
+display:flex;
+justify-content:space-around;
+align-items:center;
+position:relative;
+`
+
+const CategoryBar = styled.hr`
+position:absolute;
+width:23%;
+border:1px solid black;
+border-radius:1px;
+bottom:-8px;
+left:6%;
+transition:0.5s ease-in-out;
+`
+
+const Depth =styled.div`
+
+`
+
+const Ranking = styled.div`
+
+`
+
+const Tutorial = styled.div`
+
+`
+
+
+
+
+
 const Wrapper = styled.div`
 width:100vw;
 height:auto;
@@ -106,7 +146,7 @@ box-sizing:border-box;
 flex-direction:column;
 align-items:center;
 justify-content:flex-start;
-padding:80px 0px 0px 0px;
+padding:56px 0px 0px 0px;
 background-image:url(${Background});
 background-size: contain;
 background-repeat: no-repeat;
@@ -197,18 +237,18 @@ opacity:0;
 const Help = styled.div`
 font-size:16px;
 background:transparent;
-color:${Color.white};
+color:${Color.fontGray};
 font-weight:bold;
 cursor:pointer;
 `
 
 const Header = styled.div`
 width: 100%;
-height: 80px;
+height: 56px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background-color: ${Color.black};
+background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
 padding:0px 10px 0px 30px;
@@ -227,7 +267,8 @@ z-index:10;
 
 const HeaderText = styled.div`
 font-size:16px;
-color:${Color.white};
+color:${Color.black};
+margin-right:30px;
 `
 
 const NewBadge = styled.img`

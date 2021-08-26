@@ -95,6 +95,7 @@ const Home = (props) => {
     <>
     <Container  onScroll={scroll} ref={container}>
         <Header />
+        
         <FeedCategoryWrapper>
           <SocialFeed 
           onClick={() => setIsRecentCategory(false)} 
@@ -108,6 +109,7 @@ const Home = (props) => {
           </RecentFeed>
           <CategoryBar isRecentCategory={isRecentCategory}/>
         </FeedCategoryWrapper>
+
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
         {reviewList?.map((review) => {
               return (
@@ -159,7 +161,10 @@ justify-content:center;
 align-items:center;
 transition:0.5s ease-in-out;
 cursor:pointer;
-${(props) => props.isRecentCategory ? `color:${Color.quote}`:""};
+:hover{
+  color:${Color.fontBlack};
+}
+${(props) => props.isRecentCategory ? `color:${Color.quote}`:"font-weight:bold"};
 `
 
 const RecentFeed = styled.div`
@@ -170,7 +175,10 @@ justify-content:center;
 align-items:center;
 transition:0.5s ease-in-out;
 cursor:pointer;
-${(props) => props.isRecentCategory ? "" : `color:${Color.quote}`};
+:hover{
+  color:${Color.fontBlack};
+}
+${(props) => props.isRecentCategory ? "font-weight:bold" : `color:${Color.quote}`};
 `
 
 

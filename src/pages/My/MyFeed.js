@@ -63,6 +63,7 @@ const MyFeed = () => {
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
+    console.log(titles[profileImg])
 
     //check_modal
     const is_support_modal = useSelector((state) => state.permit.is_support_modal)
@@ -132,6 +133,7 @@ const MyFeed = () => {
                   <ProfileBox>
                           <ImgWrapper >
                             <ProfileImg src={images[profileImg]} />
+                            <TitleImg src={titles[profileImg]}/>
                           </ImgWrapper>
 
                         <DetailBox>
@@ -202,6 +204,7 @@ const MyFeed = () => {
                     <ProfileBox>
                           <ImgWrapper onClick={()=>{gotochangeProfile()}}>
                             <ProfileImg src={images[profileImg]} />
+                            <TitleImg src={titles[profileImg]}/>
                           </ImgWrapper>
 
                           <DetailBox>
@@ -257,6 +260,7 @@ const MyFeed = () => {
 }
 
 export default MyFeed;
+
 
 const FeedCategory = styled.div`
 width:100%;
@@ -355,14 +359,21 @@ const ImgWrapper = styled.div`
 width:72px;
 height:72px;
 border-radius:70%;
-overflow:hidden;
 box-sizing:border-box;
+position:relative;
+`
+
+const TitleImg = styled.img`
+position:absolute;
+left:-7%;
+top:23px;
+width:80px;
+height:80px;
 `
 
 const ProfileImg = styled.img`
 width: 100%;
 height: 100%;
-object-fit:cover;
 `;
 
 
@@ -371,6 +382,9 @@ box-sizing:border-box;
 width:80%;
 height:auto;
 margin-left:10px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 `
 
 const UserName = styled.div`
