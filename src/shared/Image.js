@@ -47,6 +47,8 @@ const image_15 = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1
 //우아한 흰수염고래
 const image_16 = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%85%E1%85%A6%E1%84%87%E1%85%A6%E1%86%AF-%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A9%E1%86%AB+120+px/%E1%84%8B%E1%85%AE%E1%84%8B%E1%85%A1%E1%84%92%E1%85%A1%E1%86%AB+%E1%84%92%E1%85%B4%E1%86%AB%E1%84%89%E1%85%AE%E1%84%8B%E1%85%A7%E1%86%B7%E1%84%80%E1%85%A9%E1%84%85%E1%85%A2-120px.svg"
 
+const background_img = "https://ifh.cc/g/e7YWX7.jpg"
+
 
 const images = {
     image_1,
@@ -65,6 +67,7 @@ const images = {
     image_14, 
     image_15, 
     image_16,
+    background_img,
 };
 
 export { images };

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import {backgroundimg, serviceDesc , main_person} from "../img";
+import {images} from "../shared/Image"
 import Color from "../shared/Color"
 
 
@@ -8,11 +9,11 @@ const Layout = (props) => {
 
         return(
         <>
-            <BackgroundImg url={backgroundimg}>
-                <BackgroundDesc>
+            <BackgroundImg url={images["background_img"]}>
+                {/* <BackgroundDesc>
                     <ServiceDesc src={serviceDesc}/>
                     <Person src={main_person}/>
-                </BackgroundDesc>
+                </BackgroundDesc> */}
                 {props.children}
             </BackgroundImg>
         </>)
