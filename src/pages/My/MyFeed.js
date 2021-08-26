@@ -159,7 +159,12 @@ const MyFeed = () => {
                   </MyActivityBox>
 
                   <ProfileBottomBox>
-                    <FollowBox onClick={()=>{dispatch(userActions.followSV(otherUserId))}}>{is_follow? "팔로잉" : "팔로우"}</FollowBox>
+                    <FollowBox
+                    is_follow={is_follow} 
+                    onClick={()=>{dispatch(userActions.followSV(otherUserId))}}>
+                      {is_follow? "팔로잉" : "팔로우"}
+                      </FollowBox>
+                    <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
                 </Wrapper>
               </UserBox>
@@ -296,18 +301,7 @@ height:36px;
 display:grid;
 grid-template-columns: 1fr 1fr;
 gap:20px;
-`
-
-const FollowBox = styled.div`
-background:${Color.white};
-color:${Color.black};
-font-size:14px;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
+padding: 10px 0px 20px 0px;
 `
 
 const Container = styled.div`
@@ -335,35 +329,6 @@ flex-direction:column;
 justify-content:space-between;
 
 `
-
-const SearchBox = styled.div`
-width:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-`
-
-
-const SearchBar = styled.input`
-  width: 100%;
-  height: 45px;
-  border: 1px solid ${Color.fontGray};
-  border-radius: 12px;
-  background-color: ${Color.fontBlack};
-  padding: 0px 0px 0px 8%;
-  :focus {
-    outline: none;
-  }
-
-  ::placeholder {
-    color: ${Color.white};
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 200;
-    letter-spacing: 0.8px;
-    padding-left: 20px;
-  }
-`;
-
 
 const UserBox = styled.div`
   width: 100%;
@@ -448,8 +413,6 @@ const Text = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
 `;
 
-
-
 const FeedMain = styled.div`
   background-color: #f5f2f0;
   display: grid;
@@ -466,6 +429,33 @@ background-size: cover;
 background-position: center center;
 cursor:pointer;
 `;
+
+const LevelBox = styled.div`
+border:1px solid ${Color.line};
+color:${Color.subTextFont};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+`
+
+const FollowBox = styled.div`
+color:${Color.black};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+${(props) => props.is_follow ? 
+`
+background:${Color.line}`: 
+`
+border:1px solid ${Color.line};
+`};
+`
 
 
 
