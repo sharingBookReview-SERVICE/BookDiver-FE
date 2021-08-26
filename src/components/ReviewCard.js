@@ -153,7 +153,8 @@ const ReviewCard = (props) => {
             onClick={() => {
               goToReviewDetail();
               
-            ReactGA.trackUser({
+            ReactGA.event({
+              category: "Button",
               action: "go to review detail",
               label: "reviewdetail",
             });
