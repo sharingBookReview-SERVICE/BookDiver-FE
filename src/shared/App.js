@@ -29,6 +29,10 @@ import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/S
 import {ErrorPage, LevelHelp} from "../pages/ETC";
 import {CollectionList, BookCollectionMain, CollectionDetail,  MakeCollection, EditCollection} from "../pages/Collection";
 
+//ga
+import ReactGA from 'react-ga';
+const TRACKING_ID = "G-YDRFCGX56M"; // YOUR_OWN_TRACKING_ID
+ReactGA.initialize(TRACKING_ID);
 
 
 const socket = io.connect("http://13.209.10.67")
@@ -46,7 +50,7 @@ function App(props) {
 
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
   
-
+  
   useEffect(() => {
     if (user) {
       dispatch(userActions.loginCheck());
