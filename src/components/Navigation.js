@@ -17,7 +17,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Color from "../shared/Color";
 import {images} from "../shared/Image"
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const useStyles = makeStyles((theme) => ({
   navBox: {
@@ -55,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Navigation = (props) => {
   //주석추가
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
   const profile = useSelector((state) => state.user.user.profileImage)
@@ -117,7 +119,10 @@ const Navigation = (props) => {
         <PageName >내 피드</PageName>
       </IconBox>
 
-      <IconBox to="/mydepth" activeClassName={classes.active}>
+      <IconBox 
+      to="/"
+      onClick={() => (dispatch(permitActions.showNotSupport(true)))} 
+      activeClassName={classes.active}>
         <ProfileImg src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>
       </IconBox>
