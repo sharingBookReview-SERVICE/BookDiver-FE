@@ -10,6 +10,7 @@ import user from "../redux/modules/user";
 import upload from "../redux/modules/upload"
 import tag from "../redux/modules/tag";
 import collection from "./modules/collection";
+import search from "./modules/search";
 
 
 const history = createBrowserHistory();
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   user,
   upload,
   collection,
+  search,
   router: connectRouter(history),
 });
 

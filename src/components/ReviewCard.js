@@ -35,7 +35,8 @@ const ReviewCard = (props) => {
     user,
     is_follow
   } = props;
-  const bookTitle = book?.title.split("(")[0]
+  // const bookTitle = book?.title.split("(")[0]
+  const bookTitle = book?.title
   const bookAuthor = `${book.author} 저`
 
   //permit check 
