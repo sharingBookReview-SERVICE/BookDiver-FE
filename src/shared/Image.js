@@ -49,6 +49,10 @@ const image_16 = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1
 
 const background_img = "https://ifh.cc/g/e7YWX7.jpg"
 
+const background_desc = "https://ifh.cc/g/kjMSn1.png"
+
+const sea = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%87%E1%85%A1%E1%84%83%E1%85%A1.svg"
+
 
 const images = {
     image_1,
@@ -68,6 +72,8 @@ const images = {
     image_15, 
     image_16,
     background_img,
+    background_desc,
+    sea,
 };
 
 export { images };
