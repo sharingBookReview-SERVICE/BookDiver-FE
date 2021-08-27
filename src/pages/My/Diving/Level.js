@@ -81,15 +81,15 @@ export default Level;
 
 const BackgroundImg = styled.div`
 width:100%;
-height:310vh;
+height:2700px;
 background-image:url(${(props) => props.url});
 background-size:cover;
 
 @media ${(props) => props.theme.tablet} {
-    height:280vh;
+    height:2600px;
   }
   @media ${(props) => props.theme.desktop} {
-    height:280vh;
+    height:2600px;
   }
 `
 
