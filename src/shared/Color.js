@@ -10,6 +10,9 @@ const Color = {
   gray2: "#bdbdbd",
   gray3: "#e0e0e0",
   gray4: "#9a9090",
+  gray5: "#9e9e9e",
+
+  green: "#4caf50",
 
 
   fontGray: "#615d5d",

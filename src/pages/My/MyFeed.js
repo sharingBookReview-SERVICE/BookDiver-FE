@@ -249,7 +249,7 @@ const MyFeed = () => {
                           </ImgWrapper>
 
                           <DetailBox>
-                            <UserName>{nickname}{level}</UserName>
+                            <UserName>{nickname}</UserName>
                             <PostCount>작성한 게시물 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
                           </DetailBox>
                       </ProfileBox>

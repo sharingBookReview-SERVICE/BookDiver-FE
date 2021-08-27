@@ -324,18 +324,25 @@ const ReviewDetail = (props) => {
                     </CommentWrapper>
             {is_editting === "" ? (
               <CommentInputBox>
-                <CommentInput
-                    className={is_empty ? 'shake-horizontal' : null}
-                    placeholder={is_empty ? "댓글 내용을 작성해주세요" : "지금 댓글을 남겨보세요"}
-                    color={is_empty ? "red" : Color.fontGray}
-                    onChange={(e) => {
-                      setCommentContent(e.target.value);
-                    }}
-                    onFocus={()=>{setIsEmpty(false)}}
-                    value={commentContent}
-                     maxLength="150"
-                    onKeyPress={(e) => (e.key === "Enter" ? writeComment() : null)}
-                />
+                <InputBox>
+                  <CommentInput
+                      className={"effect-9"}
+                      // className={is_empty ? 'shake-horizontal' : null}
+                      placeholder={is_empty ? "댓글 내용을 작성해주세요" : "지금 댓글을 남겨보세요"}
+                      color={is_empty ? "red" : Color.fontGray}
+                      onChange={(e) => {
+                        setCommentContent(e.target.value);
+                      }}
+                      onFocus={()=>{setIsEmpty(false)}}
+                      value={commentContent}
+                      maxLength="150"
+                      onKeyPress={(e) => (e.key === "Enter" ? writeComment() : null)}
+                  />
+                  <InputSpan>
+                      <InputI>
+                      </InputI>
+                  </InputSpan>
+                </InputBox>
                 <CommentWriteButton
                     onClick={() => {
                       writeComment();
@@ -541,7 +548,7 @@ const CommentInputBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #c3b4a2;
+  border-top: 1px solid ${Color.gray3};
   background-color: ${Color.mainColor};
   position: fixed;
   bottom: 0;
@@ -555,23 +562,62 @@ const CommentInputBox = styled.div`
   }
 `;
 
+const InputBox = styled.div`
+position: relative;
+width: 100%;
+height: 100%;
+border-radius:12px;
+box-sizing:border-box;
+`
+
 const CommentInput = styled.input`
-  width: 100%;
-  height: 100%;
+
+@media ${(props) => props.theme.mobile} {
+  width: 420px;
+}
+
+@media ${(props) => props.theme.tablet} {
+  width: 84%;
+}
+
+@media ${(props) => props.theme.desktop} {
+  width: 84%;
+}
+  height: 45px;
   padding: 0 45px 0 16px;
-  font-size: 16px;
+  font-size: 14px;
   background-color: ${Color.mainColor};
   border: 1px solid ${Color.line};
-  border-radius: 12px;
-  :focus {
-    outline: none;
-  }
   ::placeholder {
     color: ${(props) => props.color};
     font-family: 'Roboto', sans-serif;
     letter-spacing: -0.5px;
+    font-size:14px;
   }
+
+  :focus {
+    outline: none;
+   ~ span:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:before{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:after{transition-delay: 0.2s;}
+   ~ span i:after{height: 100%; transition: 0.2s;}
+   ~ span i:before{height: 100%; transition: 0.2s;}
+   ~ span i:after{transition-delay: 0.4s;}
+  }
+
 `;
+
+const InputSpan = styled.span`
+:before{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 1px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 1px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+`
+
+const InputI = styled.i`
+:after{content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:before{content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+` 
 
 const CommentWriteButton = styled.div`
   cursor: pointer;
