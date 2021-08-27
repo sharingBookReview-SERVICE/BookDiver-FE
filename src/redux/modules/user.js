@@ -73,9 +73,12 @@ const getUserSV = ()=>{
       dispatch(getFollowerCounts(res.data.followerCount))
       dispatch(permitActions.showTreasureModal(res.data.treasure))
       dispatch(getUser(res.data.user));
-      dispatch(permitActions.isLoading(false))
     })
     .catch((err)=>{
+      if(err?.response?.status === 498){
+        localStorage.clear()
+        window.location.replace("/");
+      }
       // history.push("*")
     })
   }
@@ -256,7 +259,9 @@ const getTreasureSV = () => {
     .then((res)=>{
       dispatch(permitActions.isTreasure(false))
       dispatch(permitActions.showNewBadge(randomImg))
-      getUserSV(userId)
+      setTimeout(() => {
+        getUserSV(userId)
+      }, 1000);
     })
     .catch((err)=>{
       // history.push("*")
@@ -289,7 +294,10 @@ const getMyFeedSV = (id)=>{
       }, 600);
     })
     .catch((err)=>{
-      // history.push("*")
+      if(err.response.status === 498){
+        localStorage.clear()
+        window.location.replace("/");
+      }
     })
   }
 }
@@ -314,7 +322,6 @@ const checkTreasureSV = () => {
     instance.get(`users/profile/treasure`)
     .then((res)=>{
       dispatch(permitActions.isTreasure(res.data.treasure))
-      dispatch(permitActions.isLoading(false))
     })
     .catch((err)=>{
       // history.push("*")
