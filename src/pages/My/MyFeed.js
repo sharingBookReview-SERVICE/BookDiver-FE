@@ -21,8 +21,8 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 import {images} from "../../shared/Image"
 import {titles} from "../../shared/Titles";
 
-import {NotSupport} from "../../modals";
-
+import {NotSupport, TreasureModal} from "../../modals";
+import Loading from "../ETC/Loading"
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -63,8 +63,11 @@ const MyFeed = () => {
     const followerCounts = useSelector(state => state.user.my_feed.user?.followerCount)
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
+
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
-    console.log(titles[profileImg])
+    const is_loading = useSelector(state => state.permit.is_loading)
+    const is_treasure = useSelector(state => state.permit.is_treasure_modal)
+    console.log(is_treasure);
 
     //책장모드
     const [bookMode, setBookMode] = useState(false);
@@ -110,7 +113,8 @@ const MyFeed = () => {
     }
 
     useEffect(()=>{
-      dispatch(permitActions.showNav(true));
+      dispatch(userActions.checkTreasureSV())
+      dispatch(permitActions.showNav(true))
       if(is_my_feed === "/myfeed" && userId){
         dispatch(userActions.getMyFeedSV(userId));
         return;
@@ -227,6 +231,7 @@ const MyFeed = () => {
   //본인의 피드를 확인 할 때
     return (
         <React.Fragment>
+      {is_loading ? <Loading/> : 
           <Container>
           <NotSupport is_support_modal={is_support_modal}/>
                 <UserBox>
@@ -244,7 +249,7 @@ const MyFeed = () => {
                           </ImgWrapper>
 
                           <DetailBox>
-                            <UserName>{nickname}{level}</UserName>
+                            <UserName>{nickname}</UserName>
                             <PostCount>작성한 게시물 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
                           </DetailBox>
                       </ProfileBox>
@@ -316,7 +321,8 @@ const MyFeed = () => {
             }
          
 
-        </Container>
+        </Container>}
+        <TreasureModal is_treasure={is_treasure}/>
         </React.Fragment>
     )
 }

@@ -145,20 +145,22 @@ const ReviewWrite = (props) => {
     dispatch(bookActions.resetSelectedBook());
     dispatch(permitActions.showModal(false));
     dispatch(permitActions.bookSelect(false));
-    
-    if (reviewId) {
+    setTimeout(() => {
+      dispatch(permitActions.isLoading(false))
+    }, 600);
+
+    if (reviewId && !is_loading) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
       dispatch(tagActions.getTag(editHashtags));
       quote.current.value = editQuote;
       content.current.value = editContent;
     }
 
-
     return () => {
       dispatch(uploadAcions.showPreview(false)); //화면에서 나갈 때는, 이미지 내려놓고 나가기
       dispatch(tagActions.getTag([])) //나갈때는 태그를 지우고 나가기
     };
-  }, [editQuote]);
+  }, [editQuote, is_loading]);
 
   const test = () => {
     dispatch(tagActions.setRecommandTag(recommandTags))
@@ -306,12 +308,18 @@ const ReviewWrite = (props) => {
             <Text>인용구 작성하기</Text>
           </TextWrapper>
 
-          <QuotesTextarea
-            ref={quote}
-            maxLength="300"
-            onChange={e => setQuoteCount(e.target.value.length)}
-            placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
-          ></QuotesTextarea>
+          <OutlineBox>
+            <QuotesTextarea
+              ref={quote}
+              maxLength="300"
+              onChange={e => setQuoteCount(e.target.value.length)}
+              placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
+            ></QuotesTextarea>
+            <InputSpan>
+              <InputI>
+              </InputI>
+            </InputSpan>
+          </OutlineBox>
 
           <CountBox>{quoteCount}/300</CountBox>
         </QuoteBox>
@@ -322,12 +330,18 @@ const ReviewWrite = (props) => {
             <Notice>*필수작성</Notice>
           </TextWrapper>
 
-          <QuotesTextarea
-            ref={content}
-            maxLength="300"
-            onChange={e => setReviewCount(e.target.value.length)}
-            placeholder="자유로운 리뷰를 작성해보세요. (최대 300자)"
-          ></QuotesTextarea>
+          <OutlineBox>
+            <QuotesTextarea
+              ref={content}
+              maxLength="300"
+              onChange={e => setReviewCount(e.target.value.length)}
+              placeholder="자유로운 리뷰를 작성해보세요. (최대 300자)"
+            ></QuotesTextarea>
+            <InputSpan>
+              <InputI>
+              </InputI>
+            </InputSpan>
+          </OutlineBox>
 
           <CountBox>{reviewCount}/300</CountBox>
         </ReviewBox>
@@ -362,7 +376,7 @@ align-items:center;
 justify-content:space-between;
 width:100%;
 height:auto;
-padding:0px 8px;
+padding:0px 8px 10px 8px;
 box-sizing:border-box;
 `
 
@@ -492,7 +506,7 @@ const ImageChoice = styled.div`
 `;
 
 const QuoteBox = styled.div`
-  width: 95%;
+  width: 92%;
   height: 160px;
   display: flex;
   flex-direction: column;
@@ -503,17 +517,21 @@ const QuoteBox = styled.div`
   position:relative;
 `;
 
+const OutlineBox = styled.div`
+position:relative;
+width:100%;
+height:100%;
+`
+
 const QuotesTextarea = styled.textarea`
-  width: 95%;
-  height: 108px;
-  margin: auto;
+  width: 100%;
+  height: 100%;
   font-family: 'Noto Sans KR', sans-serif;
   line-height: 1.43;
   letter-spacing: -0.28px;
   text-align: left;
   padding: 7px;
   box-sizing:border-box;
-  border-radius: 12px;
   border: 1px solid rgba(37, 33, 33, 0.2);
   background-color: ${Color.mainColor};
   resize: none;
@@ -524,13 +542,31 @@ const QuotesTextarea = styled.textarea`
     font-size:15px;
   }
   :focus {
-    outline:none;
+    outline: none;
+   ~ span:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:before{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:after{transition-delay: 0.2s;}
+   ~ span i:after{height: 100%; transition: 0.2s;}
+   ~ span i:before{height: 100%; transition: 0.2s;}
+   ~ span i:after{transition-delay: 0.4s;}
   }
   
 `;
 
+const InputSpan = styled.span`
+:before{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+`
+
+const InputI = styled.i`
+:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:before{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+` 
+
 const ReviewBox = styled.div`
-  width: 95%;
+  width: 92%;
   height: 160px;
   display: flex;
   flex-direction: column;
@@ -548,7 +584,7 @@ const Notice = styled.div`
 const HashTag = styled.div`
   width: 100%;
   height: auto;
-  padding: 16px;
+  padding: 16px 17px 16px 17px;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
 `;
@@ -566,9 +602,9 @@ const Upload = styled.input`
 `;
 
 const CountBox = styled.div`
-  font-size:13px;
+  font-size:11px;
   color:${Color.fontGray};
   position:absolute;
-  bottom:20px;
-  right:15px;
+  bottom:-15px;
+  right:0px;
 `

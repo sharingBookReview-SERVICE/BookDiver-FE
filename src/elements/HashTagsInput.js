@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   close: {
     color:Color.gray,
     fontSize:"16px",
+    cursor:"pointer",
   },
 }));
 
@@ -61,6 +62,10 @@ const HashTagsInput = (props) => {
         onKeyUp={(e) => (e.key === "Enter" ? addTags(e) : null)}
         placeholder="해쉬태그를 입력해주세요 ex)자기계발"
       />
+      <InputSpan>
+        <InputI>
+        </InputI>
+      </InputSpan>
     </TagBox>
   );
 };
@@ -71,7 +76,6 @@ const TagBox = styled.div`
   box-sizing: border-box;
   width: 100%;
   min-height: 48px;
-  border-radius: 8px;
   border:1px solid ${Color.borderGray};
   position: relative;
   margin: 5px 0px 5px 0px;
@@ -113,7 +117,25 @@ const TagInput = styled.input`
   background-color: transparent;
   height: 46px;
   font-size: 14px;
-  &:focus {
-    outline: transparent;
+  :focus {
+    outline: none;
+   ~ span:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:before{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:after{transition-delay: 0.2s;}
+   ~ span i:after{height: 100%; transition: 0.2s;}
+   ~ span i:before{height: 100%; transition: 0.2s;}
+   ~ span i:after{transition-delay: 0.4s;}
   }
 `;
+
+const InputSpan = styled.span`
+:before{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 1px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 1px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+`
+
+const InputI = styled.i`
+:after{content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:before{content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+` 

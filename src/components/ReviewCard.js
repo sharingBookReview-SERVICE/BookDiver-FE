@@ -81,6 +81,7 @@ const ReviewCard = (props) => {
   const goToReviewDetail = () => {
     if(is_login){
       history.push(`/reviewdetail/${book._id}/${_id}`)
+      dispatch(permitActions.isLoading(true))
     }else{
       dispatch(permitActions.showLoginModal(true))
     }
@@ -147,7 +148,7 @@ const ReviewCard = (props) => {
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 
-              <Box direction={"column"}>
+              <Box direction={"row"}>
                 <Box direction={"row"}>
                   <UserName onClick={()=>goToUserFeed(user.id)}>{user.nickname}</UserName>
                  
@@ -326,6 +327,7 @@ cursor:pointer;
 const Box = styled.div`
 display:flex;
 flex-direction:${(props) => props.direction};
+align-items:center;
 `
 
 const UserRightBox = styled.div`

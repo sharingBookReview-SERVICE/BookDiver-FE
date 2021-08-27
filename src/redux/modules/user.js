@@ -73,9 +73,12 @@ const getUserSV = ()=>{
       dispatch(getFollowerCounts(res.data.followerCount))
       dispatch(permitActions.showTreasureModal(res.data.treasure))
       dispatch(getUser(res.data.user));
-      dispatch(permitActions.isLoading(false))
     })
     .catch((err)=>{
+      if(err?.response?.status === 498){
+        localStorage.clear()
+        window.location.replace("/");
+      }
       // history.push("*")
     })
   }
@@ -256,7 +259,9 @@ const getTreasureSV = () => {
     .then((res)=>{
       dispatch(permitActions.isTreasure(false))
       dispatch(permitActions.showNewBadge(randomImg))
-      getUserSV(userId)
+      setTimeout(() => {
+        getUserSV(userId)
+      }, 1000);
     })
     .catch((err)=>{
       // history.push("*")
@@ -279,13 +284,20 @@ const changeProfileSV = (image) => {
   //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = (id)=>{
   return function(dispatch, getState, {history}){
+    dispatch(permitActions.isLoading(true))
     instance.get(`/users/feeds`)
     .then((res)=>{
       console.log(res)
       dispatch(getMyFeed(res.data));
+      setTimeout(() => {
+        dispatch(permitActions.isLoading(false))
+      }, 600);
     })
     .catch((err)=>{
-      // history.push("*")
+      if(err.response.status === 498){
+        localStorage.clear()
+        window.location.replace("/");
+      }
     })
   }
 }
@@ -310,7 +322,7 @@ const checkTreasureSV = () => {
     instance.get(`users/profile/treasure`)
     .then((res)=>{
       dispatch(permitActions.isTreasure(res.data.treasure))
-      dispatch(permitActions.isLoading(false))
+      dispatch(permitActions.showTreasureModal(res.data.treasure))
     })
     .catch((err)=>{
       // history.push("*")

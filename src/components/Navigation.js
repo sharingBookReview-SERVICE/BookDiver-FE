@@ -1,6 +1,6 @@
 import React from "react";
 import { history } from "../redux/configStore";
-import { BrowserRouter as Router,  NavLink } from 'react-router-dom';
+import {  NavLink, useLocation } from 'react-router-dom';
 
 import styled from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
@@ -57,13 +57,36 @@ const Navigation = (props) => {
   //주석추가
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation()
+  console.log(location.pathname)
 
   const is_login = useSelector((state) => state.user.is_login);
   const profile = useSelector((state) => state.user.user.profileImage)
-  
-  const setLoading = () => {
+
+
+
+  const setMyFeedLoading = () => {
+    if(location.pathname === "/myfeed"){
+      return
+    }
     dispatch(permitActions.isLoading(true))
   }
+
+  const setMainLoading = () => {
+    if(location.pathname === "/"){
+      return
+    }
+    dispatch(permitActions.isLoading(true))
+  }
+
+  const setDivingLoading = () => {
+    if(location.pathname === "/mydepth"){
+      return
+    }
+    dispatch(permitActions.isLoading(true))
+  }
+
+
   console.log(profile)
 
   if(!is_login){
@@ -104,6 +127,7 @@ const Navigation = (props) => {
 
       <IconBox 
       to="/" exact
+      onClick={setMainLoading}
       activeClassName={classes.active}>
         <QuestionAnswerOutlinedIcon className={classes.icon}/>
         <PageName >피드</PageName>
@@ -124,6 +148,7 @@ const Navigation = (props) => {
 
       <IconBox 
       to="/myfeed"
+      onClick={setMyFeedLoading}
       activeClassName={classes.active}>
         <SpeakerNotesOutlinedIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
@@ -131,6 +156,7 @@ const Navigation = (props) => {
 
       <IconBox 
       to="/mydepth"
+      onClick={setDivingLoading}
       activeClassName={classes.active}>
         <ProfileImg src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>

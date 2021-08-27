@@ -19,6 +19,7 @@ import { actionCreators as permitAction } from "../../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 import Level from "./Level";
+import NotSupport from "../../../modals/NotSupport"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,9 +37,14 @@ const MyDepth = (props) => {
     const new_badge = useSelector(state => state.permit.new_badge)
     const badgeCounts = useSelector(state => state.user.user.own_image?.length)
     const is_loading = useSelector(state => state.permit.is_loading)
+    const is_support_modal = useSelector(state => state.permit.is_support_modal)
 
     //이 값은 treasure를 확인하는 값을 가져왔을 때, 입력시켜준다. 
     // dispatch(permitAction.isTreasure(false))
+
+    const openNotSupportModal = () => {
+        dispatch(permitAction.showNotSupport(true))
+      }
 
     const goBack=() => {
         history.push("/myfeed");
@@ -49,9 +55,11 @@ const MyDepth = (props) => {
     }
 
     useEffect(() => {
-        dispatch(permitAction.isLoading(false)) //보물 찾으러 가라는 모달 없애기  
         dispatch(userActions.checkTreasureSV())
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기
+        setTimeout(() => {
+            dispatch(permitAction.isLoading(false))
+          }, 600);
         return() => {
             dispatch(permitAction.showModal(false)); // 나가면서 모달 닫아 놓기 
             dispatch(permitAction.showNewBadge(null)) // 새로운 뱃지의 값을 null로 만들어놓기
@@ -59,39 +67,40 @@ const MyDepth = (props) => {
     },[badgeCounts])
 
 
-    if(!badgeCounts){
-        return(<Loading/>)
-    }
 
   return (
     <React.Fragment>
         <TreasureBoxModal is_open_treasure={is_open_treasure}/>
-        <Wrapper>
+        <NotSupport is_support_modal={is_support_modal}/>
 
-        <Header>
-            <ArrowBackIcon 
-            onClick={() => {
-                goBack()
-            }} 
-            className={classes.arrow}/>
-            <HeaderText>잠수상태</HeaderText>
-            <div></div>
-        </Header>
+            {is_loading ? <Loading/> : 
+            <>      
+            <Wrapper>
+                <Header>
+                    <ArrowBackIcon 
+                    onClick={() => {
+                        goBack()
+                    }} 
+                    className={classes.arrow}/>
+                    <HeaderText>잠수상태</HeaderText>
+                    <div></div>
+                </Header>
 
-            <CategoryWrapper>
-                <Depth>나의 잠수상태</Depth>
-                <Ranking>다이버 랭킹</Ranking>
-                <Tutorial>잠수하는 법</Tutorial>
-                <CategoryBar/>
-            </CategoryWrapper>
+                <CategoryWrapper>
+                    <Depth>나의 잠수상태</Depth>
+                    <Ranking onClick={openNotSupportModal}>다이버 랭킹</Ranking>
+                    <Tutorial onClick={openNotSupportModal}>잠수하는 법</Tutorial>
+                    <CategoryBar/>
+                </CategoryWrapper>
 
-            <Level/>
-            <Person src={person}/>
-
-        </Wrapper>
+                <Level/>
+                <Person src={person}/>
+            </Wrapper>
+            {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}
+            </>   
+            }
         {new_badge && <NewBadge src={depth_image[new_badge]} className="scale-up-down-center"/>}
         {new_badge && <GetNewBadge className="scale-up-down-center">{titleWord[new_badge]}를 획득하셨습니다.</GetNewBadge>}
-        {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}             
     </React.Fragment>
   );
 };
@@ -123,11 +132,11 @@ const Depth =styled.div`
 `
 
 const Ranking = styled.div`
-
+color:${Color.quote};
 `
 
 const Tutorial = styled.div`
-
+color:${Color.quote};
 `
 
 const Wrapper = styled.div`

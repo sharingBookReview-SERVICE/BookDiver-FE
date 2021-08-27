@@ -62,8 +62,6 @@ const getAllReviewSV = () => {
         instance
             .get("/feeds")
             .then((res) => {
-                console.log(res)
-
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
                     console.log(res.data)
@@ -72,19 +70,17 @@ const getAllReviewSV = () => {
                     dispatch(userActions.logOut())
                     return;
                 }
-
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
-                dispatch(permitActions.isLoading(false))
-                
+                console.log(res)
             })
-            .catch((err) => {
-                console.log(err)
-                history.push("*")
-                localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
-            });
+            .catch(error => console.error(error.toJSON()));
     };
 };
+
+                // console.log(err)
+                // history.push("*")
+                // localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
 
 const getMoreReviewSV = (lastId) => {
 
@@ -162,6 +158,8 @@ const editReviewSV = (bookId, reviewId, review) => {
                 hashtags: review.hashtags,
             })
             .then((res) => {
+                console.log(res.data.review)
+                dispatch(editReview(reviewId, res.data.review))
                 history.goBack();
             })
             .catch((err) => {

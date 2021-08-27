@@ -31,6 +31,10 @@ const EditModal = (props) =>{
     const reviewId = useSelector(state => state.review.feed_id.reviewId)
     const collectionId = useSelector(state=> state.collection.collection_id)
 
+    const showLoading = () => {
+      dispatch(permitActions.isLoading(true))
+    }
+
     if(props.is_collection){
       return(
         <React.Fragment>
@@ -66,6 +70,7 @@ const EditModal = (props) =>{
 
             <Container is_show={props.is_edit_modal}>
               <Btn onClick={() => {
+                showLoading()
                 history.push(`/postwrite/${bookId}/${reviewId}`)
               }}><CreateOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 수정</Btn>
               {/* <Btn><BookmarkBorderOutlinedIcon style={{margin: "0px 5px 0px 0px"}}/>게시물 저장</Btn>

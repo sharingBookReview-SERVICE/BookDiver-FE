@@ -13,6 +13,7 @@ import "./Transition.css";
 
 import instance from "./Request";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 //컴포넌트
@@ -49,7 +50,6 @@ function App(props) {
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const is_padding = useSelector(state => state.permit.is_padding)
-  const is_treasure = useSelector(state => state.permit.is_treasure_modal)
   const userId = useSelector(state => state.user.user._id)
 
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
@@ -149,7 +149,6 @@ function App(props) {
         </TransitionGroup> */}
          
         {is_nav ? <Navigation /> : ""}
-        <TreasureModal is_treasure={is_treasure}/>
       </Container>
       </Layout>
     </React.Fragment>

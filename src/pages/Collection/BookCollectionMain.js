@@ -13,8 +13,11 @@ import "swiper/components/pagination/pagination.scss";
 
 //컴포넌트
 import {Collection} from "../../elements";
+import WhatCollection from "./component/WhatCollection"
+import CollectionSlider from "./component/CollectionSlider"
 //css
 import Color from "../../shared/Color";
+import logo from "../../img/북컬렉션-로고.svg"
 
 
 //action
@@ -42,114 +45,29 @@ const BookCollectionMain = (props) =>{
         dispatch(collectionActions.getCustomCollectionsSV());
     },[])
 
-    const toTagCollectionList = ()=>{
-        history.push('/collectionlist/tag')
-    }
-    const toCustomCollectionList = ()=>{
-        history.push('/collectionlist/custom')
-    }
+
     return(
         <Wrapper>
         <Container>
-            <CollectionIntro>테마별로, 혹은 기분으로
-                같은 무드의 도서만 모아서</CollectionIntro>
-            <Recommend>
-                <TitleWrapper>
-                    <Title>태그 기반 추천 컬렉션</Title>
-                    <More onClick={()=>{toTagCollectionList()}}>더보기</More>
-                 </TitleWrapper>
-                <Swiper
-                style ={{margin: "0px 0px 20px 20px"}}
-                freeMode={true}
-                spaceBetween={80}
-                slidesPerView={2}
-                breakpoints={{
-                    280:{
-                        spaceBetween:115,
-                    },
-                    320:{
-                        spaceBetween:70,
-                    },
-                    360:{
-                        spaceBetween:35,
-                    },
-                    375:{
-                        spaceBetween:20,
-                    },
-                    410:{
-                        spaceBetween:-15,
-                    },
-                    540:{
-                        spaceBetween:-145,
-                    },
-                    541:{
-                        spaceBetween:-25,
-                    }
-                }}
-                >
-                {
-                    tag_collection_list?.map((collection)=>{
-                        return(
-                            <SwiperSlide><Collection is_tag {...collection} key={collection.id}/></SwiperSlide>
-                        )
-                      
-                    })
-                }
-            
-            </Swiper>
-            </Recommend>
-            <Recommend>
-            <TitleWrapper>
-                <Title>최신 컬렉션</Title>
-                <More onClick={()=>{
-                    toCustomCollectionList()
-                    ReactGA.event({
-                        category: "Button",
-                        action: "show more collections",
-                        label: "collection",
-                      });
-                    }}>더보기</More>
-            </TitleWrapper>
-                <Swiper
-                style ={{margin: "0px 0px 20px 20px"}}
-                freeMode={true}
-                spaceBetween={80}
-                slidesPerView={2}
-                breakpoints={{
-                    280:{
-                        spaceBetween:115,
-                    },
-                    320:{
-                        spaceBetween:70,
-                    },
-                    360:{
-                        spaceBetween:35,
-                    },
-                    375:{
-                        spaceBetween:20,
-                    },
-                    410:{
-                        spaceBetween:-15,
-                    },
-                    540:{
-                        spaceBetween:-145,
-                    },
-                    541:{
-                        spaceBetween:-25,
-                    }
-                }}
-                >
-               {
-                    custom_collection_list?.map((collection)=>{
-                        return(
-                            <SwiperSlide><Collection {...collection} key={collection.id}/></SwiperSlide>
-                        )
-                      
-                    })
-                }
-            </Swiper>
-            </Recommend>
-           
+            <LogoBox>
+                <Logo src={logo}/>
+            </LogoBox>
+
+            <WhatCollection/>
+
+            <CollectionSlider 
+                collection_list={custom_collection_list} 
+                collection_name={"최신 컬렉션"}
+                desc={"다이버들이 만든 따끈따끈한 북컬렉션"}
+            />
+
+            <CollectionSlider 
+                collection_list={tag_collection_list} 
+                collection_name={"태그 추천 컬렉션"}
+                desc={"작성된 리뷰 태그에 관련된 컬렉션을 모아봤어요."}
+            />
+
+
            {
                is_login &&  <MakeBtn onClick={()=>{
                    history.push('/makeCollection')
@@ -158,13 +76,28 @@ const BookCollectionMain = (props) =>{
                     action: "make collection",
                     label: "collection",
                   });
-                }}>나만의 북 컬렉션 만들기</MakeBtn>
+                }}>북컬렉션 만들기</MakeBtn>
            }
            
         </Container>
         </Wrapper>
     )
 }
+const LogoBox = styled.div`
+width:100%;
+height:56px;
+display:flex;
+justify-content:flex-start;
+align-items:center;
+padding: 0px 20px;
+`
+
+const Logo = styled.img`
+width:auto;
+height:auto;
+max-width:150px;
+max-height:24px;
+`
 
 const Wrapper = styled.div`
 width:100vw;
@@ -185,31 +118,36 @@ position: absolute;
 const Container = styled.div`
 width:100vw;
 height:auto;
-min-height:80vh;
+min-height:130vh;
 padding-bottom: 100px;
 
 @media ${(props) => props.theme.tablet} {
     width: 100%;
+    min-height:100vh;
   }
   
   @media ${(props) => props.theme.desktop} {
     width: 100%;
+    min-height:100vh;
   }
 `
 
 const MakeBtn = styled.div`
 cursor:pointer;
-height: 56px;
+height: 46px;
 background: ${Color.black};
 border-radius: 12px;
 position: fixed;
 bottom: 70px;
 z-index: 1000;
+display:flex;
+justify-content:center;
+align-items:center;
 color: ${Color.mainColor};
 font-weight:500;
 text-align: center;
 line-height: 56px;
-font-size: 20px;
+font-size: 16px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 transition: 0.3s ease-in-out;
 
@@ -218,45 +156,28 @@ transition: 0.3s ease-in-out;
 }
 
 @media ${(props) => props.theme.mobile} {
-    width: 90%;
-    left:5.5%;
+    width: 50%;
+    left:25%;
 }
   
 
 @media ${(props) => props.theme.tablet} {
-    width: 420px;
+    margin-left:135px;
+    width: 150px;
     position: fixed;
   }
 
   @media ${(props) => props.theme.desktop} {
-    width: 420px;
+    margin-left:135px;
+    width: 150px;
     position: fixed;
   }
 
 `;
-const CollectionIntro = styled.p`
-font-family: "Noto Serif KR", serif;
-font-size: 21px;
-width: 65%;
-font-weight: bold;
-padding: 44px 20px;
-`;
 
-const Recommend = styled.div`
-// padding-bottom: 20px;
-`;
-const TitleWrapper = styled.div`
-display: flex;
-justify-content: space-between;
-margin: 20px;
-`;
-const Title = styled.div`
-font-family: "Noto Serif KR", serif;
-font-weight : bold;
-`;
-const More = styled.div`
-font-family: "Noto Serif KR", serif;
-font-weight : bold;
-`;
 
 export default BookCollectionMain;
+
+
+
+

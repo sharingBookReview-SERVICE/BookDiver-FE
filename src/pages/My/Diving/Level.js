@@ -2,14 +2,17 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {images, depth_image} from "../../../shared/Image"
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
 
 const Level = () => {
     const userBadges = useSelector(state => state.user.user.own_image)
-    let badges = Array(6)
     
+    let badges = Array(6)
+
     userBadges?.forEach((badge,idx) => {
         badges[idx] = badge
     })
+
 
     return (
         <BackgroundImg url={images["sea"]}>
@@ -81,15 +84,15 @@ export default Level;
 
 const BackgroundImg = styled.div`
 width:100%;
-height:310vh;
+height:2700px;
 background-image:url(${(props) => props.url});
 background-size:cover;
 
 @media ${(props) => props.theme.tablet} {
-    height:280vh;
+    height:2600px;
   }
   @media ${(props) => props.theme.desktop} {
-    height:280vh;
+    height:2600px;
   }
 `
 
