@@ -322,6 +322,7 @@ const checkTreasureSV = () => {
     instance.get(`users/profile/treasure`)
     .then((res)=>{
       dispatch(permitActions.isTreasure(res.data.treasure))
+      dispatch(permitActions.showTreasureModal(res.data.treasure))
     })
     .catch((err)=>{
       // history.push("*")

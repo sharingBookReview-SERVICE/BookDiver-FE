@@ -150,7 +150,6 @@ function App(props) {
         </TransitionGroup> */}
          
         {is_nav ? <Navigation /> : ""}
-        <TreasureModal is_treasure={is_treasure}/>
       </Container>
       </Layout>
     </React.Fragment>

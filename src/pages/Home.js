@@ -3,12 +3,13 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
+import { actionCreators as userActions } from "../redux/modules/user";
 import { useInView } from "react-intersection-observer";
 import { history } from "../redux/configStore";
 
 import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
-import {EditModal,LoginModal,NotSupport} from "../modals";
+import {EditModal,LoginModal,NotSupport,TreasureModal} from "../modals";
 
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
@@ -24,6 +25,9 @@ const Home = (props) => {
   const show_login_modal = useSelector((state) => state.permit.show_login)
   const is_support_modal = useSelector((state) => state.permit.is_support_modal)
   const is_loading = useSelector((state) => state.permit.is_loading)
+  const is_treasure = useSelector((state) => state.permit.is_treasure)
+
+  console.log(is_treasure)
 
   const [isRecentCategory, setIsRecentCategory] = useState(false)
 
@@ -41,6 +45,7 @@ const Home = (props) => {
 
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
+    dispatch(userActions.checkTreasureSV())
     dispatch(permitAction.showNav(true));
     if(reviewList.length <10){
       console.log("리뷰 리스트 불러오기")
@@ -125,6 +130,7 @@ const Home = (props) => {
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
     <LoginModal show_login_modal={show_login_modal}/>
+    <TreasureModal is_treasure={is_treasure}/>
     </>
   );
 };
