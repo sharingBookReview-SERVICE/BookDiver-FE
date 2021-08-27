@@ -40,7 +40,7 @@ const getMyFeed = createAction(GET_MY_FEED, (my_feed)=>({my_feed}));
 const getFollowingCounts = createAction(GET_FOLLOWING_COUNTS, (counts) => ({counts}))
 const getFollowerCounts = createAction(GET_FOLLOWER_COUNTS, (counts) => ({counts}))
 const isFollow = createAction(IS_FOLLOW, (is_follow) => ({is_follow}))
-const getBookmark = createAction(GET_BOOKMARK , (user)=> ({user}));
+const getBookmark = createAction(GET_BOOKMARK , (reviews)=> ({reviews}));
 
 
 //initial
@@ -325,7 +325,8 @@ const getBookmarkSV = () => {
 
     instance.get(`/users/profile/bookmark`)
     .then((res)=>{
-      console.log(res.data)
+      console.log(res.data.bookmark_reviews)
+      dispatch(getBookmark(res.data.bookmark_reviews))
     })
     .catch((err)=>{
       // history.push("*")
@@ -400,6 +401,10 @@ export default handleActions(
         [IS_FOLLOW] : (state, action)=>
         produce(state, (draft)=>{
           draft.is_follow = action.payload.is_follow;
+        }),
+          [GET_BOOKMARK] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.bookmark = action.payload.reviews;
         }),
     },
     initialState

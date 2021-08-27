@@ -73,6 +73,7 @@ const EditModal = (props) =>{
               <Btn onClick={() => { 
                 dispatch(reviewActions.deleteReviewSV())
                 dispatch(permitActions.showEditModal(false))
+                history.push('/')
               }
               }><DeleteOutlineOutlinedIcon style={{margin: "0px 5px 0px 0px"}} />게시물 삭제</Btn>
             </Container>

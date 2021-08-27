@@ -141,6 +141,9 @@ const deleteReviewSV = () => {
             .delete(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
                 dispatch(deleteReview(reviewId));
+                console.log("history push")
+                history.push(`/`)
+                 console.log("history push2")
             })
             .catch((err) => {
                 // history.push("*")
