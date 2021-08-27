@@ -22,7 +22,7 @@ import {images} from "../../shared/Image"
 import {titles} from "../../shared/Titles";
 
 import {NotSupport} from "../../modals";
-
+import Loading from "../ETC/Loading"
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -64,6 +64,7 @@ const MyFeed = () => {
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
+    const is_loading = useSelector(state => state.permit.is_loading)
     console.log(titles[profileImg])
 
     //책장모드
@@ -227,6 +228,7 @@ const MyFeed = () => {
   //본인의 피드를 확인 할 때
     return (
         <React.Fragment>
+      {is_loading ? <Loading/> : 
           <Container>
           <NotSupport is_support_modal={is_support_modal}/>
                 <UserBox>
@@ -316,7 +318,7 @@ const MyFeed = () => {
             }
          
 
-        </Container>
+        </Container>}
         </React.Fragment>
     )
 }

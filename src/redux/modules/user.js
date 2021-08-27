@@ -283,6 +283,9 @@ const getMyFeedSV = (id)=>{
     .then((res)=>{
       console.log(res)
       dispatch(getMyFeed(res.data));
+      setTimeout(() => {
+        dispatch(permitActions.isLoading(false))
+      }, 800);
     })
     .catch((err)=>{
       // history.push("*")

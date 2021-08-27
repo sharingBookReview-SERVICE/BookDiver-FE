@@ -13,6 +13,7 @@ import "./Transition.css";
 
 import instance from "./Request";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 //컴포넌트
@@ -65,6 +66,7 @@ function App(props) {
 
   
   useEffect(() => {
+    dispatch(permitActions.isLoading(true))
     if (user) {
       dispatch(userActions.loginCheck());
       dispatch(userActions.isMe());

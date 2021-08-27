@@ -124,6 +124,7 @@ const Navigation = (props) => {
 
       <IconBox 
       to="/myfeed"
+      onClick={setLoading}
       activeClassName={classes.active}>
         <SpeakerNotesOutlinedIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
