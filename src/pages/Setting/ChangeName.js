@@ -84,7 +84,7 @@ const ChangeName = (props) =>{
                     <ProfileBox>
     
                         <ImageBox>
-                            <ImgWrapper>
+                            <ImgWrapper is_first={!defaultNickName ? true: false}>
                               <ProfileImg 
                                 onClick={() => {goToChangeImg()}} 
                                 src={images[profileImage]}>                                
@@ -176,6 +176,7 @@ height:72px;
 border-radius:70%;
 overflow:hidden;
 box-sizing:border-box;
+margin-bottom: ${(props) => props.is_first ? "20px" : "0"};
 `
 
 const ProfileChangeGuide = styled.div`

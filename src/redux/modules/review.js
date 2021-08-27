@@ -13,6 +13,7 @@ const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
 const GET_MORE_REVIEW = "review/GET_MORE_REVIEW"
 const ADD_REVIEW = "review/ADD_REVIEW";
 const LIKE = "review/LIKE";
+const BOOKMARK = "review/BOOKMARK";
 const DELETE_REVIEW = "review/DELETE_REVIEW";
 const EDIT_REVIEW = "review/EDIT_REVIEW";
 const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
@@ -26,6 +27,7 @@ const GET_ALLTAGS = "review/GET_ALLTAGS";
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({review_list}));
 const getMoreReview = createAction(GET_MORE_REVIEW, (review_list) => ({review_list}));
 const like = createAction(LIKE, (reviewId) => ({ reviewId }));
+const bookMark = createAction(BOOKMARK, (reviewId) => ({ reviewId }));
 const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (reviewId) => ({ reviewId }));
 const editReview = createAction(EDIT_REVIEW, (reviewId, review) => ({reviewId,review}));
@@ -139,6 +141,9 @@ const deleteReviewSV = () => {
             .delete(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
                 dispatch(deleteReview(reviewId));
+                console.log("history push")
+                history.push(`/`)
+                 console.log("history push2")
             })
             .catch((err) => {
                 // history.push("*")
@@ -197,6 +202,23 @@ const LikeSV = (bookId, reviewId) => {
             });
     };
 };
+
+//북마크 버튼
+const bookMarkSV = (bookId, reviewId) => {
+
+    return function (dispatch) {
+        instance
+            .put(`/books/${bookId}/reviews/${reviewId}/bookmark`)
+            .then((res) => {
+                dispatch(bookMark(reviewId));
+            })
+            .catch((err) => {
+                // history.push("*")
+                console.log("북마크 실패", err);
+            });
+    };
+};
+
 
 
 //해당 책의 리뷰 가져오기
@@ -312,6 +334,32 @@ export default handleActions(
                     draft.review_detail.myLike = !draft.review_detail.myLike;
                 }
             }),
+            //북마크
+            [BOOKMARK]: (state, action) =>
+            produce(state, (draft) => {
+                //전체
+                let idx = draft.all_review_list.findIndex(
+                    (l) => l._id === action.payload.reviewId
+                );
+                
+                //리뷰 전체 리스트인 경우 
+                if(draft.all_review_list[idx]){
+                    if (draft.all_review_list[idx]?.bookmark) {
+                        draft.all_review_list[idx].bookmark = false;
+                    } else {
+                        draft.all_review_list[idx].bookmark = true;
+                    }
+                }
+
+
+                //상세 페이지인 경우 
+                if(draft.review_detail.bookmark){
+                    draft.review_detail.bookmark = false;
+                }
+                else{
+                    draft.review_detail.bookmark = true;
+                }
+            }),
         [GET_FEED_ID]: (state, action) =>
             produce(state, (draft) => {
                 draft.feed_id.bookId = action.payload.bookId;
@@ -349,7 +397,8 @@ const actionCreators = {
     getMoreReviewSV,
     saveCurrentScroll,
     searchReviewSV,
-    getAllTagsSV
+    getAllTagsSV,
+    bookMarkSV
 };
 
 export { actionCreators };

@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import Color from "../../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
@@ -65,6 +66,10 @@ const MyFeed = () => {
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
     console.log(titles[profileImg])
 
+    //책장모드
+    const [bookMode, setBookMode] = useState(false);
+    const book_count = parseInt(my_reviews?.length/4 +1);
+
     //check_modal
     const is_support_modal = useSelector((state) => state.permit.is_support_modal)
  
@@ -100,6 +105,10 @@ const MyFeed = () => {
       history.push('/changename')
     }
 
+    const gotoBookMark = ()=>{
+      history.push('/bookmark')
+    }
+
     useEffect(()=>{
       dispatch(permitActions.showNav(true));
       if(is_my_feed === "/myfeed" && userId){
@@ -124,9 +133,7 @@ const MyFeed = () => {
               <UserBox>
 
                   <Header>
-                    <SearchIcon className={classes.icon}/>
-                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
-                    <NotificationsNoneIcon className={classes.icon}/>
+                  
                   </Header>
 
                 <Wrapper>
@@ -168,19 +175,48 @@ const MyFeed = () => {
                       </FollowBox>
                     <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
+                     <FeedCategory>
+                      <FeedTitle></FeedTitle>
+                      {
+                        bookMode?
+                        <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
+                          <RemoveRedEyeIcon className={classes.eye}/>
+                          리뷰모드
+                      </FeedCategoryButton>
+                      :
+                          <FeedCategoryButton onClick ={()=>{setBookMode(true)}}>
+                          <RemoveRedEyeIcon className={classes.eye}/>
+                          책장모드
+                      </FeedCategoryButton>
+                      }
+                    
+                  </FeedCategory>
                 </Wrapper>
               </UserBox>
 
-
-          <FeedMain>
-          {
-            my_reviews?.map((review)=>{
-              return(<FeedCard url={review.image} key={review.id} 
-                onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
-                />)
-            })
-          }
-          </FeedMain>
+    {
+              bookMode ?
+            <BookFeedMain count={book_count}>
+                {
+                  my_reviews?.map((review)=>{
+                    return(
+                    <BookImg url={review.book?.image} key={review.id} 
+                      onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
+                      ></BookImg>)
+                  })
+                }
+              </BookFeedMain>
+              :
+              <FeedMain>
+                  {
+                    my_reviews?.map((review)=>{
+                      return(<FeedCard url={review.image} key={review.id} 
+                        onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
+                        />)
+                    })
+                  }
+              </FeedMain>
+            }
 
       </Container>
       </React.Fragment>
@@ -195,7 +231,7 @@ const MyFeed = () => {
           <NotSupport is_support_modal={is_support_modal}/>
                 <UserBox>
                   <Header>
-                    <SearchIcon className={classes.icon}/>
+                    <BookmarkBorderOutlinedIcon  onClick={()=>{gotoBookMark()}}className={classes.icon}/>
                     <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
                     <NotificationsNoneIcon className={classes.icon}/>
                   </Header>
@@ -208,7 +244,7 @@ const MyFeed = () => {
                           </ImgWrapper>
 
                           <DetailBox>
-                            <UserName>{nickname}</UserName>
+                            <UserName>{nickname}{level}</UserName>
                             <PostCount>작성한 게시물 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
                           </DetailBox>
                       </ProfileBox>
@@ -235,24 +271,50 @@ const MyFeed = () => {
 
                   </Wrapper>
                   <FeedCategory>
-                      <FeedTitle>내 게시물</FeedTitle>
-                      <FeedCategoryButton>
+                      <FeedTitle></FeedTitle>
+                      {
+                        bookMode?
+                        <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
+                          <RemoveRedEyeIcon className={classes.eye}/>
+                          리뷰모드
+                      </FeedCategoryButton>
+                      :
+                          <FeedCategoryButton onClick ={()=>{setBookMode(true)}}>
                           <RemoveRedEyeIcon className={classes.eye}/>
                           책장모드
                       </FeedCategoryButton>
+                      }
+                    
                   </FeedCategory>
                 </UserBox>
 
 
-            <FeedMain>
             {
-              my_reviews?.map((review)=>{
-                return(<FeedCard url={review.image} key={review.id} 
-                  onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
-                  />)
-              })
+              bookMode ?
+            <BookFeedMain count={book_count}>
+                {
+                  my_reviews?.map((review)=>{
+                    return(
+                    <BookImg url={review.book?.image} key={review.id} 
+                      onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
+                      >
+                      <BookTitle>{review.book?.title.split("(")[0]}</BookTitle>
+                      </BookImg>)
+                  })
+                }
+              </BookFeedMain>
+              :
+              <FeedMain>
+                  {
+                    my_reviews?.map((review)=>{
+                      return(<FeedCard url={review.image} key={review.id} 
+                        onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
+                        />)
+                    })
+                  }
+              </FeedMain>
             }
-            </FeedMain>
+         
 
         </Container>
         </React.Fragment>
@@ -442,6 +504,39 @@ background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 background-position: center center;
 cursor:pointer;
+`;
+
+const BookFeedMain = styled.div`
+  background-color: #f5f2f0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 130px);
+  gap: 1px;
+  padding-bottom: 100px;
+  place-items: center;
+`;
+
+
+const BookImg = styled.div`
+  width: 80px;
+  height: 110px;
+  background-color: #c4c4c4;
+  background-image: url(${(props) => props.url ? props.url : " "});
+  background-size: cover;
+  box-sizing: border-box;
+  border-radius: 4px;
+  &:hover{
+    opacity:0.6;
+  }
+ 
+`
+const BookTitle = styled.div`
+  width: 80px;
+  height: 110px;
+opacity : 0;
+&:hover{
+  opacity:1;
+}
 `;
 
 const LevelBox = styled.div`

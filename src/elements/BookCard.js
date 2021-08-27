@@ -20,7 +20,7 @@ const BookCard = (props) =>{
                 <BookImg url={props?.image}/>
                 <BookDescBox>
                     <BookTitle  dangerouslySetInnerHTML={{__html: props?.title.split("(")[0]}}></BookTitle>
-                    <BookWriter>{props?.author}</BookWriter>
+                    <BookWriter dangerouslySetInnerHTML={{__html: props?.author}}></BookWriter>
                 </BookDescBox>
 
             </Outter>

@@ -18,6 +18,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { makeStyles } from "@material-ui/core/styles";
 
 import {EditModal ,CommentModal} from "../../modals";
@@ -25,6 +26,9 @@ import {Comment, SelectBookCard} from "../../components";
 
 import {images} from "../../shared/Image";
 import Color from "../../shared/Color";
+
+import ReactGA from "react-ga";
+
 
 const useStyles = makeStyles((theme) => ({
   goback: {
@@ -67,7 +71,7 @@ const ReviewDetail = (props) => {
 
   const [commentContent, setCommentContent] = useState("");
   const reviewDetail = useSelector((state) => state.review.review_detail);
-  const {book, comments, content, koreaTime,hashtags, image, likeCount, myLike, quote, user } = reviewDetail;
+  const {book, comments, content, koreaTime,hashtags, image, likeCount, myLike, quote, user, bookmark } = reviewDetail;
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const nickname = useSelector((state) => state.user.user.nickname);
@@ -154,6 +158,11 @@ const ReviewDetail = (props) => {
   const clickLikeButton = () => {
     //리뷰 디테일에 들어왔다는 것은 로그인을 했다는 의미이니 로그인 체크 x
     dispatch(reviewAction.LikeSV(bookId, reviewId));
+  };
+
+  //북마크 클릭
+  const clickBookMarkButton = () => {
+    dispatch(reviewAction.bookMarkSV(bookId, reviewId));
   };
 
   //프로필 사진 클릭 시 피드 보러가기
@@ -264,6 +273,11 @@ const ReviewDetail = (props) => {
                   style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
                   onClick={() => {
                     clickLikeButton();
+                    ReactGA.event({
+                      category: "Button",
+                      action: "click like button",
+                      label: "like",
+                    });
                   }}
                 />
               )}
@@ -276,7 +290,21 @@ const ReviewDetail = (props) => {
               </CountBox>
 
               <CountBox>
-              <BookmarkBorderOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+              {
+                bookmark ? 
+                  <BookmarkIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
+                  onClick={()=>{
+                      clickBookMarkButton()
+                  }}
+                  />
+                  :
+                    <BookmarkBorderOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
+                    onClick={()=>{
+                    clickBookMarkButton()
+                  }}
+                    />
+              }
+             
               <CountText> 스크랩</CountText>
               </CountBox>
 
@@ -301,11 +329,17 @@ const ReviewDetail = (props) => {
                     }}
                     onFocus={()=>{setIsEmpty(false)}}
                     value={commentContent}
+                     maxLength="150"
                     onKeyPress={(e) => (e.key === "Enter" ? writeComment() : null)}
                 />
                 <CommentWriteButton
                     onClick={() => {
                       writeComment();
+                      ReactGA.event({
+                        category: "Button",
+                        action: "write comment",
+                        label: "comment",
+                      });
                     }}
                 >
                   게시

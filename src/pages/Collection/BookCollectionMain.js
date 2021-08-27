@@ -22,6 +22,8 @@ import  { actionCreators as collectionActions } from "../../redux/modules/collec
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
+
+import ReactGA from "react-ga";
 SwiperCore.use([Mousewheel])
 
 
@@ -99,7 +101,14 @@ const BookCollectionMain = (props) =>{
             <Recommend>
             <TitleWrapper>
                 <Title>최신 컬렉션</Title>
-                <More onClick={()=>{toCustomCollectionList()}}>더보기</More>
+                <More onClick={()=>{
+                    toCustomCollectionList()
+                    ReactGA.event({
+                        category: "Button",
+                        action: "show more collections",
+                        label: "collection",
+                      });
+                    }}>더보기</More>
             </TitleWrapper>
                 <Swiper
                 style ={{margin: "0px 0px 20px 20px"}}
@@ -142,7 +151,14 @@ const BookCollectionMain = (props) =>{
             </Recommend>
            
            {
-               is_login &&  <MakeBtn onClick={()=>{history.push('/makeCollection')}}>나만의 북 컬렉션 만들기</MakeBtn>
+               is_login &&  <MakeBtn onClick={()=>{
+                   history.push('/makeCollection')
+                   ReactGA.event({
+                    category: "Button",
+                    action: "make collection",
+                    label: "collection",
+                  });
+                }}>나만의 북 컬렉션 만들기</MakeBtn>
            }
            
         </Container>

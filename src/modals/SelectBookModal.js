@@ -156,6 +156,11 @@ overflow: scroll;
 overflow-x: hidden;
 z-index: 1000;
 box-sizing:border-box;
+-ms-overflow-style: none; /* IE and Edge */
+scrollbar-width: none; /* Firefox */
+&::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
 
 ${(props) => props.is_show ? 
   `opacity:1;
