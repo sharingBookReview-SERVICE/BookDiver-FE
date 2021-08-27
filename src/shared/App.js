@@ -3,7 +3,6 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configStore";
 import { Route, Switch, useLocation, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import io from "socket.io-client"
 
 
 import styled from "styled-components";
@@ -41,7 +40,6 @@ ReactGA.exception({
   fatal: true
 });
 
-const socket = io.connect("http://13.209.10.67")
 
 function App(props) {
   const dispatch = useDispatch();
@@ -80,11 +78,6 @@ function App(props) {
     if (userId) {
       getUserInfo()
       console.log("-------유저아이디", userId)
-      socket.emit("login", userId)
-      socket.on("login", (payload) => {
-        console.log(socket.id)
-        console.log(payload)
-      })
     }
   }, [userId]);
 

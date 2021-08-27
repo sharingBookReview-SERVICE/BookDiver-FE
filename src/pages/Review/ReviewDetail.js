@@ -1,7 +1,6 @@
 //import 부분
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import io from "socket.io-client"
 
 import { actionCreators as commentAction } from "../../redux/modules/comment";
 import {actionCreators as reviewAction } from "../../redux/modules/review";
@@ -45,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const socket = io.connect("http://13.209.10.67")
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
@@ -148,7 +146,6 @@ const ReviewDetail = (props) => {
       userId,
       target : user?.id,
     }
-    socket.emit("comment", noti_info)
     setCommentContent("");
     scrollToBottom()
   };
@@ -187,14 +184,6 @@ const ReviewDetail = (props) => {
       dispatch(permitAction.showEditModal(false));
     }
   }, []);
-
-  useEffect(() => {
-    socket.on("comment", (payload) => {
-      console.log(socket.id)
-      console.log("------누가 댓글을 달았는가",payload)
-      console.log("-------소켓이 연결되었는가요?",socket.connected)
-    })
-  })
 
 
   
