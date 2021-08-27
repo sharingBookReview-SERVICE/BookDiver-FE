@@ -329,7 +329,7 @@ const ReviewDetail = (props) => {
                     }}
                     onFocus={()=>{setIsEmpty(false)}}
                     value={commentContent}
-                     maxLength="100"
+                     maxLength="150"
                     onKeyPress={(e) => (e.key === "Enter" ? writeComment() : null)}
                 />
                 <CommentWriteButton
