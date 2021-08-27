@@ -145,20 +145,22 @@ const ReviewWrite = (props) => {
     dispatch(bookActions.resetSelectedBook());
     dispatch(permitActions.showModal(false));
     dispatch(permitActions.bookSelect(false));
-    
-    if (reviewId) {
+    setTimeout(() => {
+      dispatch(permitActions.isLoading(false))
+    }, 600);
+
+    if (reviewId && !is_loading) {
       dispatch(reviewActions.getDetailReviewSV(bookId, reviewId));
       dispatch(tagActions.getTag(editHashtags));
       quote.current.value = editQuote;
       content.current.value = editContent;
     }
 
-
     return () => {
       dispatch(uploadAcions.showPreview(false)); //화면에서 나갈 때는, 이미지 내려놓고 나가기
       dispatch(tagActions.getTag([])) //나갈때는 태그를 지우고 나가기
     };
-  }, [editQuote]);
+  }, [editQuote, is_loading]);
 
   const test = () => {
     dispatch(tagActions.setRecommandTag(recommandTags))

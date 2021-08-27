@@ -72,29 +72,30 @@ const MyDepth = (props) => {
     <React.Fragment>
         <TreasureBoxModal is_open_treasure={is_open_treasure}/>
         <NotSupport is_support_modal={is_support_modal}/>
-{is_loading ? <Loading/> :       
-    <Wrapper>
-        <Header>
-            <ArrowBackIcon 
-            onClick={() => {
-                goBack()
-            }} 
-            className={classes.arrow}/>
-            <HeaderText>잠수상태</HeaderText>
-            <div></div>
-        </Header>
 
-            <CategoryWrapper>
-                <Depth>나의 잠수상태</Depth>
-                <Ranking onClick={openNotSupportModal}>다이버 랭킹</Ranking>
-                <Tutorial onClick={openNotSupportModal}>잠수하는 법</Tutorial>
-                <CategoryBar/>
-            </CategoryWrapper>
+            {is_loading ? <Loading/> :       
+            <Wrapper>
+                <Header>
+                    <ArrowBackIcon 
+                    onClick={() => {
+                        goBack()
+                    }} 
+                    className={classes.arrow}/>
+                    <HeaderText>잠수상태</HeaderText>
+                    <div></div>
+                </Header>
 
-            <Level/>
-            <Person src={person}/>
+                <CategoryWrapper>
+                    <Depth>나의 잠수상태</Depth>
+                    <Ranking onClick={openNotSupportModal}>다이버 랭킹</Ranking>
+                    <Tutorial onClick={openNotSupportModal}>잠수하는 법</Tutorial>
+                    <CategoryBar/>
+                </CategoryWrapper>
 
-        </Wrapper>}
+                <Level/>
+                <Person src={person}/>
+
+            </Wrapper>}
         {new_badge && <NewBadge src={depth_image[new_badge]} className="scale-up-down-center"/>}
         {new_badge && <GetNewBadge className="scale-up-down-center">{titleWord[new_badge]}를 획득하셨습니다.</GetNewBadge>}
         {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}             
