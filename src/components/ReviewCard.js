@@ -148,7 +148,7 @@ const ReviewCard = (props) => {
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 
-              <Box direction={"column"}>
+              <Box direction={"row"}>
                 <Box direction={"row"}>
                   <UserName onClick={()=>goToUserFeed(user.id)}>{user.nickname}</UserName>
                  
@@ -327,6 +327,7 @@ cursor:pointer;
 const Box = styled.div`
 display:flex;
 flex-direction:${(props) => props.direction};
+align-items:center;
 `
 
 const UserRightBox = styled.div`

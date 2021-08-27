@@ -326,10 +326,9 @@ const ReviewDetail = (props) => {
               <CommentInputBox>
                 <InputBox>
                   <CommentInput
-                      className={"effect-9"}
-                      // className={is_empty ? 'shake-horizontal' : null}
+                      className={is_empty ? 'shake-horizontal' : null}
                       placeholder={is_empty ? "댓글 내용을 작성해주세요" : "지금 댓글을 남겨보세요"}
-                      color={is_empty ? "red" : Color.fontGray}
+                      color={is_empty ? "#e53935" : Color.fontGray}
                       onChange={(e) => {
                         setCommentContent(e.target.value);
                       }}
