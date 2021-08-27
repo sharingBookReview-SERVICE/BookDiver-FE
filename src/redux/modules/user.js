@@ -14,6 +14,7 @@ const LOG_OUT = "user/LOG_OUT";
 const IS_ME = "user/IS_ME";
 const FOLLOW = "user/FOLLOW";
 const GET_FOLLOW_LIST = "user/GET_FOLLOW_LIST";
+const GET_BOOKMARK = "user/GET_BOOKMARK";
 
 
 const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
@@ -21,7 +22,8 @@ const GET_TREASURE = "user/GET_TREASURE"
 const GET_MY_FEED ="user/GET_MY_FEED";
 const GET_FOLLOWING_COUNTS = "user/GET_FOLLOWING_COUNTS";
 const GET_FOLLOWER_COUNTS = "user/GET_FOLLOWER_COUNTS"
-const IS_FOLLOW = "user/IS_FOLLOW"
+const IS_FOLLOW = "user/IS_FOLLOW";
+
 
 
 //actioncreator
@@ -38,6 +40,7 @@ const getMyFeed = createAction(GET_MY_FEED, (my_feed)=>({my_feed}));
 const getFollowingCounts = createAction(GET_FOLLOWING_COUNTS, (counts) => ({counts}))
 const getFollowerCounts = createAction(GET_FOLLOWER_COUNTS, (counts) => ({counts}))
 const isFollow = createAction(IS_FOLLOW, (is_follow) => ({is_follow}))
+const getBookmark = createAction(GET_BOOKMARK , (user)=> ({user}));
 
 
 //initial
@@ -54,6 +57,7 @@ const initialState = {
     get_treasure : false,
     my_feed:[],
     is_follow: false,
+    bookmark :[]
 };
 
 
@@ -314,6 +318,20 @@ const checkTreasureSV = () => {
   }
 }
 
+//북마크 한 리뷰 가져오기
+
+const getBookmarkSV = () => {
+  return function(dispatch, getState, {history}){
+
+    instance.get(`/users/profile/bookmark`)
+    .then((res)=>{
+      console.log(res.data)
+    })
+    .catch((err)=>{
+      // history.push("*")
+    })
+  }
+}
 //reducer
 export default handleActions(
     {
@@ -408,6 +426,7 @@ const actionCreators = {
   getOtherFeedSV,
   getOtherFollowingListSV,
   getOtherFollowerListSV,
+  getBookmarkSV
 };
   
 export { actionCreators };

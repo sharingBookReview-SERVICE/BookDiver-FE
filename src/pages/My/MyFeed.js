@@ -6,6 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import Color from "../../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
@@ -100,6 +101,10 @@ const MyFeed = () => {
       history.push('/changename')
     }
 
+    const gotoBookMark = ()=>{
+      history.push('/bookmark')
+    }
+
     useEffect(()=>{
       dispatch(permitActions.showNav(true));
       if(is_my_feed === "/myfeed" && userId){
@@ -124,9 +129,7 @@ const MyFeed = () => {
               <UserBox>
 
                   <Header>
-                    <SearchIcon className={classes.icon}/>
-                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
-                    <NotificationsNoneIcon className={classes.icon}/>
+                  
                   </Header>
 
                 <Wrapper>
@@ -195,7 +198,7 @@ const MyFeed = () => {
           <NotSupport is_support_modal={is_support_modal}/>
                 <UserBox>
                   <Header>
-                    <SearchIcon className={classes.icon}/>
+                    <BookmarkBorderOutlinedIcon  onClick={()=>{gotoBookMark()}}className={classes.icon}/>
                     <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
                     <NotificationsNoneIcon className={classes.icon}/>
                   </Header>

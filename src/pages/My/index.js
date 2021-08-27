@@ -6,5 +6,6 @@ import MyReview from "./MyReview";
 import MyReviewFind from "./MyReviewFind";
 import Notification from "./Notification";
 import OtherFollow from "./OtherFollow";
+import BookMark from "./BookMark";
 
-export {Follow, MyDepth, MyFeed, MyProfile, MyReview, MyReviewFind, Notification, OtherFollow};
+export {Follow, MyDepth, MyFeed, MyProfile, MyReview, MyReviewFind, Notification, OtherFollow, BookMark};

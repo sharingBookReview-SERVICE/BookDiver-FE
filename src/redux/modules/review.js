@@ -200,7 +200,7 @@ const LikeSV = (bookId, reviewId) => {
     };
 };
 
-//라이크 버튼
+//북마크 버튼
 const bookMarkSV = (bookId, reviewId) => {
 
     return function (dispatch) {

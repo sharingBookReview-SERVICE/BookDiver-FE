@@ -23,7 +23,7 @@ import {TreasureModal, SignoutModal} from "../modals";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import {ReviewDetail, ReviewWrite, BookDetail, Search} from "../pages/Review";
-import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification} from "../pages/My";
+import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification, BookMark} from "../pages/My";
 import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/Setting";
 import {ErrorPage, LevelHelp} from "../pages/ETC";
 import {CollectionList, BookCollectionMain, CollectionDetail,  MakeCollection, EditCollection} from "../pages/Collection";
@@ -124,6 +124,7 @@ function App(props) {
           <Route path="/levelhelp" exact component ={LevelHelp}/>
 
           <Route path="/myfeed" exact component={MyFeed} />
+           <Route path="/bookmark" exact component={BookMark} />
           <Route path="/otherUser/:otherId" exact component={MyFeed} />
           <Route path="/myreview" exact component={MyReview} />
           <Route path="/notification" exact component ={Notification}/>
