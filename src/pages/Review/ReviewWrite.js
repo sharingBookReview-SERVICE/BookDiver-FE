@@ -255,11 +255,7 @@ const ReviewWrite = (props) => {
 
             <SubmitButton 
             type="submit"
-            style={{
-              cursor:"pointer",
-              backGroundColor: Color.mainColor,
-              color: Color.fontgray,
-            }}>게시하기</SubmitButton>
+            >게시하기</SubmitButton>
           </UploadForm>
         </PostHeader>
 
@@ -273,7 +269,7 @@ const ReviewWrite = (props) => {
             <Text >리뷰할 책 선택하기</Text>
           </BookChoice>
         ) : (
-          <SelectBookCard />
+          <SelectBookCard is_write_page/>
         )}
 
         {is_preview ? (
@@ -387,16 +383,20 @@ const Text1 = styled.div`
 const UploadForm = styled.form``;
 
 const SubmitButton = styled.button`
-  width: auto;
-  height: 30px;
+  width: 80px;
+  height: 40px;
   font-size: 15px;
   font-weight: bold;
-  // float: right;
-  // display: inline-block;
   margin: 0 5px 0 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   border: none;
+  cursor:pointer;
+  transition:0.5s ease-in-out;
+  :hover{
+    border-radius:10px;
+    background-color: ${Color.line};
+  }
 `;
 
 const ImageBox = styled.div`
@@ -434,6 +434,8 @@ const PostHeader = styled.div`
   background-color: ${Color.mainColor};
   position:fixed;
   top:0px;
+  padding:0px 10px 0px 0px;
+  box-sizing:border-box;
 
   @media ${(props) => props.theme.tablet} {
     width: 420px;

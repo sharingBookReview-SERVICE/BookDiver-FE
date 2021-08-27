@@ -84,8 +84,6 @@ height:72px;
 border-radius:70%;
 overflow:hidden;
 box-sizing:border-box;
-background:${Color.black};
-border: 1px solid ${Color.secondColor};
 `
 
 const ProfileImg = styled.img`

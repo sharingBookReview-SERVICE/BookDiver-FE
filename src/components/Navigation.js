@@ -15,8 +15,10 @@ import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutline
 import { makeStyles } from "@material-ui/core/styles";
 
 import Color from "../shared/Color";
+import {images} from "../shared/Image"
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as permitActions } from "../redux/modules/permit";
 
 const useStyles = makeStyles((theme) => ({
   navBox: {
@@ -54,8 +56,15 @@ const useStyles = makeStyles((theme) => ({
 const Navigation = (props) => {
   //주석추가
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const is_login = useSelector((state) => state.user.is_login);
+  const profile = useSelector((state) => state.user.user.profileImage)
+  
+  const setLoading = () => {
+    dispatch(permitActions.isLoading(true))
+  }
+  console.log(profile)
 
   if(!is_login){
     return(
@@ -93,36 +102,52 @@ const Navigation = (props) => {
   return (
     <NavBox>
 
-      <IconBox to="/" exact activeClassName={classes.active}>
+      <IconBox 
+      to="/" exact
+      activeClassName={classes.active}>
         <QuestionAnswerOutlinedIcon className={classes.icon}/>
         <PageName >피드</PageName>
       </IconBox>
 
-      <IconBox to="/bookCollectionMain" activeClassName={classes.active}>
+      <IconBox 
+      to="/bookCollectionMain"
+      activeClassName={classes.active}>
         <BookOutlinedIcon className={classes.icon}/>
         <PageName >북컬렉션</PageName>
       </IconBox>
 
-      <AddBox to="/postwrite">
+      <AddBox to="/postwrite" onClick={setLoading}>
         <PlusBox>
           <AddIcon className="plus" className={classes.plus}/>
         </PlusBox>
       </AddBox>
 
-      <IconBox to="/myfeed" activeClassName={classes.active}>
+      <IconBox 
+      to="/myfeed"
+      activeClassName={classes.active}>
         <SpeakerNotesOutlinedIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
-      <IconBox to="/setting" activeClassName={classes.active}>
-        <PersonIcon className={classes.icon}/>
-        <PageName >내 정보</PageName>
+      <IconBox 
+      to="/mydepth"
+      activeClassName={classes.active}>
+        <ProfileImg src={images[profile]}></ProfileImg>
+        <PageName >잠수상태</PageName>
       </IconBox>
     </NavBox>
   );
 };
 
 export default Navigation;
+
+const ProfileImg = styled.img`
+width:23px;
+height:23px;
+border-radius:50%;
+margin-bottom:2px;
+cursor:pointer;
+`
 
 
 const NavBox = styled.div`

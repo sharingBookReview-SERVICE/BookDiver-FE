@@ -1,5 +1,5 @@
 import Follow from "./Follow";
-import MyDepth from "./MyDepth";
+import MyDepth from "./Diving/MyDepth";
 import MyFeed from "./MyFeed";
 import MyProfile from "./MyProfile";
 import MyReview from "./MyReview";

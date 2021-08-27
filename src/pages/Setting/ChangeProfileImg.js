@@ -15,9 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {
-      position: "absolute",
-      left:"20px",
-      top: "30px",
       color: Color.black,
       cursor:"pointer",
     },
@@ -53,13 +50,6 @@ const ChangeProfileImg = (props) => {
                     goBack()
                 }} 
                 className={classes.arrow}/>
-
-                <Route path="/following">
-                    <HeaderText>내가 팔로잉 하는 다이버들</HeaderText>
-                </Route> 
-                <Route path="/follower">
-                    <HeaderText>나를 팔로우 하는 다이버들</HeaderText>
-                </Route>
 
 
             </Header>
@@ -110,12 +100,12 @@ box-sizing:border-box;
 }
 
 @media ${(props) => props.theme.tablet} {
-    padding-top:80px;
+    padding-top:56px;
     width: 100%;
 }
   
 @media ${(props) => props.theme.desktop} {
-    padding-top:80px;
+    padding-top:56px;
     width: 100%;
 }
 
@@ -123,9 +113,11 @@ box-sizing:border-box;
 
 const Header = styled.div`
 width: 100%;
-height: 80px;
+height: 56px;
 display:flex;
-justify-content:center;
+justify-content:flex-start;
+padding-left:20px;
+box-sizing:border-box;
 align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;

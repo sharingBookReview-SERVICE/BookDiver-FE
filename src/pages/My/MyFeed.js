@@ -3,7 +3,10 @@ import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import Color from "../../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -21,12 +24,14 @@ import {NotSupport} from "../../modals";
 
 
 const useStyles = makeStyles((theme) => ({
-  search: {
-    width: "18px",
-    position: "absolute",
-    left: "10px",
-    color: "#f5f2f0",
-    marginLeft: "9%"
+  icon: {
+    marginLeft:"20px",
+    color:Color.myFeedMainFont,
+    cursor:"pointer",
+  },
+  eye: {
+    marginRight:"2px",
+    color:Color.subTextFont,
   },
   follower: {
     fontWeight: "bold", 
@@ -58,6 +63,7 @@ const MyFeed = () => {
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
+    console.log(titles[profileImg])
 
     //check_modal
     const is_support_modal = useSelector((state) => state.permit.is_support_modal)
@@ -76,6 +82,10 @@ const MyFeed = () => {
 
     const goToMyDepth = () => {
       history.push("/mydepth")
+    }
+
+    const goToSetting = () => {
+      history.push("/setting")
     }
 
     const goToOtherFollowing = (user_id) => {
@@ -113,19 +123,20 @@ const MyFeed = () => {
           <NotSupport is_support_modal={is_support_modal}/>
               <UserBox>
 
-                <SearchBox onClick={openNotSupportModal}>
-                  <SearchIcon className={classes.search}/>
-                  <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
-                </SearchBox>
+                  <Header>
+                    <SearchIcon className={classes.icon}/>
+                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
+                    <NotificationsNoneIcon className={classes.icon}/>
+                  </Header>
 
                 <Wrapper>
                   <ProfileBox>
-                        <ImgWrapper >
-                          <ProfileImg src={images[profileImg]} />
-                        </ImgWrapper>
+                          <ImgWrapper >
+                            <ProfileImg src={images[profileImg]} />
+                            {profileImg === "image_1" || <TitleImg src={titles[profileImg]}/>}
+                          </ImgWrapper>
 
                         <DetailBox>
-                          <UserTitle>{titles[profileImg]}</UserTitle>
                           <UserName>{nickname}</UserName>
                           <PostCount>작성한 에세이 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
                         </DetailBox>
@@ -134,7 +145,7 @@ const MyFeed = () => {
                   <MyActivityBox>
                       <MyActivity>
                           <CollectionsBookmarkOutlinedIcon
-                              style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}
+                              style={{color: Color.myFeedMainFont, fontSize: "23px", marginTop: "6px"}}
                               onClick={openNotSupportModal}
                           />
                           <Text style={{marginTop: "5px"}}>컬렉션</Text>
@@ -150,7 +161,11 @@ const MyFeed = () => {
                   </MyActivityBox>
 
                   <ProfileBottomBox>
-                    <FollowBox onClick={()=>{dispatch(userActions.followSV(otherUserId))}}>{is_follow? "팔로잉" : "팔로우"}</FollowBox>
+                    <FollowBox
+                    is_follow={is_follow} 
+                    onClick={()=>{dispatch(userActions.followSV(otherUserId))}}>
+                      {is_follow? "팔로잉" : "팔로우"}
+                      </FollowBox>
                     <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
                 </Wrapper>
@@ -179,29 +194,29 @@ const MyFeed = () => {
           <Container>
           <NotSupport is_support_modal={is_support_modal}/>
                 <UserBox>
-
-                  <SearchBox onClick={openNotSupportModal}>
-                    <SearchIcon className={classes.search}/>
-                    <SearchBar placeholder="내가 작성했던 리뷰를 찾을 수 있어요"/>
-                  </SearchBox>
+                  <Header>
+                    <SearchIcon className={classes.icon}/>
+                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
+                    <NotificationsNoneIcon className={classes.icon}/>
+                  </Header>
 
                   <Wrapper>
                     <ProfileBox>
                           <ImgWrapper onClick={()=>{gotochangeProfile()}}>
                             <ProfileImg src={images[profileImg]} />
+                            {profileImg === "image_1" || <TitleImg src={titles[profileImg]}/>}
                           </ImgWrapper>
 
                           <DetailBox>
-                            <UserTitle>{titles[profileImg]}</UserTitle>
                             <UserName>{nickname}</UserName>
-                            <PostCount>작성한 에세이 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
+                            <PostCount>작성한 게시물 {my_reviews?.length}개 | 만든 컬렉션 {my_collections?.length}개</PostCount>
                           </DetailBox>
                       </ProfileBox>
 
                     <MyActivityBox>
                         <MyActivity>
                             <CollectionsBookmarkOutlinedIcon
-                                style={{color: "#f5f2f0", fontSize: "23px", marginTop: "6px"}}
+                                style={{color: Color.myFeedMainFont, fontSize: "23px", marginTop: "6px"}}
                                 onClick={openNotSupportModal}
                             />
                             <Text style={{marginTop: "5px"}}>컬렉션</Text>
@@ -218,8 +233,14 @@ const MyFeed = () => {
                         </MyActivity>
                     </MyActivityBox>
 
-                    <LevelDetail  onClick={()=>{goToMyDepth()}}>'수심 {level}m 잠수 중' 자세히보기</LevelDetail> 
                   </Wrapper>
+                  <FeedCategory>
+                      <FeedTitle>내 게시물</FeedTitle>
+                      <FeedCategoryButton>
+                          <RemoveRedEyeIcon className={classes.eye}/>
+                          책장모드
+                      </FeedCategoryButton>
+                  </FeedCategory>
                 </UserBox>
 
 
@@ -240,34 +261,51 @@ const MyFeed = () => {
 
 export default MyFeed;
 
+
+const FeedCategory = styled.div`
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+height:auto;
+padding:10px 0px 20px 0px; 
+`
+
+const FeedTitle = styled.div`
+font-size:18px;
+font-weight: 500;
+letter-spacing: -0.36px;
+font-family: "Noto Serif KR", serif;
+`
+
+const FeedCategoryButton = styled.div`
+cursor:pointer;
+width:85px;
+height:34px;
+border:1px solid ${Color.line};
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+color:${Color.subTextFont};
+font-size:14px;
+`
+
+const Header = styled.div`
+width:100%;
+height:56px;
+display:flex;
+justify-content:flex-end;
+align-items:center;
+`
+
 const ProfileBottomBox = styled.div`
 width:100%;
 height:36px;
 display:grid;
 grid-template-columns: 1fr 1fr;
 gap:20px;
-`
-
-const FollowBox = styled.div`
-background:${Color.white};
-color:${Color.black};
-font-size:14px;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-`
-
-const LevelBox = styled.div`
-border:1px solid ${Color.white};
-color:${Color.white};
-font-size:14px;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:10px;
+padding: 10px 0px 20px 0px;
 `
 
 const Container = styled.div`
@@ -296,40 +334,11 @@ justify-content:space-between;
 
 `
 
-const SearchBox = styled.div`
-width:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-`
-
-
-const SearchBar = styled.input`
-  width: 100%;
-  height: 45px;
-  border: 1px solid ${Color.fontGray};
-  border-radius: 12px;
-  background-color: ${Color.fontBlack};
-  padding: 0px 0px 0px 8%;
-  :focus {
-    outline: none;
-  }
-
-  ::placeholder {
-    color: ${Color.white};
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 200;
-    letter-spacing: 0.8px;
-    padding-left: 20px;
-  }
-`;
-
-
 const UserBox = styled.div`
   width: 100%;
-  height: 55vh;
-  background:${Color.black};
-  padding:20px 20px 30px 20px;
+  height: auto;
+  background:${Color.mainColor};
+  padding:0px 20px 0px 20px;
   box-sizing:border-box;
   display:flex;
   flex-direction:column;
@@ -350,43 +359,45 @@ const ImgWrapper = styled.div`
 width:72px;
 height:72px;
 border-radius:70%;
-overflow:hidden;
 box-sizing:border-box;
-border: 1px solid ${Color.secondColor};
+position:relative;
 `
 
+const TitleImg = styled.img`
+position:absolute;
+left:-7%;
+top:23px;
+width:80px;
+height:80px;
+`
 
 const ProfileImg = styled.img`
 width: 100%;
 height: 100%;
-object-fit:cover;
 `;
 
-const UserTitle = styled.div`
-width:100%;
-height:auto;
-color:${Color.white};
-font-family: "Noto Serif KR", serif;
-`
 
 const DetailBox = styled.div`
 box-sizing:border-box;
 width:80%;
 height:auto;
 margin-left:10px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 `
 
 const UserName = styled.div`
 width:100%;
 height:auto;
-color:${Color.white};
-font-family: "Noto Serif KR", serif;
+color:${Color.myFeedMainFont};
+font-weight:500;
 `
 
 const PostCount = styled.div`
 width:100%;
 height:auto;
-color:${Color.fontGray}
+color:${Color.subTextFont}
 `
 
 const MyActivityBox = styled.div`
@@ -395,7 +406,7 @@ const MyActivityBox = styled.div`
   border-radius: 12px;
   display: flex;
   margin: 10px auto;
-  border: 1px solid ${Color.fontGray};
+  border: 1px solid ${Color.line};
 `;
 
 const MyActivity = styled.div`
@@ -410,13 +421,11 @@ const MyActivity = styled.div`
 `;
 
 const Text = styled.p`
-  color: ${Color.white};
+  color: ${Color.myFeedMainFont};
   margin: 5px;
   font-size: 14px;
   font-family: 'Noto Sans KR', sans-serif;
 `;
-
-
 
 const FeedMain = styled.div`
   background-color: #f5f2f0;
@@ -435,19 +444,33 @@ background-position: center center;
 cursor:pointer;
 `;
 
-
-const LevelDetail = styled.div`
-width:100%;
-height:36px;
-border-radius:13px;
+const LevelBox = styled.div`
+border:1px solid ${Color.line};
+color:${Color.subTextFont};
+font-size:14px;
 display:flex;
 justify-content:center;
 align-items:center;
-box-sizing:border-box;
-background:${Color.gray};
-color:${Color.white};
-cursor:pointer;
+border-radius:10px;
 `
+
+const FollowBox = styled.div`
+color:${Color.black};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+${(props) => props.is_follow ? 
+`
+background:${Color.line}`: 
+`
+border:1px solid ${Color.line};
+`};
+`
+
 
 
 

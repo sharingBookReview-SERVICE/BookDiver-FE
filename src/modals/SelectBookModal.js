@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     cursor:"pointer",
   },
   search: {
+    color:Color.myFeedMainFont,
     cursor:"pointer",
   },
   arrow:{
@@ -189,12 +190,12 @@ padding:12px 0px;
 `
 
 const SearchBox = styled.div`
-width:87%;
+width:90%;
 height:48px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border:1px solid ${Color.black};
+border:1px solid ${Color.bgColor};
 border-radius:10px;
 margin:0 0 15px 0;
 position:relative;
@@ -204,7 +205,7 @@ padding-left:80px;
 `
 
 const Category = styled.nav`
-opacity:0.9;
+opacity:0.7;
 width:80px;
 transition: ease-out 0.1s;
 top:0px;
@@ -212,15 +213,15 @@ left:-1px;
 position:absolute;
 ${(props) => props.is_clicked ? 
 `height:300%;
-border-right:1px solid ${Color.black};
-border-bottom: 1px solid ${Color.black};
-border-left: 1px solid ${Color.black};
+border-right:1px solid ${Color.bgColor};
+border-bottom: 1px solid ${Color.bgColor};
+border-left: 1px solid ${Color.bgColor};
 border-radius:10px 0 10px 10px;
-background-color: ${Color.category};
+background-color: ${Color.mainColor};
 ` : `
 border-radius:10px 0 0 10px;
 height:100%;
-border-right:1px solid ${Color.black};
+border-right:1px solid ${Color.bgColor};
 `}
 `
 
@@ -235,7 +236,7 @@ cursor:pointer;
 ${(props) => props.is_clicked ? `
 li:nth-child(1){
   border:none;
-  border-bottom:1px solid ${Color.black};
+  border-bottom:1px solid ${Color.bgColor};
   border-radius:0 0 0 10px;
 }
 ` : `

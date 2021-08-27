@@ -75,6 +75,7 @@ const Tag = styled.li`
   height: 20px;
   margin-right: 5px;
   margin-bottom: 5px;
+  cursor:pointer;
   :hover{
     background-color: ${Color.secondColor};
     span{

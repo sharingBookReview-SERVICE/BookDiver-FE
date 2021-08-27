@@ -1,7 +1,6 @@
 //import 부분
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import io from "socket.io-client"
 
 import { actionCreators as commentAction } from "../../redux/modules/comment";
 import {actionCreators as reviewAction } from "../../redux/modules/review";
@@ -45,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const socket = io.connect("http://13.209.10.67")
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
@@ -148,7 +146,6 @@ const ReviewDetail = (props) => {
       userId,
       target : user?.id,
     }
-    socket.emit("comment", noti_info)
     setCommentContent("");
     scrollToBottom()
   };
@@ -187,14 +184,6 @@ const ReviewDetail = (props) => {
       dispatch(permitAction.showEditModal(false));
     }
   }, []);
-
-  useEffect(() => {
-    socket.on("comment", (payload) => {
-      console.log(socket.id)
-      console.log("------누가 댓글을 달았는가",payload)
-      console.log("-------소켓이 연결되었는가요?",socket.connected)
-    })
-  })
 
 
   
@@ -351,8 +340,6 @@ height:30px;
 border-radius:50%;
 overflow:hidden;
 box-sizing:border-box;
-border: 1px solid ${Color.secondColor};
-background:${Color.black};
 margin-right:10px;
 `
 
@@ -427,7 +414,7 @@ const Head = styled.div`
 width: 100%;
 align-items: center;
 display: flex;
-margin: 30px 0px;
+height:56px;
 `;
 
 const Outter = styled.div`
@@ -457,7 +444,7 @@ font-weight: bold;
 white-space: pre-line;
 margin:0px 20px 16px 20px;
 border-radius:10px;
-color: ${Color.fontGray};
+color: ${Color.quote};
 `;
 
 const Content = styled.div`
@@ -536,7 +523,7 @@ const CommentInput = styled.input`
   padding: 0 45px 0 16px;
   font-size: 16px;
   background-color: ${Color.mainColor};
-  border: 1px solid ${Color.fontBlack};
+  border: 1px solid ${Color.line};
   border-radius: 12px;
   :focus {
     outline: none;
@@ -554,6 +541,7 @@ const CommentWriteButton = styled.div`
   color: ${Color.fontGray};
   position: absolute;
   right: 30px;
+  top:23px;
   font-weight: 700;
   height: 20px;
 }

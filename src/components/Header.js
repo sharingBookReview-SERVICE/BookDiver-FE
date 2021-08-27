@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     width: "25px",
     height: "25px",
     color: Color.fontBlack,
-    marginLeft:"15px",
     cursor:"pointer",
   },
 }));
@@ -29,6 +28,11 @@ const Header = (props) => {
     history.push("/search")
   }
 
+  const openNotSupportModal = () => {
+    dispatch(permitAction.showNotSupport(true))
+  }
+
+
 
   return (
     <React.Fragment>
@@ -37,18 +41,39 @@ const Header = (props) => {
         <LogoBox><Logo src={logo}/></LogoBox>
 
         <SearchBarBox >
-          <SearchIcon
-          onClick={()=>{gotoSearch()}} 
-          className={classes.icon} />
-          <NotificationsNoneIcon
-         
-          className={classes.icon}/>
+          <IconBox>
+            <SearchIcon
+            onClick={()=>{gotoSearch()}} 
+            className={classes.icon} />
+          </IconBox>
+
+          <IconBox>
+            <NotificationsNoneIcon
+            onClick={openNotSupportModal}
+            className={classes.icon}/>
+          </IconBox>
+
         </SearchBarBox>
       </HeaderBox>
       </Wrapper>
     </React.Fragment>
   );
 };
+
+const IconBox = styled.div`
+width:40px;
+height:40px;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.5s ease-in-out;
+margin-left:5px;
+:hover{
+  border-radius:40px;
+  background:${Color.line};
+}
+
+`
 
 const Wrapper = styled.div`
 background-color: ${Color.mainColor};

@@ -11,7 +11,7 @@ import { history } from "../redux/configStore";
 import Color from "../shared/Color"
 
 const SelectBookCard = (props) =>{
-  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail, is_make_collection} = props;
+  const {title, author, image, isbn, is_reviewDetail, is_editReviewPage, is_book_detail, is_make_collection,is_write_page} = props;
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
@@ -53,7 +53,13 @@ const SelectBookCard = (props) =>{
   if(is_reviewDetail){
     return(
       <BookInfoWrapper
-      is_reviewDetail={is_reviewDetail} 
+      style={{
+        borderTop:`1px solid ${Color.CardHashTag}`,
+        borderBottom:`1px solid ${Color.CardHashTag}`,
+        padding: "0px 20px 0px 20px",
+        marginBottom:"15px",
+
+      }}
       onClick={()=>{
         history.push(`/bookdetail/${reviewDetailInfo.book._id}`)
       }}>
@@ -76,8 +82,17 @@ const SelectBookCard = (props) =>{
     // book detail 에서 보는 화면 
   if(is_book_detail){
     return(
-      <BookInfoWrapper >
-        <BookInfoBox>
+      <BookInfoWrapper
+      style={{
+        borderTop:`1px solid ${Color.CardHashTag}`,
+        borderBottom:`1px solid ${Color.CardHashTag}`,
+        padding: "0px 20px 0px 35px",
+        marginBottom:"15px",
+      }}
+      >
+        <BookInfoBox 
+        style={{borderRadius:"0px"}}
+        >
           <BookImg url={book.image}/>
           <BookDescBox>
           <BookTitle >{book.title}</BookTitle>
@@ -89,11 +104,15 @@ const SelectBookCard = (props) =>{
   }
 
     return(
-      <BookInfoWrapper>
+      <BookInfoWrapper is_write_page={is_write_page}>
         {/* 책이 이미 선택된 것인지, 검색한 목록이 나오는 것인지에 따른 조건부 렌더링 */}
         {
           is_selected ?
             <BookInfoBox
+            style={{
+              borderTop: `solid 1px ${Color.CardHashTag}`,
+              padding: "16px 16px 16px 35px",
+            }}
               onClick={()=>{
               dispatch(permitActions.showModal(true));
               dispatch(permitActions.bookSelect(false));
@@ -106,7 +125,12 @@ const SelectBookCard = (props) =>{
             </BookInfoBox>
             :
             // 검색할때 나오는 책 카드
-            <BookInfoBox 
+            <BookInfoBox
+            style={{
+              borderRadius: "12px",
+              border: `solid 1px ${Color.CardHashTag}`,
+              padding: "16px"
+            }} 
               onClick={()=>{
                 selectBook();
                 dispatch(permitActions.showModal(false));
@@ -128,12 +152,8 @@ const BookInfoWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 0px 20px 16px 20px; 
-  ${(props) => props.is_reviewDetail ? `
-  border-top:1px solid ${Color.CardHashTag};
-  border-bottom:1px solid ${Color.CardHashTag};
-  padding: 0px 20px 0px 20px; 
-  margin-bottom:15px;
-  `: ""};
+
+  ${(props) => props.is_write_page ? `padding:0px`: ""};
 `
 
 const BookInfoBox = styled.div`
@@ -144,11 +164,9 @@ flex-direction: row;
 justify-content: flex-start;
 align-items: center;
 gap: 12px;
-padding: 16px;
-border-radius: 12px;
-border: solid 1px ${Color.secondColor};
 box-sizing: border-box;
 cursor:pointer;
+
 `
 
 const BookImg = styled.div`

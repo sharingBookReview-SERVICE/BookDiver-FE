@@ -1,6 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import {backgroundimg, serviceDesc , main_person} from "../img";
+import {images} from "../shared/Image"
 import Color from "../shared/Color"
 
 
@@ -8,10 +9,9 @@ const Layout = (props) => {
 
         return(
         <>
-            <BackgroundImg url={backgroundimg}>
+            <BackgroundImg url={images["background_img"]}>
                 <BackgroundDesc>
-                    <ServiceDesc src={serviceDesc}/>
-                    <Person src={main_person}/>
+                    <ServiceDesc src={images["background_desc"]}/>
                 </BackgroundDesc>
                 {props.children}
             </BackgroundImg>
@@ -55,12 +55,8 @@ const BackgroundDesc = styled.div`
     display:none;
   }
 @media ${(props) => props.theme.desktop} {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:50px;
     color:${Color.white};
-    margin-right:150px;
+    margin-right:180px;
   }
 `
 
@@ -69,6 +65,7 @@ width:auto;
 height:auto;
 max-width:300px;
 max-height:300px;
+margin-bottom:80px;
 `
 
 const Person = styled.img`

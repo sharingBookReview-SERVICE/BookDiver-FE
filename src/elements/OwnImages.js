@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Color from "../shared/Color";
 
 import {images} from "../shared/Image"
-import {titles} from "../shared/Titles"
+import {titleWord} from "../shared/Titles"
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import {history} from "../redux/configStore";
@@ -32,7 +32,7 @@ const OwnImages = (props) => {
                     <InfoBox>
                         <Level>수심{level*10}m</Level>
                         <Title>
-                            {titles[image]}
+                            {titleWord[image]}
                         </Title>
                     </InfoBox>
                     <CancelButton 
@@ -60,7 +60,6 @@ justify-content:space-between;
 align-items:center;
 margin-bottom:10px;
 box-sizing:border-box;
-border:1px solid ${Color.black};
 border-radius:10px;
 padding-left:20px;
 
@@ -85,8 +84,6 @@ height:72px;
 border-radius:70%;
 overflow:hidden;
 box-sizing:border-box;
-background:${Color.black};
-border: 1px solid ${Color.secondColor};
 `
 
 const ProfileImg = styled.img`

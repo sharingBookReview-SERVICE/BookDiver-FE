@@ -19,6 +19,7 @@ import { history } from "../redux/configStore";
 import ReactGA from "react-ga";
 
 
+
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
 
@@ -271,20 +272,17 @@ const UserLeftBox = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-width:30px;
-height:30px;
+width:40px;
+height:40px;
 border-radius:70%;
-overflow:hidden;
 box-sizing:border-box;
-border: 1px solid ${Color.secondColor};
-background:${Color.black};
 margin-right:10px;
+position:relative;
 `
 
 const ProfileImg = styled.img`
 width: 100%;
 height: 100%;
-object-fit:cover;
 cursor:pointer;
 `;
 
@@ -363,12 +361,11 @@ const BookTitle = styled.p`
 
 const Quote = styled.p`
   font-size: 14px;
-  font-weight: normal;
   letter-spacing: -0.28px;
   margin: 8px 0px;
-  color: ${Color.fontGray};
+  color: ${Color.quote};
   font-family: "Noto Serif KR", serif;
-  font-weight: 800;
+  font-weight: normal;
   white-space: pre-line;
   line-height: 1.71;
   border-radius:10px;
