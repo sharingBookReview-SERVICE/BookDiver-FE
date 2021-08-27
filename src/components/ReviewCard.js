@@ -123,7 +123,16 @@ const ReviewCard = (props) => {
           <CommentUserBox>
 
             <UserLeftBox>
-              <ImgWrapper onClick={()=>goToUserFeed(user.id)}>
+              <ImgWrapper 
+              onClick={()=>{
+                goToUserFeed(user.id);
+
+                ReactGA.event({
+                  category: "Button",
+                  action: "go to other's profile",
+                  label: "profile",
+                });
+              }}>
                 <ProfileImg src={images[profileImage]} />
               </ImgWrapper>
 

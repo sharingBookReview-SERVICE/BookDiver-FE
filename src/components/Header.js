@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import ReactGA from "react-ga";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -43,7 +44,14 @@ const Header = (props) => {
         <SearchBarBox >
           <IconBox>
             <SearchIcon
-            onClick={()=>{gotoSearch()}} 
+            onClick={()=>{
+              gotoSearch()
+              ReactGA.event({
+                category: "Button",
+                action: "search books",
+                label: "search",
+              });
+            }} 
             className={classes.icon} />
           </IconBox>
 

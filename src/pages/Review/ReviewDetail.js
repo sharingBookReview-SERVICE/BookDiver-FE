@@ -26,6 +26,9 @@ import {Comment, SelectBookCard} from "../../components";
 import {images} from "../../shared/Image";
 import Color from "../../shared/Color";
 
+import ReactGA from "react-ga";
+
+
 const useStyles = makeStyles((theme) => ({
   goback: {
       padding: "0px 20px",
@@ -264,6 +267,11 @@ const ReviewDetail = (props) => {
                   style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
                   onClick={() => {
                     clickLikeButton();
+                    ReactGA.event({
+                      category: "Button",
+                      action: "click like button",
+                      label: "like",
+                    });
                   }}
                 />
               )}
@@ -306,6 +314,11 @@ const ReviewDetail = (props) => {
                 <CommentWriteButton
                     onClick={() => {
                       writeComment();
+                      ReactGA.event({
+                        category: "Button",
+                        action: "write comment",
+                        label: "comment",
+                      });
                     }}
                 >
                   게시
