@@ -91,9 +91,9 @@ function App(props) {
       <Layout >
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         
-        <TransitionGroup  >
+        {/* <TransitionGroup  >
         <CSSTransition key={location.pathname.includes("bookdetail") ||location.pathname.includes("collectiondetail") || location.pathname==="/changename"? location.pathname : null}  
-        classNames="slide" timeout={300}>
+        classNames="slide" timeout={300}> */}
         <ConnectedRouter history={history}>
           <Switch location={location}>
           <Route path="/" exact component={Home} />
@@ -144,8 +144,8 @@ function App(props) {
 
           </Switch>
           </ConnectedRouter>
-          </CSSTransition>
-        </TransitionGroup>
+          {/* </CSSTransition>
+        </TransitionGroup> */}
          
         {is_nav ? <Navigation /> : ""}
         <TreasureModal is_treasure={is_treasure}/>

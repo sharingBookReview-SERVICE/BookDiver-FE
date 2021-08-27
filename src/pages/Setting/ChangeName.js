@@ -33,7 +33,7 @@ const ChangeName = (props) =>{
   const profileImage = useSelector(state => state.user.user.profileImage)
   const defaultNickName = useSelector(state => state.user.user?.nickname)
 
-  const [nickname, setNickName] = useState("");
+  const [nickname, setNickName] = useState(defaultNickName? defaultNickName: "");
 
   const is_modal = useSelector(state=> state.permit.is_modal);
 
@@ -44,6 +44,12 @@ const ChangeName = (props) =>{
   }
   
   const changeNickname = () =>{
+    if(!nickname){
+      window.alert("닉네임을 설정해주세요")
+    }
+    if(nickname === defaultNickName){
+      window.alert("닉네임을 변경하고 싶지않으면 뒤로가기를 누르세요!")
+    }
     dispatch(userActions.setUserSV(userId, nickname))
   }
 
@@ -84,10 +90,14 @@ const ChangeName = (props) =>{
                                 src={images[profileImage]}>                                
                               </ProfileImg>
                             </ImgWrapper>
-                            <ProfileChangeGuide 
+                            {
+                              defaultNickName &&       
+                              <ProfileChangeGuide 
                               onClick={() => {goToChangeImg()}}>
                               프로필 사진 변경
                             </ProfileChangeGuide>
+                            }
+                      
                              <Input
                                defaultValue={defaultNickName}
                                onChange={(e)=>{
