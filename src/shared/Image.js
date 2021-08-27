@@ -51,7 +51,7 @@ const background_img = "https://ifh.cc/g/e7YWX7.jpg"
 
 const background_desc = "https://ifh.cc/g/kjMSn1.png"
 
-const sea = "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%87%E1%85%A1%E1%84%83%E1%85%A1-%E1%84%89%E1%85%AE%E1%84%8C%E1%85%A5%E1%86%BC-210827.svg"
+const sea = "https://ifh.cc/g/XprWmb.png"
 
 
 const images = {
