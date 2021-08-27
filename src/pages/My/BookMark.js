@@ -51,18 +51,33 @@ const Bookmark = (props) =>{
                 책장모드
             </FeedCategoryButton>
         }
-        
-        <FeedMain>
-        {
-            bookmark_reviews?.map((p)=>{
-                return(
-                    <FeedCard key={p.id} url = {p?.image}/>
-                )
-            })
-        }
-        
-
-            </FeedMain>
+    
+               {
+              bookMode ?
+            <BookFeedMain count={book_count}>
+                {
+                  bookmark_reviews?.map((review)=>{
+                    return(
+                    <BookImg url={review.book?.image} key={review.id} 
+                      onClick={()=>{ history.push(`/reviewdetail/${review.book?.id}/${review.id}`)}}
+                      >
+                      {/* <BookTitle>{review.book?.title.split("(")[0]}</BookTitle> */}
+                      </BookImg>)
+                  })
+                }
+              </BookFeedMain>
+              :
+              <FeedMain>
+                  {
+                    bookmark_reviews?.map((review)=>{
+                      return(
+                      <FeedCard url={review.image} key={review.id} 
+                        onClick={()=>{ history.push(`/reviewdetail/${review.book?.id}/${review.id}`)}}
+                        />)
+                    })
+                  }
+              </FeedMain>
+            }
 
 
         </Container>
@@ -129,12 +144,12 @@ const FeedCategoryButton = styled.div`
 cursor:pointer;
 width:85px;
 height:34px;
-border:1px solid black;
+border:1px solid ${Color.line};
 border-radius:10px;
 display:flex;
 justify-content:center;
 align-items:center;
-color:black;
+color:${Color.subTextFont};
 font-size:14px;
 margin-top: 57px;
     margin-left: 75%;
@@ -156,5 +171,38 @@ background-image:URL( ${(props)=> (props.url)});
 background-size: cover;
 background-position: center center;
 cursor:pointer;
+`;
+
+const BookFeedMain = styled.div`
+  background-color: #f5f2f0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 130px);
+  gap: 1px;
+  padding-bottom: 100px;
+  place-items: center;
+`;
+
+
+const BookImg = styled.div`
+  width: 80px;
+  height: 110px;
+  background-color: #c4c4c4;
+  background-image: url(${(props) => props.url ? props.url : " "});
+  background-size: cover;
+  box-sizing: border-box;
+  border-radius: 4px;
+  &:hover{
+    opacity:0.6;
+  }
+ 
+`
+const BookTitle = styled.div`
+  width: 80px;
+  height: 110px;
+opacity : 0;
+&:hover{
+  opacity:1;
+}
 `;
 export default Bookmark;
