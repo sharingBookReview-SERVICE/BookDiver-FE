@@ -224,12 +224,14 @@ transition: 0.3s ease-in-out;
   
 
 @media ${(props) => props.theme.tablet} {
-    width: 420px;
+    margin-left:20px;
+    width: 380px;
     position: fixed;
   }
 
   @media ${(props) => props.theme.desktop} {
-    width: 420px;
+    margin-left:20px;
+    width: 380px;
     position: fixed;
   }
 
