@@ -2,14 +2,17 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {images, depth_image} from "../../../shared/Image"
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
 
 const Level = () => {
     const userBadges = useSelector(state => state.user.user.own_image)
-    let badges = Array(6)
     
+    let badges = Array(6)
+
     userBadges?.forEach((badge,idx) => {
         badges[idx] = badge
     })
+
 
     return (
         <BackgroundImg url={images["sea"]}>

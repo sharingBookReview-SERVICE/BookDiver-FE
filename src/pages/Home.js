@@ -25,7 +25,7 @@ const Home = (props) => {
   const show_login_modal = useSelector((state) => state.permit.show_login)
   const is_support_modal = useSelector((state) => state.permit.is_support_modal)
   const is_loading = useSelector((state) => state.permit.is_loading)
-  const is_treasure = useSelector((state) => state.permit.is_treasure)
+  const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
 
   console.log(is_treasure)
 

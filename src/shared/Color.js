@@ -7,6 +7,11 @@ const Color = {
   white: "#f5f2f0",
 
   gray: "#605d5d",
+  gray2: "#bdbdbd",
+  gray3: "#e0e0e0",
+  gray4: "#9a9090",
+
+
   fontGray: "#615d5d",
   borderGray: "rgba(37, 33, 33, 0.2)",
   fontBlack: "#252121",

@@ -21,7 +21,7 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 import {images} from "../../shared/Image"
 import {titles} from "../../shared/Titles";
 
-import {NotSupport} from "../../modals";
+import {NotSupport, TreasureModal} from "../../modals";
 import Loading from "../ETC/Loading"
 
 const useStyles = makeStyles((theme) => ({
@@ -63,8 +63,11 @@ const MyFeed = () => {
     const followerCounts = useSelector(state => state.user.my_feed.user?.followerCount)
     const userId = useSelector(state => state.user.user?._id)
     const otherUserId = params?.otherId
+
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
     const is_loading = useSelector(state => state.permit.is_loading)
+    const is_treasure = useSelector(state => state.permit.is_treasure_modal)
+    console.log(is_treasure);
 
     //책장모드
     const [bookMode, setBookMode] = useState(false);
@@ -110,6 +113,7 @@ const MyFeed = () => {
     }
 
     useEffect(()=>{
+      dispatch(userActions.checkTreasureSV())
       dispatch(permitActions.showNav(true))
       if(is_my_feed === "/myfeed" && userId){
         dispatch(userActions.getMyFeedSV(userId));
@@ -318,6 +322,7 @@ const MyFeed = () => {
          
 
         </Container>}
+        <TreasureModal is_treasure={is_treasure}/>
         </React.Fragment>
     )
 }

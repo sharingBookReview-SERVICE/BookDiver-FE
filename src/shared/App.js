@@ -50,7 +50,6 @@ function App(props) {
   const token = localStorage.getItem('token');
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   const is_padding = useSelector(state => state.permit.is_padding)
-  const is_treasure = useSelector(state => state.permit.is_treasure_modal)
   const userId = useSelector(state => state.user.user._id)
 
   const getUserInfo = useCallback(() => {dispatch(userActions.getUserSV(userId))}, [userId])
