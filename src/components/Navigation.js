@@ -60,6 +60,10 @@ const Navigation = (props) => {
 
   const is_login = useSelector((state) => state.user.is_login);
   const profile = useSelector((state) => state.user.user.profileImage)
+  
+  const setLoading = () => {
+    dispatch(permitActions.isLoading(true))
+  }
   console.log(profile)
 
   if(!is_login){
@@ -98,30 +102,35 @@ const Navigation = (props) => {
   return (
     <NavBox>
 
-      <IconBox to="/" exact activeClassName={classes.active}>
+      <IconBox 
+      to="/" exact
+      activeClassName={classes.active}>
         <QuestionAnswerOutlinedIcon className={classes.icon}/>
         <PageName >피드</PageName>
       </IconBox>
 
-      <IconBox to="/bookCollectionMain" activeClassName={classes.active}>
+      <IconBox 
+      to="/bookCollectionMain"
+      activeClassName={classes.active}>
         <BookOutlinedIcon className={classes.icon}/>
         <PageName >북컬렉션</PageName>
       </IconBox>
 
-      <AddBox to="/postwrite">
+      <AddBox to="/postwrite" onClick={setLoading}>
         <PlusBox>
           <AddIcon className="plus" className={classes.plus}/>
         </PlusBox>
       </AddBox>
 
-      <IconBox to="/myfeed" activeClassName={classes.active}>
+      <IconBox 
+      to="/myfeed"
+      activeClassName={classes.active}>
         <SpeakerNotesOutlinedIcon className={classes.icon}/>
         <PageName >내 피드</PageName>
       </IconBox>
 
       <IconBox 
-      to="/"
-      onClick={() => (dispatch(permitActions.showNotSupport(true)))} 
+      to="/mydepth"
       activeClassName={classes.active}>
         <ProfileImg src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>

@@ -133,7 +133,7 @@ const MyFeed = () => {
                   <ProfileBox>
                           <ImgWrapper >
                             <ProfileImg src={images[profileImg]} />
-                            <TitleImg src={titles[profileImg]}/>
+                            {profileImg === "image_1" || <TitleImg src={titles[profileImg]}/>}
                           </ImgWrapper>
 
                         <DetailBox>
@@ -204,7 +204,7 @@ const MyFeed = () => {
                     <ProfileBox>
                           <ImgWrapper onClick={()=>{gotochangeProfile()}}>
                             <ProfileImg src={images[profileImg]} />
-                            <TitleImg src={titles[profileImg]}/>
+                            {profileImg === "image_1" || <TitleImg src={titles[profileImg]}/>}
                           </ImgWrapper>
 
                           <DetailBox>

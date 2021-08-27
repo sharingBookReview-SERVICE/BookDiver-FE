@@ -59,6 +59,7 @@ const initialState = {
 
 //한사람의 사용자 정보 불러오기
 const getUserSV = ()=>{
+  
   return function(dispatch, getState, {history}){
     instance.get(`/users`)
     .then((res)=>{
@@ -68,6 +69,7 @@ const getUserSV = ()=>{
       dispatch(getFollowerCounts(res.data.followerCount))
       dispatch(permitActions.showTreasureModal(res.data.treasure))
       dispatch(getUser(res.data.user));
+      dispatch(permitActions.isLoading(false))
     })
     .catch((err)=>{
       // history.push("*")
@@ -304,6 +306,7 @@ const checkTreasureSV = () => {
     instance.get(`users/profile/treasure`)
     .then((res)=>{
       dispatch(permitActions.isTreasure(res.data.treasure))
+      dispatch(permitActions.isLoading(false))
     })
     .catch((err)=>{
       // history.push("*")

@@ -1,6 +1,7 @@
 import { useEffect } from "react"
-import {spinner} from "../../img"
+import spinner from "../../img/spinner.gif"
 import styled from "styled-components"
+
 
 import Color from "../../shared/Color"
 import { useDispatch } from "react-redux"
@@ -10,14 +11,14 @@ const Loading = () => {
     const dispatch = useDispatch();
 
 
-    useEffect(() => {
-        dispatch(permitActions.showNav(false));
-        dispatch(permitActions.isPadding(false));  //패딩 값을 없애기 
+    // useEffect(() => {
+    //     dispatch(permitActions.showNav(false));
+    //     dispatch(permitActions.isPadding(false));  //패딩 값을 없애기 
     
-        return () => {
-          dispatch(permitActions.showNav(true));
-        }
-      }, []);
+    //     return () => {
+    //       dispatch(permitActions.showNav(true));
+    //     }
+    //   }, []);
 
 return(
     <Container>
@@ -44,17 +45,18 @@ flex-direction:column;
 `
 
 const Spinner = styled.img`
-width:50vw;
-height:50vw;
+width:40vw;
+height:40vw;
+margin-bottom:30px;
 
 @media ${(props) => props.theme.tablet} {
-  width:200px;
-  height:200px;
+  width:110px;
+  height:110px;
 }
 
 @media ${(props) => props.theme.desktop} {
-  width:200px;
-  height:200px;
+  width:110px;
+  height:110px;
 }
 `
 
