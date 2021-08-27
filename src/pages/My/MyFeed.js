@@ -110,6 +110,7 @@ const MyFeed = () => {
     }
 
     useEffect(()=>{
+      dispatch(permitActions.showNav(true))
       if(is_my_feed === "/myfeed" && userId){
         dispatch(userActions.getMyFeedSV(userId));
         return;
