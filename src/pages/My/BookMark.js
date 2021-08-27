@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { actionCreators as userActions } from "../../redux/modules/user";
 import styled from "styled-components";
@@ -18,6 +18,8 @@ const Bookmark = (props) =>{
     const dispatch = useDispatch();
    const classes = useStyles();
    const bookmark_reviews = useSelector(state=> state.user.bookmark);
+    const [bookMode, setBookMode] = useState(false);
+    const book_count = parseInt(bookmark_reviews?.length/4 +1);
 
     useEffect(()=>{
         dispatch(userActions.getBookmarkSV());
@@ -36,12 +38,20 @@ const Bookmark = (props) =>{
             className={classes.arrow}/>
             <HeaderText>저장된 게시물</HeaderText>
         </Header>
-        <div>
-         <FeedCategoryButton>
-            <RemoveRedEyeIcon/>
-            책장모드
-        </FeedCategoryButton>
-        </div>
+        
+        {
+            bookMode?
+            <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
+                <RemoveRedEyeIcon/>
+                리뷰모드
+            </FeedCategoryButton>
+            :
+                <FeedCategoryButton onClick ={()=>{setBookMode(true)}}>
+                <RemoveRedEyeIcon />
+                책장모드
+            </FeedCategoryButton>
+        }
+        
         <FeedMain>
         {
             bookmark_reviews?.map((p)=>{
@@ -53,6 +63,8 @@ const Bookmark = (props) =>{
         
 
             </FeedMain>
+
+
         </Container>
     )
 }
@@ -126,11 +138,7 @@ color:black;
 font-size:14px;
 margin-top: 57px;
     margin-left: 75%;
-    &:hover{
-        color: white;
-        background: ${Color.gray};
-        border:1px solid white;
-    }
+ 
 `
 const FeedMain = styled.div`
   background-color: #f5f2f0;

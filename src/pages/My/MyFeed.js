@@ -199,9 +199,10 @@ const MyFeed = () => {
             <BookFeedMain count={book_count}>
                 {
                   my_reviews?.map((review)=>{
-                    return(<BookImg url={review.book?.image} key={review.id} 
+                    return(
+                    <BookImg url={review.book?.image} key={review.id} 
                       onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
-                      />)
+                      ></BookImg>)
                   })
                 }
               </BookFeedMain>
@@ -293,9 +294,12 @@ const MyFeed = () => {
             <BookFeedMain count={book_count}>
                 {
                   my_reviews?.map((review)=>{
-                    return(<BookImg url={review.book?.image} key={review.id} 
+                    return(
+                    <BookImg url={review.book?.image} key={review.id} 
                       onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
-                      />)
+                      >
+                      <BookTitle>{review.book?.title.split("(")[0]}</BookTitle>
+                      </BookImg>)
                   })
                 }
               </BookFeedMain>
@@ -521,8 +525,19 @@ const BookImg = styled.div`
   background-size: cover;
   box-sizing: border-box;
   border-radius: 4px;
+  &:hover{
+    opacity:0.6;
+  }
  
 `
+const BookTitle = styled.div`
+  width: 80px;
+  height: 110px;
+opacity : 0;
+&:hover{
+  opacity:1;
+}
+`;
 
 const LevelBox = styled.div`
 border:1px solid ${Color.line};
