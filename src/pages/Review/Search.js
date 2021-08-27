@@ -22,7 +22,7 @@ const Search = (props)=>{
   const text = useRef();
   
   useEffect(()=>{
-    dispatch(reviewActions.getAllTagsSV());
+    // dispatch(reviewActions.getAllTagsSV());
     return(
       dispatch(searchActions.resetSelectedBook())
     )
@@ -48,7 +48,7 @@ const Search = (props)=>{
         <Container>
             <SearchBarBox >
             <SearchIcon />
-            <Hint options={alltags} allowTabFill>
+            {/* <Hint options={alltags} allowTabFill> */}
                 <input 
                 style={{
                   width: "290px",
@@ -73,7 +73,7 @@ const Search = (props)=>{
                 }}
                 ref={text}
                 />
-            </Hint>
+            {/* </Hint> */}
                
             </SearchBarBox>
             <Wrapper>

@@ -98,8 +98,8 @@ const defaultProps = {
 const BookInfoWrapper = styled.div`
 width: 100%;
 box-sizing: border-box;
-border-radius: 12px;
-border: solid 1px ${Color.secondColor};
+border-top: solid 1px ${Color.secondColor};
+border-bottom: solid 1px ${Color.secondColor};
 margin-bottom: 20px;
 `
 const BookInfoBox = styled.div`
@@ -166,7 +166,7 @@ const Recommend = styled.input`
 height: 36px;
 width: 90%;
 border-radius: 8px;
-background: ${Color.hashtag};
+background: #d7d3d3;
 box-sizing: border-box;
 margin: 0 auto;
 margin-left: 5%;

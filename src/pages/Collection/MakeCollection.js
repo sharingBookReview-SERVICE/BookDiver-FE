@@ -162,7 +162,7 @@ const MakeCollection = (props) =>{
     return(
         <Container>
             {
-                is_modal && <SelectBookModal is_make_collection />
+                is_modal && <SelectBookModal is_make_collection is_modal/>
             }
             <Head>
                 <ArrowBackIcon className={classes.goback}
