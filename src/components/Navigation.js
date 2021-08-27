@@ -116,7 +116,7 @@ const Navigation = (props) => {
         <PageName >북컬렉션</PageName>
       </IconBox>
 
-      <AddBox to="/postwrite" onClick={setLoading}>
+      <AddBox to="/postwrite">
         <PlusBox>
           <AddIcon className="plus" className={classes.plus}/>
         </PlusBox>
