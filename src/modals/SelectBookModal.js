@@ -153,7 +153,7 @@ height: 75vh;
 justify-content: flex-start;
 overflow: scroll;
 overflow-x: hidden;
-z-index: 100;
+z-index: 1000;
 box-sizing:border-box;
 
 ${(props) => props.is_show ? 
