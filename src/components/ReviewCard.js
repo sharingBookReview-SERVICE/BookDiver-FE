@@ -6,6 +6,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Color from "../shared/Color";
 
 import {images} from "../shared/Image";
@@ -36,7 +37,8 @@ const ReviewCard = (props) => {
     comments,
     image,
     user,
-    is_follow
+    is_follow,
+    bookmark
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
@@ -114,6 +116,15 @@ const ReviewCard = (props) => {
   const follow = () => {
     dispatch(userActions.followSV(user.id))
     dispatch(userActions.isFollow(true))
+  }
+
+  const bookMark = ()=>{
+      if(is_login) {
+      dispatch(reviewActions.bookMarkSV(book._id, _id));
+      return;
+    }else{
+      dispatch(permitActions.showLoginModal(true))
+    }
   }
 
   return (
@@ -220,7 +231,23 @@ const ReviewCard = (props) => {
               </CountBox>
 
               <CountBox>
-              <BookmarkBorderOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+                {
+                  bookmark ? 
+                  <BookmarkIcon 
+                  style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
+                  onClick= {()=>{
+                    bookMark()
+                  }}
+                  />
+                  :
+                  <BookmarkBorderOutlinedIcon 
+                  style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
+                  onClick= {()=>{
+                    bookMark()
+                  }}
+                  />
+                }
+    
               <CountText> 스크랩</CountText>
               </CountBox>
 
