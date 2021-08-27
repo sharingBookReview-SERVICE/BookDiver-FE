@@ -81,6 +81,7 @@ const ReviewCard = (props) => {
   const goToReviewDetail = () => {
     if(is_login){
       history.push(`/reviewdetail/${book._id}/${_id}`)
+      dispatch(permitActions.isLoading(true))
     }else{
       dispatch(permitActions.showLoginModal(true))
     }

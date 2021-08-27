@@ -4,6 +4,9 @@ import {backgroundimg, serviceDesc , main_person} from "../img";
 import {images} from "../shared/Image"
 import Color from "../shared/Color"
 
+import { useDispatch } from "react-redux";
+import { actionCreators as permitActions } from "../redux/modules/permit";
+
 
 const Layout = (props) => {
 

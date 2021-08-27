@@ -11,6 +11,7 @@ import {ReviewCard, Header} from "../components";
 import {EditModal,LoginModal,NotSupport} from "../modals";
 
 import Color from "../shared/Color"
+import Loading from "../pages/ETC/Loading"
 
 
 const Home = (props) => {
@@ -40,26 +41,26 @@ const Home = (props) => {
 
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
-    console.log("useeffect1")
     dispatch(permitAction.showNav(true));
     if(reviewList.length <10){
+      console.log("리뷰 리스트 불러오기")
       dispatch(reviewActions.getAllReviewSV());
     }
+    setTimeout(() => {
+      dispatch(permitAction.isLoading(false))
+    }, 600);
     return() => {
     dispatch(permitAction.showEditModal(false));
     }
   }, []);
 
   useEffect(() => {
-    console.log("useeffect2")
     setId(reviewList)
   }, [reviewList]);
 
   useEffect(() => {
-    console.log("useeffect3")
     if(inView){
       const lastReviewId = Id[Id.length - 1]?._id
-      dispatch(permitAction.isLoading(true))
       getMoreReview(lastReviewId)
     }
   }, [inView]);
@@ -88,12 +89,14 @@ const Home = (props) => {
 
   useEffect(()=>{
     console.log("useeffect4")
-      container.current.scrollTo(0, lastScroll);
+      container?.current?.scrollTo(0, lastScroll);
   },[])
   //뷰
+
+
   return (
     <>
-    <Container  onScroll={scroll} ref={container}>
+{is_loading ? <Loading/> : <Container  onScroll={scroll} ref={container}>
         <Header />
         
         <FeedCategoryWrapper>
@@ -118,7 +121,7 @@ const Home = (props) => {
         })}
 
       <div ref={ref}></div>
-    </Container>
+    </Container>}
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
     <LoginModal show_login_modal={show_login_modal}/>

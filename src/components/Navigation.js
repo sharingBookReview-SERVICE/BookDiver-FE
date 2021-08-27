@@ -104,6 +104,7 @@ const Navigation = (props) => {
 
       <IconBox 
       to="/" exact
+      onClick={setLoading}
       activeClassName={classes.active}>
         <QuestionAnswerOutlinedIcon className={classes.icon}/>
         <PageName >피드</PageName>
@@ -132,6 +133,7 @@ const Navigation = (props) => {
 
       <IconBox 
       to="/mydepth"
+      onClick={setLoading}
       activeClassName={classes.active}>
         <ProfileImg src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>

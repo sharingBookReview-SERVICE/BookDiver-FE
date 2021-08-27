@@ -26,6 +26,7 @@ import {Comment, SelectBookCard} from "../../components";
 
 import {images} from "../../shared/Image";
 import Color from "../../shared/Color";
+import Loading from "../ETC/Loading"
 
 import ReactGA from "react-ga";
 
@@ -67,6 +68,7 @@ const ReviewDetail = (props) => {
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal)
   const is_editting = useSelector((state) => state.comment.edit_id);
+  const is_loading = useSelector((state) => state.permit.is_loading)
 
 
   const [commentContent, setCommentContent] = useState("");
@@ -93,15 +95,15 @@ const ReviewDetail = (props) => {
   const topComment = useRef(); // 댓글로 화면에 들어왔을 경우, 첫번째 댓글을 보여주기 위한 ref
 
   const scrollToTop = () => {
-    topRef.current.scrollIntoView({behavior:"smooth"})
+    topRef.current?.scrollIntoView({behavior:"smooth"})
   }
 
   const scrollToBottom = () => {
-    bottomRef.current.scrollIntoView({ behavior: "smooth" })
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   const scrollTopComment = () => {
-    topComment.current.scrollIntoView({behavior:"smooth"})
+    topComment.current?.scrollIntoView({behavior:"smooth"})
   }
 
 
@@ -180,13 +182,15 @@ const ReviewDetail = (props) => {
     dispatch(permitAction.showNav(false));
     dispatch(reviewAction.getDetailReviewSV(bookId, reviewId));
     dispatch(reviewAction.getFeedId(bookId, reviewId)); // 수정 및 삭제를 위한 feedId
-
+    setTimeout(() => {
+      dispatch(permitAction.isLoading(false))
+    }, 200);
     if(is_comment) {
       //comment를 통해서 들어왔을 때는 comment 위치로 이동.
       scrollTopComment()
     }else{
       //그냥 들어왔을 때는 상단으로 scroll을 이동. 
-      // scrollToTop()
+      scrollToTop()
     }
 
     return () => {
@@ -194,11 +198,11 @@ const ReviewDetail = (props) => {
     }
   }, []);
 
-
   
   return (
    <React.Fragment>
-      <Container>
+    {is_loading ? <Loading/> :
+        <Container>
          <EditModal is_edit_modal={is_edit_modal}/>
          <CommentModal is_modal={is_modal}/>
             <Head>
@@ -349,7 +353,7 @@ const ReviewDetail = (props) => {
               ""
           )}
       <BottomDiv ref={bottomRef}></BottomDiv>
-      </Container>
+      </Container>}
 
       </React.Fragment>
   );

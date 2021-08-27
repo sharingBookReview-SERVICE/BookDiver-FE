@@ -279,13 +279,14 @@ const changeProfileSV = (image) => {
   //내가 쓴 리뷰와 컬렉션
 const getMyFeedSV = (id)=>{
   return function(dispatch, getState, {history}){
+    dispatch(permitActions.isLoading(true))
     instance.get(`/users/feeds`)
     .then((res)=>{
       console.log(res)
       dispatch(getMyFeed(res.data));
       setTimeout(() => {
         dispatch(permitActions.isLoading(false))
-      }, 800);
+      }, 600);
     })
     .catch((err)=>{
       // history.push("*")

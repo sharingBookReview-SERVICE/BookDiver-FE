@@ -65,7 +65,6 @@ const MyFeed = () => {
     const otherUserId = params?.otherId
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
     const is_loading = useSelector(state => state.permit.is_loading)
-    console.log(titles[profileImg])
 
     //책장모드
     const [bookMode, setBookMode] = useState(false);
@@ -111,7 +110,6 @@ const MyFeed = () => {
     }
 
     useEffect(()=>{
-      dispatch(permitActions.showNav(true));
       if(is_my_feed === "/myfeed" && userId){
         dispatch(userActions.getMyFeedSV(userId));
         return;

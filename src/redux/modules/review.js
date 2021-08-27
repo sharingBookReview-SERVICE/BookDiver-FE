@@ -62,8 +62,6 @@ const getAllReviewSV = () => {
         instance
             .get("/feeds")
             .then((res) => {
-                console.log(res)
-
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
                     console.log(res.data)
@@ -72,11 +70,8 @@ const getAllReviewSV = () => {
                     dispatch(userActions.logOut())
                     return;
                 }
-
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
-                dispatch(permitActions.isLoading(false))
-                
             })
             .catch((err) => {
                 console.log(err)

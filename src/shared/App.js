@@ -66,7 +66,6 @@ function App(props) {
 
   
   useEffect(() => {
-    dispatch(permitActions.isLoading(true))
     if (user) {
       dispatch(userActions.loginCheck());
       dispatch(userActions.isMe());
