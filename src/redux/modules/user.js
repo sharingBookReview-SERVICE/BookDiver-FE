@@ -242,27 +242,71 @@ const getTreasureSV = () => {
 
   return function(dispatch, getState, {history}){
     const userId = getState().user.user._id
-    const treasureNum = `treasure_${getState().user.user.level}`.slice(0, -1) // 유저에 줄 보물의 종류를 구하기 
-    const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min); // 랜덤한 숫자를 
+    const userLevel = getState().user.user.level // 유저에 줄 보물의 종류를 구하기 
 
     //랜덤한 이미지를 내보내는 함수
-    const getRandomImg = (treasureNum, randomNum) => {
-      const treasureOBJ = {
-        treasure_1 : ["image_2", "image_3", "image_4"],
-        treasure_2 : ["image_5", "image_6", "image_7"],
-        treasure_3 : ["image_8", "image_9", "image_10"],
-        treasure_4 : ["image_11", "image_12", "image_13"],
-        treasure_5 : ["image_14", "image_15", "image_16"]
+    const getImgByLevel = (userLevel) => {
+      let image = "";
+      switch(true) {
+        case userLevel<5:
+          image = "image_2"
+          break
+        case userLevel<10:
+          image = "image_3"
+          break
+        case userLevel<15:
+          image = "image_4"
+          break
+        case userLevel<20:
+          image = "image_5"
+          break
+        case userLevel<25:
+          image = "image_6"
+          break
+        case userLevel<30:
+          image = "image_7"
+          break
+        case userLevel<35:
+          image = "image_8"
+          break
+        case userLevel<40:
+          image = "image_9"
+          break
+        case userLevel<45:
+          image = "image_10"
+          break
+        case userLevel<50:
+          image = "image_11"
+          break
+        case userLevel<55:
+          image = "image_12"
+          break
+        case userLevel<60:
+          image = "image_13"
+          break
+        case userLevel<65:
+          image = "image_14"
+          break
+        case userLevel<70:
+          image = "image_15"
+          break
+        case userLevel<75:
+          image = "image_16"
+          break
+        default:
+          image = "image_1"
+          break
       }
-      return treasureOBJ[treasureNum][randomNum]
+      return image
     }
 
-    const randomImg = getRandomImg(treasureNum, getRandomNum(0,3))
 
-    instance.put(`users/profile/image`, {imageName: randomImg})
+    instance.put(`users/profile/image`, {imageName: getImgByLevel(userLevel)})
     .then((res)=>{
-      dispatch(permitActions.isTreasure(false))
-      dispatch(permitActions.showNewBadge(randomImg))
+      dispatch(permitActions.isTreasure(false)) // 잠수페이지에서 보물 이미지 없애주기
+      dispatch(permitActions.newTreasureModal(true)) // 얻게 된 보물이 뭔지 보여주기
+      dispatch(permitActions.showNewBadge(getImgByLevel(userLevel))) // 어떤 이미지를 얻게 되었는지 알려주기
+
       setTimeout(() => {
         getUserSV(userId)
       }, 1000);

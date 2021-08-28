@@ -16,6 +16,7 @@ const SHOW_EDIT_MODAL = "permit/SHOW_EDIT_MODAL"
 const IS_LOADING = "permit/IS_LOADING"
 const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT";
 const MESSAGE = "permit/MESSAGE";
+const NEW_TREASURE_MODAL ="permit/NEW_TREASURE_MODAL"
 
 
 //actioncreator
@@ -33,6 +34,7 @@ const showEditModal = createAction(SHOW_EDIT_MODAL, (is_modal) => ({is_modal}))
 const isLoading = createAction(IS_LOADING, (is_loading) => ({is_loading})); 
 const showNotSupport = createAction(SHOW_NOT_SUPPORT, (is_support) => ({is_support}))
 const message = createAction(MESSAGE, (message) => ({message}))
+const newTreasureModal = createAction(NEW_TREASURE_MODAL, (is_new_treasure) => ({is_new_treasure}))
 
 
 //initial
@@ -50,7 +52,8 @@ const initialState = {
     is_edit_modal: false,
     is_loading: false, 
     is_support_modal: false,
-    message:""
+    message:"",
+    is_new_treasure:false,
 };
 
 
@@ -113,6 +116,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.message = action.payload.message;
         }),
+        [NEW_TREASURE_MODAL] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_new_treasure = action.payload.is_new_treasure;
+        }),
     },
     initialState
   );
@@ -132,7 +139,8 @@ const actionCreators = {
     showEditModal,
     isLoading,
     showNotSupport,
-    message
+    message,
+    newTreasureModal
 };
   
 export { actionCreators };

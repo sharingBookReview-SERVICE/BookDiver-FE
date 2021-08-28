@@ -22,7 +22,7 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 import {images} from "../../shared/Image"
 import {titles} from "../../shared/Titles";
 
-import {NotSupport, TreasureModal} from "../../modals";
+import {NotSupport, CheckTreasureModal} from "../../modals";
 import Loading from "../ETC/Loading"
 
 const useStyles = makeStyles((theme) => ({
@@ -333,7 +333,7 @@ const MyFeed = () => {
          
 
         </Container>}
-        <TreasureModal is_treasure={is_treasure}/>
+        <CheckTreasureModal is_treasure={is_treasure}/>
         </React.Fragment>
     )
 }

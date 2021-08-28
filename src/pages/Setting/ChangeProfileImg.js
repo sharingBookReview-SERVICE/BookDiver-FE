@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {OwnImages} from "../../elements"
 
 import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -35,6 +36,9 @@ const ChangeProfileImg = (props) => {
     useEffect(() => {
         if(userId){
             dispatch(userActions.getUserSV(userId))   
+        }
+        return () => {
+            dispatch(permitActions.newTreasureModal(false))
         }
     },[])
 

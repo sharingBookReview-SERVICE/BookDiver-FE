@@ -12,7 +12,7 @@ import io from "socket.io-client"
 
 import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
-import {EditModal,LoginModal,NotSupport,TreasureModal} from "../modals";
+import {EditModal,LoginModal,NotSupport,CheckTreasureModal} from "../modals";
 
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
@@ -140,7 +140,7 @@ const Home = (props) => {
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
     <LoginModal show_login_modal={show_login_modal}/>
-    <TreasureModal is_treasure={is_treasure}/>
+    <CheckTreasureModal is_treasure={is_treasure}/>
     </>
   );
 };
