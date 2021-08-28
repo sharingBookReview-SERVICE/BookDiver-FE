@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     filter: "drop-shadow(1px 1px 4px rgba(0,0,0,0.4))",
   },
   active:{
+    pointerEvents: "none",
     color:Color.black,
   },
   plus:{
@@ -50,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
       color:Color.mainColor,
     },
     transition:"0.5s ease-in-out",
+  },
+  postActive:{
+    pointerEvents: "none",
   }
 }));
 
@@ -138,7 +142,9 @@ const Navigation = (props) => {
         <PageName >북컬렉션</PageName>
       </IconBox>
 
-      <AddBox to="/postwrite">
+      <AddBox 
+      to="/postwrite"
+      activeClassName={classes.postActive}>
         <PlusBox>
           <AddIcon className="plus" className={classes.plus}/>
         </PlusBox>

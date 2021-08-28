@@ -209,6 +209,16 @@ const ReviewDetail = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if(is_comment) {
+      //comment를 통해서 들어왔을 때는 comment 위치로 이동.
+      scrollTopComment()
+    }else{
+      //그냥 들어왔을 때는 상단으로 scroll을 이동. 
+      scrollToTop()
+    }
+  }, [is_loading]);
+
   
   return (
    <React.Fragment>

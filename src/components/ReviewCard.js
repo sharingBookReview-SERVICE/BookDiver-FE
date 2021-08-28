@@ -90,6 +90,7 @@ const ReviewCard = (props) => {
   const goDetailByComment = () => {
     if(is_login){
       history.push(`/reviewdetail/${book._id}/${_id}?comment=true`)
+      dispatch(permitActions.isLoading(true))
     }else{
       dispatch(permitActions.showLoginModal(true))
     }
@@ -226,7 +227,7 @@ const ReviewCard = (props) => {
             </CountBox>
 
               <CountBox>
-              <SmsOutlinedIcon style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
+              <SmsOutlinedIcon onClick={() => {goDetailByComment()}} style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}/>
               <CountText onClick={() => {goDetailByComment()}}> {comments.length} 개</CountText>
               </CountBox>
 
