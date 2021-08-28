@@ -15,6 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //컴포넌트
 import {CollectionBookCard} from "../../elements";
 import {EditModal} from "../../modals";
+import MakeButton from "./component/MakeButton";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
       top: "4%",
       right: "5%",
       color: "white"
+    },
+    makebtn:{
+      margin: "0px 16px",
     }
   }));
 
@@ -68,9 +72,10 @@ const CollectionDetail = (props) =>{
           <EditModal is_collection is_modal={is_modal} />
             <Container>
             <Head>
-                <ArrowBackIcon className={classes.goback}
+                <ArrowBackIcon 
                 onClick = {()=>{history.goBack()}}
                 />
+                 <MakeButton/>
             </Head>
                 <CollectionOutter>
                     
@@ -129,10 +134,12 @@ const CollectionDetail = (props) =>{
 }
 
 const Head = styled.div`
-width: 100%;
+width: 90%;
 align-items: center;
+margin: 0 auto;
 display: flex;
 padding: 16px 0px;
+justify-content: space-between;
 `;
 
 

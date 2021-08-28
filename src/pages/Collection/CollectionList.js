@@ -12,14 +12,12 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {EditModal} from "../../modals";
+import MakeButton from "./component/MakeButton";
 
 const useStyles = makeStyles((theme) => ({
-    arrow: {
-      position: "absolute",
-      left:"20px",
-      top: "30px",
-      color: Color.black,
-      cursor:"pointer",
+  
+    serifFont: {
+      fontFamily: "Noto Serif KR"
     },
   }));
 
@@ -106,9 +104,11 @@ if(type==="tag"){
       
         <Wrapper>
             <Header>
-                <ArrowBackIcon className={classes.arrow} onClick={()=>{history.goBack()}}/> 
-                <HeaderText>태그 추천 컬렉션</HeaderText>
+                <ArrowBackIcon  onClick={()=>{history.goBack()}}/> 
+                <MakeButton/>
             </Header>
+            <HeaderText h1 className={classes.serifFont}>태그 추천 컬렉션</HeaderText>
+            <HeaderText>작성된 리뷰 태그에 관련된 컬렉션을 모아봤어요.</HeaderText>
             {
               tag_collection_list?.map((collection)=>{
                 return(<OneCollection key={collection.id} {...collection}/>)
@@ -129,10 +129,12 @@ if(type==="custom"){
             is_modal && <EditModal is_collection />
           }
         <Wrapper>
-            <Header>
-                <ArrowBackIcon className={classes.arrow} onClick={()=>{history.goBack()}}/> 
-                <HeaderText>최신 컬렉션</HeaderText>
+             <Header>
+                <ArrowBackIcon  onClick={()=>{history.goBack()}}/> 
+                <MakeButton/>
             </Header>
+            <HeaderText h1 className={classes.serifFont} >최신 컬렉션</HeaderText>
+            <HeaderText>다이버들이 만든 따끈따끈한 북컬렉션</HeaderText>
             {
               custom_collection_list?.map((collection)=>{
                 return(<OneCollection key={collection.id} {...collection}/>)
@@ -208,7 +210,7 @@ flex-direction:column;
 align-items:center;
 justify-content:flex-start;
 background: ${Color.mainColor};
-padding:80px 15px 0px 15px;
+padding:80px 20px 0px 20px;
 padding-bottom: 50px;
 box-sizing:border-box;
 
@@ -223,16 +225,14 @@ box-sizing:border-box;
 `
 
 const Header = styled.div`
-width: 100%;
+width: 90%;
 height: 56px;
 display:flex;
-justify-content:center;
-align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-font-family: "Noto Serif KR", serif;
-
+justify-content: space-between;
+align-items: center;
 @media ${(props) => props.theme.tablet} {
   width: 420px;
 }
@@ -244,8 +244,11 @@ font-family: "Noto Serif KR", serif;
 `
 
 const HeaderText = styled.div`
-font-size:16px;
 color:${Color.black};
+font-size: ${(props) => props.h1? "18px": "14px"};
+width: 100%;
+margin-bottom: ${(props) => props.h1? "": "16px"};
+color:  ${(props) => props.h1? "": "#9a9090"};
 `
 
 export default CollectionList;
