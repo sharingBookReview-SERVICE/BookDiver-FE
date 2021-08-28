@@ -36,7 +36,7 @@ const Bookmark = (props) =>{
                 goBack()
             }} 
             className={classes.arrow}/>
-            <HeaderText>저장된 게시물</HeaderText>
+            <HeaderText>스크랩한 게시물</HeaderText>
         </Header>
         
         {

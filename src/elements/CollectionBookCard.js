@@ -53,10 +53,13 @@ const defaultProps = {
                     props.is_edit_collection &&  <ClearIcon onClick={()=>{deleteCard(book.id)}}/>
                 }
                 </BookInfoBox>
-                <Recommend 
-                value={book_descriptionSV} disabled
-                >
-                </Recommend>
+                {
+                    book_descriptionSV&&    <Recommend 
+                    value={book_descriptionSV} disabled
+                    >
+                    </Recommend>
+                }
+             
             </BookInfoWrapper>
         )
     }
@@ -99,7 +102,6 @@ const defaultProps = {
 const BookInfoWrapper = styled.div`
 width: 100%;
 box-sizing: border-box;
-margin-bottom: 20px;
 border-top: ${(props) => props.is_border ? "1px solid #d7d3d3" : " "};
 border-bottom: ${(props) => props.is_border ? "1px solid #d7d3d3" : " "};
 `
