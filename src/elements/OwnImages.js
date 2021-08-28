@@ -61,7 +61,6 @@ align-items:center;
 margin-bottom:10px;
 box-sizing:border-box;
 border-radius:10px;
-padding-left:20px;
 
 @media ${(props) => props.theme.mobile} {
     width: 100%;
@@ -120,12 +119,13 @@ font-size:14px;
 `
 
 const CancelButton = styled.button`
-background:transparent;
+font-family: 'Noto Sans KR', sans-serif;
+background: #d7d3d3;
 border:none;
 border-radius:10px;
-width:84px;
-height:36px;
-font-size:16px;
+width:40px;
+height:40px;
+font-size:14px;
 font-weight:600;
 cursor:pointer;
 `

@@ -88,7 +88,7 @@ const Setting = (props) => {
              }}
             >
                 <CreateOutlinedIcon/>
-                <Menu>닉네임 변경</Menu>
+                <Menu>프로필 변경</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
             <Bottom>
