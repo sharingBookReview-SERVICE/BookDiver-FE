@@ -38,6 +38,7 @@ const MyDepth = (props) => {
     const badgeCounts = useSelector(state => state.user.user.own_image?.length)
     const is_loading = useSelector(state => state.permit.is_loading)
     const is_support_modal = useSelector(state => state.permit.is_support_modal)
+    const my_level = useSelector(state => state.user.user?.level)
 
     //이 값은 treasure를 확인하는 값을 가져왔을 때, 입력시켜준다. 
     // dispatch(permitAction.isTreasure(false))
@@ -92,7 +93,7 @@ const MyDepth = (props) => {
                     <Tutorial onClick={openNotSupportModal}>잠수하는 법</Tutorial>
                     <CategoryBar/>
                 </CategoryWrapper>
-
+                    <MyLevel>{my_level}m에서 잠수중</MyLevel>
                 <Level/>
                 <Person src={person}/>
             </Wrapper>
@@ -126,7 +127,14 @@ bottom:-8px;
 left:6%;
 transition:0.5s ease-in-out;
 `
-
+const MyLevel = styled.div`
+position: absolute;
+top: 120px;
+border: 1px solid #d7d3d3;
+border-radius: 8px;
+padding: 8px;
+box-shadow: 0 1px 8px 0 rgb(0 0 0 / 12%);
+`;
 const Depth =styled.div`
 
 `
