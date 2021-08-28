@@ -47,12 +47,13 @@ const VoiceOfCustomer = () => {
             <Box>
             <GuideBox>
                 <Guide>
-                    궁금한 점이나 건의할 사항이 있으신가요?<br/>
-                    고객의 소리에 남겨주시면 적극 반영하겠습니다. 
+                궁금한 점이나 불편한 점이 있으셨나요?<br/>
+                저희에게 알려주세요:)
+      
                 </Guide>
             </GuideBox>
             <InputBox>
-                <InputTitle>고객의 소리</InputTitle>
+              
                 <Input ref={inputRef} placeholder="다이버님의 소중한 의견을 남겨주세요."/>
             </InputBox>
 
@@ -132,11 +133,10 @@ width:20rem;
 height:auto;
 display:flex;
 justify-content:flex-start;
-margin-bottom:50px;
+margin-bottom:12px;
 `
 
 const Guide = styled.div`
-font-family: "Noto Serif KR", serif;
 font-weight:600;
 letter-spacing:-0.5px;
 `
@@ -148,7 +148,6 @@ height:auto;
 
 const InputTitle = styled.div`
 text-align:start;
-font-family: "Noto Serif KR", serif;
 font-size:14px;
 font-weight:600;
 `
@@ -156,11 +155,12 @@ font-weight:600;
 const Input = styled.textarea`
 margin-top:5px;
 background: transparent;
+font-family: 'Noto Sans KR', sans-serif;
 border-radius:10px;
 resize:none;
 width:20rem;
 height:20rem;
-padding:10px;
+padding:16px;
 box-sizing:border-box;
 :focus{
     outline:none;
