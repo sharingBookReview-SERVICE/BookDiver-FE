@@ -1,6 +1,7 @@
 //import 부분
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import io from "socket.io-client"
 
 import { actionCreators as commentAction } from "../../redux/modules/comment";
 import {actionCreators as reviewAction } from "../../redux/modules/review";
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const socket = io.connect("https://ohbin.shop")
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
@@ -153,6 +155,7 @@ const ReviewDetail = (props) => {
       target : user?.id,
     }
     setCommentContent("");
+    socket.emit("comment", noti_info)
     scrollToBottom()
   };
 
@@ -176,6 +179,14 @@ const ReviewDetail = (props) => {
       history.push(`/otherUser/${user_id}`)
     }
   }
+
+  useEffect(() => {
+    socket.on("comment", (payload) => {
+      console.log(socket.id)
+      console.log("------누가 댓글을 달았는가",payload)
+      console.log("-------소켓이 연결되었는가요?",socket.connected)
+    })
+  })
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {

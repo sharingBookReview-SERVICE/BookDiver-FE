@@ -56,6 +56,7 @@ const MyDepth = (props) => {
     }
 
     useEffect(() => {
+        dispatch(userActions.getUserSV()) //수심페이지에서 유저정보 다시 불러오기 
         dispatch(userActions.checkTreasureSV())
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기
         setTimeout(() => {
@@ -100,6 +101,7 @@ const MyDepth = (props) => {
             {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}
             </>   
             }
+<NewBadge src={depth_image[new_badge]}/>
         {new_badge && <NewBadge src={depth_image[new_badge]} className="scale-up-down-center"/>}
         {new_badge && <GetNewBadge className="scale-up-down-center">{titleWord[new_badge]}를 획득하셨습니다.</GetNewBadge>}
     </React.Fragment>
@@ -181,7 +183,7 @@ bottom:5vh;
 cursor:pointer;
 
 @media ${(props) => props.theme.mobile} {
-    left:30vw;
+    left:20vw;
 }
 
 @media ${(props) => props.theme.tablet} {
@@ -271,8 +273,15 @@ position:fixed;
 bottom:25vh;
 z-index:10;
 
+// @media screen and (max-width: 360px) { 
+//     width:120px;
+//     height:120px;
+// }
+
+
+
 @media ${(props) => props.theme.mobile} {
-    left:30%;
+    left:20%;
 }
 
 @media ${(props) => props.theme.tablet} {
