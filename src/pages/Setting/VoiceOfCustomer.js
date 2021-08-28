@@ -110,12 +110,11 @@ align-items:center;
 const HeaderText = styled.div`
 font-size:16px;
 color:${Color.black};
-font-family: "Noto Serif KR", serif;
 `
 
 const Write = styled.div`
 font-size:16px;
-color:${Color.black};
+color:${Color.gray4};
 cursor:pointer;
 `
 
