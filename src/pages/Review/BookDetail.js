@@ -1,18 +1,28 @@
 //import 부분
 import React from "react";
 import styled from "styled-components";
-
-
+import { history } from "../../redux/configStore";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {Header, SelectBookCard, ReviewCard} from "../../components"
 import { actionCreators as bookActions } from "../../redux/modules/book";
 import { actionCreators as reviewActions } from "../../redux/modules/review";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 
 import Color from "../../shared/Color";
 
+
+const useStyles = makeStyles((theme) => ({
+  goback: {
+      padding: "0px 20px",
+      cursor:"pointer",
+  },
+}));
+
 //feature 사용중 push하기 
 const BookDetail = (props) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const bookId =  props.match.params.bookid;  
   const book = useSelector(state=> state.book.book);
@@ -28,7 +38,11 @@ const BookDetail = (props) => {
     return (
         <React.Fragment>
                   <Main>
-                  <Header/>
+                  <Head>
+                      <ArrowBackIcon className={classes.goback}
+                      onClick = {()=>{history.goBack()}}
+                      />
+                  </Head>
                   <Container>
                     <BookInfo>
                       <SelectBookCard is_book_detail/>
@@ -65,7 +79,6 @@ const BookDetail = (props) => {
 const Main = styled.div`
   width: 100vw;
   height: 100vh;
-  padding-top:56px;
   background-color: ${Color.bgColor};
   margin : auto;
   box-sizing: border-box;
@@ -100,6 +113,13 @@ width:100%;
 height:auto;
 background-color: ${Color.mainColor};
 `
+const Head = styled.div`
+width: 100%;
+align-items: center;
+display: flex;
+padding: 16px 0px;
+background: ${Color.mainColor};
+`;
 
 const BookInfo = styled.div`
 `;
