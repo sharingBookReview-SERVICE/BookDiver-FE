@@ -147,22 +147,20 @@ const ReviewDetail = (props) => {
       reviewId: reviewId,
       userInfo: nickname,
     };
+
     dispatch(commentAction.addCommentSV(comment_info));
 
-    const noti_info = {
-      reviewId,
-      userId,
-      target : user?.id,
-    }
-    setCommentContent("");
-    socket.emit("comment", noti_info)
-    scrollToBottom()
+    setCommentContent(""); // 댓글 작성 후 빈칸 만들기
+    socket.emit("comment", user?._id) // 댓글 작성시 소켓에 알림보내기
+    scrollToBottom() // 댓글 작성후 최신 댓글로 스크롤 이동
   };
+
 
   //좋아요 클릭
   const clickLikeButton = () => {
     //리뷰 디테일에 들어왔다는 것은 로그인을 했다는 의미이니 로그인 체크 x
     dispatch(reviewAction.LikeSV(bookId, reviewId));
+    socket.emit("comment", user?._id) // 좋아요 클릭시 소켓에 알림보내기
   };
 
   //북마크 클릭
@@ -181,12 +179,9 @@ const ReviewDetail = (props) => {
   }
 
   useEffect(() => {
-    socket.on("comment", (payload) => {
-      console.log(socket.id)
-      console.log("------누가 댓글을 달았는가",payload)
-      console.log("-------소켓이 연결되었는가요?",socket.connected)
-    })
-  })
+    //처음 들어오면, 접속한 유저의 토큰을 보내기
+    socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
+  },[])
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {
