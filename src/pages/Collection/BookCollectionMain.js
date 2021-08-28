@@ -68,7 +68,7 @@ const BookCollectionMain = (props) =>{
             />
 
 
-           {
+           {/* {
                is_login &&  <MakeBtn onClick={()=>{
                    history.push('/makeCollection')
                    ReactGA.event({
@@ -77,7 +77,7 @@ const BookCollectionMain = (props) =>{
                     label: "collection",
                   });
                 }}>북컬렉션 만들기</MakeBtn>
-           }
+           } */}
            
         </Container>
         </Wrapper>

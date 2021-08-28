@@ -1,13 +1,22 @@
 import styled from "styled-components"
 import Color from "../../../shared/Color"
+import { history } from "../../../redux/configStore";
+import { useDispatch, useSelector } from "react-redux";
 
 const  WhatCollection = () => {
+    const is_login = useSelector(state=> state.user.is_login);
     return(
         <CollectionGuideBox>
             <GuideBox>
                 <GuideTitle>북컬렉션이 뭔가요?</GuideTitle>
                 <GuideDesc>북컬렉션은 다이버 유저들이 만든 책 모음집이에요. <br/> 유저들이 직접 추천하는 도서모음을 구경해보세요.</GuideDesc>
-                <GuideMakeButton>나만의 북 컬렉션 만들기</GuideMakeButton>
+                <GuideMakeButton
+                onClick={()=>{
+                    is_login?
+                    history.push('/makeCollection'):
+                    history.push('/login')
+                }}
+                >나만의 북 컬렉션 만들기</GuideMakeButton>
             </GuideBox>
         </CollectionGuideBox>
     )

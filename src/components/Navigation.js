@@ -98,7 +98,7 @@ const Navigation = (props) => {
         <PageName >피드</PageName>
       </IconBox>
 
-      <IconBox to="/login" >
+      <IconBox to="/bookCollectionMain" >
         <BookOutlinedIcon className={classes.icon}/>
         <PageName >북컬렉션</PageName>
       </IconBox>

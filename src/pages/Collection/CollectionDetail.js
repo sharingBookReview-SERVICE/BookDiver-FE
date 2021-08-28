@@ -157,7 +157,6 @@ height:auto;
 background: ${Color.mainColor};
 box-sizing:border-box;
 position: absolute;
-overflow: scroll;
 @media ${(props) => props.theme.tablet} {
     width: 100%;
 }
@@ -174,6 +173,11 @@ height:auto;
 min-height:100vh;
 box-sizing:border-box;
 overflow:scroll;
+-ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 @media ${(props) => props.theme.tablet} {
     width: 100%;
   }
