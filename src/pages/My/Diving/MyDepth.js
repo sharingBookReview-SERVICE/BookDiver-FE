@@ -101,7 +101,6 @@ const MyDepth = (props) => {
             {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}
             </>   
             }
-<NewBadge src={depth_image[new_badge]}/>
         {new_badge && <NewBadge src={depth_image[new_badge]} className="scale-up-down-center"/>}
         {new_badge && <GetNewBadge className="scale-up-down-center">{titleWord[new_badge]}를 획득하셨습니다.</GetNewBadge>}
     </React.Fragment>
