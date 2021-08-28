@@ -47,7 +47,7 @@ const Search = (props)=>{
     return(
         <Container>
             <SearchBarBox >
-            <SearchIcon />
+           
             {/* <Hint options={alltags} allowTabFill> */}
                 <input 
                 style={{
@@ -74,7 +74,7 @@ const Search = (props)=>{
                 ref={text}
                 />
             {/* </Hint> */}
-               
+            <SearchIcon />
             </SearchBarBox>
             <Wrapper>
               {/* 자동완성부분 */}
@@ -124,7 +124,8 @@ align-items: center;
 const SearchBarBox = styled.div`
   width: 90%;
   height: 50px;
-  border-bottom: 2px solid ${Color.gray};
+  border-radius: 12px;
+  border: 2px solid #d7d3d3;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -151,20 +152,23 @@ const SearchBar = styled.input`
 `;
 
 const Autocomplete = styled.div`
-width: 100%;
-height: 500px;
-padding-left: 20px;
+margin: -5px 20px;
+    border: 2px solid #d7d3d3;
+    border-top: none;
+    height: 50vh;
+    overflow: scroll;
 `;
 
 
 const Title = styled.div`
+padding: 5px 16px;
+height: 30px;
 `;
 const Wrapper = styled.div`
 background:  ${Color.mainColor};
 width: 100%;
 min-height: 90vh;
 height: 100%;
-margin-top: 20px;
 `;
 const Grid = styled.div`
 width: 100%;
@@ -172,6 +176,7 @@ height: 100%;
 display: grid;
 flex-direction: row;
 grid-template-columns: 1fr 1fr 1fr;
+margin-top:24px;
 `;
 
 export default Search;
