@@ -64,7 +64,7 @@ const defaultProps = {
    
     else{
         return(
-            <BookInfoWrapper>
+            <BookInfoWrapper       is_border={true}>
                 <BookInfoBox>
                     <Wrapper>
                     <BookImg url={props.image}/>
@@ -76,6 +76,7 @@ const defaultProps = {
                     <ClearIcon onClick={()=>{deleteCard(props.isbn)}}/>
                 </BookInfoBox>
                 <Recommend 
+          
                 value={book_description}
                 placeholder="책 마다 추천이유를 적어보세요(최대30자)"
                 maxLength="30"
@@ -98,9 +99,9 @@ const defaultProps = {
 const BookInfoWrapper = styled.div`
 width: 100%;
 box-sizing: border-box;
-border-top: solid 1px ${Color.secondColor};
-border-bottom: solid 1px ${Color.secondColor};
 margin-bottom: 20px;
+border-top: ${(props) => props.is_border ? "1px solid #d7d3d3" : " "};
+border-bottom: ${(props) => props.is_border ? "1px solid #d7d3d3" : " "};
 `
 const BookInfoBox = styled.div`
 width: 100%;
@@ -166,11 +167,11 @@ const Recommend = styled.input`
 height: 36px;
 width: 90%;
 border-radius: 8px;
-background: #d7d3d3;
+border:1px solid #d7d3d3;
+background-color: ${Color.mainColor};
 box-sizing: border-box;
 margin: 0 auto;
 margin-left: 5%;
-border: none;
 margin-bottom: 20px;
 padding-left: 10px;
 `;

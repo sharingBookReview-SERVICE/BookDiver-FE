@@ -157,6 +157,7 @@ height:auto;
 background: ${Color.mainColor};
 box-sizing:border-box;
 position: absolute;
+overflow: scroll;
 @media ${(props) => props.theme.tablet} {
     width: 100%;
 }
@@ -172,7 +173,7 @@ width:100vw;
 height:auto;
 min-height:100vh;
 box-sizing:border-box;
-
+overflow:scroll;
 @media ${(props) => props.theme.tablet} {
     width: 100%;
   }
@@ -183,11 +184,8 @@ box-sizing:border-box;
 `
 
 const CollectionOutter = styled.div`
-width: 90%;
-border: 1px solid black;
-border-radius: 12px;
+width: 100%;
 margin: 0 auto;
-margin: 16px;
 margin-bottom: 100px;
 `;
 
@@ -196,7 +194,6 @@ width: 100%;
 padding-top: 100%;
 background-image: url(${(props) => props.url});
 background-size: cover;
-border-radius: 12px 12px 0px 0px;
 position:relative;
 `;
 
@@ -204,7 +201,6 @@ position:relative;
 const Overlay = styled.div`
 width: 100%;
 padding-top: 100%;
-border-radius: 12px 12px 0px 0px;
 background-image: linear-gradient( 181.3deg,  rgba(0,0,0,0.75) 23.8%, rgba(0,0,0,0.72) 42.2%, rgba(0,0,0,0.63) 56.9%, rgba(0,0,0,0.42) 75.1%, rgba(0,0,0,0) 96.2% );
 opacity: 30%;
 position: absolute;
@@ -230,13 +226,13 @@ color: ${Color.white};
 `;
 
 const Wrapper = styled.div`
-width: 90%;
+width: 100%;
 margin: 0 auto;
 `;
 
 const Description = styled.div`
 margin: 0 auto;
-padding: 20px 0px;
+padding: 20px;
 `;
 const ReactionBar = styled.div`
 border: 1px solid #242121;
