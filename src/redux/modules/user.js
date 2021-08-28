@@ -18,6 +18,7 @@ const IS_ME = "user/IS_ME";
 const FOLLOW = "user/FOLLOW";
 const GET_FOLLOW_LIST = "user/GET_FOLLOW_LIST";
 const GET_BOOKMARK = "user/GET_BOOKMARK";
+const GET_NOTI_LIST = "user/GET_NOTI_LIST";
 
 
 const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
@@ -44,6 +45,7 @@ const getFollowingCounts = createAction(GET_FOLLOWING_COUNTS, (counts) => ({coun
 const getFollowerCounts = createAction(GET_FOLLOWER_COUNTS, (counts) => ({counts}))
 const isFollow = createAction(IS_FOLLOW, (is_follow) => ({is_follow}))
 const getBookmark = createAction(GET_BOOKMARK , (reviews)=> ({reviews}));
+const getNotiList = createAction(GET_NOTI_LIST, (noti_list) => ({noti_list}))
 
 
 //initial
@@ -60,7 +62,8 @@ const initialState = {
     get_treasure : false,
     my_feed:[],
     is_follow: false,
-    bookmark :[]
+    bookmark :[],
+    noti_list: []
 };
 
 
@@ -132,12 +135,7 @@ const setUserSV = (userId, nickname) => {
       
         // window.alert("다른 분이 사용중인 닉네임이에요!")
       })
-   
-    
-  
-   
   }
-
 }
 
 
@@ -351,6 +349,33 @@ const getBookmarkSV = () => {
     })
   }
 }
+
+const checkAlertSV = () => {
+  return function(dispatch, getState, {history}){
+    instance.put(`/users/checkAlert`)
+    .then((res)=>{
+    })
+    .catch((err)=>{
+      console.log(err)
+      history.push("*")
+    })
+  }
+}
+
+const getNotiListSV = () => {
+  console.log("함수 실행")
+  return function(dispatch, getState, {history}){
+    instance.get(`/users/alerts`)
+    .then((res)=>{
+      dispatch(getNotiList(res.data.alerts))
+    })
+    .catch((err)=>{
+      console.log(err)
+      history.push("*")
+    })
+  }
+}
+
 //reducer
 export default handleActions(
     {
@@ -420,9 +445,13 @@ export default handleActions(
         produce(state, (draft)=>{
           draft.is_follow = action.payload.is_follow;
         }),
-          [GET_BOOKMARK] : (state, action)=>
+        [GET_BOOKMARK] : (state, action)=>
         produce(state, (draft)=>{
           draft.bookmark = action.payload.reviews;
+        }),
+        [GET_NOTI_LIST] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.noti_list = action.payload.noti_list;
         }),
     },
     initialState
@@ -449,7 +478,9 @@ const actionCreators = {
   getOtherFeedSV,
   getOtherFollowingListSV,
   getOtherFollowerListSV,
-  getBookmarkSV
+  getBookmarkSV,
+  checkAlertSV,
+  getNotiListSV,
 };
   
 export { actionCreators };

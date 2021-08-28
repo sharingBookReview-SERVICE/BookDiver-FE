@@ -11,7 +11,11 @@ import io from "socket.io-client"
 
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
+
+
 import { actionCreators as permitAction } from "../redux/modules/permit";
+import { actionCreators as userAction } from "../redux/modules/user";
+
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import Badge from '@material-ui/core/Badge';
 import ReactGA from "react-ga";
@@ -30,37 +34,44 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const dispatch = useDispatch()
   const classes = useStyles();
+
   //알림
   const [badgeVisible, setVisible] = useState(false);
+  const userId = useSelector((state) => state.user.user._id)
+  const is_alarm = useSelector((state) => state.user.user.check_alert)
+  const [is_socket, setIsSocket] = useState(false)
+  console.log(is_alarm)
+
 
   const gotoSearch = () => {
     history.push("/search")
   }
 
-  const openNotSupportModal = () => {
-    dispatch(permitAction.showNotSupport(true))
-  }
-
-  const gotoNoti = ()=>{
+  const gotoNoti = ()=> {
     history.push('/notification')
   }
 
   //알림 클릭시 읽었다는 데이터를 서버에 보내기 
   const setReaded = () => {
-    socket.emit("alert", false)
+    dispatch(userAction.checkAlertSV())
   }
 
+ 
   useEffect(() => {
-    socket.on("alert", (is_alarm) => {
-      setVisible(is_alarm)
-      console.log(is_alarm)
-    })
+    //처음 들어오면, 접속한 유저의 토큰을 보내기
+    const is_token = localStorage.getItem("token")
+    if(is_token){
+      socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
+    }
+  },[])
 
-    socket.on("comment", (payload) => {
-      console.log("------잘연결되어서 값이 오는가",payload)
+  useEffect(() => {
+    socket.on("alert", (payload) => {
+      setIsSocket(payload)
+      //알람이 생기면, 유저 정보를 새로 불러오기 
+      // dispatch(userAction.getUserSV())
     })
   })
-
 
 
   return (
@@ -84,9 +95,12 @@ const Header = (props) => {
           </IconBox>
 
           <IconBox>
-          <Badge color="secondary" variant="dot" invisible={!badgeVisible}>
+          <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !badgeVisible}>
             <NotificationsNoneIcon
-            onClick={()=>{gotoNoti()}}
+            onClick={()=>{
+              gotoNoti();
+              setReaded();
+            }}
             className={classes.icon}/>
             
         </Badge>

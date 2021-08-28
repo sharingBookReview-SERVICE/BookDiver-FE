@@ -157,8 +157,9 @@ const ReviewDetail = (props) => {
 
   //좋아요 클릭
   const clickLikeButton = () => {
+    const reviewUserId = user?._id
     //리뷰 디테일에 들어왔다는 것은 로그인을 했다는 의미이니 로그인 체크 x
-    dispatch(reviewAction.LikeSV(bookId, reviewId));
+    dispatch(reviewAction.LikeSV(bookId, reviewId, reviewUserId));
   };
 
   //북마크 클릭
@@ -180,6 +181,12 @@ const ReviewDetail = (props) => {
     //처음 들어오면, 접속한 유저의 토큰을 보내기
     socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
   },[])
+
+  useEffect(() => {
+    socket.on("alert", (payload) => {
+      console.log(payload)
+    })
+  })
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {

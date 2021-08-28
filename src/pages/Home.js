@@ -45,12 +45,12 @@ const Home = (props) => {
     history.push("*")
   }
 
-  useEffect(() => {
-    //처음 들어오면, 접속한 유저의 토큰을 보내기
-    if(userId){
-      socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
-    }
-  },[userId])
+  // useEffect(() => {
+  //   //처음 들어오면, 접속한 유저의 토큰을 보내기
+  //   if(userId){
+  //     socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
+  //   }
+  // },[userId])
 
 
   //로딩이 되고나면, 네이게이션을 없애주기.
