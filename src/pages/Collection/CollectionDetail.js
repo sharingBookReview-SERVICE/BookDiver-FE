@@ -206,6 +206,7 @@ padding-top: 100%;
 background-image: url(${(props) => props.url});
 background-size: cover;
 position:relative;
+background-position: center center;
 `;
 
 
