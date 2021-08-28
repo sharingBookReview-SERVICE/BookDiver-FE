@@ -20,7 +20,6 @@ import { history } from "../redux/configStore";
 import ReactGA from "react-ga";
 
 
-
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
 
@@ -48,19 +47,19 @@ const ReviewCard = (props) => {
   
 
   const userId = useSelector((state) => state.user.user._id);
-  const cardUserId = user.id
+  const reviewUserId = user.id//
   const profileImage = user?.profileImage;
 
   let is_my_post = false;
 
-  if (cardUserId === userId) {
+  if (reviewUserId === userId) {
     is_my_post = true;
   }
 
   //좋아요 클릭
   const clickLikeButton = () => {
     if(is_login) {
-      dispatch(reviewActions.LikeSV(book._id, _id));
+      dispatch(reviewActions.LikeSV(book._id, _id, reviewUserId));
       return;
     }else{
       dispatch(permitActions.showLoginModal(true))
@@ -104,7 +103,7 @@ const ReviewCard = (props) => {
       return;
     }
 
-    if (cardUserId === userId) {
+    if (reviewUserId === userId) {
       //내 프로필을 클릭하면 내 피드로 이동
       history.push("/myfeed");
     }else{

@@ -4,6 +4,9 @@ import instance from "../../shared/Request";
 import jwt_decode from "jwt-decode";
 import { actionCreators as permitActions } from "./permit";
 
+//소켓
+import io from "socket.io-client"
+const socket = io.connect("https://ohbin.shop")
 
 //actions
 const GET_USER = "GET_USER";
@@ -159,6 +162,7 @@ const followSV = (id) => {
     instance.put(`follow/${id}`)
     .then((res)=>{
       dispatch(follow(id))
+      socket.emit("follow", id) // 팔로우 성공시 팔로우 한 유저의 아이디 보내기 
     })
     .catch((err)=>{
       // history.push("*")

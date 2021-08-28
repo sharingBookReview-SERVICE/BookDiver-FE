@@ -58,7 +58,6 @@ const Navigation = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const location = useLocation()
-  console.log(location.pathname)
 
   const is_login = useSelector((state) => state.user.is_login);
   const profile = useSelector((state) => state.user.user.profileImage)
@@ -87,7 +86,6 @@ const Navigation = (props) => {
   }
 
 
-  console.log(profile)
 
   if(!is_login){
     return(

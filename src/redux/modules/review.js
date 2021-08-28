@@ -6,8 +6,10 @@ import { history } from "../configStore";
 import { actionCreators as userActions } from "./user";
 import { actionCreators as permitActions } from "./permit";
 
+//소켓
+import io from "socket.io-client"
+const socket = io.connect("https://ohbin.shop")
 
-  
 //actions
 const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
 const GET_MORE_REVIEW = "review/GET_MORE_REVIEW"
@@ -186,13 +188,14 @@ const getDetailReviewSV = (bookId, reviewId) => {
 };
 
 //라이크 버튼
-const LikeSV = (bookId, reviewId) => {
+const LikeSV = (bookId, reviewId, reviewUserId) => {
 
     return function (dispatch) {
         instance
             .put(`/books/${bookId}/reviews/${reviewId}/likes`)
             .then((res) => {
                 dispatch(like(reviewId));
+                socket.emit("like", reviewUserId)//좋아요 성공시 서버에 확인보내주기
             })
             .catch((err) => {
                 // history.push("*")

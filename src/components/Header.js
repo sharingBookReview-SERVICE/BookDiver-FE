@@ -1,10 +1,13 @@
 //import 부분
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../img/Header-Main-Logo@3x.png";
+
+//소켓
+import io from "socket.io-client"
 
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
@@ -12,6 +15,8 @@ import { actionCreators as permitAction } from "../redux/modules/permit";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import Badge from '@material-ui/core/Badge';
 import ReactGA from "react-ga";
+
+const socket = io.connect("https://ohbin.shop")
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -26,7 +31,7 @@ const Header = (props) => {
   const dispatch = useDispatch()
   const classes = useStyles();
   //알림
-  const [badgeVisible, setVisible] = useState(true);
+  const [badgeVisible, setVisible] = useState(false);
 
   const gotoSearch = () => {
     history.push("/search")
@@ -39,6 +44,22 @@ const Header = (props) => {
   const gotoNoti = ()=>{
     history.push('/notification')
   }
+
+  //알림 클릭시 읽었다는 데이터를 서버에 보내기 
+  const setReaded = () => {
+    socket.emit("alert", false)
+  }
+
+  useEffect(() => {
+    socket.on("alert", (is_alarm) => {
+      setVisible(is_alarm)
+      console.log(is_alarm)
+    })
+
+    socket.on("comment", (payload) => {
+      console.log("------잘연결되어서 값이 오는가",payload)
+    })
+  })
 
 
 
@@ -63,7 +84,7 @@ const Header = (props) => {
           </IconBox>
 
           <IconBox>
-          <Badge color="secondary" variant="dot" invisible={false}>
+          <Badge color="secondary" variant="dot" invisible={!badgeVisible}>
             <NotificationsNoneIcon
             onClick={()=>{gotoNoti()}}
             className={classes.icon}/>

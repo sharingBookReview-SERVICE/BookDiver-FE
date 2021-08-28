@@ -5,6 +5,11 @@ import instance from "../../shared/Request";
 import { actionCreators as reviewActions } from "./review";
 import { actionCreators as permitActions } from "./permit";
 
+//소켓
+import io from "socket.io-client"
+const socket = io.connect("https://ohbin.shop")
+  
+
 //actions
 const GET_COMMENT = "comment/GET_COMMENT";
 const ADD_COMMENT = "comment/ADD_COMMENT";
@@ -37,7 +42,7 @@ const initialState = {
 
 //comment를 서버에 add 하는 함수를 만들던중.
 const addCommentSV = (commentInfo) => {
-    const userInfo = commentInfo.userInfo;
+    const targetuser_id = commentInfo.userInfo; //해당 게시물의 유저 아이디 
     const comment = commentInfo.comment;
     const bookId = commentInfo.bookId;
     const reviewId = commentInfo.reviewId;
@@ -53,6 +58,7 @@ const addCommentSV = (commentInfo) => {
               content:comment,
             }
             dispatch(addComment(comment_info));
+            socket.emit("comment", targetuser_id)// 댓글 작성 성공시 소켓으로 아이디 보내주기
         })
         .then((res) => {
           dispatch(reviewActions.getDetailReviewSV(bookId, reviewId))
