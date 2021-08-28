@@ -77,10 +77,10 @@ const Setting = (props) => {
                 <Menu>서비스 이용약관</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>   
-            <Wrapper>
+            <Wrapper  onClick={() => {history.push("/voiceOfCustomer")}}>
                 <CallIcon/>
                 <Menu>고객의 소리</Menu>
-                <ArrowForwardIosOutlinedIcon onClick={() => {history.push("/voiceOfCustomer")}} className={classes.icon}/>
+                <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper> 
             <Wrapper
              onClick={()=>{
@@ -88,7 +88,7 @@ const Setting = (props) => {
              }}
             >
                 <CreateOutlinedIcon/>
-                <Menu>닉네임 변경</Menu>
+                <Menu>프로필 변경</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>
             <Bottom>

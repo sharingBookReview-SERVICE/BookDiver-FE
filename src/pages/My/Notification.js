@@ -118,10 +118,7 @@ text-align: center;
 `;
 
 const Outter= styled.div`
-width: 80%;
 margin: 0 auto;
-border-radius: 12px;
-border: 1px solid ${Color.black};
 padding: 16px;
 margin-bottom: 16px;
 `;

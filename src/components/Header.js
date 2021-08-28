@@ -1,5 +1,5 @@
 //import 부분
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import Color from "../shared/Color";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import Badge from '@material-ui/core/Badge';
 import ReactGA from "react-ga";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const dispatch = useDispatch()
   const classes = useStyles();
+  //알림
+  const [badgeVisible, setVisible] = useState(true);
 
   const gotoSearch = () => {
     history.push("/search")
@@ -31,6 +34,10 @@ const Header = (props) => {
 
   const openNotSupportModal = () => {
     dispatch(permitAction.showNotSupport(true))
+  }
+
+  const gotoNoti = ()=>{
+    history.push('/notification')
   }
 
 
@@ -56,9 +63,12 @@ const Header = (props) => {
           </IconBox>
 
           <IconBox>
+          <Badge color="secondary" variant="dot" invisible={false}>
             <NotificationsNoneIcon
-            onClick={openNotSupportModal}
+            onClick={()=>{gotoNoti()}}
             className={classes.icon}/>
+            
+        </Badge>
           </IconBox>
 
         </SearchBarBox>

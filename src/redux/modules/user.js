@@ -124,7 +124,9 @@ const setUserSV = (userId, nickname) => {
       })
     
       .catch((err)=>{
+        dispatch(permitActions.message("다른 분이 사용중인 닉네임이에요!  다른 닉네임을 입력해주세요."))
         dispatch(permitActions.showModal(true))
+      
         // window.alert("다른 분이 사용중인 닉네임이에요!")
       })
    

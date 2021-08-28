@@ -17,7 +17,7 @@ import WhatCollection from "./component/WhatCollection"
 import CollectionSlider from "./component/CollectionSlider"
 //css
 import Color from "../../shared/Color";
-import logo from "../../img/북컬렉션-로고.svg"
+// import {CollectionLogo} "../img"
 
 
 //action
@@ -50,7 +50,7 @@ const BookCollectionMain = (props) =>{
         <Wrapper>
         <Container>
             <LogoBox>
-                <Logo src={logo}/>
+                {/* <Logo src={CollectionLogo}/> */}
             </LogoBox>
 
             <WhatCollection/>
@@ -68,7 +68,7 @@ const BookCollectionMain = (props) =>{
             />
 
 
-           {
+           {/* {
                is_login &&  <MakeBtn onClick={()=>{
                    history.push('/makeCollection')
                    ReactGA.event({
@@ -77,7 +77,7 @@ const BookCollectionMain = (props) =>{
                     label: "collection",
                   });
                 }}>북컬렉션 만들기</MakeBtn>
-           }
+           } */}
            
         </Container>
         </Wrapper>

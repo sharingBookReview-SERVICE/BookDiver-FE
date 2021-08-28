@@ -95,7 +95,7 @@ justify-content:flex-start;
 box-sizing:border-box;
 
 @media ${(props) => props.theme.mobile} {
-    padding:80px 30px 0px 30px;
+    padding:80px 20px 0px 20px;
     width: 100%;
 }
 

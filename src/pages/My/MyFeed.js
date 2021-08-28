@@ -8,6 +8,7 @@ import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookm
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
+import Badge from '@material-ui/core/Badge';
 import Color from "../../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -110,6 +111,10 @@ const MyFeed = () => {
 
     const gotoBookMark = ()=>{
       history.push('/bookmark')
+    }
+
+    const gotoNoti = ()=>{
+      history.push('/notification')
     }
 
     useEffect(()=>{
@@ -238,7 +243,13 @@ const MyFeed = () => {
                   <Header>
                     <BookmarkBorderOutlinedIcon  onClick={()=>{gotoBookMark()}}className={classes.icon}/>
                     <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
-                    <NotificationsNoneIcon className={classes.icon}/>
+                    <Badge color="secondary" variant="dot" invisible={false}>
+                        <NotificationsNoneIcon
+                        onClick={()=>{gotoNoti()}}
+                        className={classes.icon}/>
+                        
+                    </Badge>
+  
                   </Header>
 
                   <Wrapper>

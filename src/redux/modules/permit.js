@@ -14,7 +14,8 @@ const SHOW_NEW_BADGE = "permit/SHOW_NEW_BADGE"
 const SHOW_LOGIN_MODAL = "permit/SHOW_LOGIN_MODAL"
 const SHOW_EDIT_MODAL = "permit/SHOW_EDIT_MODAL"
 const IS_LOADING = "permit/IS_LOADING"
-const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT"
+const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT";
+const MESSAGE = "permit/MESSAGE";
 
 
 //actioncreator
@@ -31,6 +32,7 @@ const showLoginModal = createAction(SHOW_LOGIN_MODAL, (show_login) => ({show_log
 const showEditModal = createAction(SHOW_EDIT_MODAL, (is_modal) => ({is_modal}))
 const isLoading = createAction(IS_LOADING, (is_loading) => ({is_loading})); 
 const showNotSupport = createAction(SHOW_NOT_SUPPORT, (is_support) => ({is_support}))
+const message = createAction(MESSAGE, (message) => ({message}))
 
 
 //initial
@@ -48,6 +50,7 @@ const initialState = {
     is_edit_modal: false,
     is_loading: false, 
     is_support_modal: false,
+    message:""
 };
 
 
@@ -106,6 +109,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_support_modal = action.payload.is_support;
         }),
+        [MESSAGE] : (state, action) => 
+        produce(state, (draft) => {
+          draft.message = action.payload.message;
+        }),
     },
     initialState
   );
@@ -125,6 +132,7 @@ const actionCreators = {
     showEditModal,
     isLoading,
     showNotSupport,
+    message
 };
   
 export { actionCreators };
