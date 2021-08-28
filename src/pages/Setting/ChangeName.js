@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import {history} from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as permitActions } from "../../redux/modules/permit";
 import jwt_decode from "jwt-decode";
 
 import styled from "styled-components";
@@ -37,6 +38,7 @@ const ChangeName = (props) =>{
 
   const is_modal = useSelector(state=> state.permit.is_modal);
 
+  let alertMessage = useSelector(state=> state.permit.message);
 
   //프로필 이미지 바꾸는 화면으로 이동
   const goToChangeImg = () => {
@@ -45,17 +47,23 @@ const ChangeName = (props) =>{
   
   const changeNickname = () =>{
     if(!nickname){
-      window.alert("닉네임을 설정해주세요")
+      dispatch(permitActions.message("닉네임을 설정해주세요"))
+      dispatch(permitActions.showModal(true))
+      return;
     }
     if(nickname === defaultNickName){
-      window.alert("닉네임을 변경하고 싶지않으면 뒤로가기를 누르세요!")
+      dispatch(permitActions.message("닉네임을 변경하고 싶지않으면 뒤로가기를 누르세요!"))
+      dispatch(permitActions.showModal(true))
+      return;
     }
+    
     dispatch(userActions.setUserSV(userId, nickname))
   }
 
   const goBack = () =>{
     if(!defaultNickName) {
-      window.alert("닉네임을 설정해주세요")
+      alertMessage="닉네임을 설정해주세요"
+      dispatch(permitActions.showModal(true))
     }
     else{
       history.goBack();
@@ -72,7 +80,7 @@ const ChangeName = (props) =>{
     return(
         <React.Fragment>
           {
-            is_modal && <AlertModal/>
+            is_modal && <AlertModal is_show={is_modal} alertMessage={alertMessage}/>
           }
                 <Background>
                   <HeadBar>

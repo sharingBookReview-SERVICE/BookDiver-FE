@@ -10,16 +10,15 @@ import { CommonContainer, CommonOverlay, CommonText } from "../shared/styles/mod
 const AlertModal = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
-
+    console.log(props)
 
 //뷰
 
     return(
         <React.Fragment>
-         <Container>
+         <Container is_show={props.is_show} >
          <Text>
-         다른 분이 사용하고 있는 닉네임이에요.<br/>
-        다른 닉네임을 입력해주세요.
+         {props.alertMessage}
          </Text>
          <Btn onClick={()=>{
             dispatch(permitActions.showModal(false));
@@ -27,7 +26,8 @@ const AlertModal = (props) =>{
     
           
          </Container>
-         <Overlay 
+         <Overlay
+         is_show={props.is_show} 
             onClick={()=>{
             dispatch(permitActions.showModal(false));
             }}>
@@ -36,6 +36,9 @@ const AlertModal = (props) =>{
     )
 }
 
+AlertModal.defaultProps = {
+    alertMessage : '다른 분이 사용하고 있는 닉네임이에요.다른 닉네임을 입력해주세요.'
+}
 
 
 //styled components
@@ -48,6 +51,7 @@ display:block;
 `;
 
 const Text = styled(CommonText)`
+white-space: pre-line;
 `;
 
 const Btn = styled.div`
