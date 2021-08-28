@@ -303,7 +303,6 @@ margin-bottom: 8px;
 const TitleInput = styled.input`
 width: 100%;
 height: 68px;
-border-radius: 12px;
 border: 1px solid ${Color.bgColor};
 box-sizing: border-box;
 margin-bottom: 16px;
@@ -349,7 +348,6 @@ width: 100%;
 border: 1px solid ${Color.bgColor};
 height: 108px;
 box-sizing: border-box;
-border-radius: 12px;
 font-family: 'Noto Sans KR', sans-serif;
 background: ${Color.mainColor};
 margin-bottom: 16px;
