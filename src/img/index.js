@@ -13,7 +13,7 @@ import profile from "./profile.svg";
 import serviceDesc from "./serviceDesc.png";
 import Money from "./sharon-mccutcheon-8lnbXtxFGZw-unsplash.jpg";
 import spinner from "./spinner.gif";
-import CollectionLogo from "./북컬렉션-로고.svg";
+import CollectionLogo from "./bookCollectionLogo.svg";
 
 export {ErrorMessage, logo, treasure, add_button, Europe, example, Background, backgroundimg, book_img, main_person, person, profile, serviceDesc, Money, spinner, CollectionLogo};
 

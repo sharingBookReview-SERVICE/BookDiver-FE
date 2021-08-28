@@ -17,7 +17,7 @@ import WhatCollection from "./component/WhatCollection"
 import CollectionSlider from "./component/CollectionSlider"
 //css
 import Color from "../../shared/Color";
-// import {CollectionLogo} "../img"
+// import bookCollectionLogo from "../../img/bookCollectionLogo.svg"
 
 
 //action
@@ -50,7 +50,7 @@ const BookCollectionMain = (props) =>{
         <Wrapper>
         <Container>
             <LogoBox>
-                {/* <Logo src={CollectionLogo}/> */}
+                {/* <Logo src={bookCollectionLogo}/> */}
             </LogoBox>
 
             <WhatCollection/>
