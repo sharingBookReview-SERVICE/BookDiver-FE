@@ -74,7 +74,13 @@ const Search = (props)=>{
                 ref={text}
                 />
             {/* </Hint> */}
-            <SearchIcon />
+            <SearchIcon 
+                onClick={()=>{
+                  searchBook()
+                  setAutoComplete(false)
+                }}    
+                style={{cursor:"pointer"}}        
+            />
             </SearchBarBox>
             <Wrapper>
               {/* 자동완성부분 */}
@@ -87,7 +93,7 @@ const Search = (props)=>{
                     key= {p?.isbn} 
                     dangerouslySetInnerHTML={{__html: p?.title.split("(")[0]}}
                     onClick={()=>{
-                      text.current.value =p?.title.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/, "").split("(")[0] 
+                      text.current.value =p?.title.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] 
                       searchBook()
                       setAutoComplete(false)
                     }}
@@ -163,6 +169,7 @@ margin: -5px 20px;
 const Title = styled.div`
 padding: 5px 16px;
 height: 30px;
+cursor:pointer;
 `;
 const Wrapper = styled.div`
 background:  ${Color.mainColor};
