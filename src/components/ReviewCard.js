@@ -20,6 +20,7 @@ import { history } from "../redux/configStore";
 import ReactGA from "react-ga";
 
 
+
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
 
@@ -37,7 +38,8 @@ const ReviewCard = (props) => {
     image,
     user,
     is_follow,
-    bookmark
+    bookmark,
+    setRef
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
@@ -130,7 +132,7 @@ const ReviewCard = (props) => {
 
   return (
     <React.Fragment>
-      <CartWrapper>
+      <CartWrapper ref={setRef} data-idx={props.setIdx}>
         <CardBox>
           <CommentUserBox>
 
@@ -201,7 +203,7 @@ const ReviewCard = (props) => {
           </ImageBox> : ""}
 
           <HashTagBox>
-              {hashtags.map((tag, idx) => (
+              {hashtags?.map((tag, idx) => (
                 <HashTag key={idx}>{`#${tag} `}</HashTag>
               ))}
             </HashTagBox>

@@ -1,41 +1,38 @@
 //import 부분
 import React from "react";
 import styled from "styled-components";
+import { history } from "../redux/configStore";
 import { useDispatch } from "react-redux";
 import Color from "../shared/Color";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 
 import { CommonContainer, CommonOverlay, CommonText } from "../shared/styles/modal/CommonModal";
 
-const WriteCheckModal = (props) =>{
-  const {is_support_modal} = props
+const LogoutModal = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
  
-
-
     return(
         <React.Fragment>
        
-         <Container is_show={is_support_modal}>
-            <Text>
-            아직 지원되지 않는 서비스입니다 <br/>
-            곧 출시될 버전에서 만나요
-            </Text>
-            
-            <BtnBox>
-                <Hr/>
-                <Btn onClick={()=>{
-                dispatch(permitActions.showNotSupport(false))
-                }}>확인했어요</Btn>
-            </BtnBox>
+         <Container is_show={props.is_treasure}>
+         <Text>
+         보물을 얻으셨습니다
+         </Text>
+        
+         <BtnBox>
+         <Btn onClick={()=>{dispatch(permitActions.showTreasureModal(false))}} >취소</Btn>
+         <Hr/>
+         <Btn onClick={()=>{
+           dispatch(permitActions.showTreasureModal(false))
+           history.push('/mydepth')
+           }}>확인하러가기</Btn>
+         </BtnBox>
          </Container>
         
          <Overlay
-         is_show={is_support_modal}
-          onClick={() => {
-              dispatch(permitActions.showNotSupport(false))
-          }}
+          is_show={props.is_treasure}
+          onClick={()=>{dispatch(permitActions.showTreasureModal(false))}} 
          />
         </React.Fragment>
     )
@@ -45,7 +42,6 @@ const WriteCheckModal = (props) =>{
 
 //styled components
 const Overlay = styled(CommonOverlay)`
-
 `;
 
 const Container = styled(CommonContainer)`
@@ -53,12 +49,10 @@ display:block;
 `;
 
 const Text = styled(CommonText)`
-padding-bottom: 15px;
 `;
 
 const BtnBox = styled.div`
 display: flex;
-justify-content:flex-end;
 padding: 5px;
 `;
 
@@ -71,10 +65,7 @@ width: 50%;
 font-size: 14px;
 font-weight: bold;
 margin: 14px 0px;
-padding-right:20px;
-display:flex;
-justify-content:flex-end;
 cursor:pointer;
 `;
 
-export default React.memo(WriteCheckModal);
+export default LogoutModal;

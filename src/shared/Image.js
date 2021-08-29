@@ -175,6 +175,21 @@ const depth_image = {
     image_16: 흰수염고래유,
 }
 
-export { images, depth_image };
+
+const tutorial_1 = "https://ifh.cc/g/BaO4gZ.png"
+
+const tutorial_2 = "https://ifh.cc/g/iVtNvB.png"
+
+const tutorial_3 = "https://ifh.cc/g/cVWAJN.png"
+
+const tutorial_4 = "https://ifh.cc/g/lpRHbS.png"
+
+const tutorial_5 = "https://ifh.cc/g/1rmqdX.png"
+
+const tutorial_6 = "https://ifh.cc/g/ZCnsIF.png"
+
+const tutorials = [ tutorial_1, tutorial_2, tutorial_3, tutorial_4, tutorial_5, tutorial_6,]
+
+export { images, depth_image, tutorials };
 
 

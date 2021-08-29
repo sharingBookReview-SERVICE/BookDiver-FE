@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import {depth_image} from "../../../shared/Image";
 import {titleWord} from "../../../shared/Titles"
+import { ArrowBack } from "../../../components";
 
 import {TreasureBoxModal, TreasureModal} from "../../../modals";
 import {Background, treasure, person} from "../../../img";
@@ -81,11 +82,7 @@ const MyDepth = (props) => {
             <>      
             <Wrapper>
                 <Header>
-                    <ArrowBackIcon 
-                    onClick={() => {
-                        goBack()
-                    }} 
-                    className={classes.arrow}/>
+                    <ArrowBack/>
                     <HeaderText>잠수상태</HeaderText>
                     <div></div>
                 </Header>
@@ -247,7 +244,7 @@ align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-padding:0px 10px 0px 10px;
+padding:0px 10px 0px 0px;
 box-sizing:border-box;
 z-index:10;
 
@@ -264,7 +261,7 @@ z-index:10;
 const HeaderText = styled.div`
 font-size:16px;
 color:${Color.black};
-margin-right:15px;
+margin-right:25px;
 `
 
 const NewBadge = styled.img`

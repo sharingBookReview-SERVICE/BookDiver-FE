@@ -15,12 +15,11 @@ import { makeStyles } from "@material-ui/core/styles";
 //컴포넌트
 import {CollectionBookCard} from "../../elements";
 import {EditModal} from "../../modals";
-import MakeButton from "./component/MakeButton";
+import MakeButton from "./Component/MakeButton";
 
 
 const useStyles = makeStyles((theme) => ({
     goback: {
-        padding: "0px 20px",
         cursor:"pointer",
     },
     bookCard: {
@@ -72,7 +71,8 @@ const CollectionDetail = (props) =>{
           <EditModal is_collection is_modal={is_modal} />
             <Container>
             <Head>
-                <ArrowBackIcon 
+                <ArrowBackIcon
+                className={classes.goback} 
                 onClick = {()=>{history.goBack()}}
                 />
                  <MakeButton/>

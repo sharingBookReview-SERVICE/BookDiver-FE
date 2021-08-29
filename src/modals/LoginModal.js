@@ -107,4 +107,4 @@ text-align: center;
 line-height: 48px;
 cursor:pointer;
 `;
-export default LoginModal;
+export default React.memo(LoginModal);

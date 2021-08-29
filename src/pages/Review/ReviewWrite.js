@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
 
 import {SelectBookModal, WriteCheckModal} from "../../modals";
-import {SelectBookCard} from "../../components";
+import {SelectBookCard, ArrowBack} from "../../components";
 import {HashTagsInput, RecommandHashTags} from "../../elements";
 import {Loading} from "../ETC"
 
@@ -181,12 +181,7 @@ const ReviewWrite = (props) => {
       <React.Fragment>
         <PostWriteBox>
           <PostHeader>
-            <ArrowBackIcon
-              className={classes.arrow}
-              onClick={() => {
-                history.goBack();
-              }}
-            />
+            <ArrowBack/>
             <SubmitButton
               onClick={() => {
                 editReview();
@@ -240,13 +235,7 @@ const ReviewWrite = (props) => {
       <SelectBookModal is_modal={is_modal} />
       <PostWriteBox>
         <PostHeader>
-          <ArrowBackIcon
-            className={classes.arrow}
-            onClick={() => {
-              history.goBack();
-            }}
-          />
-
+        <ArrowBack/>
           <UploadForm onSubmit={submit}>
             <Upload
               type="file"
@@ -357,7 +346,7 @@ const ReviewWrite = (props) => {
         {recommandTags ? 
         <RecommandHashTagBox>
           <TextWrapper>
-            <Text>추천 해시태그</Text>
+            <Text>이 책에 대해 다른 사람들이 사용한 해시태그</Text>
           </TextWrapper>
 
           <RecommandHashTags />

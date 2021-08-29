@@ -13,6 +13,7 @@ import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import {FollowUser} from "../../elements";
+import { ArrowBack } from "../../components";
 
 
 
@@ -53,19 +54,14 @@ const OtherFollow = (props) =>{
             <Container>
             <Header>
 
-                <ArrowBackIcon 
-                onClick={() => {
-                    goBack()
-                }} 
-                className={classes.arrow}/>
-
+                <ArrowBack/>
                 <Route path="/following">
                     <HeaderText>{nickname}이 팔로잉 하는 다이버들</HeaderText>
                 </Route> 
                 <Route path="/follower">
                     <HeaderText>{nickname}을 팔로우 하는 다이버들</HeaderText>
                 </Route>
-
+                <div></div>
             </Header>
             {follow_list.map((user) => {
                 return(
@@ -126,9 +122,9 @@ box-sizing:border-box;
 
 const Header = styled.div`
 width: 100%;
-height: 80px;
+height: 56px;
 display:flex;
-justify-content:center;
+justify-content:space-between;
 align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
@@ -148,4 +144,5 @@ font-family: "Noto Serif KR", serif;
 const HeaderText = styled.div`
 font-size:16px;
 color:${Color.black};
+margin-right:27px;
 `

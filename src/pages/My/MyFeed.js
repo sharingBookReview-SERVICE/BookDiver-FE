@@ -12,6 +12,10 @@ import Badge from '@material-ui/core/Badge';
 import Color from "../../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 
+//소켓
+import io from "socket.io-client"
+
+
 import {history} from "../../redux/configStore";
 import {useDispatch, useSelector} from "react-redux";
 import { useParams } from "react-router";
@@ -24,6 +28,8 @@ import {titles} from "../../shared/Titles";
 
 import {NotSupport, CheckTreasureModal} from "../../modals";
 import Loading from "../ETC/Loading"
+
+const socket = io.connect("https://ohbin.shop")
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -63,6 +69,9 @@ const MyFeed = () => {
     const followingCounts = useSelector(state => state.user.my_feed.user?.followingCount)
     const followerCounts = useSelector(state => state.user.my_feed.user?.followerCount)
     const userId = useSelector(state => state.user.user?._id)
+
+    const is_alarm = useSelector((state) => state.user.user.check_alert)
+    const [is_socket, setIsSocket] = useState(false)
     const otherUserId = params?.otherId
 
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
@@ -89,13 +98,10 @@ const MyFeed = () => {
       history.push("/follower")
     }
 
-    const goToMyDepth = () => {
-      history.push("/mydepth")
-    }
-
     const goToSetting = () => {
       history.push("/setting")
     }
+
 
     const goToOtherFollowing = (user_id) => {
       history.push(`/following/${user_id}`)
@@ -117,6 +123,11 @@ const MyFeed = () => {
       history.push('/notification')
     }
 
+    //알람을 읽었다는 데이터 보내기
+    const setReaded = () => {
+      dispatch(userActions.checkAlertSV())
+    }
+
     useEffect(()=>{
       dispatch(userActions.checkTreasureSV())
       dispatch(permitActions.showNav(true))
@@ -133,6 +144,23 @@ const MyFeed = () => {
       }
     },[])
 
+    useEffect(() => {
+      //처음 들어오면, 접속한 유저의 토큰을 보내기
+      const is_token = localStorage.getItem("token")
+      if(is_token){
+        socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
+      }
+    },[])
+  
+    useEffect(() => {
+      socket.on("alert", (payload) => {
+        setIsSocket(payload)
+        console.log(payload)
+        //알람이 생기면, 유저 정보를 새로 불러오기 
+        // dispatch(userAction.getUserSV())
+      })
+    })
+
 //다른 유저의 피드를 확인 할 때
     if(otherUserId){
       return(
@@ -140,11 +168,8 @@ const MyFeed = () => {
         <Container>
           <NotSupport is_support_modal={is_support_modal}/>
               <UserBox>
-
                   <Header>
-                  
                   </Header>
-
                 <Wrapper>
                   <ProfileBox>
                           <ImgWrapper >
@@ -185,7 +210,7 @@ const MyFeed = () => {
                     <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
                      <FeedCategory>
-                      <FeedTitle></FeedTitle>
+                     <FeedTitle>{nickname}님의 게시물</FeedTitle>
                       {
                         bookMode?
                         <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
@@ -243,9 +268,12 @@ const MyFeed = () => {
                   <Header>
                     <BookmarkBorderOutlinedIcon  onClick={()=>{gotoBookMark()}}className={classes.icon}/>
                     <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
-                    <Badge color="secondary" variant="dot" invisible={false}>
+                    <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !is_alarm}>
                         <NotificationsNoneIcon
-                        onClick={()=>{gotoNoti()}}
+                        onClick={()=>{
+                          gotoNoti()
+                          setReaded()
+                        }}
                         className={classes.icon}/>
                         
                     </Badge>
@@ -287,7 +315,7 @@ const MyFeed = () => {
 
                   </Wrapper>
                   <FeedCategory>
-                      <FeedTitle></FeedTitle>
+                      <FeedTitle>내 게시물</FeedTitle>
                       {
                         bookMode?
                         <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
@@ -351,10 +379,10 @@ padding:10px 0px 20px 0px;
 `
 
 const FeedTitle = styled.div`
-font-size:18px;
-font-weight: 500;
+font-size:16px;
+font-weight: 400;
 letter-spacing: -0.36px;
-font-family: "Noto Serif KR", serif;
+color:${Color.subTextFont};
 `
 
 const FeedCategoryButton = styled.div`
@@ -440,6 +468,7 @@ height:72px;
 border-radius:70%;
 box-sizing:border-box;
 position:relative;
+cursor:pointer;
 `
 
 const TitleImg = styled.img`
@@ -533,6 +562,22 @@ const BookFeedMain = styled.div`
   padding:0px 20px;
 `;
 
+const FollowBox = styled.div`
+color:${Color.black};
+font-size:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+${(props) => props.is_follow ? 
+`
+background:${Color.line}`: 
+`
+border:1px solid ${Color.line};
+`};
+`
 
 const BookImg = styled.div`
   width: 80px;
@@ -575,22 +620,6 @@ align-items:center;
 border-radius:10px;
 `
 
-const FollowBox = styled.div`
-color:${Color.black};
-font-size:14px;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-${(props) => props.is_follow ? 
-`
-background:${Color.line}`: 
-`
-border:1px solid ${Color.line};
-`};
-`
 
 
 

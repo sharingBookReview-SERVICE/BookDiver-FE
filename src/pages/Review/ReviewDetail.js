@@ -560,18 +560,21 @@ height:auto;
 `;
 
 const CommentInputBox = styled.div`
-  height: 72px;
   width: 100%;
-  padding: 12px 16px;
+  height: 72px;
   box-sizing: border-box;
   margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-top: 1px solid ${Color.gray3};
   background-color: ${Color.mainColor};
   position: fixed;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media ${(props) => props.theme.mobile} {
+    width: 100vw;
+  }
 
   @media ${(props) => props.theme.tablet} {
     width: 420px;
@@ -581,19 +584,22 @@ const CommentInputBox = styled.div`
     width: 420px;
   }
 `;
-
+//확인
 const InputBox = styled.div`
 position: relative;
-width: 100%;
-height: 100%;
+width: 90%;
+height: 45px;
 border-radius:12px;
 box-sizing:border-box;
+display:flex;
+justify-content:center;
+align-items:center;
 `
 
 const CommentInput = styled.input`
 
 @media ${(props) => props.theme.mobile} {
-  width: 420px;
+  width: 90vw;
 }
 
 @media ${(props) => props.theme.tablet} {

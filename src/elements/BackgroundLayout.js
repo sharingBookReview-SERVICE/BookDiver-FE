@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 
 
-const Layout = (props) => {
+const BackgroundLayout = (props) => {
 
         return(
         <>
@@ -21,7 +21,7 @@ const Layout = (props) => {
         </>)
 }
 
-export default Layout;
+export default BackgroundLayout;
 
 const BackgroundImg = styled.div`
 background-image:url(${(props) => props.url});

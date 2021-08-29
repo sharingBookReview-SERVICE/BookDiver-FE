@@ -36,10 +36,9 @@ const Header = (props) => {
   const classes = useStyles();
 
   //알림
-  const [badgeVisible, setVisible] = useState(false);
-  const userId = useSelector((state) => state.user.user._id)
   const is_alarm = useSelector((state) => state.user.user.check_alert)
   const [is_socket, setIsSocket] = useState(false)
+  const is_login = useSelector((state) => state.user.is_login)
   console.log(is_alarm)
 
 
@@ -68,6 +67,7 @@ const Header = (props) => {
   useEffect(() => {
     socket.on("alert", (payload) => {
       setIsSocket(payload)
+      console.log(payload)
       //알람이 생기면, 유저 정보를 새로 불러오기 
       // dispatch(userAction.getUserSV())
     })
@@ -94,17 +94,16 @@ const Header = (props) => {
             className={classes.icon} />
           </IconBox>
 
-          <IconBox>
-          <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !badgeVisible}>
+{is_login && <IconBox>
+          <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !is_alarm}>
             <NotificationsNoneIcon
             onClick={()=>{
               gotoNoti();
               setReaded();
             }}
             className={classes.icon}/>
-            
         </Badge>
-          </IconBox>
+          </IconBox>}
 
         </SearchBarBox>
       </HeaderBox>
@@ -125,7 +124,6 @@ margin-left:5px;
   border-radius:40px;
   background:${Color.line};
 }
-
 `
 
 const Wrapper = styled.div`

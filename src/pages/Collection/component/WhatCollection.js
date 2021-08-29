@@ -6,23 +6,32 @@ import { useDispatch, useSelector } from "react-redux";
 const  WhatCollection = () => {
     const is_login = useSelector(state=> state.user.is_login);
     return(
-        <CollectionGuideBox>
-            <GuideBox>
-                <GuideTitle>북컬렉션이 뭔가요?</GuideTitle>
-                <GuideDesc>북컬렉션은 다이버 유저들이 만든 책 모음집이에요. <br/> 유저들이 직접 추천하는 도서모음을 구경해보세요.</GuideDesc>
-                <GuideMakeButton
-                onClick={()=>{
-                    is_login?
-                    history.push('/makeCollection'):
-                    history.push('/login')
-                }}
-                >나만의 북 컬렉션 만들기</GuideMakeButton>
-            </GuideBox>
-        </CollectionGuideBox>
+        <Wrapper>
+            <CollectionGuideBox>
+                <GuideBox>
+                    <GuideTitle>북컬렉션이 뭔가요?</GuideTitle>
+                    <GuideDesc>북컬렉션은 다이버 유저들이 만든 책 모음집이에요. <br/> 유저들이 직접 추천하는 도서모음을 구경해보세요.</GuideDesc>
+                    <GuideMakeButton
+                    onClick={()=>{
+                        is_login?
+                        history.push('/makeCollection'):
+                        history.push('/login')
+                    }}
+                    >나만의 북 컬렉션 만들기</GuideMakeButton>
+                </GuideBox>
+            </CollectionGuideBox>
+        </Wrapper>
     )
 }
 
 export default WhatCollection;
+
+const Wrapper = styled.div`
+width:100%;
+height:auto;
+display:flex;
+justify-content:center;
+`
 
 const CollectionGuideBox = styled.div`
 width:380px;
@@ -32,7 +41,6 @@ border:1px solid ${Color.line};
 display:flex;
 justify-content:center;
 align-items:center;
-margin:0px 20px;
 
 @media ${(props) => props.theme.mobile} {
     width:91%;
@@ -70,5 +78,13 @@ justify-content:center;
 align-items:center;
 font-weight:bold;
 background:${Color.gray3};
+border:1px solid rgba(0,0,0,0);
 border-radius:10px;
+cursor:pointer;
+transition:0.5s ease-in-out;
+
+:hover{
+    background:transparent;
+    border:1px solid ${Color.gray3};
+}
 `

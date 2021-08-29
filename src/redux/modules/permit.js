@@ -17,6 +17,9 @@ const IS_LOADING = "permit/IS_LOADING"
 const SHOW_NOT_SUPPORT = "permit/SHOW_NOT_SUPPORT";
 const MESSAGE = "permit/MESSAGE";
 const NEW_TREASURE_MODAL ="permit/NEW_TREASURE_MODAL"
+const IS_LOADED = "permit/IS_LOADED"
+const REVIEW_LOADING = "permit/REVIEW_LOADING"
+const FINISH_REVIEW = "permit/FINISH_REVIEW"
 
 
 //actioncreator
@@ -35,6 +38,9 @@ const isLoading = createAction(IS_LOADING, (is_loading) => ({is_loading}));
 const showNotSupport = createAction(SHOW_NOT_SUPPORT, (is_support) => ({is_support}))
 const message = createAction(MESSAGE, (message) => ({message}))
 const newTreasureModal = createAction(NEW_TREASURE_MODAL, (is_new_treasure) => ({is_new_treasure}))
+const isLoaded = createAction(IS_LOADED, (is_loaded) =>({is_loaded}))
+const reviewLoading = createAction(REVIEW_LOADING, (review_loading) => ({review_loading}))
+const finishReview = createAction(FINISH_REVIEW, (finish_review) => ({finish_review}))
 
 
 //initial
@@ -54,6 +60,9 @@ const initialState = {
     is_support_modal: false,
     message:"",
     is_new_treasure:false,
+    is_loaded:false,
+    review_loading:false,
+    finish_review: false,
 };
 
 
@@ -120,6 +129,18 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_new_treasure = action.payload.is_new_treasure;
         }),
+        [IS_LOADED] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_loaded = action.payload.is_loaded;
+        }),
+        [REVIEW_LOADING] : (state, action) => 
+        produce(state, (draft) => {
+          draft.review_loading = action.payload.review_loading;
+        }),
+        [FINISH_REVIEW] : (state, action) => 
+        produce(state, (draft) => {
+          draft.finish_review = action.payload.finish_review;
+        }),
     },
     initialState
   );
@@ -140,7 +161,10 @@ const actionCreators = {
     isLoading,
     showNotSupport,
     message,
-    newTreasureModal
+    newTreasureModal,
+    isLoaded,
+    reviewLoading,
+    finishReview,
 };
   
 export { actionCreators };

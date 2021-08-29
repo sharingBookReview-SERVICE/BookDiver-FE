@@ -18,6 +18,7 @@ const SelectBookCard = (props) =>{
   const bookTitle = title?.split("(")[0]
   const selectedBookTitle = book?.title?.split("(")[0]
 
+  console.log(is_book_detail)
 
   const selectBook = ()=>{
     if(is_make_collection){
@@ -139,7 +140,7 @@ const SelectBookCard = (props) =>{
               <BookImg url={image}/>
               <BookDescBox>
                   {/* <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle> */}
-                  <BookTitle >{bookTitle.replace('<b>', "").replace('</b>',"")}</BookTitle>
+                  <BookTitle >{bookTitle?.replace('<b>', "").replace('</b>',"")}</BookTitle>
                   <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
               </BookDescBox>
             </BookInfoBox>
@@ -167,7 +168,6 @@ align-items: center;
 gap: 12px;
 box-sizing: border-box;
 cursor:pointer;
-
 `
 
 const BookImg = styled.div`

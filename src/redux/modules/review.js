@@ -39,6 +39,7 @@ const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({re
 const saveCurrentScroll = createAction(CURRENT_SCROLL, (location)=>({location}));
 const searchReview = createAction(SEARCH, (review)=>({review}));
 const getAllTags = createAction(GET_ALLTAGS, (tags)=>({tags}));
+
 //initial
 const initialState = {
     all_review_list: [],
@@ -59,39 +60,91 @@ const initialState = {
 //middle
 //전체 피드 불러오기
 const getAllReviewSV = () => {
-
     return function (dispatch) {
         instance
             .get("/feeds")
             .then((res) => {
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
-                    console.log(res.data)
                     history.push("*")
                     localStorage.clear();
                     dispatch(userActions.logOut())
                     return;
                 }
+
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
-                console.log(res)
+                dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
             })
-            .catch(error => console.error(error.toJSON()));
+            .catch((err) => {
+            });
     };
 };
 
-                // console.log(err)
-                // history.push("*")
-                // localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
+const getRecentReviewSV = () => {
+    return function (dispatch) {
+        instance
+            .get("/feeds/recent")
+            .then((res) => {
+                //돌아온 res가 error인 경우 실행할 내용 
+                if(res.data.error){
+
+                    history.push("*")
+                    localStorage.clear();
+                    dispatch(userActions.logOut())
+                    return;
+                }
+
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
+                //res가 정상인 경우 
+                dispatch(getAllReview(res.data));
+                dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
+
+            })
+            .catch((err) => {
+            });
+    };
+}
+
+// const getMoreReviewSV = (lastId) => {
+
+//     return function (dispatch) {
+//         instance
+//             .get("/feeds")
+//             .then((res) => {
+//                 console.log(res)
+//                 dispatch(getMoreReview(res.data));
+//                 dispatch(permitActions.isLoading(false))
+//             })
+//             .catch((err) => {
+//                 // history.push("*")
+//                 console.log("전체 피드 가져오기 실패", err);
+//             });
+//     };
+// };
 
 const getMoreReviewSV = (lastId) => {
-
     return function (dispatch) {
         instance
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
                 dispatch(getMoreReview(res.data));
                 dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
+                dispatch(permitActions.reviewLoading(false))
             })
             .catch((err) => {
                 // history.push("*")
@@ -100,6 +153,40 @@ const getMoreReviewSV = (lastId) => {
     };
 };
 
+const getMoreRecentReviewSV = (lastId) => {
+    return function (dispatch) {
+        instance
+            .get(`/feeds/recent?lastItemId=${lastId}`)
+            .then((res) => {
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
+                dispatch(getMoreReview(res.data));
+                dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
+                dispatch(permitActions.reviewLoading(false))
+            })
+            .catch((err) => {
+                // history.push("*")
+                console.log("전체 피드 가져오기 실패", err);
+            });
+    };
+};
+
+//읽은 리뷰 체크하기
+const checkIsRead = (reviewId) => {
+    return function (dispatch) {
+        instance
+            .patch(`/feeds/${reviewId}`)
+            .then((res) => {
+            })
+            .catch((err) => {
+                // history.push("*")
+                console.log("전체 피드 가져오기 실패", err);
+            });
+    };
+}
 
 //포스트 추가하기
 const addReviewSV = (formData, bookId) => {
@@ -112,11 +199,11 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
+                console.log(res.data)
                 if(res.data.error){
                     // history.push("*")
                     return;
                 }
-                console.log(res.data.review)
                 dispatch(addReview(res.data.review));
                 dispatch(permitActions.isLoading(false));
                 history.push("/");
@@ -139,9 +226,7 @@ const deleteReviewSV = () => {
             .delete(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
                 dispatch(deleteReview(reviewId));
-                console.log("history push")
                 history.push(`/`)
-                 console.log("history push2")
             })
             .catch((err) => {
                 // history.push("*")
@@ -160,7 +245,6 @@ const editReviewSV = (bookId, reviewId, review) => {
                 hashtags: review.hashtags,
             })
             .then((res) => {
-                console.log(res.data.review)
                 dispatch(editReview(reviewId, res.data.review))
                 history.goBack();
             })
@@ -248,7 +332,6 @@ const searchReviewSV = (keyword) =>{
   
         )
         .then((res)=>{
-            console.log(res)
         })
         .catch((err)=>{
             console.log("검색 실패", err)
@@ -261,7 +344,6 @@ const getAllTagsSV = () =>{
         instance
         .get(`/search/allTags`)
         .then((res)=>{
-            console.log(res.data.allTags)
             dispatch(getAllTags(res.data.allTags))
         })
         .catch((err)=>{
@@ -399,7 +481,11 @@ const actionCreators = {
     saveCurrentScroll,
     searchReviewSV,
     getAllTagsSV,
-    bookMarkSV
+    bookMarkSV,
+    saveCurrentScroll,
+    checkIsRead,
+    getRecentReviewSV,
+    getMoreRecentReviewSV,
 };
 
 export { actionCreators };

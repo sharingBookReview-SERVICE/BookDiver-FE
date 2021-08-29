@@ -2,11 +2,15 @@ import React, {useEffect} from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-import Color from "../../shared/Color";
-import { history } from "../../redux/configStore";
+import Color from "../../../shared/Color";
+import { history } from "../../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 
-import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as userActions } from "../../../redux/modules/user";
+import { actionCreators as permitActions } from "../../../redux/modules/permit";
+import { ArrowBack } from "../../../components/index";
+
+import NotiCard from "./NotiCard"
 
 const useStyles = makeStyles((theme) => ({
     goback: {
@@ -20,32 +24,21 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const NotiCard = (props)=>{
-    return(
-    <Outter>
-        <Title>
-            <P>내가 쓴 에세이</P>
-            <P>21분 전</P>
-        </Title>
-        <Noti>
-            <b>독서하는 곰돌이</b>님이 댓글을 남겼습니다.
-        </Noti>
-        <Content>
-        이 컬렉션 다 읽는 그날까지 독서 화이팅!
-        </Content>
-    </Outter>
-    )
-}
-
 const Notification = (props) =>{
     const dispatch = useDispatch()
-    const notiList = useSelector(state => state.user.user.noti_list)
+    const notiList = useSelector(state => state.user.noti_list)
+
+    let notiListReversed = new Array()
+    
+    notiList.forEach(content => 
+        notiListReversed.unshift(content)
+    )
 
     useEffect(() => {
         dispatch(userActions.getNotiListSV())
-
+        dispatch(permitActions.showNav(true))
         return() => {
-            dispatch(userActions.getUserSV())
+            dispatch(userActions.getUserSV());
         }
     },[])
 
@@ -54,18 +47,13 @@ const Notification = (props) =>{
         <Wrapper>
         <Container>
             <Head>
-            <ArrowBackIcon className={classes.goback} 
-             onClick = {()=>{history.goBack()}}
-            />
-                <Text>알림</Text>
+                <ArrowBack/>
+                <Title>알림</Title>
+                <div></div>
             </Head>
-            <NotiCard/>
-            <NotiCard/>
-            <NotiCard/>
-            <NotiCard/>
-            <NotiCard/>
-            <NotiCard/>
-
+           {notiListReversed.map((noti_info, idx) => {
+               return(<NotiCard {...noti_info} key={idx}/>)
+           }) }
         </Container>
         </Wrapper>
         )
@@ -93,7 +81,7 @@ width:100vw;
 height:auto;
 min-height:100vh;
 box-sizing:border-box;
-padding-top:70px;
+padding-top:60px;
 
 @media ${(props) => props.theme.tablet} {
     width: 100%;
@@ -110,6 +98,7 @@ width: 100%;
 height: 56px;
 align-items: center;
 display: flex;
+justify-content:space-between;
 margin-bottom:16px;
 top:0px;
 position:fixed;
@@ -124,32 +113,10 @@ background:${Color.mainColor};
   }
 
 `;
-const Text = styled.div`
-width: 70%;
-text-align: center;
-`;
-
-const Outter= styled.div`
-margin: 0 auto;
-padding: 16px;
-margin-bottom: 16px;
-`;
-
 const Title = styled.div`
-display: flex;
-justify-content: space-between;
-color: ${Color.fontGray};
-padding: 4px 0px;
+margin-right:40px;
 `;
 
-const P = styled.p`
-margin: 0px;
-`;
-const Noti = styled.div`
-padding: 4px 0px;
-`;
-const Content = styled.div`
-color: ${Color.fontGray};
-padding: 4px 0px;
-`;
+
+
 export default Notification;

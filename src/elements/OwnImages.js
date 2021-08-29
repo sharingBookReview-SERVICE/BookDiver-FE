@@ -7,6 +7,7 @@ import {titleWord} from "../shared/Titles"
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import {history} from "../redux/configStore";
+import Level from '../pages/My/Diving/Level';
 
 const OwnImages = (props) => {
     const dispatch = useDispatch();
@@ -20,6 +21,13 @@ const OwnImages = (props) => {
         history.goBack();
     }
 
+    const levelList = {
+        0:0,
+        1:2,
+        2:5,
+        3:10,
+    }
+
     return(
         <React.Fragment>
             <Box>
@@ -30,7 +38,7 @@ const OwnImages = (props) => {
                 </ImgWrapper>
                 <Container>
                     <InfoBox>
-                        <Level>수심{level*10}m</Level>
+                        <LevelText>수심{level < 4 ? levelList[`${level}`] : (level -1)*5}m</LevelText>
                         <Title>
                             {titleWord[image]}
                         </Title>
@@ -54,13 +62,12 @@ export default OwnImages;
 
 const Box = styled.div`
 width:100%;
-height:15vh;
+height:100px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:10px;
 box-sizing:border-box;
-border-radius:10px;
 
 @media ${(props) => props.theme.mobile} {
     width: 100%;
@@ -100,7 +107,7 @@ justify-content:space-between;
 align-items:center;
 `
 
-const Level = styled.div`
+const LevelText = styled.div`
 
 `
 
@@ -128,4 +135,8 @@ height:40px;
 font-size:14px;
 font-weight:600;
 cursor:pointer;
+transition:0.3s ease-in-out;
+:hover{
+    background:${Color.line};
+}
 `

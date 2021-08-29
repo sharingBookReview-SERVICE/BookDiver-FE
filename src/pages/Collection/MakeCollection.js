@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
-
+import ArrowBack from "../../components/ArrowBack";
 
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { actionCreators as collectionActions } from "../../redux/modules/collection";
@@ -32,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
         right: "20px"
     },
     font: {
-       
         fontWeight:"bold",
-        fontSize:"1.1rem"
+        fontSize:"16px"
 
+    },
+    notice : {
+        color:Color.hashTagFont,
     },
     addicon: {
         fontSize: "40px"
@@ -165,9 +167,7 @@ const MakeCollection = (props) =>{
                 is_modal && <SelectBookModal is_make_collection is_modal/>
             }
             <Head>
-                <ArrowBackIcon className={classes.goback}
-                onClick = {()=>{history.goBack()}}
-                />
+                <ArrowBack/>
                  <UploadForm onSubmit={submit}>
                     <Upload
                     type="file"
@@ -188,11 +188,18 @@ const MakeCollection = (props) =>{
                 <Label>
                     컬렉션 제목
                 </Label>
-                <TitleInput
-                    placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
-                    maxLength="20"     
-                    ref={title}           
-                ></TitleInput>
+                <InputBox>
+                    <TitleInput
+                        placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
+                        maxLength="20"     
+                        ref={title}           
+                    ></TitleInput>
+                    <InputSpan>
+                        <InputI>
+                        </InputI>
+                    </InputSpan>
+                </InputBox>
+
                 </InputWrapper>
                     {
                         is_preview?
@@ -203,17 +210,23 @@ const MakeCollection = (props) =>{
                         <ImageSelect onClick={()=>{selectImage();}}>
                             <AddIcon className={classes.addicon}/>
                             <Notice className={classes.font}>컬렉션 배경 사진 업로드</Notice>
-                            <Notice >컬렉션에 어울리는 사진을 올려보세요</Notice>
+                            <Notice className={classes.notice} >컬렉션에 어울리는 사진을 올려보세요</Notice>
                         </ImageSelect>
                     }
                 <InputWrapper>
-                <Label>
-                    컬렉션 설명
-                </Label>
-                <DescTextarea
-                placeholder="컬렉션에 대한 설명을 작성해주세요."
-                ref={description}    
-                ></DescTextarea>
+                    <Label>
+                        컬렉션 설명
+                    </Label>
+                <InputBox style={{height:"108px"}}>
+                    <DescTextarea
+                    placeholder="컬렉션에 대한 설명을 작성해주세요."
+                    ref={description}    
+                    ></DescTextarea>
+                    <InputSpan>
+                        <InputI>
+                        </InputI>
+                    </InputSpan>
+                </InputBox>
                 </InputWrapper>
                 {
                    selected_Books.length===0? 
@@ -227,7 +240,7 @@ const MakeCollection = (props) =>{
                   more_select &&    <AddBook/> 
                 }
                 <MoreAddbtn onClick={()=>{addMoreBtn()}}>
-                    <Notice className={classes.font}>책 더 추가하기</Notice>
+                    <MoreText >책 더 추가하기</MoreText>
                     <AddIcon className={classes.moreaddicon}/>
                 </MoreAddbtn>
             </Wrapper>
@@ -249,14 +262,18 @@ padding-bottom: 100px;
     width: 100%;
 }
 `;
+
 const Head = styled.div`
 width: 100%;
-height: 10%;
+height: 56px;
 align-items: center;
 display: flex;
 position: fixed;
 background: ${Color.mainColor};
 justify-content: space-between;
+padding-left:5px;
+box-sizing:border-box;
+
 @media ${(props) => props.theme.tablet} {
     width: 420px;
 }
@@ -272,17 +289,20 @@ const Upload = styled.input`
   display: none;
 `;
 const SubmitButton = styled.button`
-  width: auto;
-  height: 30px;
+width: 80px;
+height: 40px;
   font-size: 15px;
   font-weight: bold;
-  // float: right;
-  // display: inline-block;
   margin: 0 10px 0 0;
   background-color: ${Color.mainColor};
   box-sizing: border-box;
   border: none;
   cursor:pointer;
+  transition:0.5s ease-in-out;
+  :hover{
+      background-color:${Color.line};
+      border-radius:10px;
+  }
 `;
 const Text = styled.div`
 width: 80%;
@@ -295,6 +315,7 @@ padding-top: 100px;
 const InputWrapper = styled.div`
 width:85%;
 margin: 0 auto;
+padding-bottom:16px;
 `;
 const Label = styled.div`
 font-weight: bold;
@@ -305,12 +326,20 @@ width: 100%;
 height: 68px;
 border: 1px solid ${Color.bgColor};
 box-sizing: border-box;
-margin-bottom: 16px;
 background: ${Color.mainColor};
 padding: 0px 10px;
 :focus{
     outline:none;
 }
+:focus {
+    outline: none;
+   ~ span:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:before{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:after{transition-delay: 0.2s;}
+   ~ span i:after{height: 100%; transition: 0.2s;}
+   ~ span i:before{height: 100%; transition: 0.2s;}
+   ~ span i:after{transition-delay: 0.4s;}
+  }
 `;
 const ImageSelect = styled.div`
 width: 100%;
@@ -321,7 +350,7 @@ height: 352px;
 display: flex;
 justify-content: center;
 align-items: center;
-margin-bottom: 16px;
+margin: 16px 0px;
 flex-direction: column;
 cursor:pointer;
 `;
@@ -343,6 +372,7 @@ const Image = styled.img`
 
 const Notice = styled.div`
 `;
+
 const DescTextarea = styled.textarea`
 width: 100%;
 border: 1px solid ${Color.bgColor};
@@ -350,26 +380,19 @@ height: 108px;
 box-sizing: border-box;
 font-family: 'Noto Sans KR', sans-serif;
 background: ${Color.mainColor};
-margin-bottom: 16px;
 padding: 10px;
 resize:none;
-:focus{
-    outline:none;
-}
+:focus {
+    outline: none;
+   ~ span:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:before{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+   ~ span:after{transition-delay: 0.2s;}
+   ~ span i:after{height: 100%; transition: 0.2s;}
+   ~ span i:before{height: 100%; transition: 0.2s;}
+   ~ span i:after{transition-delay: 0.4s;}
+  }
 `;
-const AddBookBox= styled.div`
-width: 100%;
-border-radius: 12px;
-height: 112px;
-border: 1px solid black;
-box-sizing: border-box;
-margin-bottom: 16px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-cursor:pointer;
-`;
+
 const MoreAddbtn = styled.div`
 width: 100%;
 height: 48px;
@@ -380,6 +403,29 @@ align-items: center;
 cursor:pointer;
 color: ${Color.hashTagFont};
 `;
+
+const MoreText = styled.div`
+font-weight:600;
+margin-bottom:3px;
+`
+
+const InputBox = styled.div`
+width:auto;
+height:auto;
+position:relative;
+`
+
+const InputSpan = styled.span`
+:before{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+`
+
+const InputI = styled.i`
+:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:before{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+` 
 
 
 export default MakeCollection;

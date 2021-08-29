@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import {AlertModal} from "../../modals";
 import {images} from "../../shared/Image"
+import { ArrowBack } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
   goback: {
@@ -85,8 +86,7 @@ const ChangeName = (props) =>{
                 <Background>
                   <HeadBar>
                     
-                    <ArrowBackIcon className={classes.goback} 
-                    onClick={()=>{goBack()}}></ArrowBackIcon>
+                    <ArrowBack/>
                     <HeadBtn onClick={()=>{changeNickname()}}>변경완료</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
@@ -145,11 +145,14 @@ box-sizing:border-box;
 `;
 
 const HeadBtn = styled.p`
-padding: 0px 5px;
+padding: 7px 15px;
 font-weight: bold;
 cursor:pointer;
+transition:0.3s ease-in-out;
+
 &:hover{
-  color: #1168d7;
+  border-radius:10px;
+  background:${Color.line};
 }
 `;
 

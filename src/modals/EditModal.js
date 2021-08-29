@@ -119,4 +119,4 @@ cursor:pointer;
 }
 `;
 
-export default EditModal;
+export default React.memo(EditModal);
