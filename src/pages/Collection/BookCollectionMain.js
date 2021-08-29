@@ -38,6 +38,8 @@ const BookCollectionMain = (props) =>{
     const custom_collection_list = useSelector(state=> state.collection.custom_collection_list);
 
     const is_login = useSelector(state=> state.user.is_login);
+    
+    const collectionLogo = "https://ifh.cc/g/Y1nowl.png"
 
     React.useEffect(()=>{
         dispatch(permitActions.showNav(true))
@@ -50,7 +52,7 @@ const BookCollectionMain = (props) =>{
         <Wrapper>
         <Container>
             <LogoBox>
-                {/* <Logo src={bookCollectionLogo}/> */}
+                <Logo src={collectionLogo}/>
             </LogoBox>
 
             <WhatCollection/>
@@ -78,6 +80,14 @@ display:flex;
 justify-content:flex-start;
 align-items:center;
 padding: 0px 20px;
+`
+
+const Logo = styled.img`
+height:auto;
+width:auto;
+max-width:204px;
+max-height:24px;
+
 `
 
 

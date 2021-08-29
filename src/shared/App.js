@@ -18,11 +18,12 @@ import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 //컴포넌트
 import {Layout} from "../elements";
-import {Navigation, Spinner} from "../components";
+import {Navigation} from "../components";
 import {TreasureModal, SignoutModal} from "../modals";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import LoginCheck from "../pages/LoginCheck";
 import {ReviewDetail, ReviewWrite, BookDetail, Search} from "../pages/Review";
 import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification, BookMark} from "../pages/My";
 import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/Setting";
@@ -115,7 +116,7 @@ function App(props) {
 
           <Route path="/login" exact component={Login} />
           <Route path="/api/users/kakao/callback" component={OAuth2RedirectHandler} />
-          <Route path="/logincheck" component={Spinner} />
+          <Route path="/logincheck" component={LoginCheck} />
           <Route path="/modal" exact component={SignoutModal} />
 
 

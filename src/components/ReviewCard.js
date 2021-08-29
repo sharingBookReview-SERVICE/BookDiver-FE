@@ -203,7 +203,7 @@ const ReviewCard = (props) => {
           </ImageBox> : ""}
 
           <HashTagBox>
-              {hashtags.map((tag, idx) => (
+              {hashtags?.map((tag, idx) => (
                 <HashTag key={idx}>{`#${tag} `}</HashTag>
               ))}
             </HashTagBox>
