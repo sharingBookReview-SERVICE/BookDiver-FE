@@ -105,6 +105,7 @@ border-radius: 12px;
 border: solid 1px #eeeeee;
 background-color: #fff;
 font-weight: bold;
+text-decoration:none;
 &:visited{
     text-decoration:none;
     color: black;
