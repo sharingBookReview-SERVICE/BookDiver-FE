@@ -77,10 +77,18 @@ const Setting = (props) => {
                 <Menu>서비스 이용약관</Menu>
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
             </Wrapper>   
-            <Wrapper  onClick={() => {history.push("/voiceOfCustomer")}}>
+            <Wrapper>
                 <CallIcon/>
-                <Menu>고객의 소리</Menu>
+                <ToGoogleForm
+                target="_blank" 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform">
+                    고객의 소리
+                </ToGoogleForm>
+                <TransparentAtag
+                target="_blank" 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform">
                 <ArrowForwardIosOutlinedIcon className={classes.icon}/>
+                </TransparentAtag>
             </Wrapper> 
             <Wrapper
              onClick={()=>{
@@ -149,6 +157,25 @@ font-weight: bold;
 margin: 0px 0px 0px 10px;
 cursor:pointer;
 `;
+
+const ToGoogleForm = styled.a`
+color:${Color.fontBlack};
+text-decoration:none;
+font-weight: bold;
+margin: 0px 0px 0px 10px;
+cursor:pointer;
+`
+
+const TransparentAtag = styled.a`
+padding:0px;
+margin:0px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+color:${Color.fontBlack};
+`
+
 const Bottom = styled.div`
 width: 100%;
 padding: 60px 20px;
