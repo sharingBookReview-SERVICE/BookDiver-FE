@@ -20,11 +20,7 @@ import { ArrowBack } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {
-      position: "absolute",
-      left:"20px",
-      top: "30px",
-      color: Color.black,
-      cursor:"pointer",
+      margin: "0px 30px"
     },
   }));
 const OtherFollow = (props) =>{
@@ -54,7 +50,13 @@ const OtherFollow = (props) =>{
             <Container>
             <Header>
 
-                <ArrowBack/>
+                <ArrowBackIcon 
+                onClick={() => {
+                    goBack()
+                }} 
+                className={classes.arrow}
+              />
+
                 <Route path="/following">
                     <HeaderText>{nickname}이 팔로잉 하는 다이버들</HeaderText>
                 </Route> 
@@ -124,12 +126,12 @@ const Header = styled.div`
 width: 100%;
 height: 56px;
 display:flex;
-justify-content:space-between;
 align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-font-family: "Noto Serif KR", serif;
+left:0px;
+font-family: 'Noto Sans KR', sans-serif;
 
 @media ${(props) => props.theme.tablet} {
     width: 420px;
@@ -144,5 +146,6 @@ font-family: "Noto Serif KR", serif;
 const HeaderText = styled.div`
 font-size:16px;
 color:${Color.black};
-margin-right:27px;
+width:100%;
+text-align:center;
 `

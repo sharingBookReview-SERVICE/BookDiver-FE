@@ -98,7 +98,7 @@ width:90%;
 height:auto;
 display:flex;
 justify-content:space-between;
-margin: 0px 0px 10px 30px;
+margin: 10px 0px;
 box-sizing:border-box;
 `
 

@@ -122,7 +122,7 @@ align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-font-family: "Noto Serif KR", serif;
+font-family: 'Noto Sans KR', sans-serif;
 
 @media ${(props) => props.theme.tablet} {
     width: 420px;
