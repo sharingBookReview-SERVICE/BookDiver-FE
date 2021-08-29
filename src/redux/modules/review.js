@@ -199,6 +199,7 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
+                console.log(res.data)
                 if(res.data.error){
                     // history.push("*")
                     return;
