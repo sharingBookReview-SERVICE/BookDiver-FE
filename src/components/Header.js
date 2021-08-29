@@ -38,6 +38,7 @@ const Header = (props) => {
   //알림
   const is_alarm = useSelector((state) => state.user.user.check_alert)
   const [is_socket, setIsSocket] = useState(false)
+  const is_login = useSelector((state) => state.user.is_login)
   console.log(is_alarm)
 
 
@@ -93,7 +94,7 @@ const Header = (props) => {
             className={classes.icon} />
           </IconBox>
 
-          <IconBox>
+{is_login && <IconBox>
           <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !is_alarm}>
             <NotificationsNoneIcon
             onClick={()=>{
@@ -101,9 +102,8 @@ const Header = (props) => {
               setReaded();
             }}
             className={classes.icon}/>
-            
         </Badge>
-          </IconBox>
+          </IconBox>}
 
         </SearchBarBox>
       </HeaderBox>

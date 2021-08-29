@@ -77,7 +77,6 @@ function App(props) {
   useEffect(() => {
     if (userId) {
       getUserInfo()
-      console.log("-------유저아이디", userId)
     }
   }, [userId]);
 

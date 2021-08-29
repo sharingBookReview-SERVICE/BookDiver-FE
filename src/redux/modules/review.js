@@ -66,7 +66,7 @@ const getAllReviewSV = () => {
             .then((res) => {
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
-                    console.log(res.data)
+
                     history.push("*")
                     localStorage.clear();
                     dispatch(userActions.logOut())
@@ -74,7 +74,6 @@ const getAllReviewSV = () => {
                 }
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
-                console.log(res)
             })
             .catch(error => console.error(error.toJSON()));
     };
@@ -116,7 +115,6 @@ const addReviewSV = (formData, bookId) => {
                     // history.push("*")
                     return;
                 }
-                console.log(res.data.review)
                 dispatch(addReview(res.data.review));
                 dispatch(permitActions.isLoading(false));
                 history.push("/");
@@ -139,9 +137,7 @@ const deleteReviewSV = () => {
             .delete(`/books/${bookId}/reviews/${reviewId}`)
             .then((res) => {
                 dispatch(deleteReview(reviewId));
-                console.log("history push")
                 history.push(`/`)
-                 console.log("history push2")
             })
             .catch((err) => {
                 // history.push("*")
@@ -160,7 +156,6 @@ const editReviewSV = (bookId, reviewId, review) => {
                 hashtags: review.hashtags,
             })
             .then((res) => {
-                console.log(res.data.review)
                 dispatch(editReview(reviewId, res.data.review))
                 history.goBack();
             })
@@ -248,7 +243,6 @@ const searchReviewSV = (keyword) =>{
   
         )
         .then((res)=>{
-            console.log(res)
         })
         .catch((err)=>{
             console.log("검색 실패", err)
@@ -261,7 +255,6 @@ const getAllTagsSV = () =>{
         instance
         .get(`/search/allTags`)
         .then((res)=>{
-            console.log(res.data.allTags)
             dispatch(getAllTags(res.data.allTags))
         })
         .catch((err)=>{

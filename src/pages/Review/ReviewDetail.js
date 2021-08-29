@@ -584,7 +584,7 @@ const CommentInputBox = styled.div`
     width: 420px;
   }
 `;
-
+//확인
 const InputBox = styled.div`
 position: relative;
 width: 90%;

@@ -79,15 +79,17 @@ const Setting = (props) => {
             </Wrapper>   
             <Wrapper>
                 <CallIcon/>
-                <ToGoogleForm
-                target="_blank" 
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform">
+                <ToGoogleForm 
+                    target="_blank" 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform"
+                >
                     고객의 소리
                 </ToGoogleForm>
-                <TransparentAtag
-                target="_blank" 
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform">
-                <ArrowForwardIosOutlinedIcon className={classes.icon}/>
+                <TransparentAtag>
+                <ArrowForwardIosOutlinedIcon
+                    target="_blank" 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform" 
+                className={classes.icon}/>
                 </TransparentAtag>
             </Wrapper> 
             <Wrapper
@@ -112,6 +114,7 @@ const Setting = (props) => {
         </React.Fragment>
     )
 }
+
 
 const Container = styled.div`
 background: ${Color.mainColor};

@@ -58,7 +58,6 @@ const Home = (props) => {
     dispatch(userActions.checkTreasureSV())
     dispatch(permitAction.showNav(true));
     if(reviewList.length <10){
-      console.log("리뷰 리스트 불러오기")
       dispatch(reviewActions.getAllReviewSV());
     }
     setTimeout(() => {
@@ -103,7 +102,6 @@ const Home = (props) => {
   const container = useRef(null);
 
   useEffect(()=>{
-    console.log("useeffect4")
       container?.current?.scrollTo(0, lastScroll);
   },[])
   //뷰
