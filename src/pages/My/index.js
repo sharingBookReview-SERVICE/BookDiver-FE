@@ -4,7 +4,7 @@ import MyFeed from "./MyFeed";
 import MyProfile from "./MyProfile";
 import MyReview from "./MyReview";
 import MyReviewFind from "./MyReviewFind";
-import Notification from "./Notification";
+import Notification from "./Noti/Notification";
 import OtherFollow from "./OtherFollow";
 import BookMark from "./BookMark";
 
