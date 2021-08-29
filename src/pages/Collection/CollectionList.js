@@ -12,7 +12,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {EditModal} from "../../modals";
-import MakeButton from "./component/MakeButton";
+import MakeButton from "./Component/MakeButton";
 
 const useStyles = makeStyles((theme) => ({
   
