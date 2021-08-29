@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
     serifFont: {
       fontFamily: "Noto Serif KR"
     },
+    goback:{
+      cursor:"pointer",
+    }
   }));
 
 
@@ -103,18 +106,23 @@ if(type==="tag"){
     <React.Fragment>
       
         <Wrapper>
+          <Container>
             <Header>
-                <ArrowBackIcon  onClick={()=>{history.goBack()}}/> 
+                <ArrowBackIcon
+                className={classes.goback}  
+                onClick={()=>{history.goBack()}}/> 
                 <MakeButton/>
             </Header>
-            <HeaderText h1 className={classes.serifFont}>태그 추천 컬렉션</HeaderText>
-            <HeaderText>작성된 리뷰 태그에 관련된 컬렉션을 모아봤어요.</HeaderText>
+            <TitleBox>
+              <HeaderText h1 className={classes.serifFont}>태그 추천 컬렉션</HeaderText>
+              <HeaderText>작성된 리뷰 태그에 관련된 컬렉션을 모아봤어요.</HeaderText>
+            </TitleBox>
             {
               tag_collection_list?.map((collection)=>{
                 return(<OneCollection key={collection.id} {...collection}/>)
               })
             }
-
+          </Container>
         </Wrapper>
 
 
@@ -129,17 +137,23 @@ if(type==="custom"){
             is_modal && <EditModal is_collection />
           }
         <Wrapper>
+          <Container>
              <Header>
-                <ArrowBackIcon  onClick={()=>{history.goBack()}}/> 
+                <ArrowBackIcon
+                className={classes.goback}    
+                onClick={()=>{history.goBack()}}/> 
                 <MakeButton/>
             </Header>
-            <HeaderText h1 className={classes.serifFont} >최신 컬렉션</HeaderText>
-            <HeaderText>다이버들이 만든 따끈따끈한 북컬렉션</HeaderText>
+            <TitleBox>
+              <HeaderText h1 className={classes.serifFont} >최신 컬렉션</HeaderText>
+              <HeaderText>다이버들이 만든 따끈따끈한 북컬렉션</HeaderText>
+            </TitleBox>
             {
               custom_collection_list?.map((collection)=>{
                 return(<OneCollection key={collection.id} {...collection}/>)
               })
             }
+          </Container>
         </Wrapper>
 
 
@@ -176,6 +190,7 @@ const DescWrapper = styled.div`
 width:90%:
 height:auto;
 display:flex;
+padding:0px 20px;
 `
 
 const DescriptionBox = styled.div`
@@ -201,17 +216,12 @@ color:${Color.fontGray};
 height:auto;
 font-size:13px;
 `
-//collection list
 
 const Wrapper = styled.div`
 width:100vw;
+height:auto;
 display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:flex-start;
 background: ${Color.mainColor};
-padding:80px 20px 0px 20px;
-padding-bottom: 50px;
 box-sizing:border-box;
 
 @media ${(props) => props.theme.tablet} {
@@ -221,8 +231,27 @@ box-sizing:border-box;
 @media ${(props) => props.theme.desktop} {
   width: 100%;
 }
-
 `
+
+const Container = styled.div`
+width:100vw;
+height:auto;
+min-height:100vh;
+flex-direction:column;
+align-items:center;
+justify-content:flex-start;
+padding:65px 30px 0px 0px;
+box-sizing:border-box;
+
+@media ${(props) => props.theme.tablet} {
+    width: 100%;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    width: 100%;
+  }
+`
+
 
 const Header = styled.div`
 width: 90%;
@@ -230,6 +259,8 @@ height: 56px;
 display:flex;
 background-color: ${Color.mainColor};
 position:fixed;
+box-sizing:border-box;
+padding:0px 20px;
 top:0px;
 justify-content: space-between;
 align-items: center;
@@ -243,6 +274,12 @@ align-items: center;
 
 `
 
+const TitleBox = styled.div`
+width:auto;
+height:auto;
+padding:0px 20px;
+`
+
 const HeaderText = styled.div`
 color:${Color.black};
 font-size: ${(props) => props.h1? "18px": "14px"};
@@ -250,5 +287,6 @@ width: 100%;
 margin-bottom: ${(props) => props.h1? "": "16px"};
 color:  ${(props) => props.h1? "": "#9a9090"};
 `
+
 
 export default CollectionList;
