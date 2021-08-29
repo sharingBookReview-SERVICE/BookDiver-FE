@@ -36,8 +36,6 @@ const Header = (props) => {
   const classes = useStyles();
 
   //알림
-  const [badgeVisible, setVisible] = useState(false);
-  const userId = useSelector((state) => state.user.user._id)
   const is_alarm = useSelector((state) => state.user.user.check_alert)
   const [is_socket, setIsSocket] = useState(false)
   console.log(is_alarm)
