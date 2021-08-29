@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import {EditModal} from "../../modals";
 import MakeButton from "./Component/MakeButton";
+import {ArrowBack} from "../../components/index"
 
 const useStyles = makeStyles((theme) => ({
   
@@ -108,9 +109,7 @@ if(type==="tag"){
         <Wrapper>
           <Container>
             <Header>
-                <ArrowBackIcon
-                className={classes.goback}  
-                onClick={()=>{history.goBack()}}/> 
+                <ArrowBack/>
                 <MakeButton/>
             </Header>
             <TitleBox>
@@ -139,10 +138,7 @@ if(type==="custom"){
         <Wrapper>
           <Container>
              <Header>
-                <ArrowBackIcon
-                className={classes.goback}    
-                onClick={()=>{history.goBack()}}/> 
-                <MakeButton/>
+                <ArrowBack/>
             </Header>
             <TitleBox>
               <HeaderText h1 className={classes.serifFont} >최신 컬렉션</HeaderText>

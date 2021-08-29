@@ -84,6 +84,7 @@ export default CollectionSlider;
 const Recommend = styled.div`
 padding-top: 15px;
 `;
+
 const Title = styled.div`
 font-family: "Noto Serif KR", serif;
 font-weight : normal;
@@ -102,16 +103,21 @@ padding:10px 0px;
 border:1px solid ${Color.gray3};
 border-radius:10px;
 cursor:pointer;
+transition:0.5s ease-in-out;
 
 @media ${(props) => props.theme.mobile} {
     width: 91%;
 }
 
+:hover{
+    background:${Color.line};
+}
 `;
 
 const Desc = styled.div`
 font-size:14px;
 color:${Color.gray4};
+cursor:pointer;
 `
 
 const DescBox = styled.div`

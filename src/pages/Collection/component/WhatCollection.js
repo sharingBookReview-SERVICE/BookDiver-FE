@@ -70,5 +70,13 @@ justify-content:center;
 align-items:center;
 font-weight:bold;
 background:${Color.gray3};
+border:1px solid rgba(0,0,0,0);
 border-radius:10px;
+cursor:pointer;
+transition:0.5s ease-in-out;
+
+:hover{
+    background:transparent;
+    border:1px solid ${Color.gray3};
+}
 `

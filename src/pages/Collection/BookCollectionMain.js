@@ -66,18 +66,6 @@ const BookCollectionMain = (props) =>{
                 collection_name={"태그 추천 컬렉션"}
                 desc={"작성된 리뷰 태그에 관련된 컬렉션을 모아봤어요."}
             />
-
-
-           {/* {
-               is_login &&  <MakeBtn onClick={()=>{
-                   history.push('/makeCollection')
-                   ReactGA.event({
-                    category: "Button",
-                    action: "make collection",
-                    label: "collection",
-                  });
-                }}>북컬렉션 만들기</MakeBtn>
-           } */}
            
         </Container>
         </Wrapper>
@@ -92,12 +80,6 @@ align-items:center;
 padding: 0px 20px;
 `
 
-const Logo = styled.img`
-width:auto;
-height:auto;
-max-width:150px;
-max-height:24px;
-`
 
 const Wrapper = styled.div`
 width:100vw;
@@ -131,50 +113,6 @@ padding-bottom: 100px;
     min-height:100vh;
   }
 `
-
-const MakeBtn = styled.div`
-cursor:pointer;
-height: 46px;
-background: ${Color.black};
-border-radius: 12px;
-position: fixed;
-bottom: 70px;
-z-index: 1000;
-display:flex;
-justify-content:center;
-align-items:center;
-color: ${Color.mainColor};
-font-weight:500;
-text-align: center;
-line-height: 56px;
-font-size: 16px;
-box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-transition: 0.3s ease-in-out;
-
-:hover{
-    transform:translateY(-5px);
-}
-
-@media ${(props) => props.theme.mobile} {
-    width: 50%;
-    left:25%;
-}
-  
-
-@media ${(props) => props.theme.tablet} {
-    margin-left:135px;
-    width: 150px;
-    position: fixed;
-  }
-
-  @media ${(props) => props.theme.desktop} {
-    margin-left:135px;
-    width: 150px;
-    position: fixed;
-  }
-
-`;
-
 
 export default BookCollectionMain;
 

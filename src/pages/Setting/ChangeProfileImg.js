@@ -12,25 +12,13 @@ import {OwnImages} from "../../elements"
 import { actionCreators as userActions } from "../../redux/modules/user";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
+import { ArrowBack } from "../../components/index";
 
-
-const useStyles = makeStyles((theme) => ({
-    arrow: {
-      color: Color.black,
-      cursor:"pointer",
-    },
-  }));
 
 const ChangeProfileImg = (props) => {
     const dispatch = useDispatch();
-    const classes = useStyles();
     const userId = useSelector(state => state.user.user._id)
     const ownImages = useSelector(state => state.user.user.own_image)
-
- 
-    const goBack=() => {
-        history.goBack();
-    }
 
 
     useEffect(() => {
@@ -48,14 +36,7 @@ const ChangeProfileImg = (props) => {
         <Wrapper>
             <Container>
             <Header>
-
-                <ArrowBackIcon 
-                onClick={() => {
-                    goBack()
-                }} 
-                className={classes.arrow}/>
-
-
+                <ArrowBack/>
             </Header>
             {ownImages?.map((image, idx) => {
                 return(
@@ -64,8 +45,6 @@ const ChangeProfileImg = (props) => {
             })}
             </Container>
         </Wrapper>
-
-
     </React.Fragment>
   );
 };
@@ -120,7 +99,6 @@ width: 100%;
 height: 56px;
 display:flex;
 justify-content:flex-start;
-padding-left:20px;
 box-sizing:border-box;
 align-items:center;
 background-color: ${Color.mainColor};

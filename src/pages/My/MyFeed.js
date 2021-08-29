@@ -440,6 +440,7 @@ height:72px;
 border-radius:70%;
 box-sizing:border-box;
 position:relative;
+cursor:pointer;
 `
 
 const TitleImg = styled.img`
