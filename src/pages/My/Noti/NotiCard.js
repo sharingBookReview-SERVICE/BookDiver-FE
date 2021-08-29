@@ -57,7 +57,7 @@ const NotiCard = (props)=>{
                 <Text style={{fontSize:"11px"}}>{koreaTime}</Text>
             </TypeWrapper>
 
-            <Text>
+            <Text style={{margin:"4px 0px"}}>
                 <NickName>{userName}</NickName>
                 {userNameDesc[type]}
             </Text>
@@ -94,6 +94,11 @@ flex-direction:column;
 justify-content: space-between;
 color: ${Color.fontGray};
 cursor:pointer;
+
+@media ${(props) => props.theme.mobile} {
+    width:70%;
+  }
+
 `;
 
 const TypeWrapper = styled.div`
@@ -108,6 +113,7 @@ color:${Color.quote};
 const NickName = styled.span`
 font-weight:bold;
 color:${Color.black};
+margin:10px 0px;
 `
 
 const Image = styled.div`
