@@ -37,6 +37,9 @@ const Notification = (props) =>{
     useEffect(() => {
         dispatch(userActions.getNotiListSV())
         dispatch(permitActions.showNav(true))
+        return() => {
+            dispatch(userActions.getUserSV());
+        }
     },[])
 
     const classes = useStyles();

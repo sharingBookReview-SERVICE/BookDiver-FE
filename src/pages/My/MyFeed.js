@@ -89,10 +89,6 @@ const MyFeed = () => {
       history.push("/follower")
     }
 
-    const goToMyDepth = () => {
-      history.push("/mydepth")
-    }
-
     const goToSetting = () => {
       history.push("/setting")
     }
@@ -140,11 +136,8 @@ const MyFeed = () => {
         <Container>
           <NotSupport is_support_modal={is_support_modal}/>
               <UserBox>
-
                   <Header>
-                  
                   </Header>
-
                 <Wrapper>
                   <ProfileBox>
                           <ImgWrapper >
@@ -185,7 +178,7 @@ const MyFeed = () => {
                     <LevelBox>수심 {level}m에서 잠수 중</LevelBox> 
                   </ProfileBottomBox>
                      <FeedCategory>
-                      <FeedTitle></FeedTitle>
+                     <FeedTitle>{nickname}님의 게시물</FeedTitle>
                       {
                         bookMode?
                         <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
@@ -287,7 +280,7 @@ const MyFeed = () => {
 
                   </Wrapper>
                   <FeedCategory>
-                      <FeedTitle></FeedTitle>
+                      <FeedTitle>내 게시물</FeedTitle>
                       {
                         bookMode?
                         <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
@@ -351,10 +344,10 @@ padding:10px 0px 20px 0px;
 `
 
 const FeedTitle = styled.div`
-font-size:18px;
-font-weight: 500;
+font-size:16px;
+font-weight: 400;
 letter-spacing: -0.36px;
-font-family: "Noto Serif KR", serif;
+color:${Color.subTextFont};
 `
 
 const FeedCategoryButton = styled.div`

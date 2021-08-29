@@ -68,6 +68,7 @@ const Header = (props) => {
   useEffect(() => {
     socket.on("alert", (payload) => {
       setIsSocket(payload)
+      console.log(payload)
       //알람이 생기면, 유저 정보를 새로 불러오기 
       // dispatch(userAction.getUserSV())
     })
@@ -95,7 +96,7 @@ const Header = (props) => {
           </IconBox>
 
           <IconBox>
-          <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !badgeVisible}>
+          <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !is_alarm}>
             <NotificationsNoneIcon
             onClick={()=>{
               gotoNoti();
@@ -125,7 +126,6 @@ margin-left:5px;
   border-radius:40px;
   background:${Color.line};
 }
-
 `
 
 const Wrapper = styled.div`
