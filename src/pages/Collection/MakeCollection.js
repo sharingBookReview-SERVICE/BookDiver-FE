@@ -251,7 +251,7 @@ padding-bottom: 100px;
 `;
 const Head = styled.div`
 width: 100%;
-height: 10%;
+height: 56px;
 align-items: center;
 display: flex;
 position: fixed;

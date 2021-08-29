@@ -20,7 +20,6 @@ import MakeButton from "./Component/MakeButton";
 
 const useStyles = makeStyles((theme) => ({
     goback: {
-        padding: "0px 20px",
         cursor:"pointer",
     },
     bookCard: {
@@ -72,7 +71,8 @@ const CollectionDetail = (props) =>{
           <EditModal is_collection is_modal={is_modal} />
             <Container>
             <Head>
-                <ArrowBackIcon 
+                <ArrowBackIcon
+                className={classes.goback} 
                 onClick = {()=>{history.goBack()}}
                 />
                  <MakeButton/>
