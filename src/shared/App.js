@@ -17,13 +17,14 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 //컴포넌트
-import {Layout} from "../elements";
+import {BackgroundLayout} from "../elements";
 import {Navigation} from "../components";
 import {TreasureModal, SignoutModal} from "../modals";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import LoginCheck from "../pages/LoginCheck";
+import Tutorial from "../pages/Tutorial";
 import {ReviewDetail, ReviewWrite, BookDetail, Search} from "../pages/Review";
 import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification, BookMark} from "../pages/My";
 import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/Setting";
@@ -88,7 +89,7 @@ function App(props) {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Layout >
+      <BackgroundLayout >
       <Container is_modal_opened={is_modal ? "hidden" : "scroll"} is_padding={is_padding}>
         
         {/* <TransitionGroup  >
@@ -141,6 +142,7 @@ function App(props) {
           <Route path="/setting" exact component={Setting}/>
           <Route path="/voiceOfCustomer" exact component={VoiceOfCustomer}/>
 
+          <Route path="/tutorial" exact component={Tutorial}/>
           <Route path="*" component={ErrorPage}/>
 
           </Switch>
@@ -150,7 +152,7 @@ function App(props) {
          
         {is_nav ? <Navigation /> : ""}
       </Container>
-      </Layout>
+      </BackgroundLayout>
     </React.Fragment>
   );
 }

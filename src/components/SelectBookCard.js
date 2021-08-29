@@ -140,7 +140,7 @@ const SelectBookCard = (props) =>{
               <BookImg url={image}/>
               <BookDescBox>
                   {/* <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle> */}
-                  <BookTitle >{bookTitle.replace('<b>', "").replace('</b>',"")}</BookTitle>
+                  <BookTitle >{bookTitle?.replace('<b>', "").replace('</b>',"")}</BookTitle>
                   <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
               </BookDescBox>
             </BookInfoBox>
