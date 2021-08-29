@@ -102,9 +102,6 @@ const MyFeed = () => {
       history.push("/setting")
     }
 
-    const goToSetting = () => {
-      history.push("/setting")
-    }
 
     const goToOtherFollowing = (user_id) => {
       history.push(`/following/${user_id}`)
@@ -623,22 +620,6 @@ align-items:center;
 border-radius:10px;
 `
 
-const FollowBox = styled.div`
-color:${Color.black};
-font-size:14px;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-${(props) => props.is_follow ? 
-`
-background:${Color.line}`: 
-`
-border:1px solid ${Color.line};
-`};
-`
 
 
 

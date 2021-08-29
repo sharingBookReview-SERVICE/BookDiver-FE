@@ -33,6 +33,8 @@ const Home = (props) => {
   const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
   const userId = useSelector((state) => state.user.user._id); //내 아이디
   const is_loaded = useSelector((state) => state.permit.is_loaded)
+  const [isRecentCategory, setIsRecentCategory] = useState(false)
+
 
   
   const [Id, setId] = useState([])
@@ -159,7 +161,8 @@ useEffect(() => {
 
   return (
     <>
-{is_loading ? <Loading/> : <Container  onScroll={scroll} ref={container}>
+{is_loading ? 
+<Loading/> : <Container  onScroll={scroll} ref={container}>
         <Header />
         
         <FeedCategoryWrapper>
@@ -188,9 +191,8 @@ useEffect(() => {
         })}
 
       <div ref={ref}></div>
-    </Container>}
       {is_loaded && <div ref={ref} ></div>}
-    </Container>
+      </Container>}
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
     <LoginModal show_login_modal={show_login_modal}/>

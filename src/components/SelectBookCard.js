@@ -168,12 +168,6 @@ align-items: center;
 gap: 12px;
 box-sizing: border-box;
 cursor:pointer;
-
-`
-: 
-`
-`}
-
 `
 
 const BookImg = styled.div`

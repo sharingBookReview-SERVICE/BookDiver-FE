@@ -38,7 +38,8 @@ const ReviewCard = (props) => {
     image,
     user,
     is_follow,
-    bookmark
+    bookmark,
+    setRef
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`

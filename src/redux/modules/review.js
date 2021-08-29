@@ -77,7 +77,7 @@ const getAllReviewSV = () => {
                 dispatch(permitActions.isLoading(false))
                 dispatch(permitActions.isLoaded(true))
             })
-            .catch(error => console.error(error.toJSON()));
+            .catch((error) => {});
     };
 };
 
@@ -85,22 +85,22 @@ const getAllReviewSV = () => {
                 // history.push("*")
                 // localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
 
-const getMoreReviewSV = (lastId) => {
+// const getMoreReviewSV = (lastId) => {
 
-    return function (dispatch) {
-        instance
-            .get("/feeds")
-            .then((res) => {
-                console.log(res)
-                dispatch(getMoreReview(res.data));
-                dispatch(permitActions.isLoading(false))
-            })
-            .catch((err) => {
-                // history.push("*")
-                console.log("전체 피드 가져오기 실패", err);
-            });
-    };
-};
+//     return function (dispatch) {
+//         instance
+//             .get("/feeds")
+//             .then((res) => {
+//                 console.log(res)
+//                 dispatch(getMoreReview(res.data));
+//                 dispatch(permitActions.isLoading(false))
+//             })
+//             .catch((err) => {
+//                 // history.push("*")
+//                 console.log("전체 피드 가져오기 실패", err);
+//             });
+//     };
+// };
 
 const getMoreReviewSV = (lastId) => {
 
@@ -425,11 +425,9 @@ const actionCreators = {
     saveCurrentScroll,
     searchReviewSV,
     getAllTagsSV,
-    bookMarkSV
-    getAllTagsSV,
+    bookMarkSV,
     saveCurrentScroll,
     checkIsRead,
-    test,
 };
 
 export { actionCreators };
