@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import Color from "../shared/Color";
 import ClearIcon from '@material-ui/icons/Clear';
+import { history } from "../redux/configStore";
 
 
 import { actionCreators as collectionActions } from "../redux/modules/collection";
@@ -40,7 +41,7 @@ const defaultProps = {
     //collection detail에서 보는 페이지
     if(props.is_collection_detail){
         return(
-            <BookInfoWrapper>
+            <BookInfoWrapper onClick={()=>{history.push(`/bookdetail/${book?.isbn}`)}}>
                 <BookInfoBox>
                 <Wrapper>
                     <BookImg url={book?.image}/>
@@ -53,10 +54,13 @@ const defaultProps = {
                     props.is_edit_collection &&  <ClearIcon onClick={()=>{deleteCard(book.id)}}/>
                 }
                 </BookInfoBox>
-                <Recommend 
-                value={book_descriptionSV} disabled
-                >
-                </Recommend>
+                {
+                    book_descriptionSV&&    <Recommend 
+                    value={book_descriptionSV} disabled
+                    >
+                    </Recommend>
+                }
+             
             </BookInfoWrapper>
         )
     }
@@ -64,7 +68,7 @@ const defaultProps = {
    
     else{
         return(
-            <BookInfoWrapper       is_border={true}>
+            <BookInfoWrapper is_border={true}>
                 <BookInfoBox>
                     <Wrapper>
                     <BookImg url={props.image}/>
@@ -99,7 +103,6 @@ const defaultProps = {
 const BookInfoWrapper = styled.div`
 width: 100%;
 box-sizing: border-box;
-margin-bottom: 20px;
 border-top: ${(props) => props.is_border ? "1px solid #d7d3d3" : " "};
 border-bottom: ${(props) => props.is_border ? "1px solid #d7d3d3" : " "};
 `
@@ -110,7 +113,7 @@ display: flex;
 flex-direction: row;
 justify-content: flex-start;
 gap: 12px;
-padding: 16px;
+padding: 10px 20px;
 box-sizing: border-box;
 
 `
@@ -149,7 +152,6 @@ const BookTitle = styled.div`
   margin: 0 0 5px 2px;
   text-align: left;
   font-weight: bolder;
-  font-family: 'Noto Serif KR', serif;
 `
 
 const BookWriter = styled.div`

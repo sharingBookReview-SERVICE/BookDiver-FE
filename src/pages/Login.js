@@ -1,7 +1,7 @@
 //import 부분
 import React from "react";
 import styled from "styled-components";
-import { KAKAO_AUTH_URL} from "../shared/OAuth";
+import { KAKAO_AUTH_URL, GOOGLE_AUTH_URL} from "../shared/OAuth";
 import Color from "../shared/Color";
 
 
@@ -25,7 +25,9 @@ const Login = (props) =>{
                         <KaKaoBtn 
                         href={KAKAO_AUTH_URL}
                         >카카오톡으로 시작하기</KaKaoBtn>
-                        <GoogleBtn>구글로 시작하기</GoogleBtn>
+                        <GoogleBtn
+                         href={GOOGLE_AUTH_URL}
+                        >구글로 시작하기</GoogleBtn>
                     </LoginBox>
                 </Background>
            
@@ -93,7 +95,7 @@ text-decoration:none;
 }
 `;
 
-const GoogleBtn = styled.div`
+const GoogleBtn = styled.a`
 width: 75%;
 height: 48px;
 margin: 8px 0px;
@@ -103,6 +105,10 @@ border-radius: 12px;
 border: solid 1px #eeeeee;
 background-color: #fff;
 font-weight: bold;
+&:visited{
+    text-decoration:none;
+    color: black;
+}
 `;
 
 
