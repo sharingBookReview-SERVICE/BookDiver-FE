@@ -52,6 +52,7 @@ const BookImg = styled.div`
 
 
 const BookDescBox = styled.div`
+width: 90px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -75,6 +76,7 @@ const BookTitle = styled.div`
 `
 
 const BookWriter = styled.div`
+width: 90px;
   font-size: 14px;
   line-height: 1.43;
   letter-spacing: -0.28px;
