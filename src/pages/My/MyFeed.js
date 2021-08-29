@@ -22,7 +22,7 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 import {images} from "../../shared/Image"
 import {titles} from "../../shared/Titles";
 
-import {NotSupport, TreasureModal} from "../../modals";
+import {NotSupport, CheckTreasureModal} from "../../modals";
 import Loading from "../ETC/Loading"
 
 const useStyles = makeStyles((theme) => ({
@@ -333,7 +333,7 @@ const MyFeed = () => {
          
 
         </Container>}
-        <TreasureModal is_treasure={is_treasure}/>
+        <CheckTreasureModal is_treasure={is_treasure}/>
         </React.Fragment>
     )
 }
@@ -524,33 +524,42 @@ cursor:pointer;
 `;
 
 const BookFeedMain = styled.div`
-  background-color: #f5f2f0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr; 
-  grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 130px);
+  grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 140px);
   gap: 1px;
   padding-bottom: 100px;
   place-items: center;
+  padding:0px 20px;
 `;
 
 
 const BookImg = styled.div`
   width: 80px;
   height: 110px;
-  background-color: #c4c4c4;
   background-image: url(${(props) => props.url ? props.url : " "});
   background-size: cover;
   box-sizing: border-box;
   border-radius: 4px;
+  transition:0.5s ease-in-out;
+  cursor:pointer;
   &:hover{
     opacity:0.6;
   }
  
 `
 const BookTitle = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+padding:10px;
+box-sizing:border-box;
+color:${Color.black};
   width: 80px;
   height: 110px;
-opacity : 0;
+  transition:0.5s ease-in-out;
+  opacity : 0;
 &:hover{
   opacity:1;
 }

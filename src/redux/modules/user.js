@@ -4,6 +4,9 @@ import instance from "../../shared/Request";
 import jwt_decode from "jwt-decode";
 import { actionCreators as permitActions } from "./permit";
 
+//소켓
+import io from "socket.io-client"
+const socket = io.connect("https://ohbin.shop")
 
 //actions
 const GET_USER = "GET_USER";
@@ -15,6 +18,7 @@ const IS_ME = "user/IS_ME";
 const FOLLOW = "user/FOLLOW";
 const GET_FOLLOW_LIST = "user/GET_FOLLOW_LIST";
 const GET_BOOKMARK = "user/GET_BOOKMARK";
+const GET_NOTI_LIST = "user/GET_NOTI_LIST";
 
 
 const GET_FOLLOWER_LIST = "user/GET_FOLLOWER_LIST"
@@ -41,6 +45,7 @@ const getFollowingCounts = createAction(GET_FOLLOWING_COUNTS, (counts) => ({coun
 const getFollowerCounts = createAction(GET_FOLLOWER_COUNTS, (counts) => ({counts}))
 const isFollow = createAction(IS_FOLLOW, (is_follow) => ({is_follow}))
 const getBookmark = createAction(GET_BOOKMARK , (reviews)=> ({reviews}));
+const getNotiList = createAction(GET_NOTI_LIST, (noti_list) => ({noti_list}))
 
 
 //initial
@@ -57,7 +62,8 @@ const initialState = {
     get_treasure : false,
     my_feed:[],
     is_follow: false,
-    bookmark :[]
+    bookmark :[],
+    noti_list: []
 };
 
 
@@ -129,12 +135,7 @@ const setUserSV = (userId, nickname) => {
       
         // window.alert("다른 분이 사용중인 닉네임이에요!")
       })
-   
-    
-  
-   
   }
-
 }
 
 
@@ -159,6 +160,7 @@ const followSV = (id) => {
     instance.put(`follow/${id}`)
     .then((res)=>{
       dispatch(follow(id))
+      socket.emit("follow", id) // 팔로우 성공시 팔로우 한 유저의 아이디 보내기 
     })
     .catch((err)=>{
       // history.push("*")
@@ -240,27 +242,71 @@ const getTreasureSV = () => {
 
   return function(dispatch, getState, {history}){
     const userId = getState().user.user._id
-    const treasureNum = `treasure_${getState().user.user.level}`.slice(0, -1) // 유저에 줄 보물의 종류를 구하기 
-    const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min); // 랜덤한 숫자를 
+    const userLevel = getState().user.user.level // 유저에 줄 보물의 종류를 구하기 
 
     //랜덤한 이미지를 내보내는 함수
-    const getRandomImg = (treasureNum, randomNum) => {
-      const treasureOBJ = {
-        treasure_1 : ["image_2", "image_3", "image_4"],
-        treasure_2 : ["image_5", "image_6", "image_7"],
-        treasure_3 : ["image_8", "image_9", "image_10"],
-        treasure_4 : ["image_11", "image_12", "image_13"],
-        treasure_5 : ["image_14", "image_15", "image_16"]
+    const getImgByLevel = (userLevel) => {
+      let image = "";
+      switch(true) {
+        case userLevel<5:
+          image = "image_2"
+          break
+        case userLevel<10:
+          image = "image_3"
+          break
+        case userLevel<15:
+          image = "image_4"
+          break
+        case userLevel<20:
+          image = "image_5"
+          break
+        case userLevel<25:
+          image = "image_6"
+          break
+        case userLevel<30:
+          image = "image_7"
+          break
+        case userLevel<35:
+          image = "image_8"
+          break
+        case userLevel<40:
+          image = "image_9"
+          break
+        case userLevel<45:
+          image = "image_10"
+          break
+        case userLevel<50:
+          image = "image_11"
+          break
+        case userLevel<55:
+          image = "image_12"
+          break
+        case userLevel<60:
+          image = "image_13"
+          break
+        case userLevel<65:
+          image = "image_14"
+          break
+        case userLevel<70:
+          image = "image_15"
+          break
+        case userLevel<75:
+          image = "image_16"
+          break
+        default:
+          image = "image_1"
+          break
       }
-      return treasureOBJ[treasureNum][randomNum]
+      return image
     }
 
-    const randomImg = getRandomImg(treasureNum, getRandomNum(0,3))
 
-    instance.put(`users/profile/image`, {imageName: randomImg})
+    instance.put(`users/profile/image`, {imageName: getImgByLevel(userLevel)})
     .then((res)=>{
-      dispatch(permitActions.isTreasure(false))
-      dispatch(permitActions.showNewBadge(randomImg))
+      dispatch(permitActions.isTreasure(false)) // 잠수페이지에서 보물 이미지 없애주기
+      dispatch(permitActions.newTreasureModal(true)) // 얻게 된 보물이 뭔지 보여주기
+      dispatch(permitActions.showNewBadge(getImgByLevel(userLevel))) // 어떤 이미지를 얻게 되었는지 알려주기
+
       setTimeout(() => {
         getUserSV(userId)
       }, 1000);
@@ -347,6 +393,33 @@ const getBookmarkSV = () => {
     })
   }
 }
+
+const checkAlertSV = () => {
+  return function(dispatch, getState, {history}){
+    instance.put(`/users/checkAlert`)
+    .then((res)=>{
+    })
+    .catch((err)=>{
+      console.log(err)
+      history.push("*")
+    })
+  }
+}
+
+const getNotiListSV = () => {
+  console.log("함수 실행")
+  return function(dispatch, getState, {history}){
+    instance.get(`/users/alerts`)
+    .then((res)=>{
+      dispatch(getNotiList(res.data.alerts))
+    })
+    .catch((err)=>{
+      console.log(err)
+      history.push("*")
+    })
+  }
+}
+
 //reducer
 export default handleActions(
     {
@@ -416,9 +489,13 @@ export default handleActions(
         produce(state, (draft)=>{
           draft.is_follow = action.payload.is_follow;
         }),
-          [GET_BOOKMARK] : (state, action)=>
+        [GET_BOOKMARK] : (state, action)=>
         produce(state, (draft)=>{
           draft.bookmark = action.payload.reviews;
+        }),
+        [GET_NOTI_LIST] : (state, action)=>
+        produce(state, (draft)=>{
+          draft.noti_list = action.payload.noti_list;
         }),
     },
     initialState
@@ -445,7 +522,9 @@ const actionCreators = {
   getOtherFeedSV,
   getOtherFollowingListSV,
   getOtherFollowerListSV,
-  getBookmarkSV
+  getBookmarkSV,
+  checkAlertSV,
+  getNotiListSV,
 };
   
 export { actionCreators };

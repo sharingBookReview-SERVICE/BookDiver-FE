@@ -7,8 +7,9 @@ import NotSupport from "./NotSupport";
 import SelectBookModal from "./SelectBookModal";
 import SignoutModal from "./SignoutModal";
 import TreasureBoxModal from "./TreasureBoxModal";
-import TreasureModal from "./TreasureModal";
+import CheckTreasureModal from "./CheckTreasureModal";
 import WriteCheckModal from "./WriteCheckModal";
+import TreasureModal from "./Treasure/TreasureModal"
 
-export {AlertModal, CommentModal, EditModal, LoginModal, LogoutModal, NotSupport, SelectBookModal, SignoutModal, TreasureBoxModal, TreasureModal, WriteCheckModal};
+export {AlertModal, CommentModal, EditModal, LoginModal, LogoutModal, NotSupport, SelectBookModal, SignoutModal, TreasureBoxModal, CheckTreasureModal, WriteCheckModal, TreasureModal};
 

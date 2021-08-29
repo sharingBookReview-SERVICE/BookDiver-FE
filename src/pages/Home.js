@@ -7,13 +7,17 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { useInView } from "react-intersection-observer";
 import { history } from "../redux/configStore";
 
+//소켓
+import io from "socket.io-client"
+
 import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
-import {EditModal,LoginModal,NotSupport,TreasureModal} from "../modals";
+import {EditModal,LoginModal,NotSupport,CheckTreasureModal} from "../modals";
 
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
 
+const socket = io.connect("https://ohbin.shop")
 
 const Home = (props) => {
   //dispatch와 변수들
@@ -26,8 +30,7 @@ const Home = (props) => {
   const is_support_modal = useSelector((state) => state.permit.is_support_modal)
   const is_loading = useSelector((state) => state.permit.is_loading)
   const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
-
-  console.log(is_treasure)
+  const userId = useSelector((state) => state.user.user._id); //내 아이디
 
   const [isRecentCategory, setIsRecentCategory] = useState(false)
 
@@ -41,6 +44,13 @@ const Home = (props) => {
   if(!reviewList){
     history.push("*")
   }
+
+  // useEffect(() => {
+  //   //처음 들어오면, 접속한 유저의 토큰을 보내기
+  //   if(userId){
+  //     socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
+  //   }
+  // },[userId])
 
 
   //로딩이 되고나면, 네이게이션을 없애주기.
@@ -130,7 +140,7 @@ const Home = (props) => {
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
     <LoginModal show_login_modal={show_login_modal}/>
-    <TreasureModal is_treasure={is_treasure}/>
+    <CheckTreasureModal is_treasure={is_treasure}/>
     </>
   );
 };

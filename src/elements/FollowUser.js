@@ -90,6 +90,7 @@ const ProfileImg = styled.img`
 width: 100%;
 height: 100%;
 object-fit:cover;
+cursor:pointer;
 `;
 
 const Box = styled.div`
@@ -113,6 +114,7 @@ const Title = styled.p`
 margin:0;
 font-size:14px;
 font-weight:bold;
+cursor:pointer;
 `
 
 const CancelButton = styled.button`

@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {depth_image} from "../../../shared/Image";
 import {titleWord} from "../../../shared/Titles"
 
-import {TreasureBoxModal} from "../../../modals";
+import {TreasureBoxModal, TreasureModal} from "../../../modals";
 import {Background, treasure, person} from "../../../img";
 import Loading from "../../ETC/Loading"
 
@@ -40,6 +40,7 @@ const MyDepth = (props) => {
     const is_support_modal = useSelector(state => state.permit.is_support_modal)
     const my_level = useSelector(state => state.user.user?.level)
 
+
     //이 값은 treasure를 확인하는 값을 가져왔을 때, 입력시켜준다. 
     // dispatch(permitAction.isTreasure(false))
 
@@ -56,6 +57,7 @@ const MyDepth = (props) => {
     }
 
     useEffect(() => {
+        dispatch(userActions.getUserSV()) //수심페이지에서 유저정보 다시 불러오기 
         dispatch(userActions.checkTreasureSV())
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기
         setTimeout(() => {
@@ -65,12 +67,13 @@ const MyDepth = (props) => {
             dispatch(permitAction.showModal(false)); // 나가면서 모달 닫아 놓기 
             dispatch(permitAction.showNewBadge(null)) // 새로운 뱃지의 값을 null로 만들어놓기
         }
-    },[badgeCounts])
+    },[])
 
 
 
   return (
     <React.Fragment>
+        <TreasureModal new_badge={new_badge} />
         <TreasureBoxModal is_open_treasure={is_open_treasure}/>
         <NotSupport is_support_modal={is_support_modal}/>
 
@@ -100,8 +103,8 @@ const MyDepth = (props) => {
             {is_treasure && <Treasure onClick={() => {openTreasure()}} src={treasure}/>}
             </>   
             }
-        {new_badge && <NewBadge src={depth_image[new_badge]} className="scale-up-down-center"/>}
-        {new_badge && <GetNewBadge className="scale-up-down-center">{titleWord[new_badge]}를 획득하셨습니다.</GetNewBadge>}
+        {/* {new_badge && <NewBadge src={depth_image[new_badge]} className="scale-up-down-center"/>}
+        {new_badge && <GetNewBadge className="scale-up-down-center">{titleWord[new_badge]}를 획득하셨습니다.</GetNewBadge>} */}
     </React.Fragment>
   );
 };
@@ -181,7 +184,7 @@ bottom:5vh;
 cursor:pointer;
 
 @media ${(props) => props.theme.mobile} {
-    left:30vw;
+    left:20vw;
 }
 
 @media ${(props) => props.theme.tablet} {
@@ -271,8 +274,15 @@ position:fixed;
 bottom:25vh;
 z-index:10;
 
+// @media screen and (max-width: 360px) { 
+//     width:120px;
+//     height:120px;
+// }
+
+
+
 @media ${(props) => props.theme.mobile} {
-    left:30%;
+    left:20%;
 }
 
 @media ${(props) => props.theme.tablet} {

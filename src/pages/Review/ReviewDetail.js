@@ -1,6 +1,7 @@
 //import 부분
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import io from "socket.io-client"
 
 import { actionCreators as commentAction } from "../../redux/modules/comment";
 import {actionCreators as reviewAction } from "../../redux/modules/review";
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const socket = io.connect("https://ohbin.shop")
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
@@ -143,23 +145,21 @@ const ReviewDetail = (props) => {
       comment: commentContent,
       bookId: bookId,
       reviewId: reviewId,
-      userInfo: nickname,
+      userInfo: user?._id,
     };
+
     dispatch(commentAction.addCommentSV(comment_info));
 
-    const noti_info = {
-      reviewId,
-      userId,
-      target : user?.id,
-    }
-    setCommentContent("");
-    scrollToBottom()
+    setCommentContent(""); // 댓글 작성 후 빈칸 만들기
+    scrollToBottom() // 댓글 작성후 최신 댓글로 스크롤 이동
   };
+
 
   //좋아요 클릭
   const clickLikeButton = () => {
+    const reviewUserId = user?._id
     //리뷰 디테일에 들어왔다는 것은 로그인을 했다는 의미이니 로그인 체크 x
-    dispatch(reviewAction.LikeSV(bookId, reviewId));
+    dispatch(reviewAction.LikeSV(bookId, reviewId, reviewUserId));
   };
 
   //북마크 클릭
@@ -176,6 +176,17 @@ const ReviewDetail = (props) => {
       history.push(`/otherUser/${user_id}`)
     }
   }
+
+  useEffect(() => {
+    //처음 들어오면, 접속한 유저의 토큰을 보내기
+    socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
+  },[])
+
+  useEffect(() => {
+    socket.on("alert", (payload) => {
+      console.log(payload)
+    })
+  })
 
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {
@@ -197,6 +208,16 @@ const ReviewDetail = (props) => {
       dispatch(permitAction.showEditModal(false));
     }
   }, []);
+
+  useEffect(() => {
+    if(is_comment) {
+      //comment를 통해서 들어왔을 때는 comment 위치로 이동.
+      scrollTopComment()
+    }else{
+      //그냥 들어왔을 때는 상단으로 scroll을 이동. 
+      scrollToTop()
+    }
+  }, [is_loading]);
 
   
   return (

@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import { history } from "../../redux/configStore";
+import { useDispatch, useSelector } from "react-redux";
 
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const useStyles = makeStyles((theme) => ({
     goback: {
-        padding: "0px 20px"
+        padding: "0px 20px",
+        cursor:"pointer",
     },
     icon: {
         position: "absolute",
@@ -18,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NotiCard = (props)=>{
-
     return(
     <Outter>
         <Title>
@@ -33,10 +35,20 @@ const NotiCard = (props)=>{
         </Content>
     </Outter>
     )
-    
 }
 
 const Notification = (props) =>{
+    const dispatch = useDispatch()
+    const notiList = useSelector(state => state.user.user.noti_list)
+
+    useEffect(() => {
+        dispatch(userActions.getNotiListSV())
+
+        return() => {
+            dispatch(userActions.getUserSV())
+        }
+    },[])
+
     const classes = useStyles();
     return(
         <Wrapper>
