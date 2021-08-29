@@ -5,6 +5,9 @@ import { history } from "../redux/configStore";
 import Color from "../shared/Color"
 const BookCard = (props) =>{
 
+  const bookTitle = props?.title.split("(")[0].replace('<b>', "").replace('</b>',"")
+  const bookAuthor =props?.author.replace('<b>', "").replace('</b>',"")
+
   const gotoBookDetail = ()=>{
     history.push(`/bookdetail/${props?.isbn}`)
   }
@@ -19,8 +22,8 @@ const BookCard = (props) =>{
             >
                 <BookImg url={props?.image}/>
                 <BookDescBox>
-                    <BookTitle  dangerouslySetInnerHTML={{__html: props?.title.split("(")[0]}}></BookTitle>
-                    <BookWriter dangerouslySetInnerHTML={{__html: props?.author}}></BookWriter>
+                    <BookTitle>{bookTitle}</BookTitle>
+                    <BookWriter>{bookAuthor}</BookWriter>
                 </BookDescBox>
 
             </Outter>

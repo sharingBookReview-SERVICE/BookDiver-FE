@@ -87,7 +87,7 @@ const Search = (props)=>{
                     key= {p?.isbn} 
                     dangerouslySetInnerHTML={{__html: p?.title.split("(")[0]}}
                     onClick={()=>{
-                      text.current.value =p?.title.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] 
+                      text.current.value =p?.title.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/, "").split("(")[0] 
                       searchBook()
                       setAutoComplete(false)
                     }}
