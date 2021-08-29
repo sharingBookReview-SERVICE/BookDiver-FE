@@ -587,16 +587,19 @@ const CommentInputBox = styled.div`
 //확인
 const InputBox = styled.div`
 position: relative;
-width: 100%;
-height: 100%;
+width: 90%;
+height: 45px;
+border-radius:12px;
 box-sizing:border-box;
-border: 1px solid ${Color.line};
+display:flex;
+justify-content:center;
+align-items:center;
 `
 
 const CommentInput = styled.input`
 
 @media ${(props) => props.theme.mobile} {
-  width: 84%;
+  width: 90vw;
 }
 
 @media ${(props) => props.theme.tablet} {
@@ -611,6 +614,7 @@ const CommentInput = styled.input`
   font-size: 14px;
   background-color: ${Color.mainColor};
   border:none;
+  border: 1px solid ${Color.line};
   ::placeholder {
     color: ${(props) => props.color};
     font-family: 'Roboto', sans-serif;

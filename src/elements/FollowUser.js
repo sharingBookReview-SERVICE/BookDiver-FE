@@ -79,8 +79,8 @@ const FollowUser = (props) => {
 export default FollowUser;
 
 const ImgWrapper = styled.div`
-width:72px;
-height:72px;
+width:48px;
+height:48px;
 border-radius:70%;
 overflow:hidden;
 box-sizing:border-box;
@@ -94,16 +94,16 @@ cursor:pointer;
 `;
 
 const Box = styled.div`
-width:90%;
+width:100%;
 height:auto;
 display:flex;
 justify-content:space-between;
-margin: 10px 0px;
+margin: 24px 0px;
 box-sizing:border-box;
 `
 
 const Container = styled.div`
-width:70%;
+width:80%;
 height:auto;
 display:flex;
 justify-content:space-between;
