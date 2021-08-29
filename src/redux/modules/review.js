@@ -39,6 +39,7 @@ const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({re
 const saveCurrentScroll = createAction(CURRENT_SCROLL, (location)=>({location}));
 const searchReview = createAction(SEARCH, (review)=>({review}));
 const getAllTags = createAction(GET_ALLTAGS, (tags)=>({tags}));
+
 //initial
 const initialState = {
     all_review_list: [],
@@ -59,10 +60,36 @@ const initialState = {
 //middle
 //전체 피드 불러오기
 const getAllReviewSV = () => {
-
     return function (dispatch) {
         instance
             .get("/feeds")
+            .then((res) => {
+                //돌아온 res가 error인 경우 실행할 내용 
+                if(res.data.error){
+                    history.push("*")
+                    localStorage.clear();
+                    dispatch(userActions.logOut())
+                    return;
+                }
+
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
+                //res가 정상인 경우 
+                dispatch(getAllReview(res.data));
+                dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
+            })
+            .catch((err) => {
+            });
+    };
+};
+
+const getRecentReviewSV = () => {
+    return function (dispatch) {
+        instance
+            .get("/feeds/recent")
             .then((res) => {
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
@@ -72,18 +99,21 @@ const getAllReviewSV = () => {
                     dispatch(userActions.logOut())
                     return;
                 }
+
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
                 //res가 정상인 경우 
                 dispatch(getAllReview(res.data));
                 dispatch(permitActions.isLoading(false))
                 dispatch(permitActions.isLoaded(true))
-            })
-            .catch((error) => {});
-    };
-};
 
-                // console.log(err)
-                // history.push("*")
-                // localStorage.clear(); //전체 피드 불러오기가 실패한 경우는 잘못된 토큰이 들어간 것으로 판단 -> token 삭제
+            })
+            .catch((err) => {
+            });
+    };
+}
 
 // const getMoreReviewSV = (lastId) => {
 
@@ -103,13 +133,39 @@ const getAllReviewSV = () => {
 // };
 
 const getMoreReviewSV = (lastId) => {
-
     return function (dispatch) {
         instance
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
                 dispatch(getMoreReview(res.data));
                 dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
+                dispatch(permitActions.reviewLoading(false))
+            })
+            .catch((err) => {
+                // history.push("*")
+                console.log("전체 피드 가져오기 실패", err);
+            });
+    };
+};
+
+const getMoreRecentReviewSV = (lastId) => {
+    return function (dispatch) {
+        instance
+            .get(`/feeds/recent?lastItemId=${lastId}`)
+            .then((res) => {
+                if(res.status === "204"){
+                    console.log(res)
+                    return
+                }
+                dispatch(getMoreReview(res.data));
+                dispatch(permitActions.isLoading(false))
+                dispatch(permitActions.isLoaded(true))
+                dispatch(permitActions.reviewLoading(false))
             })
             .catch((err) => {
                 // history.push("*")
@@ -124,7 +180,6 @@ const checkIsRead = (reviewId) => {
         instance
             .patch(`/feeds/${reviewId}`)
             .then((res) => {
-                console.log(res)
             })
             .catch((err) => {
                 // history.push("*")
@@ -428,6 +483,8 @@ const actionCreators = {
     bookMarkSV,
     saveCurrentScroll,
     checkIsRead,
+    getRecentReviewSV,
+    getMoreRecentReviewSV,
 };
 
 export { actionCreators };
