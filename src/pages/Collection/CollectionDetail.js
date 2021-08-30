@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { history } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
@@ -11,7 +11,7 @@ import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from "@material-ui/core/styles";
-
+import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 //컴포넌트
 import {CollectionBookCard} from "../../elements";
 import {EditModal} from "../../modals";
@@ -48,6 +48,8 @@ const CollectionDetail = (props) =>{
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
     console.log("----------콜렉션 디테일")
+      //책장모드
+      const [bookMode, setBookMode] = useState(false);
 
     React.useEffect(()=>{
       dispatch(permitActions.showNav(true));
@@ -98,12 +100,52 @@ const CollectionDetail = (props) =>{
                     </Image>
                   <Wrapper>
                     <Description>{description}</Description>
+                    <Mode>추천도서
+                    {
+                        bookMode?
+                        <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
+                          <RemoveRedEyeIcon className={classes.eye}/>
+                          리뷰모드
+                      </FeedCategoryButton>
+                      :
+                          <FeedCategoryButton onClick ={()=>{setBookMode(true)}}>
+                          <RemoveRedEyeIcon className={classes.eye}/>
+                          책장모드
+                      </FeedCategoryButton>
+                      }
+                        </Mode>
                     <Wrapper>
-                   {
-                     contents?.map((content)=>{
-                       return(<CollectionBookCard is_collection_detail {...content} key={content.id}/>)
-                     })
-                   }
+                  
+                    {
+                        bookMode ?
+                        <BookFeedMain count={3}>
+                        {
+                          contents?.map((content)=>{
+                            return(
+                            <BookInfo>
+                            <BookImg url={content.book?.image} key={content._id} 
+                            onClick={()=>{history.push(`/bookdetail/${content.book?.isbn}`)}}
+                              />
+                              <BookTitle>{content.book?.title.split("(")[0]}</BookTitle>
+                              <BookAuthor>{content.book?.author.split("(")[0]} 저</BookAuthor>
+                              </BookInfo>
+                           
+                              
+                             )
+                          })
+                        }
+                      </BookFeedMain>
+                        :
+                        <div>
+                        {
+                          contents?.map((content)=>{
+                            return(<CollectionBookCard is_collection_detail {...content} key={content.id}/>)
+                          })
+                        }
+                          </div>
+                     }
+
+
                     </Wrapper>
                     {/* <ReactionBar>
                         <Div><FavoriteBorderIcon className={classes.like} />좋아요 {liked_users?.length} 개</Div>
@@ -172,6 +214,18 @@ position: absolute;
     width: 100%;
 }
 
+`
+const FeedCategoryButton = styled.div`
+cursor:pointer;
+width:85px;
+height:34px;
+border:1px solid ${Color.line};
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+color:${Color.subTextFont};
+font-size:14px;
 `
 
 const Container = styled.div`
@@ -246,6 +300,55 @@ margin: 0 auto;
 const Description = styled.div`
 margin: 0 auto;
 padding: 20px;
+`;
+
+const Mode = styled.div`
+display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    color:${Color.subTextFont};
+`;
+
+const BookFeedMain = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 210px);
+  gap: 1px;
+  padding-bottom: 100px;
+  padding:0px 20px;
+  margin-top: 20px;
+
+`;
+const BookInfo = styled.div`
+margin: 0 auto;
+`;
+const BookImg = styled.div`
+  width: 102px;
+  height: 136px;
+  background-image: url(${(props) => props.url ? props.url : " "});
+  background-size: cover;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition:0.5s ease-in-out;
+  cursor:pointer;
+  &:hover{
+    opacity:0.6;
+  }
+ 
+`
+const BookTitle = styled.div`
+font-size:14px;
+box-sizing:border-box;
+color:${Color.black};
+width: 102px;
+
+`;
+
+const BookAuthor = styled.div`
+font-size:12px;
+box-sizing:border-box;
+color:${Color.subTextFont};
+width: 102px;
 `;
 const ReactionBar = styled.div`
 border: 1px solid #242121;

@@ -108,13 +108,7 @@ const Comment = (props) =>{
     )
 }
 
-Comment.defaultProps ={
-    user : {
-        nickname: "현주공주"
-    },
-    created_at: "2021-09-10",
-    content:"매일 시간을 들여 아껴 읽고 있습니다. 혼자만 읽고 싶을 정도로 엄청난 이야기가 담긴 책입니다. 사 책 속의 말처럼, 가난은 생각보다 잔인하니까요."
-}
+
 
 const CommentBox = styled.div`
   width: 100%;

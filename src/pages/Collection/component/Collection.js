@@ -18,7 +18,7 @@ const Collection = (props) =>{
         <ImgCover>
             <Image url = {props.image}>
                 <Overlay>
-                <CollectionTitle>{props.is_tag? `#${props.name}`: `${props.name}`}</CollectionTitle>
+                <CollectionTitle>{props.is_tag? `# ${props.name}`: `${props.name}`}</CollectionTitle>
                 </Overlay>
             </Image>
         </ImgCover>

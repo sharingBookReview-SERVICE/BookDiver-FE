@@ -20,7 +20,9 @@ const Search = (props)=>{
   const [auto, setAutoComplete] = useState(false);
   const search_book_title = useSelector(state=> state.search.search_book_title);
   const text = useRef();
+  const book_count = parseInt(search_book_title?.length/3 +1);
   
+  //화면에서 돔이 사라지면 검색된 책이 사라짐
   useEffect(()=>{
     // dispatch(reviewActions.getAllTagsSV());
     return(
@@ -28,11 +30,13 @@ const Search = (props)=>{
     )
   },[])
 
+  //책 검색 
   const searchBook = ()=>{
     dispatch(searchActions.getSearchBooksSV(text.current.value))
   }
 
-  
+  //사용자가 검색어를 0.2초동안 입력하지 않았을때 검색이 실행됨
+  //검색어를 기준으로 서버에서 받아온 값들을 자동완성으로 보여줌
   let timer;
   const search = ()=>{
     if (timer) {
@@ -49,16 +53,7 @@ const Search = (props)=>{
             <SearchBarBox >
            
             {/* <Hint options={alltags} allowTabFill> */}
-                <input 
-                style={{
-                  width: "290px",
-                  height: "48px",
-                  color: `${Color.gray}`,
-                  border: "none",
-                  borderRadius: "12px",
-                  backgroundColor: `${Color.mainColor}`,
-                  padding: "0px 0px 0px 10px"
-                }}
+                <SearchInput 
                 placeholder="책이름, 저자명 등으로 검색해보세요" 
                 onKeyPress ={(e)=>{
                   if(e.key === "Enter"){
@@ -104,7 +99,7 @@ const Search = (props)=>{
            }
 
         {/* 책 나오는 부분 */}
-        <Grid>
+        <Grid count={book_count}>
            {
              !auto && search_book_title?.map((p,idx)=>{
                return(<BookCard key={idx} {...p}></BookCard>)
@@ -141,6 +136,19 @@ const SearchBarBox = styled.div`
   margin-top: 20px;
 `;
 
+const SearchInput = styled.input`
+width: 290px;
+height: 48px;
+color: ${Color.gray};
+border: none;
+border-radius: 12px;
+background-color: ${Color.mainColor};
+padding: 0px 0px 0px 10px;
+&:focus{
+  outline:none;
+}
+`;
+
 const SearchBar = styled.input`
   width: 100%;
   height: 48px;
@@ -162,7 +170,13 @@ margin: -5px 20px;
     border: 2px solid #d7d3d3;
     border-top: none;
     height: 50vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 
@@ -184,6 +198,7 @@ height: 100%;
 display: grid;
 flex-direction: row;
 grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 1fr);
 margin-top:24px;
 `;
 
