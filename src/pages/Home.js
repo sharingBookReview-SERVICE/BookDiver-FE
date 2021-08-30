@@ -55,6 +55,7 @@ const Home = (props) => {
     dispatch(reviewActions.getAllReviewSV());
   }
 
+  //게시물 하나당 ref를 붙이기 위한 작업
   useEffect(() => {
     setElRefs(elRefs => (
       Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
@@ -75,7 +76,7 @@ const onIntersect = async([entry], observer) => {
 
 useEffect(() => {
   let observer
-    if(elRefs[0]){
+    if(elRefs[0] && !is_loading){
     observer = new IntersectionObserver(onIntersect, {threshold: 0.5});
     reviewList.forEach((_, idx) => {
       observer.observe(elRefs[idx].current)
@@ -95,12 +96,20 @@ useEffect(() => {
     }
   }
 
+  let isPageOut = false
+  isPageOut = localStorage.getItem("isPageOut")
+
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
-    dispatch(userActions.checkTreasureSV())
+    dispatch(userActions.checkTreasureSV()) //보물을 얻었는지 확인하기
     dispatch(permitAction.showNav(true));
-    if(reviewList.length <10){
-      dispatch(reviewActions.getAllReviewSV());
+
+    //로컬스토리지의 피드 타입을 확인해서, 화면이 시작될떄마다 요청하는 피드의 종류를 다르게 하기 
+    const _isRecentCategory = localStorage.getItem("isRecentCategory")
+    if(reviewList.length <10 && !_isRecentCategory){
+      getSocialReview()
+    }else if(reviewList.length <10 && _isRecentCategory){
+      getRecentReview()
     }
     setTimeout(() => {
       dispatch(permitAction.isLoading(false))
@@ -110,6 +119,18 @@ useEffect(() => {
     }
   }, []);
 
+
+  //로컬스토리지에서 피드타입을 가져오기 
+  useEffect(() => {
+    if(isPageOut){
+      const _feedType = localStorage.getItem("isRecentCategory")
+      setIsRecentCategory(_feedType)
+    }
+    return () => {
+      localStorage.setItem("isRecentCategory", isRecentCategory)
+      localStorage.setItem("isPageOut", true)
+    }
+  }, []);
 
   //인피니티 스크롤 구현을 위한, 리뷰 아이디 갯수 세기
   useEffect(() => {
@@ -133,6 +154,9 @@ useEffect(() => {
     if(inView){
       const lastReviewId = Id[Id.length - 1]?._id
       getMoreReview(lastReviewId)
+    }
+    return () => {
+      dispatch(permitAction.isLoaded(false))
     }
   }, [inView]);
 
