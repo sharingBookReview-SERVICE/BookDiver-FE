@@ -18,6 +18,7 @@ import spinner from "../img/Spin-1s-200px.gif"
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
 import Spinner from "../components/Spinner"
+import NomoreLottie from "../img/lottie/NomoreLottie";
 
 const socket = io.connect("https://ohbin.shop")
 
@@ -64,6 +65,8 @@ const Home = (props) => {
       Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
     ))
   },[ReviewCount])
+
+
 
 const onIntersect = async([entry], observer) => {
     if (!entry.isIntersecting) {
@@ -204,7 +207,12 @@ useEffect(() => {
         </FeedCategoryWrapper>
 
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
-
+      
+       {
+         reviewList.length === 0 &&
+         <NomoreLottie/>
+       }
+         
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard
@@ -360,5 +368,10 @@ z-index: 100;
 bottom: 100px;
 right: 10px;
 
+`;
+
+const Lottie = styled.div`
+width: 100px;
+height: 100px;
 `;
 export default Home;

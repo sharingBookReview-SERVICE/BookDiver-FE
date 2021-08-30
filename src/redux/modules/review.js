@@ -74,6 +74,7 @@ const getAllReviewSV = () => {
 
                 if(res.status === "204"){
                     console.log(res)
+                    console.log("소셜 피드 끝")
                     return
                 }
                 //res가 정상인 경우 
