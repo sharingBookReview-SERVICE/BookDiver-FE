@@ -57,7 +57,7 @@ const initialState = {
 //전체 피드 불러오기
 const getAllReviewSV = () => {
     return function (dispatch) {
-        dispatch(permitActions.finishReview(true));
+        // dispatch(permitActions.finishReview(true));
         instance
             .get("/feeds")
             .then((res) => {
@@ -71,7 +71,9 @@ const getAllReviewSV = () => {
                 }
 
                 if(res.status === 204){
+                    dispatch(getAllReview([]));
                     dispatch(permitActions.finishReview(true));
+                    dispatch(permitActions.isLoaded(false))
                     return
                 }
                 //res가 정상인 경우 
@@ -87,7 +89,7 @@ const getAllReviewSV = () => {
 
 const getRecentReviewSV = () => {
     return function (dispatch) {
-        dispatch(permitActions.finishReview(true));
+        // dispatch(permitActions.finishReview(true));
         instance
             .get("/feeds/recent")
             .then((res) => {
@@ -101,7 +103,9 @@ const getRecentReviewSV = () => {
                 }
 
                 if(res.status === 204){
+                    dispatch(getAllReview([]));
                     dispatch(permitActions.finishReview(true));
+                    dispatch(permitActions.isLoaded(false))
                     return
                 }
                 //res가 정상인 경우 

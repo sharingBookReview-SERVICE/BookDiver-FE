@@ -110,6 +110,13 @@ useEffect(() => {
   useEffect(() => {
     dispatch(userActions.checkTreasureSV()) //보물을 얻었는지 확인하기
     dispatch(permitAction.showNav(true));
+
+    //피드 타입을 확인해서, 화면이 시작될떄마다 요청하는 피드의 종류를 다르게 하기 
+    if(reviewList.length <10 && feedType ===" social"){
+      getSocialReview()
+    }else if(reviewList.length <10 && feedType === "recent"){
+      getRecentReview()
+    }
     setTimeout(() => {
       dispatch(permitAction.isLoading(false))
     }, 600);
@@ -117,16 +124,6 @@ useEffect(() => {
     dispatch(permitAction.showEditModal(false));
     }
   }, []);
-
-
-  useEffect(() => {
-    //피드 타입을 확인해서, 화면이 시작될떄마다 요청하는 피드의 종류를 다르게 하기 
-    if(feedType ===" social"){
-      getSocialReview()
-    }else if(feedType === "recent"){
-      getRecentReview()
-    }
-  }, [feedType]);
 
 
   //인피니티 스크롤 구현을 위한, 리뷰 아이디 갯수 세기
@@ -192,7 +189,8 @@ useEffect(() => {
   return (
     <>
 {is_loading ? 
-<Loading/> : <Container  onScroll={scroll} ref={container}>
+<Loading/> : 
+      <Container  onScroll={scroll} ref={container}>
         <Header />
         <FeedCategoryWrapper>
           <SocialFeed 
@@ -214,7 +212,6 @@ useEffect(() => {
         </FeedCategoryWrapper>
 
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
-         
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard

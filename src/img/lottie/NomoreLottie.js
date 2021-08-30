@@ -1,14 +1,27 @@
-import React , {useEffect, useRef} from "react";
+import React , {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import lottie from "lottie-web";
 import Color from "../../shared/Color";
 import { style } from "@material-ui/system";
+import { useDispatch, useSelector } from "react-redux";
 
 const NomoreLottie = ()=>{
-  // const feedType = useSelector(state => state.permit)
+  const feedType = useSelector((state) => state.permit.feed_type)
+  const [feedName, setFeedName] = useState("")
+  
      //lottie
   const nomore = useRef();
   const arrow = useRef();
+  
+  useEffect(() => {
+    if(feedType === "recent"){
+      setFeedName("최신피드")
+    }else {
+      setFeedName("소셜피드") 
+    }
+  },[feedType])
+
+
   useEffect(()=>{
     lottie.loadAnimation({
       container: nomore.current,
@@ -26,13 +39,16 @@ const NomoreLottie = ()=>{
         animationData:require("./arrow.json")
        
       })
+      return () => {
+
+      }
   },[])
     return(
         <Wrapper>
             <div></div>
             <div>
             <NoMore ref={nomore}></NoMore>
-            <Text>소셜피드를 다 확인하셨네요!<br/>
+            <Text>{feedName}를 다 확인하셨네요!<br/>
             직접 리뷰를 써보는 건 어떨까요?
             </Text>
             </div>
