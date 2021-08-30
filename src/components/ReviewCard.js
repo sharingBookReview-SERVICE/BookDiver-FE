@@ -1,5 +1,5 @@
 //import 부분
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -17,6 +17,8 @@ import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as collectionActions } from "../redux/modules/collection";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
+
+import LikeLottie from "../img/lottie/LikeLottie"
 
 import ReactGA from "react-ga";
 
@@ -57,14 +59,25 @@ const ReviewCard = (props) => {
 
   let is_my_post = false;
 
+  
   if (reviewUserId === userId) {
     is_my_post = true;
   }
+
+  //lottie 좋아요
+  const [likebtn, setLikeBtn] = useState(false);
 
   //좋아요 클릭
   const clickLikeButton = () => {
     if(is_login) {
       dispatch(reviewActions.LikeSV(book._id, _id, reviewUserId));
+      if(!myLike){
+        setLikeBtn(true)
+        setTimeout(() => {
+          setLikeBtn(false)
+        }, (3000));
+      }
+      
       return;
     }else{
       dispatch(permitActions.showLoginModal(true))
@@ -141,6 +154,7 @@ const ReviewCard = (props) => {
   return (
     <React.Fragment>
       <CartWrapper ref={setRef} data-idx={props.setIdx}>
+       
         <CardBox>
           <CommentUserBox>
 
@@ -202,6 +216,10 @@ const ReviewCard = (props) => {
 
           {image ?
           <ImageBox>
+            {
+              likebtn && <LikeLottie/>
+            }
+
             <Image
               url={image}
               onClick={() => {

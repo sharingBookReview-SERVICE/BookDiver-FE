@@ -19,6 +19,7 @@ import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
 import Spinner from "../components/Spinner"
 import NomoreLottie from "../img/lottie/NomoreLottie";
+import LikeLottie from "../img/lottie/LikeLottie";
 
 const socket = io.connect("https://ohbin.shop")
 
@@ -207,7 +208,7 @@ useEffect(() => {
         </FeedCategoryWrapper>
 
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
-      
+
        {
          reviewList.length === 0 &&
          <NomoreLottie/>

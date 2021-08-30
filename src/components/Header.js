@@ -144,7 +144,7 @@ height:auto;
 width:100%;
 position:fixed;
 top:0px;
-z-index:1;
+z-index:100;
 @media ${(props) => props.theme.tablet} {
   width:420px;
 }
