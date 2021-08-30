@@ -189,7 +189,7 @@ useEffect(() => {
 
   useEffect(()=>{
       container?.current?.scrollTo(0, lastScroll);
-  },[])
+  },[is_loading])
 
   //뷰
   return (
