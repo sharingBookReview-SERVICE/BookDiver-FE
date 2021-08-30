@@ -342,7 +342,6 @@ const MyFeed = () => {
                     <BookImg url={review.book?.image} key={review.id} 
                       onClick={()=>{ history.push(`/reviewdetail/${review.book}/${review.id}`)}}
                       >
-                      <BookTitle>{review.book?.title.split("(")[0]}</BookTitle>
                       </BookImg>)
                   })
                 }
