@@ -57,6 +57,7 @@ const initialState = {
 //전체 피드 불러오기
 const getAllReviewSV = () => {
     return function (dispatch) {
+        dispatch(permitActions.finishReview(true));
         instance
             .get("/feeds")
             .then((res) => {
@@ -69,9 +70,8 @@ const getAllReviewSV = () => {
                     return;
                 }
 
-                if(res.status === "204"){
-                    console.log(res)
-                    console.log("소셜 피드 끝")
+                if(res.status === 204){
+                    dispatch(permitActions.finishReview(true));
                     return
                 }
                 //res가 정상인 경우 
@@ -87,6 +87,7 @@ const getAllReviewSV = () => {
 
 const getRecentReviewSV = () => {
     return function (dispatch) {
+        dispatch(permitActions.finishReview(true));
         instance
             .get("/feeds/recent")
             .then((res) => {
@@ -99,8 +100,8 @@ const getRecentReviewSV = () => {
                     return;
                 }
 
-                if(res.status === "204"){
-                    console.log(res)
+                if(res.status === 204){
+                    dispatch(permitActions.finishReview(true));
                     return
                 }
                 //res가 정상인 경우 
@@ -118,11 +119,12 @@ const getRecentReviewSV = () => {
 
 const getMoreReviewSV = (lastId) => {
     return function (dispatch) {
+        dispatch(permitActions.finishReview(true));
         instance
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
-                if(res.status === "204"){
-                    console.log(res)
+                if(res.status === 204){
+                    dispatch(permitActions.finishReview(true));
                     return
                 }
                 dispatch(getMoreReview(res.data));
@@ -139,11 +141,12 @@ const getMoreReviewSV = (lastId) => {
 
 const getMoreRecentReviewSV = (lastId) => {
     return function (dispatch) {
+        dispatch(permitActions.finishReview(true));
         instance
             .get(`/feeds/recent?lastItemId=${lastId}`)
             .then((res) => {
-                if(res.status === "204"){
-                    console.log(res)
+                if(res.status === 204){
+                    dispatch(permitActions.finishReview(true));
                     return
                 }
                 dispatch(getMoreReview(res.data));
