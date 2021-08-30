@@ -19,6 +19,7 @@ import { actionCreators as userAction } from "../redux/modules/user";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import Badge from '@material-ui/core/Badge';
 import ReactGA from "react-ga";
+import LottieHeartEvent from "../elements/LottieHeartEvent"
 
 const socket = io.connect("https://ohbin.shop")
 
@@ -82,6 +83,7 @@ const Header = (props) => {
 
         <SearchBarBox >
         <IconBox>
+          <LottieHeartEvent/>
             <SurveyIcon
             
             onClick={()=>{
@@ -132,6 +134,8 @@ justify-content:center;
 align-items:center;
 transition:0.5s ease-in-out;
 margin-left:5px;
+position:relative;
+
 :hover{
   border-radius:40px;
   background:${Color.line};
