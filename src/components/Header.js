@@ -81,6 +81,18 @@ const Header = (props) => {
         <LogoBox><Logo src={logo}/></LogoBox>
 
         <SearchBarBox >
+        <IconBox>
+            <SurveyIcon
+            
+            onClick={()=>{
+              window.open('https://forms.gle/5tKeReSnPzmuYEn1A')
+              ReactGA.event({
+                category: "Button",
+                action: "survey",
+                label: "survye",
+              });
+            }} />
+          </IconBox>
           <IconBox>
             <SearchIcon
             onClick={()=>{
@@ -197,6 +209,14 @@ const SearchBarBox = styled.div`
   justify-content: flex-end;
   align-items: center;
   position: relative;
+`;
+
+const SurveyIcon = styled.div`
+color: #252121;
+width: 25px;
+cursor: pointer;
+height: 25px;
+background-image:url("https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/support_agent_black_24dp+1.svg");
 `;
 
 export default Header;

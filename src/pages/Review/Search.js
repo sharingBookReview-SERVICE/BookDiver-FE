@@ -167,7 +167,13 @@ margin: -5px 20px;
     border: 2px solid #d7d3d3;
     border-top: none;
     height: 50vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 
