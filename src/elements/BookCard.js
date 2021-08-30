@@ -5,8 +5,8 @@ import { history } from "../redux/configStore";
 import Color from "../shared/Color"
 const BookCard = (props) =>{
 
-  const bookTitle = props?.title.split("(")[0].replace('<b>', "").replace('</b>',"")
-  const bookAuthor =props?.author.replace('<b>', "").replace('</b>',"")
+  const bookTitle = props?.title.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] 
+  const bookAuthor =props?.author.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] 
 
   const gotoBookDetail = ()=>{
     history.push(`/bookdetail/${props?.isbn}`)
@@ -20,7 +20,7 @@ const BookCard = (props) =>{
                 gotoBookDetail()
               }}
             >
-                <BookImg url={props?.image}/>
+                <BookImg url={props.image}/>
                 <BookDescBox>
                     <BookTitle>{bookTitle}</BookTitle>
                     <BookWriter>{bookAuthor}</BookWriter>
@@ -29,6 +29,10 @@ const BookCard = (props) =>{
             </Outter>
        
     )
+}
+
+BookCard.defaultProps ={
+  image: "https://i.pinimg.com/564x/93/1f/39/931f390f4037e44ee162d9d4f4cd6663.jpg"
 }
 
 const Outter = styled.div`
@@ -48,7 +52,7 @@ const BookImg = styled.div`
   width: 90px;
   height: 120px;
   background-color: #c4c4c4;
-  background-image: url(${(props) => props.url ? props.url : " "});
+  background-image: url(${(props) => props.url ? props.url : "https://i.pinimg.com/564x/93/1f/39/931f390f4037e44ee162d9d4f4cd6663.jpg"});
   background-size: cover;
   box-sizing: border-box;
  
