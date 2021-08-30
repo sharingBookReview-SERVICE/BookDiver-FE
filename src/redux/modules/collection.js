@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 import instance from "../../shared/Request";
 import { history } from "../configStore";
+import { actionCreators as permitActions } from "./permit";
 
 
 //actions
@@ -20,6 +21,7 @@ const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL";
 const DELETE_COLLECTION = "collection/DELETE_COLLECTION";
 const EDIT_COLLECTION = "collection/EDIT_COLLECTION";
 const GET_COLLECTION_ID = "collection/GET_COLLECTION_ID";
+const SEARCH_COLLECTION ="collection/SEARCH_COLLECTION";
 
 
 //actioncreator
@@ -37,6 +39,7 @@ const getCollectionDetail = createAction(GET_COLLECTION_DETAIL, (collection)=>({
 const deleteCollection = createAction(DELETE_COLLECTION, (collectionId)=>({collectionId}));
 const editCollection = createAction(EDIT_COLLECTION, (collectionId)=>({collectionId}));
 const getCollectionId = createAction(GET_COLLECTION_ID, (collectionId)=>({collectionId}));
+const searchCollection = createAction(SEARCH_COLLECTION, (collection)=>({collection}));
 
 //initial
 const initialState = {
@@ -47,6 +50,7 @@ const initialState = {
     is_make_collection : false,
     collection_detail:[],
     collection_id : "",
+    searched_collection : [],
 };
 
 
@@ -193,6 +197,29 @@ const deleteCollectionSV = ()=>{
   }
 }
 
+//컬렉션 하나 검색
+
+const searchCollectionSV = (keyword) =>{
+  return function(dispatch, getState) {
+      instance
+      .get(`/search`, {
+          params : {
+              tag: keyword
+          }
+      }
+
+      )
+      .then((res)=>{
+          dispatch(searchCollection(res.data.result[0]))
+          history.push(`/collectiondetail/${getState().collection.searched_collection._id}`)
+      })
+      .catch((err)=>{
+          console.log("검색 실패", err)
+          // window.alert("아직 컬렉션이 준비되지 않았어요!")
+          dispatch(permitActions.showNotfoundModal(true))
+      })
+  }
+}
 
 //reducer
 export default handleActions(
@@ -264,7 +291,11 @@ export default handleActions(
       [GET_COLLECTION_ID]: (state, action)=>
       produce(state, (draft)=>{
         draft.collection_id = action.payload.collectionId;
-      })
+      }),
+      [SEARCH_COLLECTION]: (state, action)=>
+      produce(state, (draft)=>{
+        draft.searched_collection = action.payload.collection;
+      }),
 
     },
     initialState
@@ -285,7 +316,8 @@ const actionCreators = {
   getCollectionDetailSV,
   deleteCollectionSV,
   getCollectionId,
-  editCollectionDetailSV
+  editCollectionDetailSV,
+  searchCollectionSV
 };
   
 export { actionCreators };

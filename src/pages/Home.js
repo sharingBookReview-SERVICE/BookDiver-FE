@@ -12,7 +12,7 @@ import io from "socket.io-client"
 
 import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
-import {EditModal,LoginModal,NotSupport,CheckTreasureModal} from "../modals";
+import {EditModal,LoginModal,NotSupport,CheckTreasureModal,NotFound} from "../modals";
 
 import spinner from "../img/Spin-1s-200px.gif"
 import Color from "../shared/Color"
@@ -30,6 +30,7 @@ const Home = (props) => {
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal);
   const show_login_modal = useSelector((state) => state.permit.show_login)
   const is_support_modal = useSelector((state) => state.permit.is_support_modal)
+  const is_not_found = useSelector((state) => state.permit.is_not_found)
   const is_loading = useSelector((state) => state.permit.is_loading)
   const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
   const userId = useSelector((state) => state.user.user._id); //내 아이디
@@ -203,6 +204,7 @@ useEffect(() => {
       </Container>}
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
+    <NotFound is_found_modal={is_not_found}/>
     <LoginModal show_login_modal={show_login_modal}/>
     <CheckTreasureModal is_treasure={is_treasure}/>
     </>

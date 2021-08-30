@@ -15,7 +15,8 @@ const SelectBookCard = (props) =>{
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
-  const bookTitle = title?.split("(")[0]
+  const bookTitle = title?.split("(")[0].replace('<b>', "").replace('</b>',"")
+  const bookAuthor = author?.replace('<b>', "").replace('</b>',"")
   const selectedBookTitle = book?.title?.split("(")[0]
 
   console.log(is_book_detail)
@@ -42,8 +43,8 @@ const SelectBookCard = (props) =>{
         <BookInfoBox>
           <BookImg url={image}/>
           <BookDescBox>
-          <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
-              <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
+          <BookTitle >{bookTitle}</BookTitle>
+            <BookWriter>{bookAuthor}</BookWriter>
           </BookDescBox>
         </BookInfoBox>
       </BookInfoWrapper>
@@ -71,8 +72,8 @@ const SelectBookCard = (props) =>{
           }}>
           <BookImg url={image}/>
           <BookDescBox>
-          <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle>
-              <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
+          <BookTitle >{bookTitle}</BookTitle>
+              <BookWriter>{bookAuthor}</BookWriter>
           </BookDescBox>
         </BookInfoBox>
       </BookInfoWrapper>
@@ -120,7 +121,7 @@ const SelectBookCard = (props) =>{
               }}>
               <BookImg url={book.image}/>
               <BookDescBox>
-                  <BookTitle dangerouslySetInnerHTML={{__html: selectedBookTitle}}></BookTitle>
+                  <BookTitle>{selectedBookTitle}</BookTitle>
                   <BookWriter>{book.author} 저</BookWriter>
               </BookDescBox>
             </BookInfoBox>
@@ -140,8 +141,8 @@ const SelectBookCard = (props) =>{
               <BookImg url={image}/>
               <BookDescBox>
                   {/* <BookTitle dangerouslySetInnerHTML={{__html: bookTitle}}></BookTitle> */}
-                  <BookTitle >{bookTitle?.replace('<b>', "").replace('</b>',"")}</BookTitle>
-                  <BookWriter dangerouslySetInnerHTML={{__html: author}}></BookWriter>
+                  <BookTitle >{bookTitle}</BookTitle>
+                  <BookWriter>{bookAuthor}</BookWriter>
               </BookDescBox>
             </BookInfoBox>
         }

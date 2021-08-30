@@ -15,7 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //컴포넌트
 import {CollectionBookCard} from "../../elements";
 import {EditModal} from "../../modals";
-import MakeButton from "./Component/MakeButton";
+import MakeButton from "./component/MakeButton";
 
 
 const useStyles = makeStyles((theme) => ({

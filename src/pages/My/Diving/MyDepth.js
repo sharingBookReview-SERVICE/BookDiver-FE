@@ -52,6 +52,10 @@ const MyDepth = (props) => {
     const goBack=() => {
         history.push("/myfeed");
     }
+    const goLevelHelp=() => {
+        history.push("/levelhelp");
+    }
+
 
     const openTreasure = () => {
         dispatch(permitAction.showModal(true));
@@ -61,6 +65,7 @@ const MyDepth = (props) => {
         dispatch(userActions.getUserSV()) //수심페이지에서 유저정보 다시 불러오기 
         dispatch(userActions.checkTreasureSV())
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기
+        dispatch(permitAction.showNav(true)) 
         setTimeout(() => {
             dispatch(permitAction.isLoading(false))
           }, 600);
@@ -90,7 +95,7 @@ const MyDepth = (props) => {
                 <CategoryWrapper>
                     <Depth>나의 잠수상태</Depth>
                     <Ranking onClick={openNotSupportModal}>다이버 랭킹</Ranking>
-                    <Tutorial onClick={openNotSupportModal}>잠수하는 법</Tutorial>
+                    <Tutorial onClick={()=>{goLevelHelp()}}>잠수하는 법</Tutorial>
                     <CategoryBar/>
                 </CategoryWrapper>
                     <MyLevel>{my_level}m에서 잠수중</MyLevel>

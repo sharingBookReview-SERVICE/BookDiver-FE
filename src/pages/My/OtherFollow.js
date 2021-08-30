@@ -20,10 +20,7 @@ import { ArrowBack } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     arrow: {
-      position: "absolute",
-      left:"20px",
-      top: "30px",
-      color: Color.black,
+      margin: "0px 20px",
       cursor:"pointer",
     },
   }));
@@ -52,22 +49,28 @@ const OtherFollow = (props) =>{
     <React.Fragment>
         <Wrapper>
             <Container>
-            <Header>
+            <Header   
+            onClick={() => {
+                    goBack()
+                }} >
 
-                <ArrowBack/>
+                <ArrowBackIcon   className={classes.arrow}/>
+
                 <Route path="/following">
                     <HeaderText>{nickname}이 팔로잉 하는 다이버들</HeaderText>
                 </Route> 
                 <Route path="/follower">
                     <HeaderText>{nickname}을 팔로우 하는 다이버들</HeaderText>
                 </Route>
-                <div></div>
+              
             </Header>
+            <FollowWrapper>
             {follow_list.map((user) => {
                 return(
                     <FollowUser {...user} location={location} key={user?.id}/>
                 )
             })}
+             </FollowWrapper>
             </Container>
         </Wrapper>
 
@@ -106,16 +109,16 @@ justify-content:flex-start;
 box-sizing:border-box;
 
 @media ${(props) => props.theme.mobile} {
-  padding:80px 30px 0px 30px;
+  padding: 50px 20px 0px 20px;
 }
 
 @media ${(props) => props.theme.tablet} {
-  padding:80px 0px 0px 0px;
+  padding:50px 0px 0px 0px;
     width: 100%;
   }
   
   @media ${(props) => props.theme.desktop} {
-    padding:80px 0px 0px 0px;
+    padding:50px 0px 0px 0px;
     width: 100%;
   }
 `
@@ -124,19 +127,22 @@ const Header = styled.div`
 width: 100%;
 height: 56px;
 display:flex;
-justify-content:space-between;
 align-items:center;
 background-color: ${Color.mainColor};
 position:fixed;
 top:0px;
-font-family: "Noto Serif KR", serif;
-
+font-family: 'Noto Sans KR', sans-serif;
+border-bottom: 4px solid #d7d3d3;
+@media ${(props) => props.theme.mobile} {
+  left: 0px;
+}
 @media ${(props) => props.theme.tablet} {
     width: 420px;
   }
   
   @media ${(props) => props.theme.desktop} {
     width: 420px;
+    
   }
 
 `
@@ -144,5 +150,18 @@ font-family: "Noto Serif KR", serif;
 const HeaderText = styled.div`
 font-size:16px;
 color:${Color.black};
-margin-right:27px;
+width:100%;
+text-align:center;
+position: absolute;
 `
+
+const FollowWrapper = styled.div`
+@media ${(props) => props.theme.tablet} {
+  padding-left:20px;
+  }
+  
+  @media ${(props) => props.theme.desktop} {
+    padding-left:20px;
+  }
+`;
+

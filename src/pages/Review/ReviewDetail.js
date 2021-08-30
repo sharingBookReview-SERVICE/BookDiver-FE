@@ -610,9 +610,10 @@ const CommentInput = styled.input`
   width: 84%;
 }
   height: 45px;
-  padding: 0 45px 0 16px;
+  padding: 0 25px 0 16px;
   font-size: 14px;
   background-color: ${Color.mainColor};
+  border:none;
   border: 1px solid ${Color.line};
   ::placeholder {
     color: ${(props) => props.color};

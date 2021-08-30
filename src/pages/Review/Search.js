@@ -74,7 +74,13 @@ const Search = (props)=>{
                 ref={text}
                 />
             {/* </Hint> */}
-            <SearchIcon />
+            <SearchIcon 
+                onClick={()=>{
+                  searchBook()
+                  setAutoComplete(false)
+                }}    
+                style={{cursor:"pointer"}}        
+            />
             </SearchBarBox>
             <Wrapper>
               {/* 자동완성부분 */}
@@ -163,12 +169,14 @@ margin: -5px 20px;
 const Title = styled.div`
 padding: 5px 16px;
 height: 30px;
+cursor:pointer;
 `;
 const Wrapper = styled.div`
 background:  ${Color.mainColor};
 width: 100%;
 min-height: 90vh;
 height: 100%;
+padding-bottom: 100px;
 `;
 const Grid = styled.div`
 width: 100%;

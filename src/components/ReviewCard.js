@@ -14,6 +14,7 @@ import {images} from "../shared/Image";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
+import { actionCreators as collectionActions } from "../redux/modules/collection";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
 
@@ -43,6 +44,8 @@ const ReviewCard = (props) => {
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
+  const searched_collection =  useSelector((state) => state.collection.searched_collection);
+  // console.log(searched_collection)
 
   //permit check 
   const is_login = useSelector((state) => state.user.is_login);
@@ -130,6 +133,11 @@ const ReviewCard = (props) => {
     }
   }
 
+  //태그 선택하면 컬렉션 검색
+  const searchCollection = (hashtag) =>{
+    dispatch(collectionActions.searchCollectionSV(hashtag))
+  }
+
   return (
     <React.Fragment>
       <CartWrapper ref={setRef} data-idx={props.setIdx}>
@@ -203,8 +211,11 @@ const ReviewCard = (props) => {
           </ImageBox> : ""}
 
           <HashTagBox>
-              {hashtags?.map((tag, idx) => (
-                <HashTag key={idx}>{`#${tag} `}</HashTag>
+              {hashtags.map((tag, idx) => (
+                <HashTag onClick={()=>{ 
+                  searchCollection(tag)
+                  console.log(searched_collection)
+                }}key={idx}>{`#${tag} `}</HashTag>
               ))}
             </HashTagBox>
 

@@ -20,7 +20,7 @@ const NEW_TREASURE_MODAL ="permit/NEW_TREASURE_MODAL"
 const IS_LOADED = "permit/IS_LOADED"
 const REVIEW_LOADING = "permit/REVIEW_LOADING"
 const FINISH_REVIEW = "permit/FINISH_REVIEW"
-
+const SHOW_NOTfOUND_MODAL = "permit/SHOW_NOTfOUND_MODAL"
 
 //actioncreator
 const showNav = createAction(SHOW_NAV, (is_nav) => ({ is_nav }));
@@ -41,7 +41,7 @@ const newTreasureModal = createAction(NEW_TREASURE_MODAL, (is_new_treasure) => (
 const isLoaded = createAction(IS_LOADED, (is_loaded) =>({is_loaded}))
 const reviewLoading = createAction(REVIEW_LOADING, (review_loading) => ({review_loading}))
 const finishReview = createAction(FINISH_REVIEW, (finish_review) => ({finish_review}))
-
+const showNotfoundModal = createAction(SHOW_NOTfOUND_MODAL, (is_not_found) => ({is_not_found}))
 
 //initial
 const initialState = {
@@ -63,6 +63,7 @@ const initialState = {
     is_loaded:false,
     review_loading:false,
     finish_review: false,
+    is_not_found:false
 };
 
 
@@ -141,6 +142,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.finish_review = action.payload.finish_review;
         }),
+        [SHOW_NOTfOUND_MODAL] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_not_found = action.payload.is_not_found;
+        }),
     },
     initialState
   );
@@ -165,6 +170,7 @@ const actionCreators = {
     isLoaded,
     reviewLoading,
     finishReview,
+    showNotfoundModal
 };
   
 export { actionCreators };
