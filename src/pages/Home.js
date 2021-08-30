@@ -40,6 +40,8 @@ const Home = (props) => {
   const [isRecentCategory, setIsRecentCategory] = useState(false)
   const reviewLoading = useSelector((state) => state.permit.reviewLoading)
   const feedType = useSelector((state) => state.permit.feed_type)
+  const [finalReview, setFinalReview] = useState(false)
+
   
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
@@ -225,6 +227,7 @@ useEffect(() => {
         })}
       {/* {reviewLoading && <Spinner src={spinner}/>} */}
       {is_loaded && <div ref={ref} ></div>}
+      <NomoreLottie/>
       </Container>}
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>

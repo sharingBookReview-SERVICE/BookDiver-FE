@@ -371,6 +371,7 @@ const UserRightBox = styled.div`
 const ImageBox = styled.div`
   width:100vw;
   height:100vw;
+  position: relative;
 
   @media ${(props) => props.theme.tablet} {
     width:420px;

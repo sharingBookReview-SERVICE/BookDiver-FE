@@ -11,7 +11,7 @@ const GetTreasureLottie = ()=>{
     lottie.loadAnimation({
       container: likecontainer.current,
       renderer: 'svg',
-      loop: true,
+      loop: false,
       autoplay:true,
       animationData:require("./congratulation.json")
      

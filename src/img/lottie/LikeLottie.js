@@ -35,7 +35,7 @@ height: 100%;
 margin: 0 auto;
 position: absolute;
 margin: 0 auto;
-top: 20%;
+top:0%;
 z-index: 99;
 `;
 const Arrow = styled.div`
