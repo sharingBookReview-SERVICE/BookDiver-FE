@@ -64,6 +64,7 @@ const getAllReviewSV = () => {
         instance
             .get("/feeds")
             .then((res) => {
+                console.log(res)
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
                     history.push("*")
@@ -74,6 +75,7 @@ const getAllReviewSV = () => {
 
                 if(res.status === "204"){
                     console.log(res)
+                    console.log("소셜 피드 끝")
                     return
                 }
                 //res가 정상인 경우 

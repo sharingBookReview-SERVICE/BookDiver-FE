@@ -9,6 +9,7 @@ import {history} from "../../redux/configStore"
 import { CommonContainer, CommonOverlay } from "../../shared/styles/modal/CommonModal";
 import { depth_image } from "../../shared/Image";
 import {DescList} from "./DescList"
+import GetTreasureLottie from "../../img/lottie/GetTreasureLottie"
 
 const TreasureModal = ({new_badge}) =>{
   const dispatch = useDispatch()
@@ -26,8 +27,10 @@ const goToProfileChange = () => {
 
     return(
         <React.Fragment>
-          
-         <Container is_show={is_new_treasure}>
+          {
+            is_new_treasure &&<GetTreasureLottie/>
+          }
+           <Container is_show={is_new_treasure}>
            <Treasure src={depth_image[new_badge]}/>
            <Desc>{DescList[new_badge]}</Desc>
 

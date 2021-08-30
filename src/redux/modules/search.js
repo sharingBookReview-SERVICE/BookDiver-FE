@@ -46,6 +46,7 @@ const getSearchBooksSV = (query)=>{
         })
         .catch((err)=>{
             console.log("검색 책 로드 실패", err);
+            dispatch(resetSelectedBook())
         })
 
         // instance.get(`/books?target=저자&query=${query}`)

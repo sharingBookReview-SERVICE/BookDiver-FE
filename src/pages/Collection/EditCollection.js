@@ -68,13 +68,14 @@ const EditCollection = (props) => {
         }   
     }
 
+    //컬렉션 수정하기 
+    //제목, 설명, 책을 수정할 수 있음
     const editCollection = ()=>{
         const collection = {
             name: _name.current.value,
             description: _description.current.value,
             contents: selected_Books
         }
-        console.log(collection)
         dispatch(collectionActions.editCollectionDetailSV(collection_id, collection))
     }
 

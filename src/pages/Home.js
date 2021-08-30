@@ -18,6 +18,8 @@ import spinner from "../img/Spin-1s-200px.gif"
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
 import Spinner from "../components/Spinner"
+import NomoreLottie from "../img/lottie/NomoreLottie";
+import LikeLottie from "../img/lottie/LikeLottie";
 
 const socket = io.connect("https://ohbin.shop")
 
@@ -38,6 +40,8 @@ const Home = (props) => {
   const [isRecentCategory, setIsRecentCategory] = useState(false)
   const reviewLoading = useSelector((state) => state.permit.reviewLoading)
   const feedType = useSelector((state) => state.permit.feed_type)
+  const [finalReview, setFinalReview] = useState(false)
+
   
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
@@ -64,6 +68,8 @@ const Home = (props) => {
       Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
     ))
   },[ReviewCount])
+
+
 
 const onIntersect = async([entry], observer) => {
     if (!entry.isIntersecting) {
@@ -205,6 +211,11 @@ useEffect(() => {
 
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
 
+       {
+         reviewList.length === 0 &&
+         <NomoreLottie/>
+       }
+         
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard
@@ -216,6 +227,7 @@ useEffect(() => {
         })}
       {/* {reviewLoading && <Spinner src={spinner}/>} */}
       {is_loaded && <div ref={ref} ></div>}
+      <NomoreLottie/>
       </Container>}
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>
@@ -360,5 +372,10 @@ z-index: 100;
 bottom: 100px;
 right: 10px;
 
+`;
+
+const Lottie = styled.div`
+width: 100px;
+height: 100px;
 `;
 export default Home;

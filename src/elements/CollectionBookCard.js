@@ -30,10 +30,13 @@ const defaultProps = {
         book_description: book_description,
     }
 
+    //선택했다가 삭제하기
     const deleteCard = (id)=>{
         dispatch(collectionActions.deleteSelectedBook(id))
     }
   
+    //설명을 적으면 리덕스에 해당 책에 저장됨
+    // input의 포커스가 다른데로 갈때마다 저장되게 하였음
     const saveBookDescription = (content)=>{
         dispatch(collectionActions.addBookDescription(content))
     }

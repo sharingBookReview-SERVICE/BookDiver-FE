@@ -18,6 +18,7 @@ const Search = (props)=>{
   const alltags = useSelector(state=> state.review.all_tags);
   const search_book_list = useSelector(state=> state.search.search_book_list);
   const [auto, setAutoComplete] = useState(false);
+  const [firstVisit, setFirst] = useState(false);
   const search_book_title = useSelector(state=> state.search.search_book_title);
   const text = useRef();
   const book_count = parseInt(search_book_title?.length/3 +1);
@@ -33,6 +34,7 @@ const Search = (props)=>{
   //책 검색 
   const searchBook = ()=>{
     dispatch(searchActions.getSearchBooksSV(text.current.value))
+    setFirst(true)
   }
 
   //사용자가 검색어를 0.2초동안 입력하지 않았을때 검색이 실행됨
@@ -82,6 +84,10 @@ const Search = (props)=>{
             </SearchBarBox>
             <Wrapper>
               {/* 자동완성부분 */}
+              {
+              !auto && search_book_title.length ===0 && firstVisit ?
+              <NoBook>찾으시는 책이 없습니다.</NoBook>:""
+            }
             {
              auto && <Autocomplete>
               
@@ -109,6 +115,7 @@ const Search = (props)=>{
              })
            }
             </Grid>
+            
            </Wrapper>
         </Container>
     )
@@ -186,7 +193,12 @@ const SearchBar = styled.input`
   }
   padding: 0px 0px 0px 10px;
 `;
+const NoBook = styled.div`
+width: 100%;
+text-align: center;
+padding-top: 20px;
 
+`;
 const Autocomplete = styled.div`
 margin: -5px 21px;
     border: 1px solid #d7d3d3;
