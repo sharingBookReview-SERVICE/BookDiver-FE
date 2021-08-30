@@ -51,6 +51,7 @@ const Home = (props) => {
   const [elRefs,setElRefs] = useState([]);
 
   const changeFeedType = (type) => {
+    dispatch(permitAction.isLoaded(false))
     dispatch(permitAction.feedType(type))
   }
 
@@ -227,7 +228,7 @@ useEffect(() => {
         })}
       {/* {reviewLoading && <Spinner src={spinner}/>} */}
       {is_loaded && <div ref={ref} ></div>}
-      <NomoreLottie/>
+      {/* <NomoreLottie/> */}
       </Container>}
     <NotSupport is_support_modal={is_support_modal}/>
     <EditModal is_edit_modal={is_edit_modal}/>

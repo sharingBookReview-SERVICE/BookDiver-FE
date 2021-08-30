@@ -80,6 +80,7 @@ const getAllReviewSV = () => {
                 dispatch(permitActions.isLoaded(true))
             })
             .catch((err) => {
+                console.log("소셜 리뷰 전체 가져오기 실패", err);
             });
     };
 };
@@ -109,6 +110,7 @@ const getRecentReviewSV = () => {
 
             })
             .catch((err) => {
+                console.log("최신 리뷰 전체 가져오기 실패", err);
             });
     };
 }
@@ -130,7 +132,7 @@ const getMoreReviewSV = (lastId) => {
             })
             .catch((err) => {
                 // history.push("*")
-                console.log("전체 피드 가져오기 실패", err);
+                console.log("소셜피드 더 가져오기 실패", err);
             });
     };
 };
@@ -151,7 +153,7 @@ const getMoreRecentReviewSV = (lastId) => {
             })
             .catch((err) => {
                 // history.push("*")
-                console.log("전체 피드 가져오기 실패", err);
+                console.log("최신피드 더 가져오기 실패", err);
             });
     };
 };
