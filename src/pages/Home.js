@@ -173,7 +173,7 @@ useEffect(() => {
       clearTimeout(timer);
     }
     timer = setTimeout(function() {
-      // dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
+      dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
     }, 500);
 
   }
