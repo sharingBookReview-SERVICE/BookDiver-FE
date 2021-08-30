@@ -120,13 +120,17 @@ useEffect(() => {
   }, []);
 
 
-  //로컬스토리지에서 피드타입을 가져오기 
+    //다른 화면을 돌아갔다와도, 본인이 보던 피드를 화면에 보여주기 위해서, 로컬스토리지에서 피드타입을 가져오기 
   useEffect(() => {
+
     if(isPageOut){
+      //화면을 나갔다 돌아온 것이 확인되면, 피드의 타입을 불러와서 현재의 useState를 업데이트 해주기 
       const _feedType = localStorage.getItem("isRecentCategory")
       setIsRecentCategory(_feedType)
     }
+
     return () => {
+      //화면을 떠날 때, 현재 피드 타입을 저장하기. 
       localStorage.setItem("isRecentCategory", isRecentCategory)
       localStorage.setItem("isPageOut", true)
     }
