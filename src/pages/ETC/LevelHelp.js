@@ -145,6 +145,7 @@ const LevelHelp = (props) =>{
 
 const Wrapper = styled.div`
 width: 100%;
+
 `;
 const Head = styled.div`
 width: 100%;
@@ -168,6 +169,8 @@ width: 100vw;
 
 @media ${(props) => props.theme.desktop} {
   width: 420px;
+  height: 90vh;
+ 
 }
 `;
 const Text = styled.div`
@@ -191,6 +194,7 @@ z-index: 100;
 const Container = styled.div`
   width: 100%;
   overflow-x: hidden; // 선을 넘어간 이미지들은 보이지 않도록 처리합니다.
+  
 `;
 const HowToBtn = styled.button`
 all: unset;
