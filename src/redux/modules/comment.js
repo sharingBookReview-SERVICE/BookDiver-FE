@@ -47,7 +47,7 @@ const addCommentSV = (commentInfo) => {
     const bookId = commentInfo.bookId;
     const reviewId = commentInfo.reviewId;
 
-    return function(dispatch,{history}){
+    return function(dispatch,getState,{history}){
       instance.post(`/books/${bookId}/reviews/${reviewId}/comments`,{
           username:"",
           content: comment,
@@ -58,6 +58,11 @@ const addCommentSV = (commentInfo) => {
               content:comment,
             }
             dispatch(addComment(comment_info));
+
+            const userId = getState().user.user.id
+            if(userId === targetuser_id){
+              return
+            }
             socket.emit("comment", targetuser_id)// 댓글 작성 성공시 소켓으로 아이디 보내주기
         })
         .then((res) => {

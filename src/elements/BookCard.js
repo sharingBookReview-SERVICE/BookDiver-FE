@@ -41,7 +41,7 @@ flex-direction: column;
 align-items: center;
 width: 100%;
 height: 100%;
-transition: all 0.2s linear;
+transition: all 0.2s ease-in-out;
 cursor:pointer;
 &:hover{
   transform: scale(1.1);
@@ -49,8 +49,8 @@ cursor:pointer;
 `;
 
 const BookImg = styled.div`
-  width: 90px;
-  height: 120px;
+  width: 110px;
+  height: 140px;
   background-color: #c4c4c4;
   background-image: url(${(props) => props.url ? props.url : "https://i.pinimg.com/564x/93/1f/39/931f390f4037e44ee162d9d4f4cd6663.jpg"});
   background-size: cover;

@@ -15,7 +15,7 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 //컴포넌트
 import {CollectionBookCard} from "../../elements";
 import {EditModal} from "../../modals";
-import MakeButton from "./component/MakeButton";
+import MakeButton from "./Component/MakeButton";
 
 
 const useStyles = makeStyles((theme) => ({

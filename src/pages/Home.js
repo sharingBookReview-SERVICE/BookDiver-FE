@@ -37,8 +37,7 @@ const Home = (props) => {
   const is_loaded = useSelector((state) => state.permit.is_loaded)
   const [isRecentCategory, setIsRecentCategory] = useState(false)
   const reviewLoading = useSelector((state) => state.permit.reviewLoading)
-
-
+  const feedType = useSelector((state) => state.permit.feed_type)
   
   const [Id, setId] = useState([])
   const [ref, inView] = useInView();
@@ -46,6 +45,10 @@ const Home = (props) => {
   //-----------옵저버 테스트 
   const ReviewCount = reviewList.length;
   const [elRefs,setElRefs] = useState([]);
+
+  const changeFeedType = (type) => {
+    dispatch(permitAction.feedType(type))
+  }
 
   const getRecentReview = () => {
     dispatch(reviewActions.getRecentReviewSV())
@@ -96,19 +99,15 @@ useEffect(() => {
     }
   }
 
-  let isPageOut = false
-  isPageOut = localStorage.getItem("isPageOut")
-
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
     dispatch(userActions.checkTreasureSV()) //보물을 얻었는지 확인하기
     dispatch(permitAction.showNav(true));
 
-    //로컬스토리지의 피드 타입을 확인해서, 화면이 시작될떄마다 요청하는 피드의 종류를 다르게 하기 
-    const _isRecentCategory = localStorage.getItem("isRecentCategory")
-    if(reviewList.length <10 && !_isRecentCategory){
+    //피드 타입을 확인해서, 화면이 시작될떄마다 요청하는 피드의 종류를 다르게 하기 
+    if(reviewList.length <10 && feedType ===" social"){
       getSocialReview()
-    }else if(reviewList.length <10 && _isRecentCategory){
+    }else if(reviewList.length <10 && feedType === "recent"){
       getRecentReview()
     }
     setTimeout(() => {
@@ -120,18 +119,6 @@ useEffect(() => {
   }, []);
 
 
-  //로컬스토리지에서 피드타입을 가져오기 
-  useEffect(() => {
-    if(isPageOut){
-      const _feedType = localStorage.getItem("isRecentCategory")
-      setIsRecentCategory(_feedType)
-    }
-    return () => {
-      localStorage.setItem("isRecentCategory", isRecentCategory)
-      localStorage.setItem("isPageOut", true)
-    }
-  }, []);
-
   //인피니티 스크롤 구현을 위한, 리뷰 아이디 갯수 세기
   useEffect(() => {
     setId(reviewList)
@@ -140,7 +127,7 @@ useEffect(() => {
   const getMoreReview = (lastId) => {
     //리뷰 더 불러오기 로딩
     dispatch(permitAction.reviewLoading(true))
-    if(lastId && !isRecentCategory){
+    if(lastId && feedType === "social"){
       // 소셜피드일 때, 무한스크롤 함수
       return dispatch(reviewActions.getMoreReviewSV(lastId)); 
     }else{
@@ -151,10 +138,14 @@ useEffect(() => {
 
   //infinite scroll
   useEffect(() => {
+    dispatch(permitAction.isLoaded(true))
     if(inView){
       const lastReviewId = Id[Id.length - 1]?._id
+      console.log(lastReviewId)
       getMoreReview(lastReviewId)
     }
+
+    //화면에서 떠나면 무한스크롤을 위한 옵저버를 숨긴다. 
     return () => {
       dispatch(permitAction.isLoaded(false))
     }
@@ -169,7 +160,7 @@ useEffect(() => {
       clearTimeout(timer);
     }
     timer = setTimeout(function() {
-      // dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
+      dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
     }, 500);
 
   }
@@ -185,7 +176,7 @@ useEffect(() => {
 
   useEffect(()=>{
       container?.current?.scrollTo(0, lastScroll);
-  },[])
+  },[is_loading])
 
   //뷰
   return (
@@ -197,19 +188,19 @@ useEffect(() => {
           <SocialFeed 
           onClick={() => {
             getSocialReview()
-            setIsRecentCategory(false)}} 
-          isRecentCategory={isRecentCategory}>
+            changeFeedType("social")}} 
+            feedType={feedType}>
             소셜피드
           </SocialFeed>
           <RecentFeed 
           onClick={() => {
-            setIsRecentCategory(true)
+            changeFeedType("recent")
             getRecentReview()
           }}
-          isRecentCategory={isRecentCategory}>
+          feedType={feedType}>
             최신피드
           </RecentFeed>
-          <CategoryBar isRecentCategory={isRecentCategory}/>
+          <CategoryBar feedType={feedType}/>
         </FeedCategoryWrapper>
 
         {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
@@ -255,7 +246,7 @@ border-radius:1px;
 bottom:-8px;
 left:7.5%;
 transition:0.5s ease-in-out;
-${(props) => props.isRecentCategory ? 
+${(props) => props.feedType === "recent" ? 
 `
 left:52.5%`
 :
@@ -273,7 +264,7 @@ cursor:pointer;
 :hover{
   color:${Color.fontBlack};
 }
-${(props) => props.isRecentCategory ? `color:${Color.quote}`:"font-weight:bold"};
+${(props) => props.feedType === "recent" ? `color:${Color.quote}`:"font-weight:bold"};
 `
 
 const RecentFeed = styled.div`
@@ -287,7 +278,7 @@ cursor:pointer;
 :hover{
   color:${Color.fontBlack};
 }
-${(props) => props.isRecentCategory ? "font-weight:bold" : `color:${Color.quote}`};
+${(props) => props.feedType === "social" ? "font-weight:bold" : `color:${Color.quote}`};
 `
 
 

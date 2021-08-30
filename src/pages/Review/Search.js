@@ -68,6 +68,9 @@ const Search = (props)=>{
                 }}
                 ref={text}
                 />
+                <InputSpan>
+                  <InputI></InputI>
+                </InputSpan>
             {/* </Hint> */}
             <SearchIcon 
                 onClick={()=>{
@@ -119,14 +122,15 @@ display: flex;
 justify-content: center;
 flex-direction: column;
 align-items: center;
+padding:0px 10px;
+box-sizing:border-box;
 `;
 
 
 const SearchBarBox = styled.div`
   width: 90%;
   height: 50px;
-  border-radius: 12px;
-  border: 2px solid #d7d3d3;
+  border: 1px solid #d7d3d3;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -144,10 +148,28 @@ border: none;
 border-radius: 12px;
 background-color: ${Color.mainColor};
 padding: 0px 0px 0px 10px;
-&:focus{
-  outline:none;
+:focus {
+  outline: none;
+ ~ span:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+ ~ span:before{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+ ~ span:after{transition-delay: 0.2s;}
+ ~ span i:after{height: 100%; transition: 0.2s;}
+ ~ span i:before{height: 100%; transition: 0.2s;}
+ ~ span i:after{transition-delay: 0.4s;}
 }
 `;
+
+const InputSpan = styled.span`
+:before{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 1px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 1px; background-color: ${Color.gray5}; transition: 0.2s; transition-delay: 0.2s;}
+:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+`
+
+const InputI = styled.i`
+:after{content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:before{content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 0; background-color: ${Color.gray5}; transition: 0.2s;}
+:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+` 
 
 const SearchBar = styled.input`
   width: 100%;
@@ -166,8 +188,8 @@ const SearchBar = styled.input`
 `;
 
 const Autocomplete = styled.div`
-margin: -5px 20px;
-    border: 2px solid #d7d3d3;
+margin: -5px 21px;
+    border: 1px solid #d7d3d3;
     border-top: none;
     height: 50vh;
     overflow-y: scroll;

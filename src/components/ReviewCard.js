@@ -211,7 +211,7 @@ const ReviewCard = (props) => {
           </ImageBox> : ""}
 
           <HashTagBox>
-              {hashtags.map((tag, idx) => (
+              {hashtags?.map((tag, idx) => (
                 <HashTag onClick={()=>{ 
                   searchCollection(tag)
                   console.log(searched_collection)

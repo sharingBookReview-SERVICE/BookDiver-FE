@@ -160,6 +160,11 @@ const followSV = (id) => {
     instance.put(`follow/${id}`)
     .then((res)=>{
       dispatch(follow(id))
+      
+      const userId = getState().user.user.id
+      if(userId === id){
+        return
+      }
       socket.emit("follow", id) // 팔로우 성공시 팔로우 한 유저의 아이디 보내기 
     })
     .catch((err)=>{
