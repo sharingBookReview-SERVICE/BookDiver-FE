@@ -22,6 +22,7 @@ const Search = (props)=>{
   const text = useRef();
   const book_count = parseInt(search_book_title?.length/3 +1);
   
+  //화면에서 돔이 사라지면 검색된 책이 사라짐
   useEffect(()=>{
     // dispatch(reviewActions.getAllTagsSV());
     return(
@@ -29,11 +30,13 @@ const Search = (props)=>{
     )
   },[])
 
+  //책 검색 
   const searchBook = ()=>{
     dispatch(searchActions.getSearchBooksSV(text.current.value))
   }
 
-  
+  //사용자가 검색어를 0.2초동안 입력하지 않았을때 검색이 실행됨
+  //검색어를 기준으로 서버에서 받아온 값들을 자동완성으로 보여줌
   let timer;
   const search = ()=>{
     if (timer) {
