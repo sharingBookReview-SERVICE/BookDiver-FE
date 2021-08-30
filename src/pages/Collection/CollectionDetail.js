@@ -15,7 +15,7 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 //컴포넌트
 import {CollectionBookCard} from "../../elements";
 import {EditModal} from "../../modals";
-import MakeButton from "./Component/MakeButton";
+import MakeButton from "./component/MakeButton";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -122,8 +122,8 @@ const CollectionDetail = (props) =>{
                         {
                           contents?.map((content)=>{
                             return(
-                            <BookInfo>
-                            <BookImg url={content.book?.image} key={content._id} 
+                            <BookInfo key={content._id} >
+                            <BookImg url={content.book?.image} 
                             onClick={()=>{history.push(`/bookdetail/${content.book?.isbn}`)}}
                               />
                               <BookTitle>{content.book?.title.split("(")[0]}</BookTitle>
@@ -300,6 +300,7 @@ margin: 0 auto;
 const Description = styled.div`
 margin: 0 auto;
 padding: 20px;
+white-space: pre-line;
 `;
 
 const Mode = styled.div`
@@ -341,7 +342,8 @@ font-size:14px;
 box-sizing:border-box;
 color:${Color.black};
 width: 102px;
-
+padding: 5px 0px;
+font-weight: 500;
 `;
 
 const BookAuthor = styled.div`

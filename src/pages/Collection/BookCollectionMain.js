@@ -13,8 +13,8 @@ import "swiper/components/pagination/pagination.scss";
 
 //컴포넌트
 import {Collection} from "../../elements";
-import WhatCollection from "./Component/WhatCollection"
-import CollectionSlider from "./Component/CollectionSlider"
+import WhatCollection from "./component/WhatCollection"
+import CollectionSlider from "./component/CollectionSlider"
 //css
 import Color from "../../shared/Color";
 // import bookCollectionLogo from "../../img/bookCollectionLogo.svg"
