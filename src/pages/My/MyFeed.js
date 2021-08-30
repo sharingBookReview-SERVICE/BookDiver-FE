@@ -29,6 +29,7 @@ import {titles} from "../../shared/Titles";
 import {NotSupport, CheckTreasureModal} from "../../modals";
 import Loading from "../ETC/Loading"
 
+
 const socket = io.connect("https://ohbin.shop")
 
 const useStyles = makeStyles((theme) => ({
@@ -111,16 +112,16 @@ const MyFeed = () => {
       history.push(`/follower/${user_id}`)
     }
 
-    const gotochangeProfile = ()=>{
-      history.push('/changename')
-    }
-
     const gotoBookMark = ()=>{
       history.push('/bookmark')
     }
 
     const gotoNoti = ()=>{
       history.push('/notification')
+    }
+
+    const goToChangeProfile = () => {
+      history.push('/changeprofileimg')
     }
 
     //알람을 읽었다는 데이터 보내기
@@ -282,7 +283,7 @@ const MyFeed = () => {
 
                   <Wrapper>
                     <ProfileBox>
-                          <ImgWrapper onClick={()=>{gotochangeProfile()}}>
+                          <ImgWrapper onClick={()=>{goToChangeProfile()}}>
                             <ProfileImg src={images[profileImg]} />
                             {profileImg === "image_1" || <TitleImg src={titles[profileImg]}/>}
                           </ImgWrapper>

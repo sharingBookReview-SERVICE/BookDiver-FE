@@ -1,5 +1,5 @@
 //import 부분
-import React, {useEffect } from "react";
+import React, {useEffect, useState } from "react";
 import {Route} from "react-router-dom"
 import {history} from "../../redux/configStore";
 
@@ -13,12 +13,14 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowBack } from "../../components/index";
-
+import LottieCheck from "../../elements/LottieCheck";
 
 const ChangeProfileImg = (props) => {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.user.user._id)
     const ownImages = useSelector(state => state.user.user.own_image)
+    const [showCheck, setShowCheck] = useState(false) 
+
 
 
     useEffect(() => {
@@ -35,12 +37,13 @@ const ChangeProfileImg = (props) => {
     <React.Fragment>
         <Wrapper>
             <Container>
+            {showCheck && <LottieCheck/>}
             <Header>
                 <ArrowBack/>
             </Header>
             {ownImages?.map((image, idx) => {
                 return(
-                    <OwnImages image={image} key={idx} level={idx} />
+                    <OwnImages image={image} key={idx} level={idx} setCheck={setShowCheck} />
                 )
             })}
             </Container>
@@ -74,7 +77,7 @@ min-height:100vh;
 flex-direction:column;
 align-items:center;
 justify-content:flex-start;
-
+position:relative;
 box-sizing:border-box;
 
 @media ${(props) => props.theme.mobile} {

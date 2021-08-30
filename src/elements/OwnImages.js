@@ -11,14 +11,16 @@ import Level from '../pages/My/Diving/Level';
 
 const OwnImages = (props) => {
     const dispatch = useDispatch();
-    const {image, level} = props
+    const {image, level, setCheck} = props
 
     const changeProfile = (image) => {
         dispatch(userActions.changeProfileSV(image))    
     }
 
     const goBack = () => {
-        history.goBack();
+        setTimeout(() => {
+            history.goBack();
+        },[1500])
     }
 
     const levelList = {
@@ -46,7 +48,8 @@ const OwnImages = (props) => {
                     <CancelButton 
                     onClick={() => {
                         changeProfile(image);
-                        goBack();}}>
+                        setCheck(true)
+                        goBack()}}>
                         선택
                     </CancelButton>
  
