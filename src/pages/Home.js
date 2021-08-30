@@ -134,6 +134,9 @@ useEffect(() => {
       const lastReviewId = Id[Id.length - 1]?._id
       getMoreReview(lastReviewId)
     }
+    return () => {
+      dispatch(permitAction.isLoaded(false))
+    }
   }, [inView]);
 
 
