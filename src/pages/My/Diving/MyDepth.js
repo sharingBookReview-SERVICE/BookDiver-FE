@@ -65,6 +65,7 @@ const MyDepth = (props) => {
         dispatch(userActions.getUserSV()) //수심페이지에서 유저정보 다시 불러오기 
         dispatch(userActions.checkTreasureSV())
         dispatch(permitAction.showTreasureModal(false)) //보물 찾으러 가라는 모달 없애기
+        dispatch(permitAction.showNav(true)) 
         setTimeout(() => {
             dispatch(permitAction.isLoading(false))
           }, 600);
