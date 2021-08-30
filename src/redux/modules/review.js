@@ -274,11 +274,16 @@ const getDetailReviewSV = (bookId, reviewId) => {
 //라이크 버튼
 const LikeSV = (bookId, reviewId, reviewUserId) => {
 
-    return function (dispatch) {
+    return function (dispatch, getState) {
         instance
             .put(`/books/${bookId}/reviews/${reviewId}/likes`)
             .then((res) => {
                 dispatch(like(reviewId));
+
+                const userId = getState().user.user.id
+                if(userId === reviewUserId){
+                  return
+                }
                 socket.emit("like", reviewUserId)//좋아요 성공시 서버에 확인보내주기
             })
             .catch((err) => {

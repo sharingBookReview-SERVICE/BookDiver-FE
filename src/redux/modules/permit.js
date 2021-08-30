@@ -21,6 +21,7 @@ const IS_LOADED = "permit/IS_LOADED"
 const REVIEW_LOADING = "permit/REVIEW_LOADING"
 const FINISH_REVIEW = "permit/FINISH_REVIEW"
 const SHOW_NOTfOUND_MODAL = "permit/SHOW_NOTfOUND_MODAL"
+const FEED_TYPE = "permit/FEED_TYPE"
 
 //actioncreator
 const showNav = createAction(SHOW_NAV, (is_nav) => ({ is_nav }));
@@ -42,6 +43,7 @@ const isLoaded = createAction(IS_LOADED, (is_loaded) =>({is_loaded}))
 const reviewLoading = createAction(REVIEW_LOADING, (review_loading) => ({review_loading}))
 const finishReview = createAction(FINISH_REVIEW, (finish_review) => ({finish_review}))
 const showNotfoundModal = createAction(SHOW_NOTfOUND_MODAL, (is_not_found) => ({is_not_found}))
+const feedType = createAction(FEED_TYPE, (feed_type) => ({feed_type}) )
 
 //initial
 const initialState = {
@@ -63,7 +65,8 @@ const initialState = {
     is_loaded:false,
     review_loading:false,
     finish_review: false,
-    is_not_found:false
+    is_not_found:false,
+    feed_type:"recent",
 };
 
 
@@ -146,6 +149,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_not_found = action.payload.is_not_found;
         }),
+        [FEED_TYPE] : (state, action) => 
+        produce(state, (draft) => {
+          draft.feed_type = action.payload.feed_type;
+        }),
     },
     initialState
   );
@@ -170,7 +177,8 @@ const actionCreators = {
     isLoaded,
     reviewLoading,
     finishReview,
-    showNotfoundModal
+    showNotfoundModal,
+    feedType,
 };
   
 export { actionCreators };
