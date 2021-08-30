@@ -16,7 +16,7 @@ SwiperCore.use([Mousewheel])
 
 
 
-const CollectionSlider = ({collection_list, collection_name, desc}) => {
+const CollectionSlider = ({is_tag, collection_list, collection_name, desc}) => {
 
     const toTagCollectionList = ()=>{
         history.push('/collectionlist/tag')
@@ -66,7 +66,7 @@ const CollectionSlider = ({collection_list, collection_name, desc}) => {
         >
         {collection_list?.map((collection)=>{
             return(
-                <SwiperSlide><Collection is_tag {...collection} key={collection.id}/></SwiperSlide>
+                <SwiperSlide><Collection is_tag={is_tag} {...collection} key={collection.id}/></SwiperSlide>
             )
             })}
     </Swiper>

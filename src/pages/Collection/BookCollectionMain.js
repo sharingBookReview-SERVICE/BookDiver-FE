@@ -64,6 +64,7 @@ const BookCollectionMain = (props) =>{
             />
 
             <CollectionSlider 
+                is_tag
                 collection_list={tag_collection_list} 
                 collection_name={"태그 추천 컬렉션"}
                 desc={"작성된 리뷰 태그에 관련된 컬렉션을 모아봤어요."}
