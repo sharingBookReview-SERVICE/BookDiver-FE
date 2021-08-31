@@ -1,5 +1,5 @@
 //import 부분
-import React, { useEffect, useState, useRef, useCallback, createRef } from "react";
+import React, { useEffect, useState, useRef, createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";
 import { actionCreators as reviewActions } from "../redux/modules/review";
@@ -7,60 +7,43 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { useInView } from "react-intersection-observer";
 import { history } from "../redux/configStore";
 
-//소켓
-import io from "socket.io-client"
-
 import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
 import {EditModal,LoginModal,NotSupport,CheckTreasureModal,NotFound} from "../modals";
 
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
-import Spinner from "../components/Spinner"
 import NomoreLottie from "../img/lottie/NomoreLottie";
-import LikeLottie from "../img/lottie/LikeLottie";
-
-const socket = io.connect("https://ohbin.shop")
 
 const Home = (props) => {
-  //dispatch와 변수들
   const dispatch = useDispatch();
-  const reviewList = useSelector((state) => state.review.all_review_list);
 
-  //modal permit boolean
+  const reviewList = useSelector((state) => state.review.all_review_list);
+  const feedType = useSelector((state) => state.permit.feed_type)
+
+  //--모달 permit boolean
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal);
   const show_login_modal = useSelector((state) => state.permit.show_login)
   const is_support_modal = useSelector((state) => state.permit.is_support_modal)
+  const is_treasure = useSelector((state) => state.permit.is_treasure_modal) // 보물 얻었다는 모달 
+
+  //--permit 변수들 
   const is_not_found = useSelector((state) => state.permit.is_not_found)
   const is_loading = useSelector((state) => state.permit.is_loading)
-  const is_treasure = useSelector((state) => state.permit.is_treasure_modal)
-  const userId = useSelector((state) => state.user.user._id); //내 아이디
+
+  //보물얻었다는 모달을 띄우기 위한 변수 
+
   const is_loaded = useSelector((state) => state.permit.is_loaded)
-  const [isRecentCategory, setIsRecentCategory] = useState(false)
-  const reviewLoading = useSelector((state) => state.permit.reviewLoading)
-  const feedType = useSelector((state) => state.permit.feed_type)
-  const [finalReview, setFinalReview] = useState(false)
   const is_review_finished = useSelector((state) => state.permit.finish_review)
 
   
-  const [Id, setId] = useState([])
+  const [_reviewId, setReviewId] = useState([])
   const [ref, inView] = useInView();
-
-  //-----------옵저버 테스트 
-  const ReviewCount = reviewList.length;
-  const [elRefs,setElRefs] = useState([]);
-
-  //게시물 하나당 ref를 붙이기 위한 작업
-  useEffect(() => {
-    setElRefs(elRefs => (
-      Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
-    ))
-  },[ReviewCount])
 
 
   //피드의 타입을 바꾸기 
   const changeFeedType = (type) => {
-    dispatch(permitAction.isLoaded(false))
+    dispatch(permitAction.isLoaded(false)) //피드의 타입을 바꾸는 동안에는 무한스크롤 옵저버를 숨기기
     dispatch(permitAction.feedType(type))
   }
 
@@ -72,41 +55,6 @@ const Home = (props) => {
   //소셜리뷰 불러오기 
   const getSocialReview = () => {
     dispatch(reviewActions.getAllReviewSV());
-  }
-
-
-//옵저버가 관찰될 때, 실행할 함수 = 해당 게시물의 아이디 값을 서버에 보내서, 사용자가 이 게시물을 '읽었다'는 것을 체크해주기 
-const sendIsReaden = async([entry], observer) => {
-    if (!entry.isIntersecting) {
-      return
-    }
-    const showedReviewIdx = [entry][0].target.dataset.idx
-    const showedReviewId = Id[showedReviewIdx]?._id
-
-    observer.unobserve(entry.target)
-    dispatch(reviewActions.checkIsRead(showedReviewId))
-}
-
-useEffect(() => {
-  let observer
-    if(elRefs[0] && !is_loading){
-    observer = new IntersectionObserver(sendIsReaden, {threshold: 0.5});
-    reviewList.forEach((_, idx) => {
-      observer.observe(elRefs[idx].current)
-    });
-  }
-  return () => observer?.disconnect();
-},[elRefs])
-
-
-  let is_render = false;
-
-  //useEffect 실행 이후에도 불러온 리뷰가 없다면, 에러 안내 화면으로 보내기
-  if(is_render){
-    if(reviewList.length === 0){
-      localStorage.clear();
-      history.push("*")
-    }
   }
 
   //로딩이 되고나면, 네이게이션을 없애주기.
@@ -129,19 +77,71 @@ useEffect(() => {
   }, []);
 
 
+  //-----------리뷰의 읽음을 보내기 
+  const ReviewCount = reviewList.length;
+  const [elRefs,setElRefs] = useState([]);
+
+  //게시물 하나당 ref를 붙이기 위한 작업
+  useEffect(() => {
+    setElRefs(elRefs => (
+      Array(ReviewCount).fill().map((_,i) => elRefs[i] || createRef())
+    ))
+  },[ReviewCount])
+
   //인피니티 스크롤 구현을 위한, 리뷰 아이디 갯수 세기
   useEffect(() => {
-    setId(reviewList)
+    setReviewId(reviewList)
   }, [reviewList]);
 
+//옵저버가 관찰될 때, 실행할 함수 => 해당 게시물의 아이디 값을 서버에 보내서, 사용자가 이 게시물을 '읽었다'는 것을 체크해주기 
+  const sendIsRead = async([entry], observer) => {
+    if (!entry.isIntersecting) {
+      return
+    }
+    const showedReviewIdx = [entry][0].target.dataset.idx //보여진 리뷰의 인덱스
+    const showedReviewId = _reviewId[showedReviewIdx]?._id // 해당 인덱스 리뷰의 아이디 값을 가져오기
+    observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
+    dispatch(reviewActions.checkIsRead(showedReviewId)) //관찰한 게시물의 아이디를 보내기
+}
+
+
+  useEffect(() => {
+  let observer
+
+  //ref요소가 존재하고, 페이지의 로딩이 끝나면 옵저버 인스턴스를 생성하기. 
+    if(elRefs[0] && !is_loading){
+    // 절반반 읽어도, 게시물을 읽음을 보내기 
+    observer = new IntersectionObserver(sendIsRead, {threshold: 0.5});
+    reviewList.forEach((_, idx) => {
+      //리뷰의 갯수만큼 생성된 ref에 옵저버를 붙이기
+      observer.observe(elRefs[idx].current)
+    });
+  }
+  //화면을 나갈때 옵저버의 연결을 해제하기. 
+  return () => observer?.disconnect();
+  },[elRefs])
+
+
+  //useEffect 실행 이후에도 불러온 리뷰가 없다면, 에러 안내 화면으로 보내기
+  let is_render = false;
+
+  if(is_render){
+    if(reviewList.length === 0){
+      localStorage.clear();
+      history.push("*")
+    }
+  }
+
+  //---무한스크롤을 위한 리뷰 더 불러오기 
   const getMoreReview = (lastId) => {
     //리뷰 더 불러오기 로딩
     dispatch(permitAction.reviewLoading(true))
+
     if(lastId && feedType === "social"){
-      // 소셜피드일 때, 무한스크롤 함수
+      // 소셜피드일 때, 리뷰 더 불러오기 함수
       return dispatch(reviewActions.getMoreReviewSV(lastId)); 
     }else{
-       // 최신피드일 떄, 무한스크롤 함수
+       // 최신피드일 떄, 리뷰 더 불러오기 함수 
       return dispatch(reviewActions.getMoreRecentReviewSV(lastId));
     }
   }
@@ -150,8 +150,7 @@ useEffect(() => {
   useEffect(() => {
     dispatch(permitAction.isLoaded(true))
     if(inView){
-      const lastReviewId = Id[Id.length - 1]?._id
-      console.log(lastReviewId)
+      const lastReviewId = _reviewId[_reviewId.length - 1]?._id
       getMoreReview(lastReviewId)
     }
 
@@ -181,6 +180,7 @@ useEffect(() => {
       behavior: 'smooth',
     });
   }
+
   const lastScroll = useSelector(state=> state.review.current_scroll);
   const container = useRef(null);
 
@@ -191,8 +191,9 @@ useEffect(() => {
   //뷰
   return (
     <>
-{is_loading ? 
-<Loading/> : 
+  {
+    is_loading ? 
+    <Loading/> : 
       <Container  onScroll={scroll} ref={container}>
         <Header />
         <FeedCategoryWrapper>
@@ -214,7 +215,6 @@ useEffect(() => {
           <CategoryBar feedType={feedType}/>
         </FeedCategoryWrapper>
 
-        {/* <GoToTopBtn onClick={()=>{scrollToTop()}}/> */}
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard
@@ -224,11 +224,12 @@ useEffect(() => {
                     key={review.id}/> 
               );
         })}
-      {/* {reviewLoading && <Spinner src={spinner}/>} */}
-      {is_loaded && <div ref={ref} ></div>}
-      {is_review_finished && <NomoreLottie/>}
-      </Container>}
-    <NotSupport is_support_modal={is_support_modal}/>
+
+      { is_loaded && <div ref={ref} ></div> }
+      { is_review_finished && <NomoreLottie/> }
+      </Container>
+      }
+
     <EditModal is_edit_modal={is_edit_modal}/>
     <NotFound is_found_modal={is_not_found}/>
     <LoginModal show_login_modal={show_login_modal}/>
@@ -354,27 +355,4 @@ const HomeBGColor = styled.div`
   }
 `;
 
-// const Spinner = styled.img`
-// width:50px;
-// height:50px;
-// margin-bottom:50px;
-// `
-
-const GoToTopBtn = styled.button`
-
-width: 70px;
-height: 70px;
-border-radius: 70px;
-background-color: black;
-position: fixed;
-z-index: 100;
-bottom: 100px;
-right: 10px;
-
-`;
-
-const Lottie = styled.div`
-width: 100px;
-height: 100px;
-`;
 export default Home;
