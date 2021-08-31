@@ -24,6 +24,7 @@ const SHOW_NOTfOUND_MODAL = "permit/SHOW_NOTfOUND_MODAL"
 const FEED_TYPE = "permit/FEED_TYPE"
 const IS_UNSPLASH_MODAL = "permit/IS_UNSPLASH_MODAL"
 const IS_UNSPLASH_SELECTED = "permit/IS_UNSPLASH_SELECTED"
+const IS_SEARCHING = "permit/IS_SEARCHING"
 
 //actioncreator
 const showNav = createAction(SHOW_NAV, (is_nav) => ({ is_nav }));
@@ -48,6 +49,7 @@ const showNotfoundModal = createAction(SHOW_NOTfOUND_MODAL, (is_not_found) => ({
 const feedType = createAction(FEED_TYPE, (feed_type) => ({feed_type}) )
 const isUnsplashModal = createAction(IS_UNSPLASH_MODAL, (is_unsplash_modal) => ({is_unsplash_modal}))
 const isUnsplashSelected = createAction(IS_UNSPLASH_SELECTED, (is_unsplash_selected) => ({is_unsplash_selected}))
+const isSearching = createAction(IS_SEARCHING, (is_searching) => ({is_searching}))
 
 //initial
 const initialState = {
@@ -73,6 +75,7 @@ const initialState = {
     feed_type:"recent",
     is_unsplash_modal:false,
     is_unsplash_selected: false,
+    is_searching:false,
 };
 
 
@@ -167,6 +170,10 @@ export default handleActions(
         produce(state, (draft) => {
           draft.is_unsplash_selected = action.payload.is_unsplash_selected;
         }),
+        [IS_SEARCHING] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_searching = action.payload.is_searching;
+        }),
     },
     initialState
   );
@@ -195,6 +202,7 @@ const actionCreators = {
     feedType,
     isUnsplashModal,
     isUnsplashSelected,
+    isSearching,
 };
   
 export { actionCreators };

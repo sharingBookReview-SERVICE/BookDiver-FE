@@ -1,4 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
+import { actionCreators as permitActions } from "./permit";
 import { produce } from "immer";
 import axios from 'axios';
 
@@ -35,6 +36,7 @@ const getUnsplashSV = (keyword) => {
       })
   
       dispatch(getUnsplash(imageList))
+      dispatch(permitActions.isSearching(true))
     })
 };
 

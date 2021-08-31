@@ -41,6 +41,7 @@ const UnsplashModal = (props) =>{
 
   const [searchWord, setSearchWord] = useState("");
   const imageList = useSelector(state => state.upload.image_list)
+  const is_searching = useSelector(state => state.permit.is_searching)
   const [is_searched, setIsSearched] = useState(false)
 
   const getUnsplashImage = (keyword) => {
@@ -60,8 +61,8 @@ const UnsplashModal = (props) =>{
       window.alert("검색어를 입력해주세요")
     }
     else{
+      dispatch(permitActions.isSearching(true))
       getUnsplashImage(searchWord)
-      setIsSearched(true)
     }
   }
 
@@ -92,12 +93,12 @@ const UnsplashModal = (props) =>{
                 <SearchIcon className={classes.search} onClick={()=>{searchBook()}}/>
               </SearchBox>
 
-              {!is_searched && 
+              {!is_searching ? 
                 <LottieBox>
                   <SearchLottie/>
-                </LottieBox>}
-              
-              <ColumnBox>
+                </LottieBox> : 
+
+                <ColumnBox>
                 <Column>
                     {imageList?.map((url, idx)=>{
                         return(
@@ -107,7 +108,9 @@ const UnsplashModal = (props) =>{
                         key={idx}/>
                         )})}
                 </Column>
-              </ColumnBox>
+                </ColumnBox>}
+              
+
 
             </Container>
 
