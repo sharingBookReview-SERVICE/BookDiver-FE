@@ -50,19 +50,6 @@ const Home = (props) => {
   const ReviewCount = reviewList.length;
   const [elRefs,setElRefs] = useState([]);
 
-  const changeFeedType = (type) => {
-    dispatch(permitAction.isLoaded(false))
-    dispatch(permitAction.feedType(type))
-  }
-
-  const getRecentReview = () => {
-    dispatch(reviewActions.getRecentReviewSV())
-  }
-
-  const getSocialReview = () => {
-    dispatch(reviewActions.getAllReviewSV());
-  }
-
   //게시물 하나당 ref를 붙이기 위한 작업
   useEffect(() => {
     setElRefs(elRefs => (
@@ -71,14 +58,30 @@ const Home = (props) => {
   },[ReviewCount])
 
 
+  //피드의 타입을 바꾸기 
+  const changeFeedType = (type) => {
+    dispatch(permitAction.isLoaded(false))
+    dispatch(permitAction.feedType(type))
+  }
 
-const onIntersect = async([entry], observer) => {
+  //최신리뷰 불러오기 
+  const getRecentReview = () => {
+    dispatch(reviewActions.getRecentReviewSV())
+  }
+
+  //소셜리뷰 불러오기 
+  const getSocialReview = () => {
+    dispatch(reviewActions.getAllReviewSV());
+  }
+
+
+//옵저버가 관찰될 때, 실행할 함수 = 해당 게시물의 아이디 값을 서버에 보내서, 사용자가 이 게시물을 '읽었다'는 것을 체크해주기 
+const sendIsReaden = async([entry], observer) => {
     if (!entry.isIntersecting) {
       return
     }
     const showedReviewIdx = [entry][0].target.dataset.idx
     const showedReviewId = Id[showedReviewIdx]?._id
-    console.log(showedReviewId)
 
     observer.unobserve(entry.target)
     dispatch(reviewActions.checkIsRead(showedReviewId))
@@ -87,7 +90,7 @@ const onIntersect = async([entry], observer) => {
 useEffect(() => {
   let observer
     if(elRefs[0] && !is_loading){
-    observer = new IntersectionObserver(onIntersect, {threshold: 0.5});
+    observer = new IntersectionObserver(sendIsReaden, {threshold: 0.5});
     reviewList.forEach((_, idx) => {
       observer.observe(elRefs[idx].current)
     });
