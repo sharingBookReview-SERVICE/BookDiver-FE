@@ -4,21 +4,18 @@ import instance from "../../shared/Request";
 
 
 //actions
-const GET_ONE_BOOK = "book/GET_ONE_BOOK";
-const GET_BESTSELLER = "book/GET_BESTSELLER";
-const GET_SEARCH_BOOKS = "book/GET_SEARCH_BOOKS";
-const RESET_SELECTED_BOOK = "book/RESET_SELECTED_BOOK";
+const GET_ONE_BOOK = "book/GET_ONE_BOOK"; //책 하나만 불러오기
+const GET_SEARCH_BOOKS = "book/GET_SEARCH_BOOKS"; //검색한 책 불러오기
+const RESET_SELECTED_BOOK = "book/RESET_SELECTED_BOOK";//선택한 책 초기화
 
 //actioncreator
 const getOneBook = createAction(GET_ONE_BOOK, (book)=>({book}));
-const getBestSeller = createAction(GET_BESTSELLER, (book_list) =>({book_list}));
 const getSearchBooks = createAction(GET_SEARCH_BOOKS, (book_list)=>({book_list}));
 const resetSelectedBook = createAction(RESET_SELECTED_BOOK, (book)=> ({book}));
 
 //initial
 const initialState = {
     book :[],
-    best_seller : [],
     search_book_list : []
 };
 
@@ -60,35 +57,21 @@ const getOneBookSV = (id)=>{
 }
 
 
-//베스트 셀러 불러오기
-const getBestSellerSV = ()=>{
-    return function(dispatch,{history}){
-        instance.get('/book/bestseller')
-        .then((res)=>{
-            dispatch(getBestSeller(res.data));
-        })
-        .catch((err)=>{
-            // history.push("*")
-            console.log("베스트셀러 로드 실패", err)
-        })
-    }
-}
 
 //reducer
 export default handleActions(
     {
+        //책 하나만 불러오기
         [GET_ONE_BOOK]: (state, action)=>
         produce(state, (draft)=>{
             draft.book = action.payload.book;
         }),
-        [GET_BESTSELLER]:(state, action) =>
-        produce(state, (draft)=>{
-            draft.best_seller = action.payload.book_list;
-        }),
+        //검색한 책 불러오기
         [GET_SEARCH_BOOKS]: (state, action) =>
         produce(state, (draft)=>{
             draft.search_book_list = action.payload.book_list;
         }),
+        //선택한 책 리셋하기
         [RESET_SELECTED_BOOK]: (state, action) =>
         produce(state,(draft)=>{
             draft.book = [];
@@ -102,7 +85,6 @@ export default handleActions(
 
 const actionCreators = {
     getOneBookSV,
-    getBestSellerSV,
     getSearchBooksSV,
     resetSelectedBook
 };

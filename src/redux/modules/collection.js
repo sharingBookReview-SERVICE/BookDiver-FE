@@ -7,21 +7,21 @@ import { actionCreators as permitActions } from "./permit";
 
 
 //actions
-const IS_MAKE_COLLECTION = "collection/IS_MAKE_COLLECTION";
-const SELECT_BOOKS = "collection/SELECT_BOOKS";
-const DELETE_SELECTED_BOOK = "collection/DELETE_SELECTED_BOOK";
-const ADD_BOOK_DESCRIPTION = "collection/ADD_BOOK_DESCRIPTION";
-const GET_SELECTED_BOOKS = "collection/GET_SELECTED_BOOKS";
-const MORE_SELECT = "collection/MORE_SELECT";
-const RESET_SELECTED = "collection/RESET_SELECTED";
-const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS";
-const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS";
-const ADD_COLLECTION = "collection/ADD_COLLECTION";
-const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL";
-const DELETE_COLLECTION = "collection/DELETE_COLLECTION";
-const EDIT_COLLECTION = "collection/EDIT_COLLECTION";
-const GET_COLLECTION_ID = "collection/GET_COLLECTION_ID";
-const SEARCH_COLLECTION ="collection/SEARCH_COLLECTION";
+const IS_MAKE_COLLECTION = "collection/IS_MAKE_COLLECTION"; //이 페이지가 컬렉션 만들기인지 확인하는 액션
+const SELECT_BOOKS = "collection/SELECT_BOOKS"; //책 선택하기
+const DELETE_SELECTED_BOOK = "collection/DELETE_SELECTED_BOOK"; //선택한 책에서 하나 삭제하기
+const ADD_BOOK_DESCRIPTION = "collection/ADD_BOOK_DESCRIPTION"; //선택한 책에서 추천설명 추가하기
+const GET_SELECTED_BOOKS = "collection/GET_SELECTED_BOOKS"; // 올렸던 컬렉션에서 책만 받아오기
+const MORE_SELECT = "collection/MORE_SELECT"; // 책을 더 선택할지 여부
+const RESET_SELECTED = "collection/RESET_SELECTED"; //선택한 책 배열 초기화
+const GET_TAG_COLLECTIONS = "collection/GET_TAG_COLLECTIONS"; //태그 기반 추천 컬렉션 가져오기
+const GET_CUSTOM_COLLLECTIONS = "collection/GET_CUSTOM_COLLLECTIONS"; //사용자가 만든 컬렉션 가져오기
+const ADD_COLLECTION = "collection/ADD_COLLECTION"; //컬렉션 작성
+const GET_COLLECTION_DETAIL ="collection/GET_COLLECTION_DETAIL"; // 컬렉션 상세 보기
+const DELETE_COLLECTION = "collection/DELETE_COLLECTION"; //컬렉션 삭제
+const EDIT_COLLECTION = "collection/EDIT_COLLECTION"; //컬렉션 수정
+const GET_COLLECTION_ID = "collection/GET_COLLECTION_ID"; //해당 컬렉션 아이디 가져오기
+const SEARCH_COLLECTION ="collection/SEARCH_COLLECTION"; // 태그기반으로 컬렉션 검색하기
 
 
 //actioncreator
@@ -224,10 +224,13 @@ const searchCollectionSV = (keyword) =>{
 //reducer
 export default handleActions(
     {
+      
+      //이 페이지가 컬렉션 만들기인지 확인하는 액션
       [IS_MAKE_COLLECTION]: (state, action) =>
       produce(state, (draft) => {
         draft.is_make_collection = action.payload.is_make_collection;
       }),
+       //책 선택하기
       [SELECT_BOOKS]: (state, action) =>
       produce(state, (draft) => {
         let index = draft.selected_Books.findIndex((p) => p.isbn === action.payload.book.isbn);
@@ -238,12 +241,14 @@ export default handleActions(
         draft.selected_Books.push(action.payload.book);
 
       }),
+      //선택한 책에서 하나 삭제하기
       [DELETE_SELECTED_BOOK]:(state, action)=>
       produce(state, (draft)=>{
         draft.selected_Books = draft.selected_Books.filter((l, idx) => {
           return l.isbn !== action.payload.bookId;
         });
       }),
+       //선택한 책에서 추천설명 추가하기
       [ADD_BOOK_DESCRIPTION]:(state, action)=>
       produce(state, (draft)=>{
         let idx = draft.selected_Books.findIndex((l) => l.isbn === action.payload.content.isbn);
@@ -251,26 +256,32 @@ export default handleActions(
           draft.selected_Books[idx].book_description = action.payload.content.book_description;
         }
       }),
+      // 올렸던 컬렉션에서 책만 받아오기
       [GET_SELECTED_BOOKS]:(state, action)=>
       produce(state, (draft)=>{
        draft.selected_Books = action.payload.books;
       }),
+      // 책을 더 선택할지 여부
       [MORE_SELECT]: (state, action) =>
       produce(state, (draft) => {
         draft.more_select = action.payload.more_select;
       }),
+      //선택한 책 배열 초기화
       [RESET_SELECTED]: (state, action) =>
       produce(state, (draft) => {
         draft.selected_Books = [];
       }),
+       //태그 기반 추천 컬렉션 가져오기
       [GET_TAG_COLLECTIONS]:(state, action)=>
       produce(state, (draft)=>{
         draft.tag_collection_list = action.payload.collection_list;
       }),
+       //사용자가 만든 컬렉션 가져오기
       [GET_CUSTOM_COLLLECTIONS]:(state, action)=>
       produce(state, (draft)=>{
         draft.custom_collection_list = action.payload.collection_list;
       }),
+       //컬렉션 작성
       [ADD_COLLECTION]:(state, action)=>
       produce(state, (draft)=>{
         draft.custom_collection_list.push(action.payload.collection);
@@ -281,17 +292,19 @@ export default handleActions(
       produce(state, (draft)=>{
         draft.collection_detail = action.payload.collection;
       }),
-     
+     //컬렉션 삭제
       [DELETE_COLLECTION]:(state, action)=>
       produce(state, (draft)=>{
         draft.custom_collection_list = draft.custom_collection_list.filter((l, idx) => {
           return l.id !== action.payload.collectionId;
         });
       }),
+      //해당 컬렉션 아이디 가져오기
       [GET_COLLECTION_ID]: (state, action)=>
       produce(state, (draft)=>{
         draft.collection_id = action.payload.collectionId;
       }),
+      // 태그기반으로 컬렉션 검색하기
       [SEARCH_COLLECTION]: (state, action)=>
       produce(state, (draft)=>{
         draft.searched_collection = action.payload.collection;

@@ -11,19 +11,17 @@ import io from "socket.io-client"
 const socket = io.connect("https://ohbin.shop")
 
 //actions
-const GET_ALL_REVIEW = "review/GET_ALL_REVIEW";
-const GET_MORE_REVIEW = "review/GET_MORE_REVIEW"
-const ADD_REVIEW = "review/ADD_REVIEW";
-const LIKE = "review/LIKE";
-const BOOKMARK = "review/BOOKMARK";
-const DELETE_REVIEW = "review/DELETE_REVIEW";
-const EDIT_REVIEW = "review/EDIT_REVIEW";
-const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW";
-const GET_FEED_ID = "review/GET_FEED_ID";
-const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE";
-const CURRENT_SCROLL = "review/CURRENT_SCROLL";
-const SEARCH = "review/Search";
-const GET_ALLTAGS = "review/GET_ALLTAGS";
+const GET_ALL_REVIEW = "review/GET_ALL_REVIEW"; //리뷰 전체 불러오기
+const GET_MORE_REVIEW = "review/GET_MORE_REVIEW" //무한스크롤
+const ADD_REVIEW = "review/ADD_REVIEW"; //리뷰 추가하기
+const LIKE = "review/LIKE"; //좋아요 누르기
+const BOOKMARK = "review/BOOKMARK"; //북마크하기
+const DELETE_REVIEW = "review/DELETE_REVIEW"; //리뷰 삭제
+const EDIT_REVIEW = "review/EDIT_REVIEW"; //리뷰 수정
+const GET_DETAIL_REVIEW = "review/GET_DETAIL_REVIEW"; //리뷰 상세보기
+const GET_FEED_ID = "review/GET_FEED_ID"; //리뷰 아이디 
+const GET_REVIEWS_BOOK_HAVE = "review/GET_REVIEWS_BOOK_HAVE"; //책이 가진 리뷰 보기
+const CURRENT_SCROLL = "review/CURRENT_SCROLL"; //스크롤 저장
 
 //actioncreator
 const getAllReview = createAction(GET_ALL_REVIEW, (review_list) => ({review_list}));
@@ -37,8 +35,6 @@ const getDetailReview = createAction(GET_DETAIL_REVIEW, (review) => ({review}));
 const getFeedId = createAction(GET_FEED_ID, (bookId, reviewId) => ({bookId, reviewId}));
 const getReviewsBookHave = createAction(GET_REVIEWS_BOOK_HAVE, (reviews) => ({reviews}));
 const saveCurrentScroll = createAction(CURRENT_SCROLL, (location)=>({location}));
-const searchReview = createAction(SEARCH, (review)=>({review}));
-const getAllTags = createAction(GET_ALLTAGS, (tags)=>({tags}));
 
 //initial
 const initialState = {
@@ -117,22 +113,6 @@ const getRecentReviewSV = () => {
     };
 }
 
-// const getMoreReviewSV = (lastId) => {
-
-//     return function (dispatch) {
-//         instance
-//             .get("/feeds")
-//             .then((res) => {
-//                 console.log(res)
-//                 dispatch(getMoreReview(res.data));
-//                 dispatch(permitActions.isLoading(false))
-//             })
-//             .catch((err) => {
-//                 // history.push("*")
-//                 console.log("전체 피드 가져오기 실패", err);
-//             });
-//     };
-// };
 
 const getMoreReviewSV = (lastId) => {
     return function (dispatch) {
@@ -328,36 +308,7 @@ const getReviewsBookHaveSV = (bookId) => {
     };
 };
 
-const searchReviewSV = (keyword) =>{
-    return function(dispatch, getState) {
-        instance
-        .get(`/search`, {
-            params : {
-                tag: keyword
-            }
-        }
-  
-        )
-        .then((res)=>{
-        })
-        .catch((err)=>{
-            console.log("검색 실패", err)
-        })
-    }
-}
 
-const getAllTagsSV = () =>{
-    return function(dispatch, getState) {
-        instance
-        .get(`/search/allTags`)
-        .then((res)=>{
-            dispatch(getAllTags(res.data.allTags))
-        })
-        .catch((err)=>{
-            console.log("검색 실패", err)
-        })
-    }
-}
 
 //reducer
 export default handleActions(
@@ -463,14 +414,7 @@ export default handleActions(
         produce(state, (draft)=>{
             draft.current_scroll = action.payload.location;
         }),
-        [SEARCH]:(state, action) =>
-        produce(state, (draft)=>{
-            draft.serached_review = action.payload.review;
-        }),
-        [GET_ALLTAGS]:(state, action) =>
-        produce(state, (draft)=>{
-            draft.all_tags = action.payload.tags;
-        }),
+    
     },
     initialState
 );
@@ -486,8 +430,6 @@ const actionCreators = {
     getReviewsBookHaveSV,
     getMoreReviewSV,
     saveCurrentScroll,
-    searchReviewSV,
-    getAllTagsSV,
     bookMarkSV,
     saveCurrentScroll,
     checkIsRead,
