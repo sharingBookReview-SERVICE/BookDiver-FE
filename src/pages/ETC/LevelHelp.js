@@ -71,31 +71,31 @@ const LevelHelp = (props) =>{
 
     const slideContent = [
         {
-        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF1.png",
+        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-1.png",
         quide:`안녕하세요, 다이버가 처음이신가요?
         다이버에서는 잠수상태에 따라서 
         다양한 바다친구들을 만나며
         더욱 재미있게  독서의 바다에서 헤엄칠 수 있어요.`
         },
         {
-        img:"https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF2.png",
+        img:"https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-2.png",
         quide:"다이버들은  게시물을 올리거나 북컬렉션을 만들면 더욱 깊은 곳으로 잠수할 수 있어요."
         },
         {
-        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF3.png",
+        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-3.png",
         quide:"깊은 곳으로 잠수하면 다양한 바닷속 친구들과 보물상자를 발견할 수 있어요."
         },
         {
-        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF4.png",
+        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-4.png",
         quide:"보물상자를 열면 바다속 친구를 칭호로 얻을 수 있고, 칭호를 내 프로필에 적용할 수 있어요.",
         position: "8%"
         },
         {
-        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF5.png",
+        img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-5.png",
         quide:"획득한 칭호가 궁금하다면 언제든지 내피드 상단 톱니바퀴를 누르고 프로필 변경 페이지로 이동하면 확인할 수 있어요"
         },
         {
-          img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF6.png",
+          img: "https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-%E1%84%87%E1%85%A2%E1%84%80%E1%85%A7%E1%86%BC%E1%84%8B%E1%85%B5%E1%84%86%E1%85%B5%E1%84%8C%E1%85%B5/%E1%84%90%E1%85%B2%E1%84%90%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8B%E1%85%A5%E1%86%AF-6.png",
           quide:"성격과 취향이 다른 바닷속 친구들을 내 프로필로 적용해 나의 모습을 표현해보세요! 그럼, 이제 잠수하러 떠나볼까요?"
           },
 
@@ -161,15 +161,16 @@ const IMG = styled.div`
 background-image:url(${(props) => props.url});
 background-size:cover;
 background-position:center;
-height: 100vh;
+height: 120vh;
 width: 100vw;
 @media ${(props) => props.theme.tablet} {
   width: 420px;
+  height: 150vh;
 }
 
 @media ${(props) => props.theme.desktop} {
   width: 420px;
-  height: 90vh;
+  height: 100vh;
  
 }
 `;
@@ -190,6 +191,14 @@ align-items: center;
 text-align: center;
 justify-content: center;
 z-index: 100;
+@media ${(props) => props.theme.tablet} {
+  top: ${(props) => props.position? `${props.position};` : "30%;"} 
+}
+
+@media ${(props) => props.theme.desktop} {
+ 
+ 
+}
 `;
 const Container = styled.div`
   width: 100%;
