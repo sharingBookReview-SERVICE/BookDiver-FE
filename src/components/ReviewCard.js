@@ -275,6 +275,11 @@ const ReviewCard = (props) => {
                   style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
                   onClick= {()=>{
                     bookMark()
+                    ReactGA.event({
+                      category: "Button",
+                      action: "click bookmark button",
+                      label: "bookmark",
+                    });
                   }}
                   />
                 }

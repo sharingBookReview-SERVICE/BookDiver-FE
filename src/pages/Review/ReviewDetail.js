@@ -299,8 +299,14 @@ const ReviewDetail = (props) => {
 
                 <HashTagBox>
                   {hashtags?.map((tag, idx) => {
-                     return <HashTag onClick={()=>{
+                     return <HashTag 
+                     onClick={()=>{
                       searchCollection(tag)
+                      ReactGA.event({
+                        category: "Button",
+                        action: "click hashtag button",
+                        label: "hashtag",
+                      });
                      }} key={idx}>{`#${tag} `}</HashTag>
                     })}
                   </HashTagBox>

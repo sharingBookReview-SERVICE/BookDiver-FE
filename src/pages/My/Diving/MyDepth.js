@@ -1,7 +1,7 @@
 //import 부분
 import React, { useEffect, useState } from "react";
 import {history} from "../../../redux/configStore";
-
+import ReactGA from "react-ga";
 import styled from "styled-components";
 import Color from "../../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -94,8 +94,24 @@ const MyDepth = (props) => {
 
                 <CategoryWrapper>
                     <Depth>나의 잠수상태</Depth>
-                    <Ranking onClick={openNotSupportModal}>다이버 랭킹</Ranking>
-                    <Tutorial onClick={()=>{goLevelHelp()}}>잠수하는 법</Tutorial>
+                    <Ranking 
+                    onClick={()=>{
+                        openNotSupportModal()
+                        ReactGA.event({
+                            category: "Button",
+                            action: "click rank button",
+                            label: "rank",
+                          });
+                        }}>다이버 랭킹</Ranking>
+                    <Tutorial 
+                    onClick={()=>{
+                        goLevelHelp()
+                        ReactGA.event({
+                            category: "Button",
+                            action: "click howto diving button",
+                            label: "diving",
+                          });
+                        }}>잠수하는 법</Tutorial>
                     <CategoryBar/>
                 </CategoryWrapper>
                     <MyLevel>{my_level}m에서 잠수중</MyLevel>
