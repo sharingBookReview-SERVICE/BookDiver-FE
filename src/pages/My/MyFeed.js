@@ -11,7 +11,7 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import Badge from '@material-ui/core/Badge';
 import Color from "../../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
-
+import ReactGA from "react-ga";
 //소켓
 import io from "socket.io-client"
 
@@ -214,12 +214,26 @@ const MyFeed = () => {
                      <FeedTitle>{nickname}님의 게시물</FeedTitle>
                       {
                         bookMode?
-                        <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
+                        <FeedCategoryButton onClick ={()=>{
+                          setBookMode(false)
+                          ReactGA.event({
+                            category: "Button",
+                            action: "click reviewmode button",
+                            label: "reviewmode",
+                          });
+                          }}>
                           <RemoveRedEyeIcon className={classes.eye}/>
                           리뷰모드
                       </FeedCategoryButton>
                       :
-                          <FeedCategoryButton onClick ={()=>{setBookMode(true)}}>
+                          <FeedCategoryButton onClick ={()=>{
+                            setBookMode(true)
+                            ReactGA.event({
+                              category: "Button",
+                              action: "click bookmode button",
+                              label: "bookmode",
+                            });
+                            }}>
                           <RemoveRedEyeIcon className={classes.eye}/>
                           책장모드
                       </FeedCategoryButton>
@@ -319,12 +333,26 @@ const MyFeed = () => {
                       <FeedTitle>내 게시물</FeedTitle>
                       {
                         bookMode?
-                        <FeedCategoryButton onClick ={()=>{setBookMode(false)}}>
+                        <FeedCategoryButton onClick ={()=>{
+                          setBookMode(false)
+                          ReactGA.event({
+                            category: "Button",
+                            action: "click reviewmode button",
+                            label: "reviewmode",
+                          });
+                          }}>
                           <RemoveRedEyeIcon className={classes.eye}/>
                           리뷰모드
                       </FeedCategoryButton>
                       :
-                          <FeedCategoryButton onClick ={()=>{setBookMode(true)}}>
+                          <FeedCategoryButton onClick ={()=>{
+                            setBookMode(true)
+                            ReactGA.event({
+                              category: "Button",
+                              action: "click bookmode button",
+                              label: "reviewmode",
+                            });
+                          }}>
                           <RemoveRedEyeIcon className={classes.eye}/>
                           책장모드
                       </FeedCategoryButton>

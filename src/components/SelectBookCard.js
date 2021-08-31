@@ -15,8 +15,8 @@ const SelectBookCard = (props) =>{
   const dispatch = useDispatch();
   const book = useSelector(state=> state.book.book);
   const is_selected = useSelector(state=> state.permit.is_selected);
-  const bookTitle = title?.split("(")[0].replace('<b>', "").replace('</b>',"")
-  const bookAuthor = author?.replace('<b>', "").replace('</b>',"")
+  const bookTitle = title?.split("(")[0].replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "")
+  const bookAuthor = author?.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] 
   const selectedBookTitle = book?.title?.split("(")[0]
 
   console.log(is_book_detail)

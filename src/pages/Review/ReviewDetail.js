@@ -7,6 +7,7 @@ import { actionCreators as commentAction } from "../../redux/modules/comment";
 import {actionCreators as reviewAction } from "../../redux/modules/review";
 import { actionCreators as permitAction } from "../../redux/modules/permit";
 import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as collectionActions } from "../../redux/modules/collection";
 
 import { history } from "../../redux/configStore";
 import { useParams } from "react-router";
@@ -20,6 +21,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutlined';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
+import LikeLottie from "../../img/lottie/LikeLottie";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {EditModal ,CommentModal} from "../../modals";
@@ -155,11 +157,20 @@ const ReviewDetail = (props) => {
   };
 
 
+  //lottie 좋아요
+  const [likebtn, setLikeBtn] = useState(false);
   //좋아요 클릭
   const clickLikeButton = () => {
     const reviewUserId = user?._id
     //리뷰 디테일에 들어왔다는 것은 로그인을 했다는 의미이니 로그인 체크 x
     dispatch(reviewAction.LikeSV(bookId, reviewId, reviewUserId));
+
+    if(!myLike){
+      setLikeBtn(true)
+      setTimeout(() => {
+        setLikeBtn(false)
+      }, (3000));
+    }
   };
 
   //북마크 클릭
@@ -176,6 +187,11 @@ const ReviewDetail = (props) => {
       history.push(`/otherUser/${user_id}`)
     }
   }
+
+    //태그 선택하면 컬렉션 검색
+    const searchCollection = (hashtag) =>{
+      dispatch(collectionActions.searchCollectionSV(hashtag))
+    }
 
   useEffect(() => {
     //처음 들어오면, 접속한 유저의 토큰을 보내기
@@ -274,13 +290,24 @@ const ReviewDetail = (props) => {
                   {content ? <Content>{content}</Content> : ""}
 
                   <ImageBox>
+                  {
+                      likebtn && <LikeLottie/>
+                    }
                     <Image src={image}/>
                   </ImageBox>
                 </ReviewContent>
 
                 <HashTagBox>
                   {hashtags?.map((tag, idx) => {
-                     return <HashTag key={idx}>{`#${tag} `}</HashTag>
+                     return <HashTag 
+                     onClick={()=>{
+                      searchCollection(tag)
+                      ReactGA.event({
+                        category: "Button",
+                        action: "click hashtag button",
+                        label: "hashtag",
+                      });
+                     }} key={idx}>{`#${tag} `}</HashTag>
                     })}
                   </HashTagBox>
 
@@ -545,6 +572,7 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const Image = styled.img`

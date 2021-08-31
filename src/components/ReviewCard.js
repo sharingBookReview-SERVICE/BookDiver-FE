@@ -232,7 +232,6 @@ const ReviewCard = (props) => {
               {hashtags?.map((tag, idx) => (
                 <HashTag onClick={()=>{ 
                   searchCollection(tag)
-                  console.log(searched_collection)
                 }}key={idx}>{`#${tag} `}</HashTag>
               ))}
             </HashTagBox>
@@ -276,6 +275,11 @@ const ReviewCard = (props) => {
                   style={{ fontSize: "20px", color: Color.fontBlack, cursor:"pointer" }}
                   onClick= {()=>{
                     bookMark()
+                    ReactGA.event({
+                      category: "Button",
+                      action: "click bookmark button",
+                      label: "bookmark",
+                    });
                   }}
                   />
                 }
