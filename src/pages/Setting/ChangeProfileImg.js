@@ -13,7 +13,7 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowBack } from "../../components/index";
-import LottieCheck from "../../elements/LottieCheck";
+import LottieCheck from "../../img/lottie/LottieCheck";
 
 const ChangeProfileImg = (props) => {
     const dispatch = useDispatch();
@@ -57,10 +57,11 @@ export default ChangeProfileImg;
 const Wrapper = styled.div`
 width:100vw;
 height:auto;
+position:relative;
 display:flex;
 background: ${Color.mainColor};
 box-sizing:border-box;
-
+padding-bottom: 100px;
 @media ${(props) => props.theme.tablet} {
     width: 100%;
 }

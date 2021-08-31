@@ -11,7 +11,7 @@ const LottieCheck = () => {
         renderer: 'svg',
         loop: false,
         autoplay:true,
-        animationData : require("../img/61840-check-black.json")
+        animationData : require("./Done.json")
         })
     },[])
 
@@ -25,16 +25,18 @@ const LottieCheck = () => {
 export default LottieCheck;
 
 const Wrapper = styled.div`
-position:absolute;
+position:absolute;;
 width:100%;
 height:100vh;
+top:0;
 display:flex;
 justify-content:center;
 align-items:center;
+
+
 `
 
 const Lottie = styled.div`
-width:200px;
-height:200px;
-margin-bottom:190px;
+width:100px;
+height:100px;
 `

@@ -80,6 +80,7 @@ const ChangeName = (props) =>{
   useEffect(() => {
     if(!defaultNickName){
       dispatch(permitActions.showNav(false));
+      dispatch(permitActions.isPadding(true));
     }
   },[])
 
@@ -93,7 +94,7 @@ const ChangeName = (props) =>{
                   <HeadBar>
                     
                     {
-                      !defaultNickName &&<ArrowBack onClick={()=>{goBack()}}/>
+                      defaultNickName &&<ArrowBack onClick={()=>{goBack()}}/>
                     }
                     
                     <HeadBtn onClick={()=>{changeNickname()}}>{!defaultNickName ? "설정완료": "변경완료"}</HeadBtn>

@@ -60,7 +60,7 @@ border-radius: 12px;
 font-weight: bold;
 color: ${Color.fontblack};
 font-size: 14px;
-padding: 0px 25px 20px 0px;
+padding: 20px 25px 20px 0px;
 cursor:pointer;
 `;
 
