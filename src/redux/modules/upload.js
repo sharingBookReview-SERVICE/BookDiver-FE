@@ -25,7 +25,7 @@ const getUnsplashSV = (keyword) => {
     const accessKey = "7RkaL4LU96aZySVcQBoBxQe0qu3LI5yzpx4_BjrtN3w"
 
     axios
-    .get(`https://api.unsplash.com/search/photos?page=1&per_page=30&query=${keyword}&client_id=${accessKey}`)
+    .get(`https://api.unsplash.com/search/photos?page=1&per_page=35&query=${keyword}&client_id=${accessKey}`)
     .then((res) => {
       const result = res.data.results
       let imageList = []
