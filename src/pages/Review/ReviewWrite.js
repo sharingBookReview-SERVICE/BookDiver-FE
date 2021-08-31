@@ -10,10 +10,12 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
 
-import {SelectBookModal, WriteCheckModal} from "../../modals";
+import {SelectBookModal, WriteCheckModal, UnsplashModal} from "../../modals";
 import {SelectBookCard, ArrowBack} from "../../components";
 import {HashTagsInput, RecommandHashTags} from "../../elements";
+import OpenUnsplashButton from "./element/OpenUnsplashButton"
 import {Loading} from "../ETC"
+
 
 import { actionCreators as reviewActions } from "../../redux/modules/review";
 import { actionCreators as permitActions } from "../../redux/modules/permit";
@@ -37,6 +39,8 @@ const ReviewWrite = (props) => {
   const is_modal = useSelector((state) => state.permit.is_modal);
   const is_written = useSelector((state) => state.permit.is_written);
   const is_loading = useSelector((state) => state.permit.is_loading)
+  const is_unsplash_modal = useSelector((state) => state.permit.is_unsplash_modal)
+  const is_unsplash_selected = useSelector((state) => state.permit.is_unsplash_selected)
 
   //이미지 관련
   const is_preview = useSelector((state) => state.upload.is_preview);
@@ -65,6 +69,8 @@ const ReviewWrite = (props) => {
   const [compressedImage, setCompressedImage] = useState(null);
   const [reviewCount, setReviewCount] = useState(0);
   const [quoteCount, setQuoteCount] = useState(0);
+
+
 
   //업로드 버튼 클릭하기
   const selectImage = () => {
@@ -106,18 +112,27 @@ const ReviewWrite = (props) => {
   const sendFormData = async (image) => {
     const formData = new FormData();
     //formData에 압축 이미지, 인용구,내용,해쉬태그 저장
-    formData.append("image", image);
     formData.append("quote", quote.current.value);
     formData.append("content", content.current.value);
     formData.append("hashtags", JSON.stringify(hashtags));
 
+    if(is_unsplash_selected){    
+      //언스플레시 사진을 선택했을 때
+      formData.append("imageUrl", preview_url)
+      console.log(preview_url)
+    }else{
+      //개인사진 파일을 선택했을 때
+      formData.append("image", image)
+    }
+
     if (books.length === 0) {
       dispatch(permitActions.showCheckModal(true))
       return;
-    } else if (!image) {
+    } else if (!image && !is_unsplash_selected) {
+      console.log("안돼")
       dispatch(permitActions.showCheckModal(true))
       return;
-    }
+    } 
     
     dispatch(permitActions.isLoading(true))
     await dispatch(reviewActions.addReviewSV(formData, books.isbn));
@@ -198,7 +213,7 @@ const ReviewWrite = (props) => {
           </ImageBox>
 
           <QuoteBox>
-            <Text>인용구 작성하기</Text>
+            <Text>인용구 작성</Text>
             <QuotesTextarea
               maxLength="300"
               ref={quote}
@@ -233,6 +248,7 @@ const ReviewWrite = (props) => {
     <React.Fragment>
       <WriteCheckModal is_written={is_written}/>
       <SelectBookModal is_modal={is_modal} />
+      <UnsplashModal is_unsplash_modal={is_unsplash_modal}/>
       <PostWriteBox>
         <PostHeader>
         <ArrowBack/>
@@ -274,27 +290,30 @@ const ReviewWrite = (props) => {
         ) : (
           <ImageChoice
             style={{ height: "312px" }}
-            onClick={() => {
-              selectImage();
-            }}
           >
-            <img src={add_button} alt="add btn" />
-            <Text>책 사진 업로드</Text>
-            <Text
-              style={{
-                color: "#9e9e9e",
-                fontWeight: "normal",
-                fontSize: "1em",
-              }}
-            >
-              <Text1>인상깊었던 페이지 사진을 올려보세요</Text1>
-            </Text>
+            <OpenUnsplashButton/>
+            <ImageUpload 
+              onClick={() => {
+                selectImage();
+              }}>
+              <img src={add_button} alt="add btn" />
+              <Text>책 사진 업로드</Text>
+              <Text
+                style={{
+                  color: "#9e9e9e",
+                  fontWeight: "normal",
+                  fontSize: "1em",
+                }}
+              >
+                <Text1>인상깊었던 페이지 사진을 올려보세요</Text1>
+              </Text>
+            </ImageUpload>
           </ImageChoice>
         )}
 
         <QuoteBox>
           <TextWrapper>
-            <Text>인용구 작성하기</Text>
+            <Text>인용구 작성</Text>
           </TextWrapper>
 
           <OutlineBox>
@@ -358,6 +377,16 @@ const ReviewWrite = (props) => {
 };
 
 export default ReviewWrite;
+
+const ImageUpload = styled.div`
+width:auto;
+height:auto;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+justify-content:content;
+align-items:center;
+`
 
 const TextWrapper = styled.div`
 display:flex;
@@ -450,14 +479,6 @@ const PostHeader = styled.div`
 
 `;
 
-const LeftArrow = styled.img`
-  width: 10vw;
-  height: 3vh;
-  flex-grow: 0;
-  object-fit: contain;
-  float: left;
-`;
-
 const BookChoice = styled.div`
   width: 100%;
   height: 112px;
@@ -491,7 +512,7 @@ const ImageChoice = styled.div`
   background-color: ${Color.mainColor};
   font-size: 0.9em;
   box-sizing: border-box;
-  cursor: pointer;
+  position:relative;
 `;
 
 const QuoteBox = styled.div`

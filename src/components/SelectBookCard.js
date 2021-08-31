@@ -19,8 +19,6 @@ const SelectBookCard = (props) =>{
   const bookAuthor = author?.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] 
   const selectedBookTitle = book?.title?.split("(")[0]
 
-  console.log(is_book_detail)
-
   const selectBook = ()=>{
     if(is_make_collection){
       dispatch(collectionActions.selectBooksSV(isbn));

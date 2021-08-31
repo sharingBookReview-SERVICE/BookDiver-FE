@@ -62,7 +62,7 @@ const Home = (props) => {
     dispatch(userActions.checkTreasureSV()) //보물을 얻었는지 확인하기
     dispatch(permitAction.showNav(true));
 
-    //피드 타입을 확인해서, 화면이 시작될떄마다 요청하는 피드의 종류를 다르게 하기 
+    //피드 타입을 확인해서, 화면이 시작될때마다 요청하는 피드의 종류를 다르게 하기 
     if(reviewList.length <10 && feedType ===" social"){
       getSocialReview()
     }else if(reviewList.length <10 && feedType === "recent"){

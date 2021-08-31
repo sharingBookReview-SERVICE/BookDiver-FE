@@ -11,7 +11,7 @@ const Color = {
   gray3: "#e0e0e0",
   gray4: "#9a9090",
   gray5: "#9e9e9e",
-
+  gray6:"#eeeeee",
   green: "#4caf50",
 
 

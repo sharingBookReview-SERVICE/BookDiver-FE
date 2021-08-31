@@ -11,5 +11,6 @@ import CheckTreasureModal from "./CheckTreasureModal";
 import WriteCheckModal from "./WriteCheckModal";
 import TreasureModal from "./Treasure/TreasureModal"
 import NotFound from "./NotFound"
-export {AlertModal, CommentModal, EditModal, LoginModal, LogoutModal, NotSupport, SelectBookModal, SignoutModal, TreasureBoxModal, CheckTreasureModal, WriteCheckModal, TreasureModal, NotFound};
+import UnsplashModal from "./UnsplashModal";
+export {AlertModal, CommentModal, EditModal, LoginModal, LogoutModal, NotSupport, SelectBookModal, SignoutModal, TreasureBoxModal, CheckTreasureModal, WriteCheckModal, TreasureModal, NotFound, UnsplashModal};
 

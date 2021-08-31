@@ -26,7 +26,7 @@ const NomoreLottie = ()=>{
     lottie.loadAnimation({
       container: nomore.current,
       renderer: 'svg',
-      loop: false,
+      loop: true,
       autoplay:true,
       animationData:require("./Done.json")
      
