@@ -260,6 +260,21 @@ justify-content: center;
 padding: 10px 16px;
 margin: 0 auto;
 text-align: center;
+
+@media ${(props) => props.theme.mobile} {
+  column-gap: 0;
+}
+@media ${(props) => props.theme.tablet} {
+  column-gap: 10px;
+  column-width: 100px;
+}
+@media ${(props) => props.theme.desktop} {
+  column-gap: 10px;
+  column-width: 100px;
+}
+
+
+column-gap: 20px;
 `;
 
 const Figure = styled.figure`
@@ -273,7 +288,7 @@ width: 100px;
 `;
 const FigTitle = styled.figcaption`
 
-width: 100px;
+width:100px;
 font-size: 14px;
 text-align: left;
 font-weight: 700;
@@ -281,7 +296,7 @@ color: ${Color.black};
 `;
 const FigAuthor = styled.figcaption`
 
-width: 100px;
+width:100px;
 font-size: 11px;
 color: ${Color.gray4};
 text-align: left;
