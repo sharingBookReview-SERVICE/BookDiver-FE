@@ -110,7 +110,7 @@ const Home = (props) => {
 
   //ref요소가 존재하고, 페이지의 로딩이 끝나면 옵저버 인스턴스를 생성하기. 
     if(elRefs[0] && !is_loading){
-    // 절반반 읽어도, 게시물을 읽음을 보내기 
+    // 절반반 읽어도, 게시물 읽음을 보내기 
     observer = new IntersectionObserver(sendIsRead, {threshold: 0.5});
     reviewList.forEach((_, idx) => {
       //리뷰의 갯수만큼 생성된 ref에 옵저버를 붙이기
