@@ -9,7 +9,7 @@ import { actionCreators as searchActions } from "../../redux/modules/search";
 import { Hint } from 'react-autocomplete-hint';
 import SelectBookCard from "../../components/SelectBookCard";
 import BookCard from "../../elements/BookCard";
-
+import { history } from "../../redux/configStore";
 
 
 
@@ -108,15 +108,34 @@ const Search = (props)=>{
            }
 
         {/* 책 나오는 부분 */}
-        <Grid count={book_count}>
+        {/* <Grid count={book_count}>
            {
              !auto && search_book_title?.map((p,idx)=>{
                return(<BookCard key={idx} {...p}></BookCard>)
              })
            }
-            </Grid>
+            </Grid> */}
+            
+            <Columns>
+              {
+                !auto && search_book_title?.map((p, idx)=>{
+                  return(
+                    <Figure  
+                    onClick = {()=>{
+                      history.push(`/bookdetail/${p?.isbn}`)
+                    }}>
+                        <Img alt="" src={p.image? p.image : "https://i.pinimg.com/564x/93/1f/39/931f390f4037e44ee162d9d4f4cd6663.jpg"}></Img>
+                        <FigTitle>{p.title.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0] }</FigTitle>
+                        <FigAuthor>{p.author.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "").split("(")[0]}</FigAuthor>
+                  </Figure>
+                  )
+                })
+              }
+            </Columns>
+
             
            </Wrapper>
+           
         </Container>
     )
 }
@@ -235,5 +254,37 @@ grid-template-columns: 1fr 1fr 1fr;
 grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 1fr);
 margin-top:24px;
 `;
+const Columns = styled.div`
+column-width: 90px;
+justify-content: center;
+padding: 10px 16px;
+margin: 0 auto;
+text-align: center;
+`;
 
+const Figure = styled.figure`
+display: inline-block;
+margin:0;
+padding: 10px 0px;
+`;
+
+const Img = styled.img`
+width: 100px;
+`;
+const FigTitle = styled.figcaption`
+
+width: 100px;
+font-size: 14px;
+text-align: left;
+font-weight: 700;
+color: ${Color.black};
+`;
+const FigAuthor = styled.figcaption`
+
+width: 100px;
+font-size: 11px;
+color: ${Color.gray4};
+text-align: left;
+font-weight: 500;
+`;
 export default Search;
