@@ -49,8 +49,7 @@ const NotiCard = (props)=>{
 
     return(
     <Outter>
-        <TextBox 
-        onClick={() => {locationType[type]()}}>
+        <TextBox>
 
             <TypeWrapper>
                 <Text style={{marginRight:"7px"}}>{NotiType[type]}</Text>
@@ -58,7 +57,7 @@ const NotiCard = (props)=>{
             </TypeWrapper>
 
             <Text style={{margin:"4px 0px"}}>
-                <NickName>{userName}</NickName>
+                <NickName onClick={()=>{userFeed()}}>{userName}</NickName>
                 {userNameDesc[type]}
             </Text>
 
@@ -114,6 +113,7 @@ const NickName = styled.span`
 font-weight:bold;
 color:${Color.black};
 margin:10px 0px;
+cursor: pointer;
 `
 
 const Image = styled.div`
