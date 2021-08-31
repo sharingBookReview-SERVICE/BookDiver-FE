@@ -80,6 +80,7 @@ const ChangeName = (props) =>{
   useEffect(() => {
     if(!defaultNickName){
       dispatch(permitActions.showNav(false));
+      dispatch(permitActions.isPadding(true));
     }
   },[])
 
