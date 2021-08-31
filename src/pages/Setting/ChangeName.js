@@ -77,6 +77,12 @@ const ChangeName = (props) =>{
     }
   },[userId])
 
+  useEffect(() => {
+    if(!defaultNickName){
+      dispatch(permitActions.showNav(false));
+    }
+  },[])
+
   
     return(
         <React.Fragment>
@@ -86,8 +92,11 @@ const ChangeName = (props) =>{
                 <Background>
                   <HeadBar>
                     
-                    <ArrowBack/>
-                    <HeadBtn onClick={()=>{changeNickname()}}>변경완료</HeadBtn>
+                    {
+                      !defaultNickName &&<ArrowBack onClick={()=>{goBack()}}/>
+                    }
+                    
+                    <HeadBtn onClick={()=>{changeNickname()}}>{!defaultNickName ? "설정완료": "변경완료"}</HeadBtn>
                   </HeadBar>
                     <ProfileBox>
     

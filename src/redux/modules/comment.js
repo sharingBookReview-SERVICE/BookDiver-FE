@@ -11,12 +11,12 @@ const socket = io.connect("https://ohbin.shop")
   
 
 //actions
-const GET_COMMENT = "comment/GET_COMMENT";
-const ADD_COMMENT = "comment/ADD_COMMENT";
-const EDIT_COMMENT = "comment/EDIT_COMMENT";
-const DELETE_COMMENT = "comment/DELETE_COMMENT";
-const GET_COMMENT_ID = "comment/GET_COMMENT_ID"
-const GET_EDIT_ID = "comment/GET_EDIT_ID"
+const GET_COMMENT = "comment/GET_COMMENT"; //댓글 불러오기
+const ADD_COMMENT = "comment/ADD_COMMENT"; //댓글 작성
+const EDIT_COMMENT = "comment/EDIT_COMMENT"; //댓글 수정
+const DELETE_COMMENT = "comment/DELETE_COMMENT"; //댓글 삭제
+const GET_COMMENT_ID = "comment/GET_COMMENT_ID" //댓글 아이디
+const GET_EDIT_ID = "comment/GET_EDIT_ID" // 수정 시 댓글 아이디 불러오기
 
 
 //actioncreator
@@ -132,6 +132,7 @@ const deleteCommentSV = (comment_info) => {
   }
 }
 
+//수정시 댓글 아이디 불러오기
 const getEditCommentId = () => {
   return async function (dispatch, getState, {history}){
     const commentId = getState().comment.comment_id
