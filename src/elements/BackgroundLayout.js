@@ -23,7 +23,6 @@ export default BackgroundLayout;
 const BackgroundImg = styled.div`
 background-image:url(${(props) => props.url});
 background-size:cover;
-// position:fixed;
 z-index:-20;
 
 @media ${(props) => props.theme.mobile} {

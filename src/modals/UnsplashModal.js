@@ -38,7 +38,6 @@ const UnsplashModal = (props) =>{
   const [searchWord, setSearchWord] = useState("");
   const imageList = useSelector(state => state.upload.image_list)
   const is_searching = useSelector(state => state.permit.is_searching)
-  const [is_searched, setIsSearched] = useState(false)
 
   const getUnsplashImage = (keyword) => {
     dispatch(uploadAcions.getUnsplashSV(keyword))

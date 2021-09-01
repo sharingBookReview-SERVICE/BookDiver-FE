@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
-import { actionCreators as uploadAcions } from "../redux/modules/upload";
 import { SearchLottie} from "../elements"
 import Color from "../shared/Color"
 

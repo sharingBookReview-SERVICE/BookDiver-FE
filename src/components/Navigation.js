@@ -158,7 +158,7 @@ const Navigation = (props) => {
       to="/mydepth"
       onClick={setDivingLoading}
       activeClassName={classes.active}>
-        <ProfileImg src={images[profile]}></ProfileImg>
+        <ProfileImg alt="profile" src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>
       </IconBox>
     </NavBox>

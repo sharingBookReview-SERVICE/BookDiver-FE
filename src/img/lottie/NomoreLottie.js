@@ -2,8 +2,7 @@ import React , {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import lottie from "lottie-web-light";
 import Color from "../../shared/Color";
-import { style } from "@material-ui/system";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const NomoreLottie = ()=>{
   const feedType = useSelector((state) => state.permit.feed_type)

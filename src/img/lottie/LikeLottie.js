@@ -1,8 +1,6 @@
 import React , {useEffect, useRef} from "react";
 import styled from "styled-components";
 import lottie from "lottie-web-light";
-import Color from "../../shared/Color";
-import { style } from "@material-ui/system";
 
 const LikeLottie = ()=>{
      //lottie
@@ -38,18 +36,5 @@ margin: 0 auto;
 top:0%;
 z-index: 99;
 `;
-const Arrow = styled.div`
-position: absolute;
-bottom: 100px;
-left: 40%;
-width: 80px;
-height: 80px;
-margin: 0 auto;
-`;
-
-const Text= styled.div`
-
-`;
-
 
 export default LikeLottie;

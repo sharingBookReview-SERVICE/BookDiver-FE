@@ -12,8 +12,6 @@ import io from "socket.io-client"
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configStore";
 
-
-import { actionCreators as permitAction } from "../redux/modules/permit";
 import { actionCreators as userAction } from "../redux/modules/user";
 
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
@@ -79,11 +77,12 @@ const Header = (props) => {
     <React.Fragment>
       <Wrapper>
       <HeaderBox>
-        <LogoBox><Logo src={logo}/></LogoBox>
+        <LogoBox><Logo alt="logo" src={logo}/></LogoBox>
 
         <SearchBarBox >
         <ToGoogle
         target="_blank"
+        let="noopener"
         href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform"
         onClick={()=>{
           ReactGA.event({
@@ -127,9 +126,6 @@ const Header = (props) => {
   );
 };
 
-{/* <ToGoogleForm
-target="_blank" 
-href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform"> */}
 
 const ToGoogle = styled.a`
 width:40px;

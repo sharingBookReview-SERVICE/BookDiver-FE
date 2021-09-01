@@ -195,6 +195,7 @@ const showProfile = async([entry], observer) => {
                 });
               }}>
                 <ProfileImg
+                alt="profile_img"
                 ref={observeProfile} 
                 data-src={images[profileImage]}  />
               </ImgWrapper>
@@ -249,6 +250,7 @@ const showProfile = async([entry], observer) => {
             </Suspense>
             
             <Image
+              alt="Feed_img"
               data-src={image}
               ref={observeImage}
               onClick={() => {
