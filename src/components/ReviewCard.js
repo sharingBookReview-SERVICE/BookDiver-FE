@@ -1,5 +1,5 @@
 //import 부분
-import React,{useState, lazy, Suspense} from "react";
+import React,{useState, lazy, Suspense, useEffect, useRef} from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -51,6 +51,7 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user._id);
   const reviewUserId = user.id//
   const profileImage = user?.profileImage;
+  const observeImage = useRef(null)
 
   let is_my_post = false;
 
@@ -140,6 +141,23 @@ const ReviewCard = (props) => {
     dispatch(collectionActions.searchCollectionSV(hashtag))
   }
 
+  const showImage = async([entry], observer) => {
+    if (!entry.isIntersecting) {
+      return
+    }
+    const imageUrl = [entry][0].target.dataset.src //보여진 리뷰의 인덱스
+    observeImage.current.src = imageUrl
+    console.log(imageUrl)
+    observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
+}
+
+  useEffect(() => {
+      const observer = new IntersectionObserver(showImage, {threshold: 0.1});
+      observer.observe(observeImage.current)
+    //화면을 나갈때 옵저버의 연결을 해제하기. 
+    return () => {observeImage.disconnect();}
+    },[])
+
   return (
     <React.Fragment>
 
@@ -212,7 +230,8 @@ const ReviewCard = (props) => {
             </Suspense>
             
             <Image
-              src={image}
+              data-src={image}
+              ref={observeImage}
               onClick={() => {
                 goToReviewDetail();
               }}
@@ -384,10 +403,6 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit:cover;
-  // background-image:url(${(props) => props.url});
-  // background-size:cover;
-  // background-position:center center;
-  // cursor:pointer;
 `;
 
 const UserName = styled.p`
