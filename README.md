@@ -57,8 +57,32 @@
 
 
 ## 5. 기능 및 설계
-링크 넣기
+<details>
+<summary>1. 로그인</summary>
+<div markdown="1">       
+ 카카오, 구글 소셜 로그인
+</div>
+</details>
 
+<details>
+<summary>2. 게시글 작성</summary>
+<div markdown="2">       
+  <h3>1. 이미지 압축</h3>
+   <h3>2. unsplash</h3>
+   <h3>3. 추천 해시태그</h3>
+</div>
+</details>
+
+<details>
+<summary>3. sns기능</summary>
+<div markdown="3">       
+  <h3>1. 좋아요</h3>
+   <h3>2. 댓글</h3>
+   <h3>3. 북마크</h3>
+   <h3>4. 팔로우</h3>
+   <h3>5. 알림</h3>
+</div>
+</details>
 <br>
 
 <br>
