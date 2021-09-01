@@ -8,7 +8,6 @@ import styled from "styled-components";
 import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
-import { ArrowBack } from "../../components";
 
 import { actionCreators as userActions } from "../../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 const Follow = (props) => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const params = useParams();
     const location = props.location.pathname
     const followList = useSelector(state => state.user.follow_list);
  

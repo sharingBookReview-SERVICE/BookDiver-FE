@@ -12,7 +12,6 @@ import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import ArrowForwardIosOutlinedIcon from '@material-ui/icons/ArrowForwardIosOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import CallIcon from '@material-ui/icons/Call';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { makeStyles } from "@material-ui/core/styles";
 
 
@@ -37,9 +36,6 @@ const Setting = (props) => {
     const signoutModal = useSelector(state=> state.permit.is_modal2);
     const is_support_modal = useSelector((state) => state.permit.is_support_modal)
 
-    const goToNoti = () => {
-        history.push("/")
-    }
 
     const openNotSupportModal = () => {
         dispatch(permitActions.showNotSupport(true))

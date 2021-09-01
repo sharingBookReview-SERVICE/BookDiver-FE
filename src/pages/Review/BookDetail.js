@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { history } from "../../redux/configStore";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {Header, SelectBookCard, ReviewCard} from "../../components"
+import { SelectBookCard, ReviewCard} from "../../components"
 import { actionCreators as bookActions } from "../../redux/modules/book";
 import { actionCreators as reviewActions } from "../../redux/modules/review";
 import { actionCreators as permitActions } from "../../redux/modules/permit";

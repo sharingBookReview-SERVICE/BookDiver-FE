@@ -80,7 +80,6 @@ const ReviewDetail = (props) => {
   const {book, comments, content, koreaTime,hashtags, image, likeCount, myLike, quote, user, bookmark } = reviewDetail;
 
   const userId = useSelector((state) => state.user.user._id); //내 아이디
-  const nickname = useSelector((state) => state.user.user.nickname);
   const profileImage = user?.profileImage
 
 
@@ -110,10 +109,6 @@ const ReviewDetail = (props) => {
     topComment.current?.scrollIntoView({behavior:"smooth"})
   }
 
-
-  const follow = () => {
-    dispatch(userActions.followSV(user.id))
-  }
   //내 포스트인지 확인
   let is_my_post = false;
 

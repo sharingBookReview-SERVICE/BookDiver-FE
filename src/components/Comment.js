@@ -169,11 +169,6 @@ color: ${Color.fontgray}
 const Content = styled.p`
   margin: 0px auto auto 0px;
 `;
-const LikeBox = styled.div`
-width: 35%;
-  font-size: 15px;
-  margin: 13px auto auto 24px;
-`;
 
 const EditComplete = styled.div`
 font-weight:bold;

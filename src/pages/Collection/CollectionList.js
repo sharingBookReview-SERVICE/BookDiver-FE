@@ -7,7 +7,6 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 
 import styled from "styled-components";
 import Color from "../../shared/Color";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { makeStyles } from "@material-ui/core/styles";
 

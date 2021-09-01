@@ -7,7 +7,6 @@ import {titleWord} from "../shared/Titles"
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 import {history} from "../redux/configStore";
-import Level from '../pages/My/Diving/Level';
 
 const OwnImages = (props) => {
     const dispatch = useDispatch();

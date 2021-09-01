@@ -1,27 +1,19 @@
-import React, { useEffect, useState, useRef, useCallback ,useMemo} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import SearchIcon from "@material-ui/icons/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as reviewActions } from "../../redux/modules/review";
-import { actionCreators as bookActions} from "../../redux/modules/book";
 import { actionCreators as searchActions } from "../../redux/modules/search";
-import { Hint } from 'react-autocomplete-hint';
-import SelectBookCard from "../../components/SelectBookCard";
-import BookCard from "../../elements/BookCard";
 import { history } from "../../redux/configStore";
 
 
 
 const Search = (props)=>{
   const dispatch = useDispatch();
-  const alltags = useSelector(state=> state.review.all_tags);
-  const search_book_list = useSelector(state=> state.search.search_book_list);
   const [auto, setAutoComplete] = useState(false);
   const [firstVisit, setFirst] = useState(false);
   const search_book_title = useSelector(state=> state.search.search_book_title);
   const text = useRef();
-  const book_count = parseInt(search_book_title?.length/3 +1);
   
   //화면에서 돔이 사라지면 검색된 책이 사라짐
   useEffect(()=>{
@@ -197,22 +189,6 @@ const InputI = styled.i`
 :after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
 ` 
 
-const SearchBar = styled.input`
-  width: 100%;
-  height: 48px;
-  color: ${Color.gray};
-  border: none;
-  border-radius: 12px;
-  background-color: ${Color.mainColor};
-  :focus {
-    outline: none;
-  }
-  ::placeholder {
-    color: ${Color.gray};
-  }
-  padding: 0px 0px 0px 10px;
-`;
-
 const NoBook = styled.div`
 width: 100%;
 text-align: center;
@@ -247,15 +223,6 @@ height: 100%;
 padding-bottom: 100px;
 `;
 
-const Grid = styled.div`
-width: 100%;
-height: 100%;
-display: grid;
-flex-direction: row;
-grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 1fr);
-margin-top:24px;
-`;
 
 const Columns = styled.div`
 column-width: 120px;

@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useState} from "react";
 import { history } from "../../redux/configStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitActions } from "../../redux/modules/permit";

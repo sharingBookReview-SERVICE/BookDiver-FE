@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { history } from "../redux/configStore";
-import Color from "../shared/Color";
 
 import { CommonContainer, CommonOverlay, CommonText } from "../shared/styles/modal/CommonModal";
 

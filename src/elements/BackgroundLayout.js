@@ -1,11 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
-import {backgroundimg, serviceDesc , main_person} from "../img";
 import {images} from "../shared/Image"
 import Color from "../shared/Color"
 
-import { useDispatch } from "react-redux";
-import { actionCreators as permitActions } from "../redux/modules/permit";
 
 
 const BackgroundLayout = (props) => {
@@ -69,12 +66,5 @@ height:auto;
 max-width:300px;
 max-height:300px;
 margin-bottom:80px;
-`
-
-const Person = styled.img`
-width:auto;
-height:auto;
-max-width:300px;
-max-height:300px;
 `
 

@@ -21,17 +21,10 @@ import { actionCreators as bookActions } from "../../redux/modules/book";
 import { actionCreators as uploadAcions } from "../../redux/modules/upload";
 import { actionCreators as tagActions } from "../../redux/modules/tag";
 
-const useStyles = makeStyles((theme) => ({
-  arrow: {
-    cursor:"pointer",
-    margin:"0px 0px 0px 20px",
-  },
-}));
-
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+
 
   //Permit check
   const is_modal = useSelector((state) => state.permit.is_modal);

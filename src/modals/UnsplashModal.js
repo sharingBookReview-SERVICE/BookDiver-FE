@@ -1,15 +1,11 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
-import SelectBookCard from "../components/SelectBookCard";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
 import {SearchLottie} from "../elements"

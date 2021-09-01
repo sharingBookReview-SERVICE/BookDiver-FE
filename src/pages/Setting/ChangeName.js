@@ -8,24 +8,16 @@ import jwt_decode from "jwt-decode";
 
 import styled from "styled-components";
 import Color from "../../shared/Color";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { makeStyles } from "@material-ui/core/styles";
 
 
 import {AlertModal} from "../../modals";
 import {images} from "../../shared/Image"
 import { ArrowBack } from "../../components";
 
-const useStyles = makeStyles((theme) => ({
-  goback: {
-      padding: "10px",
-      cursor:"pointer",
-  },
-}));
 
 const ChangeName = (props) =>{
   const dispatch = useDispatch();
-  const classes = useStyles();
+
 
   const token =  localStorage.getItem('token');
   const decoded = jwt_decode(token);
