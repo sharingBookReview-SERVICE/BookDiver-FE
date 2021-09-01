@@ -27,3 +27,37 @@
 - AWS S3 
 
 <br>
+
+<br>
+
+## 3. 협업 도구
+`ALL`
+-  Notion
+
+
+`Designer`
+- zeplin
+- pigma
+
+
+`backend`
+- swagger 
+
+<br>
+
+
+## 4. 기능 및 설계
+`ALL`
+-  Notion
+
+
+`Designer`
+- zeplin
+- pigma
+
+
+`backend`
+- swagger 
+
+<br>
+
