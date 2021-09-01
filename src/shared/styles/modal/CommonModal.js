@@ -12,7 +12,7 @@ text-align: center;
 border-radius: 12px;
 border: solid 1px #eeeeee; 
 background: ${Color.mainColor};
-z-index: 100;
+z-index: 101;
 transition: opacity 0.5s ease-in-out;
 ${(props) => props.is_show ? 
   `opacity:1;
@@ -38,7 +38,7 @@ export const CommonOverlay = styled.div`
 width: 100vw;
 height: 100vh;
 background-color:black;
-z-index: 99;
+z-index: 100;
 position: fixed;
 cursor:pointer;
 transition: opacity 0.5s ease-in-out;

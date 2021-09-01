@@ -476,6 +476,7 @@ const HashTag = styled.li`
   font-size: 14px;
   margin: 0px 8px 0px 0px;
   padding: 5px 7px;
+  cursor:pointer;
 `;
 
 const CountBox = styled.div`

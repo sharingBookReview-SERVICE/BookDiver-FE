@@ -631,14 +631,14 @@ const CommentInput = styled.input`
 }
 
 @media ${(props) => props.theme.tablet} {
-  width: 84%;
+  width: 90%;
 }
 
 @media ${(props) => props.theme.desktop} {
-  width: 84%;
+  width: 90%;
 }
   height: 45px;
-  padding: 0 25px 0 16px;
+  padding: 0 40px 0 16px;
   font-size: 14px;
   background-color: ${Color.mainColor};
   border:none;

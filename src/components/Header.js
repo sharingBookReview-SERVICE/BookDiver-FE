@@ -82,19 +82,20 @@ const Header = (props) => {
         <LogoBox><Logo src={logo}/></LogoBox>
 
         <SearchBarBox >
-        <IconBox>
+        <ToGoogle
+        target="_blank"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform"
+        onClick={()=>{
+          ReactGA.event({
+            category: "Button",
+            action: "survey",
+            label: "survye",
+          });
+        }}
+         >
           <LottieHeartEvent/>
-            <SurveyIcon
-            
-            onClick={()=>{
-              window.open('https://forms.gle/5tKeReSnPzmuYEn1A')
-              ReactGA.event({
-                category: "Button",
-                action: "survey",
-                label: "survye",
-              });
-            }} />
-          </IconBox>
+            <SurveyIcon/>
+          </ToGoogle>
           <IconBox>
             <SearchIcon
             onClick={()=>{
@@ -125,6 +126,25 @@ const Header = (props) => {
     </React.Fragment>
   );
 };
+
+{/* <ToGoogleForm
+target="_blank" 
+href="https://docs.google.com/forms/d/e/1FAIpQLSeDlVvfon6y7RBLZYcpR1Ea_-qYsXODOSa_dOXyvYcPMRVAfw/viewform"> */}
+
+const ToGoogle = styled.a`
+width:40px;
+height:40px;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.5s ease-in-out;
+margin-left:5px;
+position:relative;
+:hover{
+  border-radius:40px;
+  background:${Color.line};
+}
+`
 
 const IconBox = styled.div`
 width:40px;

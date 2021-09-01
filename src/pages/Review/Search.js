@@ -212,12 +212,13 @@ const SearchBar = styled.input`
   }
   padding: 0px 0px 0px 10px;
 `;
+
 const NoBook = styled.div`
 width: 100%;
 text-align: center;
 padding-top: 20px;
-
 `;
+
 const Autocomplete = styled.div`
 margin: -5px 21px;
     border: 1px solid #d7d3d3;
@@ -245,6 +246,7 @@ min-height: 90vh;
 height: 100%;
 padding-bottom: 100px;
 `;
+
 const Grid = styled.div`
 width: 100%;
 height: 100%;
@@ -254,12 +256,14 @@ grid-template-columns: 1fr 1fr 1fr;
 grid-template-rows: repeat(${(props)=> props.count? props.count : ""}, 1fr);
 margin-top:24px;
 `;
+
 const Columns = styled.div`
-column-width: 90px;
+column-width: 120px;
 justify-content: center;
 padding: 10px 16px;
 margin: 0 auto;
 text-align: center;
+column-gap: 20px;
 
 @media ${(props) => props.theme.mobile} {
   column-gap: 0;
@@ -273,8 +277,6 @@ text-align: center;
   column-width: 100px;
 }
 
-
-column-gap: 20px;
 `;
 
 const Figure = styled.figure`

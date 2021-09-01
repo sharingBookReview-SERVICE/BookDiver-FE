@@ -72,7 +72,9 @@ const ChangeName = (props) =>{
   }
 
   useEffect(() => {
+    dispatch(permitActions.showNav(true))
     if(userId){
+
       dispatch(userActions.getUserSV(userId))
     }
   },[userId])

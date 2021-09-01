@@ -22,6 +22,8 @@ const REVIEW_LOADING = "permit/REVIEW_LOADING"
 const FINISH_REVIEW = "permit/FINISH_REVIEW"
 const SHOW_NOTfOUND_MODAL = "permit/SHOW_NOTfOUND_MODAL"
 const FEED_TYPE = "permit/FEED_TYPE"
+const IS_UNSPLASH_MODAL = "permit/IS_UNSPLASH_MODAL"
+const IS_UNSPLASH_SELECTED = "permit/IS_UNSPLASH_SELECTED"
 
 //actioncreator
 const showNav = createAction(SHOW_NAV, (is_nav) => ({ is_nav }));
@@ -44,6 +46,8 @@ const reviewLoading = createAction(REVIEW_LOADING, (review_loading) => ({review_
 const finishReview = createAction(FINISH_REVIEW, (finish_review) => ({finish_review}))
 const showNotfoundModal = createAction(SHOW_NOTfOUND_MODAL, (is_not_found) => ({is_not_found}))
 const feedType = createAction(FEED_TYPE, (feed_type) => ({feed_type}) )
+const isUnsplashModal = createAction(IS_UNSPLASH_MODAL, (is_unsplash_modal) => ({is_unsplash_modal}))
+const isUnsplashSelected = createAction(IS_UNSPLASH_SELECTED, (is_unsplash_selected) => ({is_unsplash_selected}))
 
 //initial
 const initialState = {
@@ -67,6 +71,8 @@ const initialState = {
     finish_review: false,
     is_not_found:false,
     feed_type:"recent",
+    is_unsplash_modal:false,
+    is_unsplash_selected: false,
 };
 
 
@@ -153,6 +159,14 @@ export default handleActions(
         produce(state, (draft) => {
           draft.feed_type = action.payload.feed_type;
         }),
+        [IS_UNSPLASH_MODAL] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_unsplash_modal = action.payload.is_unsplash_modal;
+        }),
+        [IS_UNSPLASH_SELECTED] : (state, action) => 
+        produce(state, (draft) => {
+          draft.is_unsplash_selected = action.payload.is_unsplash_selected;
+        }),
     },
     initialState
   );
@@ -179,6 +193,8 @@ const actionCreators = {
     finishReview,
     showNotfoundModal,
     feedType,
+    isUnsplashModal,
+    isUnsplashSelected,
 };
   
 export { actionCreators };

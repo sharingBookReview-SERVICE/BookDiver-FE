@@ -57,6 +57,7 @@ const initialState = {
 //전체 피드 불러오기
 const getAllReviewSV = () => {
     return function (dispatch) {
+        // dispatch(permitActions.finishReview(true));
         instance
             .get("/feeds")
             .then((res) => {
@@ -69,9 +70,10 @@ const getAllReviewSV = () => {
                     return;
                 }
 
-                if(res.status === "204"){
-                    console.log(res)
-                    console.log("소셜 피드 끝")
+                if(res.status === 204){
+                    dispatch(getAllReview([]));
+                    dispatch(permitActions.finishReview(true));
+                    dispatch(permitActions.isLoaded(false))
                     return
                 }
                 //res가 정상인 경우 
@@ -80,12 +82,14 @@ const getAllReviewSV = () => {
                 dispatch(permitActions.isLoaded(true))
             })
             .catch((err) => {
+                console.log("소셜 리뷰 전체 가져오기 실패", err);
             });
     };
 };
 
 const getRecentReviewSV = () => {
     return function (dispatch) {
+        // dispatch(permitActions.finishReview(true));
         instance
             .get("/feeds/recent")
             .then((res) => {
@@ -98,8 +102,10 @@ const getRecentReviewSV = () => {
                     return;
                 }
 
-                if(res.status === "204"){
-                    console.log(res)
+                if(res.status === 204){
+                    dispatch(getAllReview([]));
+                    dispatch(permitActions.finishReview(true));
+                    dispatch(permitActions.isLoaded(false))
                     return
                 }
                 //res가 정상인 경우 
@@ -109,6 +115,7 @@ const getRecentReviewSV = () => {
 
             })
             .catch((err) => {
+                console.log("최신 리뷰 전체 가져오기 실패", err);
             });
     };
 }
@@ -116,11 +123,12 @@ const getRecentReviewSV = () => {
 
 const getMoreReviewSV = (lastId) => {
     return function (dispatch) {
+        dispatch(permitActions.finishReview(true));
         instance
             .get(`/feeds?lastItemId=${lastId}`)
             .then((res) => {
-                if(res.status === "204"){
-                    console.log(res)
+                if(res.status === 204){
+                    dispatch(permitActions.finishReview(true));
                     return
                 }
                 dispatch(getMoreReview(res.data));
@@ -130,18 +138,19 @@ const getMoreReviewSV = (lastId) => {
             })
             .catch((err) => {
                 // history.push("*")
-                console.log("전체 피드 가져오기 실패", err);
+                console.log("소셜피드 더 가져오기 실패", err);
             });
     };
 };
 
 const getMoreRecentReviewSV = (lastId) => {
     return function (dispatch) {
+        dispatch(permitActions.finishReview(true));
         instance
             .get(`/feeds/recent?lastItemId=${lastId}`)
             .then((res) => {
-                if(res.status === "204"){
-                    console.log(res)
+                if(res.status === 204){
+                    dispatch(permitActions.finishReview(true));
                     return
                 }
                 dispatch(getMoreReview(res.data));
@@ -151,7 +160,7 @@ const getMoreRecentReviewSV = (lastId) => {
             })
             .catch((err) => {
                 // history.push("*")
-                console.log("전체 피드 가져오기 실패", err);
+                console.log("최신피드 더 가져오기 실패", err);
             });
     };
 };

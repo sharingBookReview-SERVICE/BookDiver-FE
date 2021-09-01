@@ -1,5 +1,5 @@
 //import 부분
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,10 +14,25 @@ import GetTreasureLottie from "../../img/lottie/GetTreasureLottie"
 const TreasureModal = ({new_badge}) =>{
   const dispatch = useDispatch()
   const is_new_treasure = useSelector(state => state.permit.is_new_treasure)
+  const [showLottie, setShowLottie] = useState(false)
 
 const closeModal = () => {
   dispatch(permitActions.newTreasureModal(false))
 }
+
+useEffect(() => {
+  if(is_new_treasure){
+    setShowLottie(true)
+  }
+},[is_new_treasure])
+
+useEffect(() => {
+  if(is_new_treasure){
+    setTimeout(() => {
+      setShowLottie(false)
+    }, 3500);
+  }
+},[is_new_treasure])
 
 const goToProfileChange = () => {
   history.push("/changeprofileimg")
@@ -27,29 +42,33 @@ const goToProfileChange = () => {
 
     return(
         <React.Fragment>
-          {
-            is_new_treasure &&<GetTreasureLottie/>
-          }
+
+          {showLottie &&<GetTreasureLottie/>}
+          
+            
            <Container is_show={is_new_treasure}>
            <Treasure src={depth_image[new_badge]}/>
            <Desc>{DescList[new_badge]}</Desc>
 
 
-           <ButtonBox>
-             <CloseBtn 
-             onClick={() => {
-               closeModal()
-             }}>
-                닫기
-             </CloseBtn>
-             <ApplyBtn 
-             onClick={() => {
-               goToProfileChange();
-               closeModal();
+
+            <ButtonBox>
+              <CloseBtn 
+              onClick={() => {
+                closeModal()
               }}>
-                프로필 변경하기
-             </ApplyBtn>
-           </ButtonBox>
+                  닫기
+              </CloseBtn>
+              <ApplyBtn 
+              onClick={() => {
+                goToProfileChange();
+                closeModal();
+                }}>
+                  프로필 변경하기
+              </ApplyBtn>
+            </ButtonBox>
+
+
          </Container>
        
          <Overlay 
@@ -97,6 +116,7 @@ width:100%;
 height:auto;
 display:flex;
 justify-content:space-around;
+
 `
 
 const CloseBtn = styled.div`
