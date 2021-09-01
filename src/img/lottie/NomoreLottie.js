@@ -1,6 +1,6 @@
 import React , {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
-import lottie from "lottie-web";
+import lottie from "lottie-web-light";
 import Color from "../../shared/Color";
 import { style } from "@material-ui/system";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,5 +1,5 @@
 //import 부분
-import React,{useState} from "react";
+import React,{useState, lazy, Suspense} from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -15,14 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as collectionActions } from "../redux/modules/collection";
-import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
-
-import LikeLottie from "../img/lottie/LikeLottie"
 
 import ReactGA from "react-ga";
 
-
+const LikeLottie = lazy(() => import("../img/lottie/LikeLottie"));
 
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
@@ -40,13 +37,11 @@ const ReviewCard = (props) => {
     comments,
     image,
     user,
-    is_follow,
     bookmark,
     setRef
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
-  const searched_collection =  useSelector((state) => state.collection.searched_collection);
   // console.log(searched_collection)
 
   //permit check 
@@ -131,12 +126,6 @@ const ReviewCard = (props) => {
     }
   }
 
-
-  const follow = () => {
-    dispatch(userActions.followSV(user.id))
-    dispatch(userActions.isFollow(true))
-  }
-
   const bookMark = ()=>{
       if(is_login) {
       dispatch(reviewActions.bookMarkSV(book._id, _id));
@@ -153,6 +142,7 @@ const ReviewCard = (props) => {
 
   return (
     <React.Fragment>
+
       <CartWrapper ref={setRef} data-idx={props.setIdx}>
        
         <CardBox>
@@ -216,10 +206,11 @@ const ReviewCard = (props) => {
 
           {image ?
           <ImageBox>
-            {
-              likebtn && <LikeLottie/>
-            }
 
+            <Suspense fallback={null}>
+            {likebtn && <LikeLottie/>}
+            </Suspense>
+            
             <Image
               url={image}
               onClick={() => {
