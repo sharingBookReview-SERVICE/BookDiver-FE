@@ -52,6 +52,7 @@ const ReviewCard = (props) => {
   const reviewUserId = user.id//
   const profileImage = user?.profileImage;
   const observeImage = useRef(null)
+  const observeProfile = useRef(null)
 
   let is_my_post = false;
 
@@ -147,16 +148,32 @@ const ReviewCard = (props) => {
     }
     const imageUrl = [entry][0].target.dataset.src //보여진 리뷰의 인덱스
     observeImage.current.src = imageUrl
-    console.log(imageUrl)
     observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
 }
 
+const showProfile = async([entry], observer) => {
+  if (!entry.isIntersecting) {
+    return
+  }
+  const imageUrl = [entry][0].target.dataset.src //보여진 리뷰의 인덱스
+  console.log(imageUrl)
+  observeProfile.current.src = imageUrl
+  observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
+}
+
   useEffect(() => {
-      const observer = new IntersectionObserver(showImage, {threshold: 0.1});
+      const observer = new IntersectionObserver(showImage, {threshold: 0.1}); //메인이미지 관찰
       observer.observe(observeImage.current)
-    //화면을 나갈때 옵저버의 연결을 해제하기. 
-    return () => {observeImage.disconnect();}
+    return () => {
+      observeImage.disconnect();}
     },[])
+
+  useEffect(() => {
+    const profileObsever = new IntersectionObserver(showProfile, {threshold: 0.1}); //프로필이미지 관찰
+    profileObsever.observe(observeProfile.current)
+    return () => {
+      observeProfile.disconnect();}
+  },[])
 
   return (
     <React.Fragment>
@@ -177,7 +194,9 @@ const ReviewCard = (props) => {
                   label: "profile",
                 });
               }}>
-                <ProfileImg src={images[profileImage]} />
+                <ProfileImg
+                ref={observeProfile} 
+                data-src={images[profileImage]}  />
               </ImgWrapper>
 
               <Box direction={"row"}>
