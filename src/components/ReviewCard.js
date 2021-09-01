@@ -212,7 +212,7 @@ const ReviewCard = (props) => {
             </Suspense>
             
             <Image
-              url={image}
+              src={image}
               onClick={() => {
                 goToReviewDetail();
               }}
@@ -380,13 +380,14 @@ const ImageBox = styled.div`
   
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   width: 100%;
   height: 100%;
-  background-image:url(${(props) => props.url});
-  background-size:cover;
-  background-position:center center;
-  cursor:pointer;
+  object-fit:cover;
+  // background-image:url(${(props) => props.url});
+  // background-size:cover;
+  // background-position:center center;
+  // cursor:pointer;
 `;
 
 const UserName = styled.p`
