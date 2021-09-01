@@ -30,42 +30,24 @@
 
 <br>
 
-## 3. 협업 도구
-`ALL`
--  Notion
-
-
-`Designer`
-- zeplin
-- pigma
-
-
-`backend`
-- swagger 
-
-<br>
-
-<br>
-## 4. 협업 과정
-- 전체 팁 협업 : 노션에서 확인
+## 3. 협업 과정
+- 전체 팁 협업 : `notion`
 - 협업
-	+ Figma, zeplin을 통하여 디자이너와 협업
-	+ swagger을 이용하여 백엔드와 협업
+	+ `Figma`, `zeplin`을 통하여 디자이너와 협업
+	+ `swagger`을 이용하여 백엔드와 협업
 
 - 구현   
 	: 모든 작업은 다음과 같은 과정을 거쳤습니다.
 	
 
-
-- Merge   
-		: 모든 PR은 모든 팀원들의 승인을 거친 후에 Merge하였습니다.
-	  
+<br>
 
 <br>
 
-
 ## 4. 실행화면
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/70359952/131693331-1829bac8-6288-47be-bd28-a4c7cf06b0cb.gif)
+<br>
+<span style="color:red">**직접 사용하러 가기**</span>[ bookdiver.net](https://bookdiver.net/)
 
 
 <br>
