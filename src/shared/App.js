@@ -1,38 +1,66 @@
-import React, {useCallback, useEffect, useMemo} from "react";
+import React, {useCallback, useEffect, Suspense, lazy } from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configStore";
-import { Route, Switch, useLocation, withRouter } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 
 import styled from "styled-components";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Color from "./Color";
 import GlobalStyle from "./GlobalStyle";
-import "./Transition.css";
 
 import instance from "./Request";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { actionCreators as permitActions } from "../redux/modules/permit";
 import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
-//컴포넌트
 import {BackgroundLayout} from "../elements";
 import {Navigation} from "../components";
-import {TreasureModal, SignoutModal} from "../modals";
-
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import LoginCheck from "../pages/LoginCheck";
-import Tutorial from "../pages/Tutorial";
-import {ReviewDetail, ReviewWrite, BookDetail, Search} from "../pages/Review";
-import {MyProfile, MyFeed, MyReview, MyReviewFind,Follow, OtherFollow, MyDepth, Notification, BookMark} from "../pages/My";
-import {ChangeName, ChangeProfileImg, Setting, VoiceOfCustomer} from "../pages/Setting";
-import {ErrorPage, LevelHelp} from "../pages/ETC";
-import {CollectionList, BookCollectionMain, CollectionDetail,  MakeCollection, EditCollection} from "../pages/Collection";
 
 //ga
 import ReactGA from 'react-ga';
+
+//main
+const Home = lazy(() => import("../pages/Home"));
+const Login = lazy(() => import("../pages/Login"))
+const LoginCheck = lazy(() => import("../pages/LoginCheck"))
+
+//modal
+const SignoutModal = lazy(() => import("../modals/SignoutModal.js"))
+
+//review
+const ReviewDetail = lazy(() => import("../pages/Review/ReviewDetail"))
+const ReviewWrite = lazy(() => import("../pages/Review/ReviewWrite"))
+const BookDetail = lazy(() => import("../pages/Review/BookDetail.js")) 
+const Search = lazy(() => import("../pages/Review/Search")) 
+
+//my
+const MyProfile = lazy(() => import("../pages/My/MyProfile"))
+const MyFeed = lazy(() => import("../pages/My/MyFeed"))
+const MyReview = lazy(() => import("../pages/My/MyReview"))
+const MyReviewFind = lazy(() => import("../pages/My/MyReviewFind"))
+const Follow = lazy(() => import("../pages/My/Follow"))
+const OtherFollow = lazy(() => import("../pages/My/OtherFollow"))
+const MyDepth = lazy(() => import("../pages/My/Diving/MyDepth"))
+const Notification = lazy(() => import("../pages/My/Noti/Notification"))
+const BookMark = lazy(() => import("../pages/My/BookMark.js"))
+
+//setting
+const ChangeName = lazy(() => import("../pages/Setting/ChangeName"))
+const ChangeProfileImg = lazy(() => import("../pages/Setting/ChangeProfileImg"))
+const Setting = lazy(() => import("../pages/Setting/Setting"))
+const VoiceOfCustomer = lazy(() => import("../pages/Setting/VoiceOfCustomer"));
+
+//etc
+const ErrorPage = lazy(() => import("../pages/ETC/ErrorPage"))
+const LevelHelp = lazy(() => import("../pages/ETC/LevelHelp"))
+
+//collection
+const CollectionList = lazy(() => import("../pages/Collection/CollectionList"))
+const BookCollectionMain = lazy(() => import("../pages/Collection/BookCollectionMain"))
+const CollectionDetail = lazy(() => import("../pages/Collection/CollectionDetail"))
+const MakeCollection = lazy(() => import("../pages/Collection/MakeCollection"))
+const EditCollection = lazy(() => import("../pages/Collection/EditCollection"))
+
 
 ReactGA.event({
   category: 'User',
@@ -96,6 +124,7 @@ function App(props) {
         <CSSTransition key={location.pathname.includes("bookdetail") ||location.pathname.includes("collectiondetail") || location.pathname==="/changename"? location.pathname : null}  
         classNames="slide" timeout={300}> */}
         <ConnectedRouter history={history}>
+          <Suspense fallback={null}>
           <Switch location={location}>
           <Route path="/" exact component={Home} />
 
@@ -142,10 +171,10 @@ function App(props) {
           <Route path="/setting" exact component={Setting}/>
           <Route path="/voiceOfCustomer" exact component={VoiceOfCustomer}/>
 
-          <Route path="/tutorial" exact component={Tutorial}/>
           <Route path="*" component={ErrorPage}/>
 
           </Switch>
+          </Suspense>
           </ConnectedRouter>
           {/* </CSSTransition>
         </TransitionGroup> */}
