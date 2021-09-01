@@ -1,18 +1,14 @@
 //import 부분
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {history} from "../../../redux/configStore";
 import ReactGA from "react-ga";
 import styled from "styled-components";
 import Color from "../../../shared/Color";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { makeStyles } from "@material-ui/core/styles";
 
-import {depth_image} from "../../../shared/Image";
-import {titleWord} from "../../../shared/Titles"
 import { ArrowBack } from "../../../components";
 
 import {TreasureBoxModal, TreasureModal} from "../../../modals";
-import {Background, treasure, person} from "../../../img";
+import {treasure, person} from "../../../img";
 import Loading from "../../ETC/Loading"
 
 import { actionCreators as userActions } from "../../../redux/modules/user";
@@ -23,20 +19,11 @@ import Level from "./Level";
 import NotSupport from "../../../modals/NotSupport"
 
 
-const useStyles = makeStyles((theme) => ({
-    arrow: {
-      color: Color.black,
-      cursor:"pointer",
-    },
-  }));
-
 const MyDepth = (props) => {
     const dispatch = useDispatch();
-    const classes = useStyles();
     const is_open_treasure = useSelector(state => state.permit.is_modal)
     const is_treasure = useSelector(state => state.permit.is_treasure)
     const new_badge = useSelector(state => state.permit.new_badge)
-    const badgeCounts = useSelector(state => state.user.user.own_image?.length)
     const is_loading = useSelector(state => state.permit.is_loading)
     const is_support_modal = useSelector(state => state.permit.is_support_modal)
     const my_level = useSelector(state => state.user.user?.level)
@@ -49,9 +36,6 @@ const MyDepth = (props) => {
         dispatch(permitAction.showNotSupport(true))
       }
 
-    const goBack=() => {
-        history.push("/myfeed");
-    }
     const goLevelHelp=() => {
         history.push("/levelhelp");
     }
@@ -178,7 +162,6 @@ flex-direction:column;
 align-items:center;
 justify-content:flex-start;
 padding:56px 0px 0px 0px;
-background-image:url(${Background});
 background-size: contain;
 background-repeat: no-repeat;
 

@@ -15,7 +15,6 @@ import SwiperCore, {
 } from 'swiper';
 
 import {tutorials} from "../shared/Image"
-import _ from "lodash";
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
