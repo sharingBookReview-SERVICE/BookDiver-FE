@@ -75,12 +75,31 @@
 
 <details>
 <summary>3. sns기능</summary>
-<div markdown="3">       
-  <h3>1. 좋아요</h3>
-   <h3>2. 댓글</h3>
-   <h3>3. 북마크</h3>
-   <h3>4. 팔로우</h3>
-   <h3>5. 알림</h3>
+<div markdown="3">     
+   <h3>1. 소셜 피드</h3>
+  <h3>2. 좋아요</h3>
+   <h3>3. 댓글</h3>
+   <h3>4. 북마크</h3>
+   <h3>5. 팔로우</h3>
+   <h3>6. 알림</h3>
+</div>
+</details>
+
+<details>
+<summary>4. 북컬렉션 </summary>
+<div markdown="4">       
+  <h3>1. 사용자 직접 작성</h3>
+   <h3>2. 태그 추출 자동 컬렉션 </h3>
+
+</div>
+</details>
+
+<details>
+<summary>5. 레벨 시스템 </summary>
+<div markdown="5">       
+  <h3>1. 레벨 별 캐릭터와 칭호 획득</h3>
+   
+
 </div>
 </details>
 <br>
