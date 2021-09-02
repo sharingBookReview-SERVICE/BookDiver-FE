@@ -123,9 +123,41 @@
 <br>
 <br>
 
-## 패키지/라이브러리
+## dependencies
 
 <br>
+
+ + "@material-ui/core": "^4.12.3" <br>
+ +   "@material-ui/icons": "^4.11.2" <br>
+ +   "@testing-library/jest-dom": "^5.11.4" <br>
+ +   "@testing-library/react": "^11.1.0" <br>
+ +   "@testing-library/user-event": "^12.1.10" <br>
+ +   "axios": "^0.21.1" <br>
+ +   "browser-image-compression": "^1.0.14" <br>
+ +   "connected-react-router": "6.8.0" <br>
+ +   "global": "^4.4.0" <br>
+ +   "history": "4.10.1" <br>
+ +   "immer": "^9.0.5" <br>
+ +   "jwt-decode": "^3.1.2" <br>
+ +   "lottie-web-light": "^1.1.0" <br>
+ +   "react": "^17.0.2" <br>
+ +   "react-dom": "^17.0.2" <br>
+ +   "react-ga": "^3.3.0" <br>
+ +   "react-intersection-observer": "^8.32.0" <br>
+ +   "react-kakao-login": "^2.1.0" <br>
+ +   "react-redux": "^7.2.4" <br>
+ +   "react-router-dom": "^5.2.0" <br>
+ +   "react-scripts": "^4.0.3" <br>
+ +   "redux": "^4.1.0" <br>
+ +   "redux-actions": "^2.6.5" <br>
+ +   "redux-logger": "^3.0.6" <br>
+ +   "redux-thunk": "^2.3.0" <br>
+ +   "sass": "^1.37.5" <br>
+ +   "socket.io-client": "^4.1.3" <br>
+ +   "styled-components": "^5.3.0" <br>
+ +   "swiper": "^6.8.1" <br>
+ +   "web-vitals": "^1.0.1" <br>
+ 
 
 
 <br>
