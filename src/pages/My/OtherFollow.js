@@ -7,13 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {history} from "../../redux/configStore";
 import { actionCreators as userActions } from "../../redux/modules/user";
 
-
 import styled from "styled-components";
 import Color from "../../shared/Color";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from "@material-ui/core/styles";
 import {FollowUser} from "../../elements";
-import { ArrowBack } from "../../components";
 
 
 

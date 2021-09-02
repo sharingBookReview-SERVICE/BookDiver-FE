@@ -4,7 +4,6 @@ import React from "react";
 import styled from "styled-components";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import Color from "../shared/Color";
 
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as commentActions } from "../redux/modules/comment";

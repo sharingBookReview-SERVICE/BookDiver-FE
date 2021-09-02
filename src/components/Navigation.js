@@ -1,12 +1,8 @@
 import React from "react";
-import { history } from "../redux/configStore";
 import {  NavLink, useLocation } from 'react-router-dom';
 
 import styled from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
-import ListAltIcon from "@material-ui/icons/ListAlt";
-import AddBoxIcon from "@material-ui/icons/AddBox";
-import SpeakerNotesIcon from "@material-ui/icons/SpeakerNotes";
 import BookOutlinedIcon from '@material-ui/icons/BookOutlined';
 import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';
 import AddIcon from '@material-ui/icons/Add';
@@ -162,7 +158,7 @@ const Navigation = (props) => {
       to="/mydepth"
       onClick={setDivingLoading}
       activeClassName={classes.active}>
-        <ProfileImg src={images[profile]}></ProfileImg>
+        <ProfileImg alt="profile" src={images[profile]}></ProfileImg>
         <PageName >잠수상태</PageName>
       </IconBox>
     </NavBox>

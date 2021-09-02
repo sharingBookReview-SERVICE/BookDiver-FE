@@ -1,12 +1,8 @@
 //import 부분
 import React, {useEffect, useState } from "react";
-import {Route} from "react-router-dom"
-import {history} from "../../redux/configStore";
 
 import styled from "styled-components";
 import Color from "../../shared/Color";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { makeStyles } from "@material-ui/core/styles";
 import {OwnImages} from "../../elements"
 
 import { actionCreators as userActions } from "../../redux/modules/user";

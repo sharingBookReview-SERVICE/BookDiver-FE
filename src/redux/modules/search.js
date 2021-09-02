@@ -18,8 +18,6 @@ const getOneBook = createAction(GET_ONE_BOOK, (book)=>({book}));
 const getBestSeller = createAction(GET_BESTSELLER, (book_list) =>({book_list}));
 const getSearchBooks = createAction(GET_SEARCH_BOOKS, (book_list)=>({book_list}));
 const getSearchBooksTitle = createAction(GET_SEARCH_BOOKS_TITLE, (book_list)=>({book_list}));
-const getSearchBooksAuthor = createAction(GET_SEARCH_BOOKS_AUTHOR, (book_list)=>({book_list}));
-const getSearchBooksPublisher = createAction(GET_SEARCH_BOOKS_PUBLI, (book_list)=>({book_list}));
 const resetSelectedBook = createAction(RESET_SELECTED_BOOK, (book)=> ({book}));
 
 //initial

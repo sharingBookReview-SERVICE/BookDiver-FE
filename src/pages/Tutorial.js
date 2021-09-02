@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+
 
 import styled from "styled-components"
 
@@ -15,7 +15,6 @@ import SwiperCore, {
 } from 'swiper';
 
 import {tutorials} from "../shared/Image"
-import _ from "lodash";
 
 // install Swiper modules
 SwiperCore.use([Navigation]);
@@ -52,14 +51,6 @@ background-image: url(${(props) => props.url});
 background-size:cover;
 background-position:center center;
 `
-
-const ImageContainer = styled.div`
-width:100%;
-height:100%:
-background-image: url(${(props) => props.url});
-background-size:cover;
-`
-
 
 const Wrapper = styled.div`
 width:100%;

@@ -1,28 +1,18 @@
 
 import styled from "styled-components";
-import React, {useEffect} from "react";
+import React from "react";
 import { history } from "../../redux/configStore";
 import { useDispatch } from "react-redux";
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { actionCreators as permitActions } from "../../redux/modules/permit";
-import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
 
-const useStyles = makeStyles((theme) => ({
-    goback: {
-        padding: "0px 20px"
-    },
-    icon: {
-        position: "absolute",
-        right: "20px"
-    }
-  }));
 
 //도움말 하나
 const Slide = (props) => {
-    const classes = useStyles();
+
     return (
         <Wrapper>
              

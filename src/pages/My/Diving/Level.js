@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {images, depth_image} from "../../../shared/Image"
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from 'react';
+import { useSelector } from "react-redux";
+
 
 const Level = () => {
     const userBadges = useSelector(state => state.user.user.own_image)
@@ -15,7 +15,7 @@ const Level = () => {
 
     return (
         <BackgroundImg url={images["sea"]}>
-            <Badge src={depth_image[badges[0]]} style={{top:"150px", left:"40px", width:"120px", height:"120px"}}/>
+            <Badge src={depth_image["image_1"]} style={{top:"150px", left:"40px", width:"120px", height:"120px"}}/>
 
             <Badge 
             src={badges[1] === "image_2" ? depth_image[badges[1]] : depth_image["흰동가리"]} 

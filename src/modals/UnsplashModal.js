@@ -1,17 +1,14 @@
 //import 부분
 import React, { useState } from "react";
 import styled from "styled-components";
-import SelectBookCard from "../components/SelectBookCard";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as uploadAcions } from "../redux/modules/upload";
+import {SearchLottie} from "../elements"
 import Color from "../shared/Color"
 
 
@@ -38,9 +35,9 @@ const UnsplashModal = (props) =>{
   const dispatch = useDispatch();
   const classes = useStyles()
 
-  const search_book_list = useSelector(state => state.book.search_book_list);
   const [searchWord, setSearchWord] = useState("");
   const imageList = useSelector(state => state.upload.image_list)
+  const is_searching = useSelector(state => state.permit.is_searching)
 
   const getUnsplashImage = (keyword) => {
     dispatch(uploadAcions.getUnsplashSV(keyword))
@@ -59,6 +56,7 @@ const UnsplashModal = (props) =>{
       window.alert("검색어를 입력해주세요")
     }
     else{
+      dispatch(permitActions.isSearching(true))
       getUnsplashImage(searchWord)
     }
   }
@@ -89,8 +87,13 @@ const UnsplashModal = (props) =>{
                 ></Input>
                 <SearchIcon className={classes.search} onClick={()=>{searchBook()}}/>
               </SearchBox>
-              
-              <ColumnBox>
+
+              {!is_searching ? 
+                <LottieBox>
+                  <SearchLottie/>
+                </LottieBox> : 
+
+                <ColumnBox>
                 <Column>
                     {imageList?.map((url, idx)=>{
                         return(
@@ -100,7 +103,9 @@ const UnsplashModal = (props) =>{
                         key={idx}/>
                         )})}
                 </Column>
-              </ColumnBox>
+                </ColumnBox>}
+              
+
 
             </Container>
 
@@ -116,6 +121,14 @@ const UnsplashModal = (props) =>{
 const Overlay = styled(CommonOverlay)`
 `;
 
+const LottieBox = styled.div`
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+`
+
 const ColumnBox = styled.div`
 width:100%;
 height:auto;
@@ -127,14 +140,16 @@ box-sizing:border-box;
 const Column = styled.div`
 width:90%;
 column-width: 110px;
+column-gap:10px;
 `
 
 const Image = styled.img`
 width:auto;
 height:auto;
-max-width:174px;
+max-width:103%;
 display: inline-block;
 transition:0.3s ease-in-out;
+border-radius:10px;
 cursor:pointer;
 :hover{
     transform:scale(1.1);

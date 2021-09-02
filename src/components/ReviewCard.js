@@ -1,5 +1,5 @@
 //import 부분
-import React,{useState} from "react";
+import React,{useState, lazy, Suspense, useEffect, useRef} from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -15,14 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as reviewActions } from "../redux/modules/review";
 import { actionCreators as permitActions } from "../redux/modules/permit";
 import { actionCreators as collectionActions } from "../redux/modules/collection";
-import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
-
-import LikeLottie from "../img/lottie/LikeLottie"
 
 import ReactGA from "react-ga";
 
-
+const LikeLottie = lazy(() => import("../img/lottie/LikeLottie"));
 
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
@@ -40,13 +37,11 @@ const ReviewCard = (props) => {
     comments,
     image,
     user,
-    is_follow,
     bookmark,
     setRef
   } = props;
   const bookTitle = book?.title.split("(")[0]
   const bookAuthor = `${book.author} 저`
-  const searched_collection =  useSelector((state) => state.collection.searched_collection);
   // console.log(searched_collection)
 
   //permit check 
@@ -56,6 +51,8 @@ const ReviewCard = (props) => {
   const userId = useSelector((state) => state.user.user._id);
   const reviewUserId = user.id//
   const profileImage = user?.profileImage;
+  const observeImage = useRef(null)
+  const observeProfile = useRef(null)
 
   let is_my_post = false;
 
@@ -131,12 +128,6 @@ const ReviewCard = (props) => {
     }
   }
 
-
-  const follow = () => {
-    dispatch(userActions.followSV(user.id))
-    dispatch(userActions.isFollow(true))
-  }
-
   const bookMark = ()=>{
       if(is_login) {
       dispatch(reviewActions.bookMarkSV(book._id, _id));
@@ -151,8 +142,42 @@ const ReviewCard = (props) => {
     dispatch(collectionActions.searchCollectionSV(hashtag))
   }
 
+  const showImage = async([entry], observer) => {
+    if (!entry.isIntersecting) {
+      return
+    }
+    const imageUrl = [entry][0].target.dataset.src //보여진 리뷰의 인덱스
+    observeImage.current.src = imageUrl
+    observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
+}
+
+const showProfile = async([entry], observer) => {
+  if (!entry.isIntersecting) {
+    return
+  }
+  const imageUrl = [entry][0].target.dataset.src //보여진 리뷰의 인덱스
+  console.log(imageUrl)
+  observeProfile.current.src = imageUrl
+  observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
+}
+
+  useEffect(() => {
+      const observer = new IntersectionObserver(showImage, {threshold: 0.1}); //메인이미지 관찰
+      observer.observe(observeImage.current)
+    return () => {
+      observeImage.disconnect();}
+    },[])
+
+  useEffect(() => {
+    const profileObsever = new IntersectionObserver(showProfile, {threshold: 0.1}); //프로필이미지 관찰
+    profileObsever.observe(observeProfile.current)
+    return () => {
+      observeProfile.disconnect();}
+  },[])
+
   return (
     <React.Fragment>
+
       <CartWrapper ref={setRef} data-idx={props.setIdx}>
        
         <CardBox>
@@ -169,7 +194,10 @@ const ReviewCard = (props) => {
                   label: "profile",
                 });
               }}>
-                <ProfileImg src={images[profileImage]} />
+                <ProfileImg
+                alt="profile_img"
+                ref={observeProfile} 
+                data-src={images[profileImage]}  />
               </ImgWrapper>
 
               <Box direction={"row"}>
@@ -216,12 +244,15 @@ const ReviewCard = (props) => {
 
           {image ?
           <ImageBox>
-            {
-              likebtn && <LikeLottie/>
-            }
 
+            <Suspense fallback={null}>
+            {likebtn && <LikeLottie/>}
+            </Suspense>
+            
             <Image
-              url={image}
+              alt="Feed_img"
+              data-src={image}
+              ref={observeImage}
               onClick={() => {
                 goToReviewDetail();
               }}
@@ -389,13 +420,10 @@ const ImageBox = styled.div`
   
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   width: 100%;
   height: 100%;
-  background-image:url(${(props) => props.url});
-  background-size:cover;
-  background-position:center center;
-  cursor:pointer;
+  object-fit:cover;
 `;
 
 const UserName = styled.p`

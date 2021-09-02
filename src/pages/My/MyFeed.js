@@ -2,7 +2,6 @@ import React,{useEffect,useState} from "react";
 import { useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import SearchIcon from "@material-ui/icons/Search";
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import CollectionsBookmarkOutlinedIcon from "@material-ui/icons/CollectionsBookmarkOutlined";
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';

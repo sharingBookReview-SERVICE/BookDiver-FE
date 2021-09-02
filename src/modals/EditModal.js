@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import Color from "../shared/Color";
 import { makeStyles } from "@material-ui/core/styles";
 import { CommonContainer, CommonOverlay } from "../shared/styles/modal/CommonModal";
 

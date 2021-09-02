@@ -1,8 +1,6 @@
 import React , {useEffect, useRef} from "react";
 import styled from "styled-components";
-import lottie from "lottie-web";
-import Color from "../../shared/Color";
-import { style } from "@material-ui/system";
+import lottie from "lottie-web-light";
 
 const LikeLottie = ()=>{
      //lottie
@@ -13,7 +11,7 @@ const LikeLottie = ()=>{
       renderer: 'svg',
       loop: false,
       autoplay:true,
-      animationData:require("./like.json")
+      animationData:require("./72348-like-animation.json")
      
     })
 
@@ -38,18 +36,5 @@ margin: 0 auto;
 top:0%;
 z-index: 99;
 `;
-const Arrow = styled.div`
-position: absolute;
-bottom: 100px;
-left: 40%;
-width: 80px;
-height: 80px;
-margin: 0 auto;
-`;
-
-const Text= styled.div`
-
-`;
-
 
 export default LikeLottie;

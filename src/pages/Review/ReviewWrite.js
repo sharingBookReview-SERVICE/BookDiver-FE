@@ -1,12 +1,10 @@
 //import 부분
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { history } from "../../redux/configStore";
 import styled from "styled-components";
 import imageCompression from "browser-image-compression";
 
-import {add_button} from "../../img";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
 
@@ -23,17 +21,10 @@ import { actionCreators as bookActions } from "../../redux/modules/book";
 import { actionCreators as uploadAcions } from "../../redux/modules/upload";
 import { actionCreators as tagActions } from "../../redux/modules/tag";
 
-const useStyles = makeStyles((theme) => ({
-  arrow: {
-    cursor:"pointer",
-    margin:"0px 0px 0px 20px",
-  },
-}));
-
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+
 
   //Permit check
   const is_modal = useSelector((state) => state.permit.is_modal);
@@ -272,7 +263,7 @@ const ReviewWrite = (props) => {
               dispatch(permitActions.showModal(true));
             }}
           >
-            <img src={add_button} alt="add btn" />
+              <AddIcon/>
             <Text >리뷰할 책 선택하기</Text>
           </BookChoice>
         ) : (
@@ -296,7 +287,7 @@ const ReviewWrite = (props) => {
               onClick={() => {
                 selectImage();
               }}>
-              <img src={add_button} alt="add btn" />
+              <AddIcon/>
               <Text>책 사진 업로드</Text>
               <Text
                 style={{

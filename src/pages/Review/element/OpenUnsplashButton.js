@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Color from "../../../shared/Color"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { actionCreators as permitActions } from "../../../redux/modules/permit"
 
 const OpenUnsplashButton = () => {

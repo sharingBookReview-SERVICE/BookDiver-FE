@@ -1,5 +1,5 @@
 import React, {useRef, useEffect } from 'react';
-import lottie from "lottie-web"
+import lottie from "lottie-web-light"
 import styled from "styled-components"
 
 const LottieCheck = () => {

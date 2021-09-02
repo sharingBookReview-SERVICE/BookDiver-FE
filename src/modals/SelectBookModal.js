@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as bookActions } from "../redux/modules/book";
 import { actionCreators as permitActions } from "../redux/modules/permit";
-import { actionCreators as uploadAcions } from "../redux/modules/upload";
+import { SearchLottie} from "../elements"
 import Color from "../shared/Color"
 
 
@@ -42,6 +42,7 @@ const SelectBookModal = (props) =>{
   const [searchWord, setSearchWord] = useState("");
   const [is_clicked, setIsClicked] = useState(false);
   const [categories, setCategory] = useState(["제목","저자","출판사"])
+  const [is_searched, setIsSearched] = useState(false)
 
   const is_make_collection = useSelector(state=> state.collection.is_make_collection);
 
@@ -68,6 +69,7 @@ const SelectBookModal = (props) =>{
     }
     else{
       dispatch(bookActions.getSearchBooksSV(categories[0], searchWord));
+      setIsSearched(true)
     }
   }
 
@@ -124,6 +126,11 @@ const SelectBookModal = (props) =>{
                 ></Input>
                 <SearchIcon className={classes.search} onClick={()=>{searchBook()}}/>
               </SearchBox>
+
+              {!is_searched && 
+                <LottieBox>
+                  <SearchLottie/>
+                </LottieBox>}
               
               {
                 search_book_list &&
@@ -143,6 +150,14 @@ const SelectBookModal = (props) =>{
         </React.Fragment>
     )
 }
+
+const LottieBox = styled.div`
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+`
 
 const Overlay = styled(CommonOverlay)`
 `;

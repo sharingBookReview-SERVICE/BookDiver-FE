@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
 
 //스와이퍼
-import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Mousewheel } from 'swiper/core';
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
@@ -12,7 +10,6 @@ import "swiper/components/pagination/pagination.scss";
 
 
 //컴포넌트
-import {Collection} from "../../elements";
 import WhatCollection from "./component/WhatCollection"
 import CollectionSlider from "./component/CollectionSlider"
 //css
@@ -26,7 +23,6 @@ import { actionCreators as permitActions } from "../../redux/modules/permit";
 import { useDispatch, useSelector } from "react-redux";
 
 
-import ReactGA from "react-ga";
 SwiperCore.use([Mousewheel])
 
 

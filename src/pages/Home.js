@@ -9,7 +9,7 @@ import { history } from "../redux/configStore";
 
 import styled from "styled-components";
 import {ReviewCard, Header} from "../components";
-import {EditModal,LoginModal,NotSupport,CheckTreasureModal,NotFound} from "../modals";
+import {EditModal,LoginModal,CheckTreasureModal,NotFound} from "../modals";
 
 import Color from "../shared/Color"
 import Loading from "../pages/ETC/Loading"
@@ -24,7 +24,6 @@ const Home = (props) => {
   //--모달 permit boolean
   const is_edit_modal = useSelector((state) => state.permit.is_edit_modal);
   const show_login_modal = useSelector((state) => state.permit.show_login)
-  const is_support_modal = useSelector((state) => state.permit.is_support_modal)
   const is_treasure = useSelector((state) => state.permit.is_treasure_modal) // 보물 얻었다는 모달 
 
   //--permit 변수들 

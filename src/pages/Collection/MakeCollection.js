@@ -1,9 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { history } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";

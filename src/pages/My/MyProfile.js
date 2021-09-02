@@ -25,16 +25,11 @@ const useStyles = makeStyles((theme) => ({
 const MyProfile = (props) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
-    const[logooutPop, setLogOutPop] = useState(false);
-    const[signoutPop , setSignOutPop] = useState(false);
     const nickname = useSelector(state=> state.user.user.nickname)
     const level = useSelector(state=> state.user.user?.level)
     const profileImg = useSelector(state => state.user.user?.profileImage)
-    const followerCount = useSelector(state=> state.user.user?.followerCount)
-    const followingCount = useSelector(state=> state.user.user?.followingCount)
     const userId = useSelector(state => state.user.user._id)
- 
-    const CollectionList = ["나만의 북 컬렉션", "내가 스크랩한 리뷰"]
+
 
     useEffect(() => {
       if(userId){
