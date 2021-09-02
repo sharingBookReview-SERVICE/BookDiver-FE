@@ -1,16 +1,18 @@
 # Diver(책 리뷰 공유 sns)📘
+> 안녕하세요 책 중심 sns 다이버입니다. <br>
+> 설명<br>
 [ bookdiver.net](https://bookdiver.net/)
 
 <br>
 
 ### 목차
-<hr>
-[마무리로 가기](#1.이거)
+---
 
 
 
 
-### 1.이거
+
+### ⚫ 팀원 소개 및 제작 기간
 <hr>
 
 - 2021년 7월 23일 ~ 
@@ -23,9 +25,20 @@
 
 ### ⚫ 프로젝트 소개
 <hr>
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/70359952/131693331-1829bac8-6288-47be-bd28-a4c7cf06b0cb.gif)
+
 <br>
 
-### 2. 사용 기술
+* 책을 좋아하는 사람들이 읽은 책의 구절을 공유하고 책을 추천하면서
+* 책을 중심으로 소통이 이루어지는 sns 서비스 입니다.
+
+<span style="color:red">**직접 사용하러 가기**</span>[ bookdiver.net](https://bookdiver.net/)
+
+
+<br>
+
+### ⚫ 사용 기술
 <hr>
 
 `Front-end`
@@ -54,22 +67,13 @@
 
 - 구현   
 	: 모든 작업은 다음과 같은 과정을 거쳤습니다.
+	![깃허브 리드미](https://user-images.githubusercontent.com/70359952/131766461-81427882-4d77-4085-bf00-213e02d47558.PNG)
 	
 
 <br>
 
 <br>
 
-### 4. 실행화면
-<hr>
-
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/70359952/131693331-1829bac8-6288-47be-bd28-a4c7cf06b0cb.gif)
-<br>
-<span style="color:red">**직접 사용하러 가기**</span>[ bookdiver.net](https://bookdiver.net/)
-
-
-<br>
-<br>
 
 
 ### 5. 기능 및 설계
@@ -78,12 +82,16 @@
 <details>
 <summary>1. 로그인</summary>
 <div markdown="1">       
- 카카오, 구글 소셜 로그인
+ 카카오, 구글 소셜 로그인 <br>
+	<img width="300px" src="https://user-images.githubusercontent.com/70359952/131766584-e68eb996-42f3-42ac-add7-8f73c6c8e9aa.png"/>
+	
 </div>
 </details>
 
 <details>
-<summary>2. 게시글 작성</summary>
+<summary>2. 게시글 CRUD</summary>
+	<img height="600px" width="300px"src="https://user-images.githubusercontent.com/70359952/131767146-8529e399-fc27-4c02-92f4-9c04be801936.png"/>
+	<img height="600px" width="300px"src="https://user-images.githubusercontent.com/70359952/131767202-f7bcf0f3-4e8d-4503-9453-e3ceaac412f6.png"/>
 <div markdown="2">       
   <h3>1. 이미지 압축</h3>
    <h3>2. unsplash</h3>
