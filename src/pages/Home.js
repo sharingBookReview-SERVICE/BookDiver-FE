@@ -173,13 +173,6 @@ const Home = (props) => {
 
   }
 
-  const scrollToTop = () => {
-    container.current.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-
   const lastScroll = useSelector(state=> state.review.current_scroll);
   const container = useRef(null);
 
