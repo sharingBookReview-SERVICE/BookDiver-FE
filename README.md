@@ -5,15 +5,21 @@
 
 <br>
 
-### 목차
----
+## 목차
+ 1. [팀원 소개 및 제작 기간](#팀원-소개-및-제작-기간)
+ 2. [프로젝트 소개](#프로젝트-소개)
+ 3. [사용 기술](#사용-기술)
+ 4. [아키텍쳐](#아키텍쳐)
+ 5. [협업 과정](#협업-과정)
+ 6. [저희 프론트엔드는](#저희-프론트엔드는)
+ 7. [기능 및 설계](#기능-및-설계)
 
 
 
 
 
-### ⚫ 팀원 소개 및 제작 기간
-<hr>
+## 팀원 소개 및 제작 기간
+
 
 - 2021년 7월 23일 ~ 
 - 7인 1조 팀프로젝트
@@ -23,8 +29,7 @@
 <br>
 <br>
 
-### ⚫ 프로젝트 소개
-<hr>
+## 프로젝트 소개
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/70359952/131693331-1829bac8-6288-47be-bd28-a4c7cf06b0cb.gif)
 
@@ -38,8 +43,8 @@
 
 <br>
 
-### ⚫ 사용 기술
-<hr>
+## 사용 기술
+
 
 `Front-end`
 -  React
@@ -54,11 +59,13 @@
 - AWS S3 
 
 <br>
-
 <br>
 
-### 3. 협업 과정
-<hr>
+##  아키텍쳐
+<br>
+
+##  협업 과정
+
 
 - 전체 팁 협업 : `notion`
 - 협업
@@ -74,68 +81,31 @@
 
 <br>
 
+## 저희 프론트엔드는
+<br>
+- <b>깃 플로우를 사용했습니다.</b><br>
+- <b>사용자 중심의 서비스를 만들기 위해 노력했습니다.</b><br>
+- <b>서비스의 성능 최적화를 노력을 했습니다.</b><br>
 
+<br>
+<br>
 
-### 5. 기능 및 설계
-<hr>
+## 기능 및 설계
+
 
 [1. 로그인](https://github.com/sharingBookReview-SERVICE/sharingBookReview-FE/wiki/1.-%EB%A1%9C%EA%B7%B8%EC%9D%B8)
-
-<details>
-<summary>1. 로그인</summary>
-<div markdown="1">       
- 카카오, 구글 소셜 로그인 <br>
-	<img width="300px" src="https://user-images.githubusercontent.com/70359952/131766584-e68eb996-42f3-42ac-add7-8f73c6c8e9aa.png"/>
-	
-</div>
-</details>
-
-<details>
-<summary>2. 게시글 CRUD</summary>
-	<img height="600px" width="300px"src="https://user-images.githubusercontent.com/70359952/131767146-8529e399-fc27-4c02-92f4-9c04be801936.png"/>
-	<img height="600px" width="300px"src="https://user-images.githubusercontent.com/70359952/131767202-f7bcf0f3-4e8d-4503-9453-e3ceaac412f6.png"/>
-<div markdown="2">       
-  <h3>1. 이미지 압축</h3>
-   <h3>2. unsplash</h3>
-   <h3>3. 추천 해시태그</h3>
-</div>
-</details>
-
-<details>
-<summary>3. sns기능</summary>
-<div markdown="3">     
-   <h3>1. 소셜 피드</h3>
-  <h3>2. 좋아요</h3>
-   <h3>3. 댓글</h3>
-   <h3>4. 북마크</h3>
-   <h3>5. 팔로우</h3>
-   <h3>6. 알림</h3>
-</div>
-</details>
-
-<details>
-<summary>4. 북컬렉션 </summary>
-<div markdown="4">       
-  <h3>1. 사용자 직접 작성</h3>
-   <h3>2. 태그 추출 자동 컬렉션 </h3>
-
-</div>
-</details>
-
-<details>
-<summary>5. 레벨 시스템 </summary>
-<div markdown="5">       
-  <h3>1. 레벨 별 캐릭터와 칭호 획득</h3>
-   
-
-</div>
-</details>
 <br>
-
+[2. 게시글 CRUD](https://github.com/sharingBookReview-SERVICE/sharingBookReview-FE/wiki/2.-%EA%B2%8C%EC%8B%9C%EA%B8%80-CRUD)
 <br>
+[3. SNS 기능](https://github.com/sharingBookReview-SERVICE/sharingBookReview-FE/wiki/3.-SNS-%EA%B8%B0%EB%8A%A5)
+<br>
+[4. 북컬렉션](https://github.com/sharingBookReview-SERVICE/sharingBookReview-FE/wiki/4.-%EB%B6%81%EC%BB%AC%EB%A0%89%EC%85%98)
+<br>
+[5. 레벨 시스템](https://github.com/sharingBookReview-SERVICE/sharingBookReview-FE/wiki/5.-%EB%A0%88%EB%B2%A8-%EC%8B%9C%EC%8A%A4%ED%85%9C)
 
-### 6. 라이브러리
-링크 넣기
+
+<>
+### 라이브러리
 
 <br>
 
@@ -143,7 +113,7 @@
 <br>
 
 
-### 7. 트러블 슈팅
+### 트러블 슈팅
 링크 넣기
 
 <br>
