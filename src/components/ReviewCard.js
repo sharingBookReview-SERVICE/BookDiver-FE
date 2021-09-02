@@ -1,5 +1,5 @@
 //import 부분
-import React,{useState, lazy, Suspense, useEffect, useRef} from "react";
+import React,{useState, useEffect, useRef} from "react";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -18,8 +18,7 @@ import { actionCreators as collectionActions } from "../redux/modules/collection
 import { history } from "../redux/configStore";
 
 import ReactGA from "react-ga";
-
-const LikeLottie = lazy(() => import("../img/lottie/LikeLottie"));
+import LikeLottie from '../img/lottie/LikeLottie';
 
 const ReviewCard = (props) => {
   const dispatch = useDispatch();
@@ -245,9 +244,7 @@ const showProfile = async([entry], observer) => {
           {image ?
           <ImageBox>
 
-            <Suspense fallback={null}>
             {likebtn && <LikeLottie/>}
-            </Suspense>
             
             <Image
               alt="Feed_img"
