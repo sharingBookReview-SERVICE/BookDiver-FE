@@ -2,7 +2,7 @@
 > 안녕하세요! 인상깊은 책의 구절을 사람들과 공유하고, 책으로 소통할 수 있는 sns 다이버입니다.<br>
 > 책 읽는 것을 좋아하고<br>
 >  다른사람과 읽은 책에 대해 이야기 나눌 수 있는 플랫폼이 없어서 아쉬웠던 분들을 위한 서비스입니다. <br>
-[ bookdiver.net](https://bookdiver.net/)
+[ bookdiver.net](https:www.//bookdiver.net/)
 
 <br>
 <br>
@@ -41,7 +41,7 @@
 * 책을 좋아하는 사람들이 읽은 책의 구절을 공유하고 책을 추천하면서
 * 책을 중심으로 소통이 이루어지는 sns 서비스 입니다.
 
-<span style="color:red">**직접 사용하러 가기**</span>[ bookdiver.net](https://bookdiver.net/)
+<span style="color:red">**직접 사용하러 가기**</span>[ bookdiver.net](https:www.//bookdiver.net/)
 
 
 <br>
