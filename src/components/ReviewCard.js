@@ -155,7 +155,6 @@ const showProfile = async([entry], observer) => {
     return
   }
   const imageUrl = [entry][0].target.dataset.src //보여진 리뷰의 인덱스
-  console.log(imageUrl)
   observeProfile.current.src = imageUrl
   observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
 }
@@ -164,20 +163,20 @@ const showProfile = async([entry], observer) => {
       const observer = new IntersectionObserver(showImage, {threshold: 0.1}); //메인이미지 관찰
       observer.observe(observeImage.current)
     return () => {
-      observeImage.disconnect();}
+      observer.disconnect();}
     },[])
 
   useEffect(() => {
     const profileObsever = new IntersectionObserver(showProfile, {threshold: 0.1}); //프로필이미지 관찰
     profileObsever.observe(observeProfile.current)
     return () => {
-      observeProfile.disconnect();}
+      profileObsever.disconnect();}
   },[])
 
   return (
     <React.Fragment>
 
-      <CartWrapper ref={setRef} data-idx={props.setIdx}>
+      <CartWrapper ref={setRef}  data-id={_id}>
        
         <CardBox>
           <CommentUserBox>

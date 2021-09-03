@@ -61,7 +61,7 @@ const getAllReviewSV = () => {
         instance
             .get("/feeds")
             .then((res) => {
-                console.log(res)
+               
                 //돌아온 res가 error인 경우 실행할 내용 
                 if(res.data.error){
                     history.push("*")
@@ -171,6 +171,7 @@ const checkIsRead = (reviewId) => {
         instance
             .patch(`/feeds/${reviewId}`)
             .then((res) => {
+            
             })
             .catch((err) => {
                 // history.push("*")
@@ -190,7 +191,7 @@ const addReviewSV = (formData, bookId) => {
                 },
             })
             .then((res) => {
-                console.log(res.data)
+                
                 if(res.data.error){
                     // history.push("*")
                     return;

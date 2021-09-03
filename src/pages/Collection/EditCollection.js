@@ -53,7 +53,6 @@ const EditCollection = (props) => {
     const more_select = useSelector(state=> state.collection.more_select);
     
     const is_modal = useSelector(state=> state.permit.is_modal);
-    console.log("반영")
     
     const _name = useRef(collection_detail?.name);
     const _description = useRef(collection_detail?.description);

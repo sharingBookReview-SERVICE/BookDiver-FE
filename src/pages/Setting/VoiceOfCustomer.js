@@ -26,7 +26,6 @@ const VoiceOfCustomer = () => {
 
     const postVOC = () => {
         instance.post("/suggestion", {content: inputRef.current.value}).then()
-        console.log(inputRef.current.value)
         goBack()
     }
 

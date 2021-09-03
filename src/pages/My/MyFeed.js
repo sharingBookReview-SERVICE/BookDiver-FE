@@ -77,7 +77,7 @@ const MyFeed = () => {
     const is_follow = useSelector(state=> state.user.my_feed.user?.is_follow);
     const is_loading = useSelector(state => state.permit.is_loading)
     const is_treasure = useSelector(state => state.permit.is_treasure_modal)
-    console.log(is_treasure);
+
 
     //책장모드
     const [bookMode, setBookMode] = useState(false);
@@ -155,7 +155,6 @@ const MyFeed = () => {
     useEffect(() => {
       socket.on("alert", (payload) => {
         setIsSocket(payload)
-        console.log(payload)
         //알람이 생기면, 유저 정보를 새로 불러오기 
         // dispatch(userAction.getUserSV())
       })

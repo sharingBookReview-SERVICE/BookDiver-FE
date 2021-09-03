@@ -47,7 +47,6 @@ const CollectionDetail = (props) =>{
     const my_id = useSelector(state=> state.user.user.id);
     const {image, name, user,description, contents, liked_users, comments } = collection_detail;
     const defaultImg = "https://i.pinimg.com/564x/c0/79/44/c07944cff5a97bfa3274236cabee29c7.jpg";
-    console.log("----------콜렉션 디테일")
       //책장모드
       const [bookMode, setBookMode] = useState(false);
 

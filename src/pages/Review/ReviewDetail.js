@@ -193,12 +193,6 @@ const ReviewDetail = (props) => {
     socket.emit("token", `Bearer ${localStorage.getItem("token")}`)
   },[])
 
-  useEffect(() => {
-    socket.on("alert", (payload) => {
-      console.log(payload)
-    })
-  })
-
   //네비게이션을 없애고, 리뷰 상세를 불러오기
   useEffect(() => {
     dispatch(permitAction.showNav(false));

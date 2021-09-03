@@ -73,7 +73,7 @@ const getUserSV = ()=>{
   return function(dispatch, getState, {history}){
     instance.get(`/users`)
     .then((res)=>{
-      console.log(res)
+      
       //레벨10 단위가 되었는지 지속적으로 확인하기
       dispatch(getFollowingCounts(res.data.followingCount))
       dispatch(getFollowerCounts(res.data.followerCount))
@@ -119,7 +119,7 @@ const setUserSV = (userId, nickname) => {
         nickname: nickname
       })
       .then((res)=>{
-        console.log(res.data)
+        
         const token = res.data.token;
         if(token){
           localStorage.setItem('token', token);
@@ -217,7 +217,6 @@ const getOtherFollowingListSV = (userId) => {
   return function(dispatch, getState, {history}){
     instance.get(`follow/followingList/${userId}`)
     .then((res)=>{
-      console.log(res)
       dispatch(getFollowList(res.data.followingList))
     })
     .catch((err)=>{
@@ -340,7 +339,6 @@ const getMyFeedSV = (id)=>{
     dispatch(permitActions.isLoading(true))
     instance.get(`/users/feeds`)
     .then((res)=>{
-      console.log(res)
       dispatch(getMyFeed(res.data));
       setTimeout(() => {
         dispatch(permitActions.isLoading(false))
@@ -390,7 +388,7 @@ const getBookmarkSV = () => {
 
     instance.get(`/users/profile/bookmark`)
     .then((res)=>{
-      console.log(res.data.bookmark_reviews)
+
       dispatch(getBookmark(res.data.bookmark_reviews))
     })
     .catch((err)=>{

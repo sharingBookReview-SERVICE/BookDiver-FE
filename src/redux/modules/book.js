@@ -26,7 +26,6 @@ const getSearchBooksSV = (target, query)=>{
     return function(dispatch, getState, {history}){
         instance.get(`/books?target=${target}&query=${query}`)
         .then((res)=>{
-            console.log(res.data.searchList)
             if(!res.data.searchList){
                 window.alert("찾으시는 책이 없습니다.")
                 return;
@@ -43,7 +42,6 @@ const getSearchBooksSV = (target, query)=>{
 
 //책 하나만 불러오기
 const getOneBookSV = (id)=>{
-    console.log("책 하나만 불러오기")
     return function(dispatch,{history}){
         instance.get(`/books/${id}`)
         .then((res)=>{

@@ -105,7 +105,6 @@ const getCustomCollectionsSV = ()=>{
       }
     })
     .then((res)=>{
-      console.log(res.data)
       dispatch(getCustomCollections(res.data.collections));
     })
     .catch((err)=>{
