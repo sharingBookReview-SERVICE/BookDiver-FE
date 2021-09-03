@@ -97,9 +97,9 @@
 
 ## 저희 프론트엔드는
 <br>
-- <b>깃 플로우를 사용했습니다.</b><br>
-- <b>사용자 중심의 서비스를 만들기 위해 노력했습니다.</b><br>
-- <b>서비스의 성능 최적화를 노력을 했습니다.</b><br>
+* <b>깃 플로우를 사용했습니다.</b><br>
+* <b>사용자 중심의 서비스를 만들기 위해 노력했습니다.</b><br>
+* <b>서비스의 성능 최적화를 노력을 했습니다.</b><br>
 
  [페이지로 가기](https://github.com/sharingBookReview-SERVICE/sharingBookReview-FE/wiki/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%EB%8A%94)
 
