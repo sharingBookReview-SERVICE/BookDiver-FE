@@ -138,7 +138,7 @@ const Home = (props) => {
     if(lastId && feedType === "social"){
       // 소셜피드일 때, 리뷰 더 불러오기 함수
       return dispatch(reviewActions.getMoreReviewSV(lastId)); 
-    }else{
+    }else if(lastId && feedType === "recent"){
        // 최신피드일 떄, 리뷰 더 불러오기 함수 
       return dispatch(reviewActions.getMoreRecentReviewSV(lastId));
     }
