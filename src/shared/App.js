@@ -15,6 +15,7 @@ import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
 
 import {BackgroundLayout} from "../elements";
 import {Navigation} from "../components";
+import Loading from "../pages/ETC/Loading"
 
 //ga
 import ReactGA from 'react-ga';
@@ -124,7 +125,7 @@ function App(props) {
         <CSSTransition key={location.pathname.includes("bookdetail") ||location.pathname.includes("collectiondetail") || location.pathname==="/changename"? location.pathname : null}  
         classNames="slide" timeout={300}> */}
         <ConnectedRouter history={history}>
-          <Suspense fallback={null}>
+          <Suspense fallback={Loading}>
           <Switch location={location}>
           <Route path="/" exact component={Home} />
 
