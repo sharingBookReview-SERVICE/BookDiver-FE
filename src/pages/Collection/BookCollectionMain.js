@@ -53,13 +53,15 @@ const BookCollectionMain = (props) =>{
 
             <WhatCollection/>
 
-            <CollectionSlider 
+            <CollectionSlider
+                key={1} 
                 collection_list={custom_collection_list} 
                 collection_name={"최신 컬렉션"}
                 desc={"다이버들이 만든 따끈따끈한 북컬렉션"}
             />
 
-            <CollectionSlider 
+            <CollectionSlider
+                key={2} 
                 is_tag
                 collection_list={tag_collection_list} 
                 collection_name={"태그 추천 컬렉션"}
