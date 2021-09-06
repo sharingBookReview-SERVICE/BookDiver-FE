@@ -159,11 +159,10 @@ const MakeCollection = (props) =>{
         await sendFormData(compressedImage);
     };
 
-    return(
-        <Container>
-            {
-                is_modal && <SelectBookModal is_make_collection is_modal/>
-            }
+    //React.memo
+
+    const MemorizedHeader = React.memo(()=>{
+        return(
             <Head>
                 <ArrowBack/>
                  <UploadForm onSubmit={submit}>
@@ -181,6 +180,24 @@ const MakeCollection = (props) =>{
 
                 {/* <Text>게시하기</Text> */}
             </Head>
+        )
+    })
+
+    const MemorizedImageChoice = React.memo(()=>{
+        return(
+            <ImageSelect onClick={()=>{selectImage();}}>
+            <AddIcon className={classes.addicon}/>
+            <Notice className={classes.font}>컬렉션 배경 사진 업로드</Notice>
+            <Notice className={classes.notice} >컬렉션에 어울리는 사진을 올려보세요</Notice>
+        </ImageSelect>
+        )
+    })
+    return(
+        <Container>
+            {
+                is_modal && <SelectBookModal is_make_collection is_modal/>
+            }
+            <MemorizedHeader/>
             <Wrapper>
                 <InputWrapper>
                 <Label>
@@ -205,11 +222,7 @@ const MakeCollection = (props) =>{
                           <Image src={preview_url} />
                         </ImageBox>
                         :
-                        <ImageSelect onClick={()=>{selectImage();}}>
-                            <AddIcon className={classes.addicon}/>
-                            <Notice className={classes.font}>컬렉션 배경 사진 업로드</Notice>
-                            <Notice className={classes.notice} >컬렉션에 어울리는 사진을 올려보세요</Notice>
-                        </ImageSelect>
+                       <MemorizedImageChoice/>
                     }
                 <InputWrapper>
                     <Label>
