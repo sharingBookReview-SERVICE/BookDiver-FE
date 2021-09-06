@@ -10,7 +10,6 @@ import { CommonContainer, CommonOverlay, CommonText } from "../shared/styles/mod
 const AlertModal = (props) =>{
   //dispatch와 변수들
   const dispatch = useDispatch();
-    console.log(props)
 
 //뷰
 

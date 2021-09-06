@@ -38,39 +38,19 @@ const getSearchBooksSV = (query)=>{
     return function(dispatch, getState, {history}){
         instance.get(`/books?target=제목&query=${query}`)
         .then((res)=>{
-            console.log(res.data.searchList)
+            
             dispatch(getSearchBooksTitle(res.data.searchList));
             dispatch(getSearchBooks(res.data.searchList))
         })
         .catch((err)=>{
             console.log("검색 책 로드 실패", err);
             dispatch(resetSelectedBook())
-        })
-
-        // instance.get(`/books?target=저자&query=${query}`)
-        // .then((res)=>{
-        //     dispatch(getSearchBooksAuthor(res.data.searchList));
-        //     dispatch(getSearchBooks(res.data.searchList))
-        // })
-        // .catch((err)=>{
-        //     console.log("검색 책 로드 실패", err);
-        // })
-
-        // instance.get(`/books?target=출판사&query=${query}`)
-        // .then((res)=>{
-        //     dispatch(getSearchBooksPublisher(res.data.searchList));
-        //     dispatch(getSearchBooks(res.data.searchList))
-        // })
-        // .catch((err)=>{
-        //     console.log("검색 책 로드 실패", err);
-        // })
-     
+        })   
     }
 }
 
 //책 하나만 불러오기
 const getOneBookSV = (id)=>{
-    console.log("책 하나만 불러오기")
     return function(dispatch,{history}){
         instance.get(`/books/${id}`)
         .then((res)=>{

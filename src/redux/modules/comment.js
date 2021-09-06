@@ -105,9 +105,6 @@ const editCommentSv = (content) => {
 
 //댓글 삭제
 const deleteCommentSV = (comment_info) => {
-
-  console.log("삭제 기능이 실행됩니다.")
-
   return function (dispatch, getState, {history}){
 
     const commentId = getState().comment.comment_id

@@ -38,7 +38,7 @@ const Header = (props) => {
   const is_alarm = useSelector((state) => state.user.user.check_alert)
   const [is_socket, setIsSocket] = useState(false)
   const is_login = useSelector((state) => state.user.is_login)
-  console.log(is_alarm)
+
 
 
   const gotoSearch = () => {
@@ -66,7 +66,6 @@ const Header = (props) => {
   useEffect(() => {
     socket.on("alert", (payload) => {
       setIsSocket(payload)
-      console.log(payload)
       //알람이 생기면, 유저 정보를 새로 불러오기 
       // dispatch(userAction.getUserSV())
     })

@@ -97,8 +97,7 @@ const Home = (props) => {
     if (!entry.isIntersecting) {
       return
     }
-    const showedReviewIdx = [entry][0].target.dataset.idx //보여진 리뷰의 인덱스
-    const showedReviewId = _reviewId[showedReviewIdx]?._id // 해당 인덱스 리뷰의 아이디 값을 가져오기
+    const showedReviewId = [entry][0].target.dataset.id
     observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
     dispatch(reviewActions.checkIsRead(showedReviewId)) //관찰한 게시물의 아이디를 보내기
 }
@@ -139,7 +138,7 @@ const Home = (props) => {
     if(lastId && feedType === "social"){
       // 소셜피드일 때, 리뷰 더 불러오기 함수
       return dispatch(reviewActions.getMoreReviewSV(lastId)); 
-    }else{
+    }else if(lastId && feedType === "recent"){
        // 최신피드일 떄, 리뷰 더 불러오기 함수 
       return dispatch(reviewActions.getMoreRecentReviewSV(lastId));
     }
@@ -171,13 +170,6 @@ const Home = (props) => {
       dispatch(reviewActions.saveCurrentScroll(e.target.scrollTop))
     }, 500);
 
-  }
-
-  const scrollToTop = () => {
-    container.current.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   }
 
   const lastScroll = useSelector(state=> state.review.current_scroll);
@@ -217,7 +209,6 @@ const Home = (props) => {
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard
-                    setIdx={idx}
                     setRef={elRefs[idx]}
                     {...review}
                     key={review.id}/> 

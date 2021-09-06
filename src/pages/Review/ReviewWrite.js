@@ -110,7 +110,6 @@ const ReviewWrite = (props) => {
     if(is_unsplash_selected){    
       //언스플레시 사진을 선택했을 때
       formData.append("imageUrl", preview_url)
-      console.log(preview_url)
     }else{
       //개인사진 파일을 선택했을 때
       formData.append("image", image)
@@ -120,7 +119,6 @@ const ReviewWrite = (props) => {
       dispatch(permitActions.showCheckModal(true))
       return;
     } else if (!image && !is_unsplash_selected) {
-      console.log("안돼")
       dispatch(permitActions.showCheckModal(true))
       return;
     } 
