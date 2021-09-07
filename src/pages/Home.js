@@ -179,6 +179,31 @@ const Home = (props) => {
       container?.current?.scrollTo(0, lastScroll);
   },[is_loading])
 
+
+  //카테고리 선택버튼 메모라이징
+  const MemorizedCategory = React.memo(() => {
+    return(
+    <FeedCategoryWrapper>
+      <SocialFeed 
+      onClick={() => {
+        getSocialReview()
+        changeFeedType("social")}} 
+        feedType={feedType}>
+        소셜피드
+      </SocialFeed>
+      <RecentFeed 
+      onClick={() => {
+        changeFeedType("recent")
+        getRecentReview()
+      }}
+      feedType={feedType}>
+        최신피드
+      </RecentFeed>
+      <CategoryBar feedType={feedType}/>
+    </FeedCategoryWrapper>
+    )
+  })
+
   //뷰
   return (
     <>
@@ -187,25 +212,7 @@ const Home = (props) => {
     <Loading/> : 
       <Container  onScroll={scroll} ref={container}>
         <Header />
-        <FeedCategoryWrapper>
-          <SocialFeed 
-          onClick={() => {
-            getSocialReview()
-            changeFeedType("social")}} 
-            feedType={feedType}>
-            소셜피드
-          </SocialFeed>
-          <RecentFeed 
-          onClick={() => {
-            changeFeedType("recent")
-            getRecentReview()
-          }}
-          feedType={feedType}>
-            최신피드
-          </RecentFeed>
-          <CategoryBar feedType={feedType}/>
-        </FeedCategoryWrapper>
-
+        <MemorizedCategory/>
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard

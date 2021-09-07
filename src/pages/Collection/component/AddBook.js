@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { actionCreators as permitActions } from "../../redux/modules/permit";
+import { actionCreators as permitActions } from "../../../redux/modules/permit";
 
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
-import Color from "../../shared/Color";
+import Color from "../../../shared/Color";
 
 
 //스타일 정의
@@ -56,4 +56,4 @@ cursor:pointer;
 const Notice = styled.div`
 `;
 
-export default AddBook;
+export default React.memo(AddBook);

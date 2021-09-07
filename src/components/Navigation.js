@@ -165,7 +165,7 @@ const Navigation = (props) => {
   );
 };
 
-export default Navigation;
+export default React.memo(Navigation);
 
 const ProfileImg = styled.img`
 width:23px;
