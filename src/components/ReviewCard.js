@@ -160,10 +160,10 @@ const showProfile = async([entry], observer) => {
 }
 
   useEffect(() => {
-      const observer = new IntersectionObserver(showImage, {threshold: 0.1}); //메인이미지 관찰
-      observer.observe(observeImage.current)
+      const ImageObserver = new IntersectionObserver(showImage, {threshold: 0.1}); //메인이미지 관찰
+      ImageObserver.observe(observeImage.current)
     return () => {
-      observer.disconnect();}
+      ImageObserver.disconnect();}
     },[])
 
   useEffect(() => {
