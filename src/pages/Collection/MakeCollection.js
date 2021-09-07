@@ -182,7 +182,7 @@ const MakeCollection = (props) =>{
             </Head>
         )
     })
-
+//주석
     const MemorizedImageChoice = React.memo(()=>{
         return(
             <ImageSelect onClick={()=>{selectImage();}}>
