@@ -527,4 +527,4 @@ const LikeCommentBox = styled.div`
 `;
 
 
-export default ReviewCard;
+export default React.memo(ReviewCard);

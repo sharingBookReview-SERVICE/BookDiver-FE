@@ -238,4 +238,4 @@ height: 25px;
 background-image:url("https://booknetworkservice.s3.ap-northeast-2.amazonaws.com/support_agent_black_24dp+1.svg");
 `;
 
-export default Header;
+export default React.memo(Header);
