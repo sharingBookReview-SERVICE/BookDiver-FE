@@ -14,7 +14,7 @@ import { actionCreators as uploadActions } from "../../redux/modules/upload";
 
 import {SelectBookModal} from "../../modals";
 import {CollectionBookCard} from "../../elements";
-import AddBook from "./AddBook";
+import AddBook from "./component/AddBook";
 
 
 import imageCompression from "browser-image-compression";
@@ -192,6 +192,52 @@ const MakeCollection = (props) =>{
         </ImageSelect>
         )
     })
+
+    const MemorizedTitle = React.memo(() => {
+        return(
+            <InputWrapper>
+            <Label>
+                컬렉션 제목
+            </Label>
+            <InputBox>
+                <TitleInput
+                    placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
+                    maxLength="20"     
+                    ref={title}           
+                ></TitleInput>
+                <InputSpan>
+                    <InputI>
+                    </InputI>
+                </InputSpan>
+            </InputBox>
+
+            </InputWrapper>
+        )
+    })
+
+    const MemorizedDesc = React.memo(() => {
+        return(
+            <InputWrapper>
+            <Label>
+                컬렉션 설명
+            </Label>
+            <InputBox style={{height:"108px"}}>
+                <DescTextarea
+                placeholder="컬렉션에 대한 설명을 작성해주세요."
+                ref={description}    
+                >  
+                </DescTextarea>
+                <InputSpan>
+                    <InputI>
+                    </InputI>
+                </InputSpan>
+            </InputBox>
+
+        </InputWrapper>
+        )
+    })
+    
+
     return(
         <Container>
             {
@@ -199,23 +245,7 @@ const MakeCollection = (props) =>{
             }
             <MemorizedHeader/>
             <Wrapper>
-                <InputWrapper>
-                <Label>
-                    컬렉션 제목
-                </Label>
-                <InputBox>
-                    <TitleInput
-                        placeholder="예) 카페에서 가볍게 읽는 자기계발 에세이 모음"
-                        maxLength="20"     
-                        ref={title}           
-                    ></TitleInput>
-                    <InputSpan>
-                        <InputI>
-                        </InputI>
-                    </InputSpan>
-                </InputBox>
-
-                </InputWrapper>
+                <MemorizedTitle/>
                     {
                         is_preview?
                         <ImageBox onClick={() => {selectImage();}}>
@@ -224,21 +254,7 @@ const MakeCollection = (props) =>{
                         :
                        <MemorizedImageChoice/>
                     }
-                <InputWrapper>
-                    <Label>
-                        컬렉션 설명
-                    </Label>
-                <InputBox style={{height:"108px"}}>
-                    <DescTextarea
-                    placeholder="컬렉션에 대한 설명을 작성해주세요."
-                    ref={description}    
-                    ></DescTextarea>
-                    <InputSpan>
-                        <InputI>
-                        </InputI>
-                    </InputSpan>
-                </InputBox>
-                </InputWrapper>
+                <MemorizedDesc/>
                 {
                    selected_Books.length===0? 
                    <AddBook/> 
@@ -315,10 +331,7 @@ height: 40px;
       border-radius:10px;
   }
 `;
-const Text = styled.div`
-width: 80%;
-text-align: right;
-`;
+
 const Wrapper = styled.div`
 margin: 0 auto;
 padding-top: 100px;
