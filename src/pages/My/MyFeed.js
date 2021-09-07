@@ -270,30 +270,28 @@ const MyFeed = () => {
       )
     }
 
-  
-  //본인의 피드를 확인 할 때
-    return (
-        <React.Fragment>
-      {is_loading ? <Loading/> : 
-          <Container>
-          <NotSupport is_support_modal={is_support_modal}/>
-                <UserBox>
-                  <Header>
-                    <BookmarkBorderOutlinedIcon  onClick={()=>{gotoBookMark()}}className={classes.icon}/>
-                    <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
-                    <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !is_alarm}>
-                        <NotificationsNoneIcon
-                        onClick={()=>{
-                          gotoNoti()
-                          setReaded()
-                        }}
-                        className={classes.icon}/>
-                        
-                    </Badge>
-  
-                  </Header>
+    const MemorizedHeader = React.memo(()=>{
+      return(
+        <Header>
+        <BookmarkBorderOutlinedIcon  onClick={()=>{gotoBookMark()}}className={classes.icon}/>
+        <SettingsOutlinedIcon onClick={goToSetting} className={classes.icon}/>
+        <Badge color="secondary" variant="dot" invisible={is_socket ? !is_socket : !is_alarm}>
+            <NotificationsNoneIcon
+            onClick={()=>{
+              gotoNoti()
+              setReaded()
+            }}
+            className={classes.icon}/>
+            
+        </Badge>
 
-                  <Wrapper>
+      </Header>
+      )
+    })
+  
+    const MemorizedProfile = React.memo(()=>{
+      return(
+        <Wrapper>
                     <ProfileBox>
                           <ImgWrapper onClick={()=>{goToChangeProfile()}}>
                             <ProfileImg src={images[profileImg]} />
@@ -327,6 +325,18 @@ const MyFeed = () => {
                     </MyActivityBox>
 
                   </Wrapper>
+      )
+    })
+  //본인의 피드를 확인 할 때
+    return (
+        <React.Fragment>
+      {is_loading ? <Loading/> : 
+          <Container>
+          <NotSupport is_support_modal={is_support_modal}/>
+                <UserBox>
+                 <MemorizedHeader/>
+
+                  <MemorizedProfile/>
                   <FeedCategory>
                       <FeedTitle>내 게시물</FeedTitle>
                       {

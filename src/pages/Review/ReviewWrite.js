@@ -1,5 +1,5 @@
 //import 부분
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect,lazy,Suspense ,useCallback} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import imageCompression from "browser-image-compression";
@@ -8,7 +8,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../shared/Color";
 
-import {SelectBookModal, WriteCheckModal, UnsplashModal} from "../../modals";
+
+
 import {SelectBookCard, ArrowBack} from "../../components";
 import {HashTagsInput, RecommandHashTags} from "../../elements";
 import OpenUnsplashButton from "./element/OpenUnsplashButton"
@@ -21,6 +22,9 @@ import { actionCreators as bookActions } from "../../redux/modules/book";
 import { actionCreators as uploadAcions } from "../../redux/modules/upload";
 import { actionCreators as tagActions } from "../../redux/modules/tag";
 
+const SelectBookModal = lazy(() => import("../../modals/SelectBookModal"));
+const WriteCheckModal = lazy(() => import("../../modals/WriteCheckModal"));
+const UnsplashModal = lazy(() => import("../../modals/UnsplashModal"));
 
 const ReviewWrite = (props) => {
   const dispatch = useDispatch();
@@ -174,6 +178,7 @@ const ReviewWrite = (props) => {
     dispatch(tagActions.setRecommandTag(recommandTags))
   },[recommandTags])
 
+ 
   if(is_loading) {
     return(<Loading/>)
   }
@@ -231,53 +236,45 @@ const ReviewWrite = (props) => {
       </React.Fragment>
     );
   }
+  //React.memo
 
-//작성하기
-  return (
-    <React.Fragment>
-      <WriteCheckModal is_written={is_written}/>
-      <SelectBookModal is_modal={is_modal} />
-      <UnsplashModal is_unsplash_modal={is_unsplash_modal}/>
-      <PostWriteBox>
-        <PostHeader>
-        <ArrowBack/>
-          <UploadForm onSubmit={submit}>
-            <Upload
-              type="file"
-              ref={fileInput}
-              onChange={getImage}
-              accept="image/*"
-            />
+  const MemorizedHeader = React.memo(()=>{
+    return(
+      <PostHeader>
+      <ArrowBack/>
+        <UploadForm onSubmit={submit}>
+          <Upload
+            type="file"
+            ref={fileInput}
+            onChange={getImage}
+            accept="image/*"
+          />
 
-            <SubmitButton 
-            type="submit"
-            >게시하기</SubmitButton>
-          </UploadForm>
-        </PostHeader>
+          <SubmitButton 
+          type="submit"
+          >게시하기</SubmitButton>
+        </UploadForm>
+      </PostHeader>
 
-        {books.length === 0 ? (
-          <BookChoice
-            onClick={() => {
-              dispatch(permitActions.showModal(true));
-            }}
-          >
-              <AddIcon/>
-            <Text >리뷰할 책 선택하기</Text>
-          </BookChoice>
-        ) : (
-          <SelectBookCard is_write_page/>
-        )}
+    )
+  })
 
-        {is_preview ? (
-          <ImageBox
-          onClick={() => {
-         
-            selectImage();
-          }}>
-            <Image src={preview_url} />
-          </ImageBox>
-        ) : (
-          <ImageChoice
+  const MemorizedSelectBook = React.memo(()=>{
+    return(
+      <BookChoice
+      onClick={() => {
+        dispatch(permitActions.showModal(true));
+      }}
+    >
+        <AddIcon/>
+      <Text >리뷰할 책 선택하기</Text>
+    </BookChoice>
+    )
+  })
+
+  const MemorizedImageChoice = React.memo(()=>{
+    return(
+      <ImageChoice
             style={{ height: "312px" }}
           >
             <OpenUnsplashButton/>
@@ -298,28 +295,61 @@ const ReviewWrite = (props) => {
               </Text>
             </ImageUpload>
           </ImageChoice>
+    )
+  })
+
+  
+
+
+//작성하기
+  return (
+   
+    <React.Fragment>
+        <Suspense fallback={Loading}>
+          <WriteCheckModal is_written={is_written}/>
+          <SelectBookModal is_modal={is_modal} />
+          <UnsplashModal is_unsplash_modal={is_unsplash_modal}/>
+          </Suspense>
+      <PostWriteBox>
+      <MemorizedHeader/>
+        {books.length === 0 ? (
+        <MemorizedSelectBook/>
+        ) : (
+          <SelectBookCard is_write_page/>
         )}
 
-        <QuoteBox>
-          <TextWrapper>
-            <Text>인용구 작성</Text>
-          </TextWrapper>
+        {is_preview ? (
+          <ImageBox
+          onClick={() => {
+         
+            selectImage();
+          }}>
+            <Image src={preview_url} />
+          </ImageBox>
+        ) : (
+         <MemorizedImageChoice/>
+        )}
 
-          <OutlineBox>
-            <QuotesTextarea
-              ref={quote}
-              maxLength="300"
-              onChange={e => setQuoteCount(e.target.value.length)}
-              placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
-            ></QuotesTextarea>
-            <InputSpan>
-              <InputI>
-              </InputI>
-            </InputSpan>
-          </OutlineBox>
+<QuoteBox>
+      <TextWrapper>
+        <Text>인용구 작성</Text>
+      </TextWrapper>
 
-          <CountBox>{quoteCount}/300</CountBox>
-        </QuoteBox>
+      <OutlineBox>
+        <QuotesTextarea
+          ref={quote}
+          maxLength="300"
+          onChange={e => setQuoteCount(e.target.value.length)}
+          placeholder="책에서 읽었던 인상깊은 구절을 작성해보세요"
+        ></QuotesTextarea>
+        <InputSpan>
+          <InputI>
+          </InputI>
+        </InputSpan>
+      </OutlineBox>
+
+      <CountBox>{quoteCount}/300</CountBox>
+    </QuoteBox>
 
         <ReviewBox>
           <TextWrapper>
@@ -361,7 +391,9 @@ const ReviewWrite = (props) => {
         </RecommandHashTagBox> : ""}
 
       </PostWriteBox>
+     
     </React.Fragment>
+   
   );
 };
 
