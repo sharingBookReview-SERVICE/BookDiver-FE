@@ -183,7 +183,7 @@ const Home = (props) => {
   //카테고리 선택버튼 메모라이징
   const MemorizedCategory = React.memo(() => {
     return(
-    <FeedCategoryWrapper>
+      <>
       <SocialFeed 
       onClick={() => {
         getSocialReview()
@@ -199,8 +199,7 @@ const Home = (props) => {
       feedType={feedType}>
         최신피드
       </RecentFeed>
-      <CategoryBar feedType={feedType}/>
-    </FeedCategoryWrapper>
+      </>
     )
   })
 
@@ -212,7 +211,10 @@ const Home = (props) => {
     <Loading/> : 
       <Container  onScroll={scroll} ref={container}>
         <Header />
+        <FeedCategoryWrapper>
         <MemorizedCategory/>
+        <CategoryBar feedType={feedType}/>
+        </FeedCategoryWrapper>
         {reviewList.length > 0 && reviewList.map((review, idx) => {
               return (
                     <ReviewCard
@@ -264,7 +266,7 @@ left:52.5%`
 
 const SocialFeed = styled.div`
 width:100%;
-height:auto;
+height:60px;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -278,7 +280,7 @@ ${(props) => props.feedType === "recent" ? `color:${Color.quote}`:"font-weight:b
 
 const RecentFeed = styled.div`
 width:100%;
-height:auto;
+height:60px;
 display:flex;
 justify-content:center;
 align-items:center;
