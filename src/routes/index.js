@@ -9,6 +9,7 @@ import ForgotPassword from './Auth/ForgotPassword';
 import Error404 from './Errors/404';
 
 import Components from './Components';
+import Review from './Review';
 
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
@@ -45,10 +46,11 @@ const Routes = () => {
 
   return (
     <Switch>
-      <RestrictedRoute path="/components" component={Components} />
+      <RestrictedRoute path="/review" component={Review} />
+      <RestrictedRoute path="/collection" component={Review} />
    
 
-      <Route path="/signin" component={Login} />
+      {/* <Route path="/signin" component={Login} /> */}
    
     </Switch>
   );
