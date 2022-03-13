@@ -1,4 +1,3 @@
-//import 부분
 import React, { useEffect, useState, useRef, createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as permitAction } from "../redux/modules/permit";

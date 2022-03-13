@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './shared/App';
+import App from './App';
 
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../src/redux/configStore";

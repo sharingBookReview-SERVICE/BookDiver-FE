@@ -1,66 +1,66 @@
 import React, {useCallback, useEffect, Suspense, lazy } from "react";
 import { ConnectedRouter } from "connected-react-router";
-import { history } from "../redux/configStore";
+import { history } from "./redux/configStore";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 
 import styled from "styled-components";
-import Color from "./Color";
-import GlobalStyle from "./GlobalStyle";
+import Color from "./shared/Color";
+import GlobalStyle from "./shared/GlobalStyle";
 
-import instance from "./Request";
-import { actionCreators as userActions } from "../redux/modules/user";
-import OAuth2RedirectHandler from "./OAuth2RedirectHandler ";
+import instance from "./shared/Request";
+import { actionCreators as userActions } from "./redux/modules/user";
+import OAuth2RedirectHandler from "./shared/OAuth2RedirectHandler ";
 
-import {BackgroundLayout} from "../elements";
-import {Navigation} from "../components";
-import Loading from "../pages/ETC/Loading"
+import {BackgroundLayout} from "./elements";
+import {Navigation} from "./components";
+import Loading from "./pages/ETC/Loading"
 
 //ga
 import ReactGA from 'react-ga';
 
 //main
-const Home = lazy(() => import("../pages/Home"));
-const Login = lazy(() => import("../pages/Login"))
-const LoginCheck = lazy(() => import("../pages/LoginCheck"))
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"))
+const LoginCheck = lazy(() => import("./pages/LoginCheck"))
 
 //modal
-const SignoutModal = lazy(() => import("../modals/SignoutModal.js"))
+const SignoutModal = lazy(() => import("./modals/SignoutModal.js"))
 
 //review
-const ReviewDetail = lazy(() => import("../pages/Review/ReviewDetail"))
-const ReviewWrite = lazy(() => import("../pages/Review/ReviewWrite"))
-const BookDetail = lazy(() => import("../pages/Review/BookDetail.js")) 
-const Search = lazy(() => import("../pages/Review/Search")) 
+const ReviewDetail = lazy(() => import("./pages/Review/ReviewDetail"))
+const ReviewWrite = lazy(() => import("./pages/Review/ReviewWrite"))
+const BookDetail = lazy(() => import("./pages/Review/BookDetail.js")) 
+const Search = lazy(() => import("./pages/Review/Search")) 
 
 //my
-const MyProfile = lazy(() => import("../pages/My/MyProfile"))
-const MyFeed = lazy(() => import("../pages/My/MyFeed"))
-const MyReview = lazy(() => import("../pages/My/MyReview"))
-const MyReviewFind = lazy(() => import("../pages/My/MyReviewFind"))
-const Follow = lazy(() => import("../pages/My/Follow"))
-const OtherFollow = lazy(() => import("../pages/My/OtherFollow"))
-const MyDepth = lazy(() => import("../pages/My/Diving/MyDepth"))
-const Notification = lazy(() => import("../pages/My/Noti/Notification"))
-const BookMark = lazy(() => import("../pages/My/BookMark.js"))
+const MyProfile = lazy(() => import("./pages/My/MyProfile"))
+const MyFeed = lazy(() => import("./pages/My/MyFeed"))
+const MyReview = lazy(() => import("./pages/My/MyReview"))
+const MyReviewFind = lazy(() => import("./pages/My/MyReviewFind"))
+const Follow = lazy(() => import("./pages/My/Follow"))
+const OtherFollow = lazy(() => import("./pages/My/OtherFollow"))
+const MyDepth = lazy(() => import("./pages/My/Diving/MyDepth"))
+const Notification = lazy(() => import("./pages/My/Noti/Notification"))
+const BookMark = lazy(() => import("./pages/My/BookMark.js"))
 
 //setting
-const ChangeName = lazy(() => import("../pages/Setting/ChangeName"))
-const ChangeProfileImg = lazy(() => import("../pages/Setting/ChangeProfileImg"))
-const Setting = lazy(() => import("../pages/Setting/Setting"))
-const VoiceOfCustomer = lazy(() => import("../pages/Setting/VoiceOfCustomer"));
+const ChangeName = lazy(() => import("./pages/Setting/ChangeName"))
+const ChangeProfileImg = lazy(() => import("./pages/Setting/ChangeProfileImg"))
+const Setting = lazy(() => import("./pages/Setting/Setting"))
+const VoiceOfCustomer = lazy(() => import("./pages/Setting/VoiceOfCustomer"));
 
 //etc
-const ErrorPage = lazy(() => import("../pages/ETC/ErrorPage"))
-const LevelHelp = lazy(() => import("../pages/ETC/LevelHelp"))
+const ErrorPage = lazy(() => import("./pages/ETC/ErrorPage"))
+const LevelHelp = lazy(() => import("./pages/ETC/LevelHelp"))
 
 //collection
-const CollectionList = lazy(() => import("../pages/Collection/CollectionList"))
-const BookCollectionMain = lazy(() => import("../pages/Collection/BookCollectionMain"))
-const CollectionDetail = lazy(() => import("../pages/Collection/CollectionDetail"))
-const MakeCollection = lazy(() => import("../pages/Collection/MakeCollection"))
-const EditCollection = lazy(() => import("../pages/Collection/EditCollection"))
+const CollectionList = lazy(() => import("./pages/Collection/CollectionList"))
+const BookCollectionMain = lazy(() => import("./pages/Collection/BookCollectionMain"))
+const CollectionDetail = lazy(() => import("./pages/Collection/CollectionDetail"))
+const MakeCollection = lazy(() => import("./pages/Collection/MakeCollection"))
+const EditCollection = lazy(() => import("./pages/Collection/EditCollection"))
 
 
 ReactGA.event({
