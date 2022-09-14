@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "browser-image-compression": "^1.0.14",
-    "connected-react-router": "6.8.0",
+    "connected-react-router": "^6.9.3",
     "global": "^4.4.0",
     "history": "4.10.1",
     "immer": "^9.0.5",
