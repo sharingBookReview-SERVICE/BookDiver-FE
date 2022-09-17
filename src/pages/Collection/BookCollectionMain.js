@@ -38,7 +38,7 @@ const BookCollectionMain = props => {
     dispatch(permitActions.showNav(true))
     dispatch(collectionActions.getTagCollectionsSV())
     dispatch(collectionActions.getCustomCollectionsSV())
-  }, [])
+  }, [dispatch])
 
   return (
     <Wrapper>

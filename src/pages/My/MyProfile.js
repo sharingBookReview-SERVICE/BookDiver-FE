@@ -32,7 +32,7 @@ const MyProfile = props => {
     if (userId) {
       dispatch(userActions.getUserSV(userId))
     }
-  }, [userId])
+  }, [dispatch, userId])
 
   const goToMyDepth = () => {
     history.push("/mydepth")

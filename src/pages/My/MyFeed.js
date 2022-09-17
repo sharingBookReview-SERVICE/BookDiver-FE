@@ -134,14 +134,14 @@ const MyFeed = () => {
       dispatch(userActions.getMyFeedSV(userId))
       return
     }
-  }, [userId, is_my_feed])
+  }, [userId, is_my_feed, dispatch])
 
   useEffect(() => {
     if (otherUserId) {
       dispatch(userActions.getOtherFeedSV(otherUserId))
       return
     }
-  }, [])
+  }, [dispatch, otherUserId])
 
   useEffect(() => {
     //처음 들어오면, 접속한 유저의 토큰을 보내기

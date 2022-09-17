@@ -32,7 +32,7 @@ const LevelHelp = props => {
   React.useEffect(() => {
     dispatch(permitActions.showNav(false))
     dispatch(permitActions.isPadding(false))
-  }, [])
+  }, [dispatch])
 
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {

@@ -161,11 +161,19 @@ const ReviewWrite = props => {
       dispatch(uploadAcions.showPreview(false)) //화면에서 나갈 때는, 이미지 내려놓고 나가기
       dispatch(tagActions.getTag([])) //나갈때는 태그를 지우고 나가기
     }
-  }, [editQuote, is_loading])
+  }, [
+    editQuote,
+    is_loading,
+    dispatch,
+    bookId,
+    editContent,
+    editHashtags,
+    reviewId,
+  ])
 
   useEffect(() => {
     dispatch(tagActions.setRecommandTag(recommandTags))
-  }, [recommandTags])
+  }, [dispatch, recommandTags])
 
   if (is_loading) {
     return <Loading />

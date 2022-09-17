@@ -213,7 +213,7 @@ const ReviewDetail = props => {
     return () => {
       dispatch(permitAction.showEditModal(false))
     }
-  }, [])
+  }, [bookId, dispatch, is_comment, reviewId])
 
   useEffect(() => {
     if (is_comment) {
@@ -223,7 +223,7 @@ const ReviewDetail = props => {
       //그냥 들어왔을 때는 상단으로 scroll을 이동.
       scrollToTop()
     }
-  }, [is_loading])
+  }, [is_loading, is_comment])
 
   return (
     <React.Fragment>

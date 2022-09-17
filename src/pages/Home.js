@@ -1,5 +1,11 @@
 //import 부분
-import React, { useEffect, useState, useRef, createRef } from "react"
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  createRef,
+  useCallback,
+} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { actionCreators as permitAction } from "../redux/modules/permit"
 import { actionCreators as reviewActions } from "../redux/modules/review"
@@ -45,14 +51,14 @@ const Home = props => {
   }
 
   //최신리뷰 불러오기
-  const getRecentReview = () => {
+  const getRecentReview = useCallback(() => {
     dispatch(reviewActions.getRecentReviewSV())
-  }
+  }, [dispatch])
 
   //소셜리뷰 불러오기
-  const getSocialReview = () => {
+  const getSocialReview = useCallback(() => {
     dispatch(reviewActions.getAllReviewSV())
-  }
+  }, [dispatch])
 
   //로딩이 되고나면, 네이게이션을 없애주기.
   useEffect(() => {
@@ -71,7 +77,7 @@ const Home = props => {
     return () => {
       dispatch(permitAction.showEditModal(false))
     }
-  }, [])
+  }, [dispatch, feedType, getRecentReview, getSocialReview, reviewList.length])
 
   //-----------리뷰의 읽음을 보내기
   const ReviewCount = reviewList.length
@@ -92,14 +98,17 @@ const Home = props => {
   }, [reviewList])
 
   //옵저버가 관찰될 때, 실행할 함수 => 해당 게시물의 아이디 값을 서버에 보내서, 사용자가 이 게시물을 '읽었다'는 것을 체크해주기
-  const sendIsRead = async ([entry], observer) => {
-    if (!entry.isIntersecting) {
-      return
-    }
-    const showedReviewId = [entry][0].target.dataset.id
-    observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
-    dispatch(reviewActions.checkIsRead(showedReviewId)) //관찰한 게시물의 아이디를 보내기
-  }
+  const sendIsRead = useCallback(
+    async ([entry], observer) => {
+      if (!entry.isIntersecting) {
+        return
+      }
+      const showedReviewId = [entry][0].target.dataset.id
+      observer.unobserve(entry.target) // 함수가 실행될 때, 관찰을 끝내기.
+      dispatch(reviewActions.checkIsRead(showedReviewId)) //관찰한 게시물의 아이디를 보내기
+    },
+    [dispatch]
+  )
 
   useEffect(() => {
     let observer
@@ -115,7 +124,7 @@ const Home = props => {
     }
     //화면을 나갈때 옵저버의 연결을 해제하기.
     return () => observer?.disconnect()
-  }, [elRefs])
+  }, [elRefs, is_loading, reviewList, sendIsRead])
 
   //useEffect 실행 이후에도 불러온 리뷰가 없다면, 에러 안내 화면으로 보내기
   let is_render = false
@@ -128,18 +137,21 @@ const Home = props => {
   }
 
   //---무한스크롤을 위한 리뷰 더 불러오기
-  const getMoreReview = lastId => {
-    //리뷰 더 불러오기 로딩
-    dispatch(permitAction.reviewLoading(true))
+  const getMoreReview = useCallback(
+    lastId => {
+      //리뷰 더 불러오기 로딩
+      dispatch(permitAction.reviewLoading(true))
 
-    if (lastId && feedType === "social") {
-      // 소셜피드일 때, 리뷰 더 불러오기 함수
-      return dispatch(reviewActions.getMoreReviewSV(lastId))
-    } else if (lastId && feedType === "recent") {
-      // 최신피드일 떄, 리뷰 더 불러오기 함수
-      return dispatch(reviewActions.getMoreRecentReviewSV(lastId))
-    }
-  }
+      if (lastId && feedType === "social") {
+        // 소셜피드일 때, 리뷰 더 불러오기 함수
+        return dispatch(reviewActions.getMoreReviewSV(lastId))
+      } else if (lastId && feedType === "recent") {
+        // 최신피드일 떄, 리뷰 더 불러오기 함수
+        return dispatch(reviewActions.getMoreRecentReviewSV(lastId))
+      }
+    },
+    [dispatch, feedType]
+  )
 
   //infinite scroll
   useEffect(() => {
@@ -153,7 +165,7 @@ const Home = props => {
     return () => {
       dispatch(permitAction.isLoaded(false))
     }
-  }, [inView])
+  }, [inView, _reviewId, dispatch, getMoreReview])
 
   //scroll 이벤트 관련
 
@@ -172,7 +184,7 @@ const Home = props => {
 
   useEffect(() => {
     container?.current?.scrollTo(0, lastScroll)
-  }, [is_loading])
+  }, [is_loading, lastScroll])
 
   //카테고리 선택버튼 메모라이징
   const MemorizedCategory = React.memo(() => {

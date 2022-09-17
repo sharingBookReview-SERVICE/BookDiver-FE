@@ -24,7 +24,7 @@ const ChangeProfileImg = props => {
     return () => {
       dispatch(permitActions.newTreasureModal(false))
     }
-  }, [])
+  }, [dispatch, userId])
 
   //작성하기
   return (
