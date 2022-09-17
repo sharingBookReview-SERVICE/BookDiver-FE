@@ -37,7 +37,7 @@ const Follow = props => {
     } else {
       dispatch(userActions.getFollowingListSV())
     }
-  }, [])
+  }, [dispatch, location])
 
   //작성하기
   return (

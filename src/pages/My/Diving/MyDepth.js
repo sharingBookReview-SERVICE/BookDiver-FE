@@ -54,7 +54,7 @@ const MyDepth = props => {
       dispatch(permitAction.showModal(false)) // 나가면서 모달 닫아 놓기
       dispatch(permitAction.showNewBadge(null)) // 새로운 뱃지의 값을 null로 만들어놓기
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <React.Fragment>
