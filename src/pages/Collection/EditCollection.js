@@ -77,7 +77,7 @@ const EditCollection = props => {
     dispatch(permitActions.showModal(false))
     dispatch(collectionActions.isMakeCollection(true))
     dispatch(collectionActions.getCollectionDetailSV(collection_id))
-  }, [])
+  }, [dispatch, collection_id])
 
   //원래 있던 content리덕스에 넣기
   useEffect(() => {

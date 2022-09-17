@@ -14,7 +14,7 @@ const Notification = props => {
   const dispatch = useDispatch()
   const notiList = useSelector(state => state.user.noti_list)
 
-  let notiListReversed = new Array()
+  let notiListReversed = []
 
   notiList.forEach(content => notiListReversed.unshift(content))
 
@@ -24,7 +24,7 @@ const Notification = props => {
     return () => {
       dispatch(userActions.getUserSV())
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <Wrapper>

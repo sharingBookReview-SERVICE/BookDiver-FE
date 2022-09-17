@@ -55,7 +55,7 @@ const CollectionDetail = props => {
   React.useEffect(() => {
     dispatch(permitActions.showNav(true))
     dispatch(collectionActions.getCollectionDetailSV(collection_id))
-  }, [])
+  }, [collection_id, dispatch])
 
   let is_my_collection = false
   if (user?.id === my_id) {

@@ -23,7 +23,7 @@ const Bookmark = props => {
 
   useEffect(() => {
     dispatch(userActions.getBookmarkSV())
-  }, [])
+  }, [dispatch])
 
   const goBack = () => {
     history.push("/myfeed")
